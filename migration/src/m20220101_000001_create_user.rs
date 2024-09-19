@@ -1,6 +1,7 @@
 use extension::postgres::Type;
 use sea_orm::{EnumIter, Iterable};
 use sea_orm_migration::{prelude::*, schema::*};
+use crate::utils::pg_primary_id;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -34,7 +35,7 @@ impl MigrationTrait for Migration {
                 Table::create()
                     .table(User::Table)
                     .if_not_exists()
-                    .col(string_len(User::Id, 24))
+                    .col(pg_primary_id(User::Id))
                     .col(string_len_uniq(User::Username, 20))
                     .col(string_len_uniq(User::Email, 50))
                     .col(string_len(User::FullName, 30))
