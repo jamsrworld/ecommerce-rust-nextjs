@@ -46,8 +46,14 @@ impl MigrationTrait for Migration {
                         UserStatus::iter(),
                     ))
                     .col(enumeration(User::Role, UserRoleEnum, UserRole::iter()))
-                    .col(timestamp_with_time_zone(User::CreatedAt))
-                    .col(timestamp_with_time_zone(User::UpdatedAt))
+                    .col(
+                        timestamp_with_time_zone(User::CreatedAt)
+                            .default(SimpleExpr::Keyword(Keyword::CurrentTimestamp)),
+                    )
+                    .col(
+                        timestamp_with_time_zone(User::UpdatedAt)
+                            .default(SimpleExpr::Keyword(Keyword::CurrentTimestamp)),
+                    )
                     .to_owned(),
             )
             .await?;
@@ -76,7 +82,7 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum User {
+pub enum User {
     Table,
     Id,
     FullName,

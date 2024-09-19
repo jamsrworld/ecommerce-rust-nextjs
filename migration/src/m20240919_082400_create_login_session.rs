@@ -1,6 +1,9 @@
 use sea_orm_migration::{prelude::*, schema::*};
 
-use crate::utils::{pg_id, pg_primary_id};
+use crate::{
+    m20220101_000001_create_user::User,
+    utils::{pg_id, pg_primary_id},
+};
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -26,8 +29,18 @@ impl MigrationTrait for Migration {
                     .col(boolean(LoginSession::IsActive))
                     .col(string(LoginSession::Role))
                     .col(boolean(LoginSession::IsLoginAsClient))
-                    .col(timestamp_with_time_zone(LoginSession::CreatedAt))
+                    .col(
+                        timestamp_with_time_zone(LoginSession::CreatedAt)
+                            .default(SimpleExpr::Keyword(Keyword::CurrentTimestamp)),
+                    )
                     .col(timestamp_with_time_zone(LoginSession::ValidTill))
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk-post_user")
+                            .from(LoginSession::Table, LoginSession::UserId)
+                            .to(User::Table, User::Id)
+                            .on_delete(ForeignKeyAction::Cascade),
+                    )
                     .to_owned(),
             )
             .await
