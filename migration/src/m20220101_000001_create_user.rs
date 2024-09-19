@@ -12,7 +12,7 @@ impl MigrationTrait for Migration {
         manager
             .create_type(
                 Type::create()
-                    .as_enum(UserRole::Enum)
+                    .as_enum(UserStatusEnum)
                     .values(UserRole::iter())
                     .to_owned(),
             )
@@ -22,7 +22,7 @@ impl MigrationTrait for Migration {
         manager
             .create_type(
                 Type::create()
-                    .as_enum(UserStatus::Enum)
+                    .as_enum(UserRoleEnum)
                     .values(UserStatus::iter())
                     .to_owned(),
             )
@@ -41,14 +41,10 @@ impl MigrationTrait for Migration {
                     .col(string_len_null(User::Password, 20))
                     .col(enumeration(
                         User::Status,
-                        Alias::new("user_status"),
+                        UserStatusEnum,
                         UserStatus::iter(),
                     ))
-                    .col(enumeration(
-                        User::Role,
-                        Alias::new("user_role"),
-                        UserRole::iter(),
-                    ))
+                    .col(enumeration(User::Role, UserRoleEnum, UserRole::iter()))
                     .col(timestamp_with_time_zone(User::CreatedAt))
                     .col(timestamp_with_time_zone(User::UpdatedAt))
                     .to_owned(),
@@ -66,12 +62,12 @@ impl MigrationTrait for Migration {
 
         // drop type user_role
         manager
-            .drop_type(Type::drop().name(UserRole::Enum).to_owned())
+            .drop_type(Type::drop().name(UserRoleEnum).to_owned())
             .await?;
 
         // drop type user_status
         manager
-            .drop_type(Type::drop().name(UserStatus::Enum).to_owned())
+            .drop_type(Type::drop().name(UserStatusEnum).to_owned())
             .await?;
 
         Ok(())
@@ -92,22 +88,24 @@ enum User {
     UpdatedAt,
 }
 
-#[derive(DeriveIden, EnumIter)]
+#[derive(Iden, EnumIter)]
 pub enum UserStatus {
-    #[sea_orm(iden = "user_status")]
-    Enum,
-    #[sea_orm(iden = "Active")]
     Active,
-    #[sea_orm(iden = "Blocked")]
     Blocked,
 }
 
-#[derive(DeriveIden, EnumIter)]
+#[derive(Iden, EnumIter)]
 pub enum UserRole {
-    #[sea_orm(iden = "user_role")]
-    Enum,
-    #[sea_orm(iden = "User")]
+    #[iden = "User"]
     User,
-    #[sea_orm(iden = "Admin")]
+    #[iden = "Admin"]
     Admin,
 }
+
+#[derive(DeriveIden)]
+#[sea_orm(iden = "user_role")]
+struct UserRoleEnum;
+
+#[derive(DeriveIden)]
+#[sea_orm(iden = "user_status")]
+struct UserStatusEnum;
