@@ -9,6 +9,9 @@ dev:
 build:
 	@cargo build --release
 
+generate:
+	sea-orm-cli generate entity -o entity/src
+
 open:
 	open http://localhost:8008
 	open http://localhost:8008/scalar

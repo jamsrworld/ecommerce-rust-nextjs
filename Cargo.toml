@@ -4,10 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = [".", "migration"]
+members = [".", "migration","entity"]
 
 [dependencies]
 migration = { path = "migration" }
+entity = { path = "entity" }
 actix-extensible-rate-limit = { version = "0.4.0", features = ["redis"] }
 actix-web = "4.9.0"
 async-trait = "0.1.82"

@@ -1,7 +1,7 @@
+use crate::utils::pg_primary_id;
 use extension::postgres::Type;
 use sea_orm::{EnumIter, Iterable};
 use sea_orm_migration::{prelude::*, schema::*};
-use crate::utils::pg_primary_id;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -91,7 +91,9 @@ enum User {
 
 #[derive(Iden, EnumIter)]
 pub enum UserStatus {
+    #[iden = "Active"]
     Active,
+    #[iden = "Blocked"]
     Blocked,
 }
 

@@ -1087,6 +1087,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "entity"
+version = "0.1.0"
+dependencies = [
+ "sea-orm",
+ "serde",
+]
+
+[[package]]
 name = "enum-ordinalize"
 version = "4.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2021,6 +2029,7 @@ dependencies = [
  "chrono",
  "cuid2",
  "dotenvy",
+ "entity",
  "futures-util",
  "jsonwebtoken",
  "lettre",
