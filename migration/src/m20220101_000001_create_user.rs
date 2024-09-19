@@ -13,7 +13,7 @@ impl MigrationTrait for Migration {
         manager
             .create_type(
                 Type::create()
-                    .as_enum(UserStatusEnum)
+                    .as_enum(UserRoleEnum)
                     .values(UserRole::iter())
                     .to_owned(),
             )
@@ -23,7 +23,7 @@ impl MigrationTrait for Migration {
         manager
             .create_type(
                 Type::create()
-                    .as_enum(UserRoleEnum)
+                    .as_enum(UserStatusEnum)
                     .values(UserStatus::iter())
                     .to_owned(),
             )
@@ -95,13 +95,9 @@ pub enum User {
     UpdatedAt,
 }
 
-#[derive(Iden, EnumIter)]
-pub enum UserStatus {
-    #[iden = "Active"]
-    Active,
-    #[iden = "Blocked"]
-    Blocked,
-}
+#[derive(DeriveIden)]
+#[sea_orm(iden = "user_role")]
+struct UserRoleEnum;
 
 #[derive(Iden, EnumIter)]
 pub enum UserRole {
@@ -112,9 +108,12 @@ pub enum UserRole {
 }
 
 #[derive(DeriveIden)]
-#[sea_orm(iden = "user_role")]
-struct UserRoleEnum;
-
-#[derive(DeriveIden)]
 #[sea_orm(iden = "user_status")]
 struct UserStatusEnum;
+#[derive(Iden, EnumIter)]
+pub enum UserStatus {
+    #[iden = "Active"]
+    Active,
+    #[iden = "Blocked"]
+    Blocked,
+}

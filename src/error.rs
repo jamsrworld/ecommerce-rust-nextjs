@@ -22,6 +22,12 @@ pub enum HttpError {
     InvalidToken,
 }
 
+impl From<String> for HttpError {
+    fn from(_: String) -> Self {
+        Self::UserNotFound // replace this with the relevant error variant
+    }
+}
+
 impl From<JwtError> for HttpError {
     fn from(_: JwtError) -> Self {
         Self::InvalidToken

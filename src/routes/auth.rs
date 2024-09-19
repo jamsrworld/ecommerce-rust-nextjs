@@ -6,6 +6,12 @@ use crate::{
     AppState,
 };
 use actix_web::{delete, post, web, HttpResponse, Scope};
+use cuid2::{create_id, cuid};
+use entity::{
+    sea_orm_active_enums::{UserRole, UserStatus},
+    user::Entity,
+};
+use sea_orm::{ActiveModelTrait, ActiveValue::NotSet, EntityTrait, Set};
 
 pub fn auth_routes() -> Scope {
     web::scope("/auth")
@@ -27,9 +33,21 @@ pub fn auth_routes() -> Scope {
 )
 ]
 #[post("/login")]
-pub async fn login(input: ValidatedJson<Login>) -> Result<HttpResponse, HttpError> {
+pub async fn login(
+    app_data: web::Data<AppState>,
+    input: ValidatedJson<Login>,
+) -> Result<HttpResponse, HttpError> {
+    let db = &app_data.db;
+
     let email = &input.email;
+
     // check if user exist
+    let user = Entity::find()
+        .one(db)
+        .await
+        .map_err(|e| e.to_string())?
+        .ok_or(HttpError::EmailNotFound)?;
+    dbg!(user);
 
     // validate password
 
@@ -58,11 +76,34 @@ pub async fn login(input: ValidatedJson<Login>) -> Result<HttpResponse, HttpErro
 pub async fn register(
     app_data: web::Data<AppState>,
     input: ValidatedJson<Register>,
-) -> Result<HttpResponse, actix_web::Error> {
+) -> Result<HttpResponse, HttpError> {
     println!("login {:#?}", input);
-    let database_url = &app_data.database_url;
+    let db = &app_data.db;
 
-    Ok(HttpResponse::Ok().body("register"))
+    let Register {
+        email,
+        full_name,
+        password,
+        username,
+        ..
+    } = input.0;
+
+    // create user
+    let new_user = entity::user::ActiveModel {
+        id: Set(cuid2::create_id()),
+        email: Set(email),
+        full_name: Set(full_name),
+        username: Set(username),
+        password: Set(Some(password)),
+        status: Set(UserStatus::Active),
+        role: Set(UserRole::User),
+        created_at: NotSet,
+        updated_at: NotSet,
+    };
+    let user = new_user.insert(db).await.map_err(|e| e.to_string())?;
+    dbg!(&user);
+
+    Ok(HttpResponse::Ok().json(user))
 }
 
 /// Forgot Password

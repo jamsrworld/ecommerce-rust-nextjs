@@ -10,7 +10,7 @@ build:
 	@cargo build --release
 
 generate:
-	sea-orm-cli generate entity -o entity/src
+	sea-orm-cli generate entity -o entity/src --with-serde both
 
 open:
 	open http://localhost:8008

@@ -3,8 +3,9 @@
 use super::sea_orm_active_enums::UserRole;
 use super::sea_orm_active_enums::UserStatus;
 use sea_orm::entity::prelude::*;
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
+#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
 #[sea_orm(table_name = "user")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
@@ -22,6 +23,15 @@ pub struct Model {
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation {}
+pub enum Relation {
+    #[sea_orm(has_many = "super::login_session::Entity")]
+    LoginSession,
+}
+
+impl Related<super::login_session::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::LoginSession.def()
+    }
+}
 
 impl ActiveModelBehavior for ActiveModel {}
