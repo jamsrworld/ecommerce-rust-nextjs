@@ -1,12 +1,15 @@
 use crate::{
     error::{HttpError, ResponseWithMessage},
     extractors::validator::ValidatedJson,
-    utils::{cookie::create_cookie, jwt::create_token},
+    utils::{
+        cookie::create_cookie,
+        jwt::create_token,
+        password::{hash_password, verify_password},
+    },
     validator::auth::{ForgotPassword, Login, Register, ResetPassword},
     AppState,
 };
 use actix_web::{delete, post, web, HttpResponse, Scope};
-use cuid2::{create_id, cuid};
 use entity::{
     sea_orm_active_enums::{UserRole, UserStatus},
     user::Entity,
@@ -38,18 +41,20 @@ pub async fn login(
     input: ValidatedJson<Login>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
-
-    let email = &input.email;
+    let Login { email, password } = input.0;
 
     // check if user exist
     let user = Entity::find()
         .one(db)
         .await
-        .map_err(|e| e.to_string())?
+        .map_err(|_| HttpError::EmailNotFound)?
         .ok_or(HttpError::EmailNotFound)?;
-    dbg!(user);
+    dbg!(&user);
 
     // validate password
+    if user.password.is_some() {
+        verify_password(user.password.unwrap(), password)?;
+    }
 
     // create login token
     let jwt = create_token(email.to_owned())?;
@@ -88,13 +93,16 @@ pub async fn register(
         ..
     } = input.0;
 
+    // hash password
+    let hashed_password = hash_password(password)?;
+
     // create user
     let new_user = entity::user::ActiveModel {
         id: Set(cuid2::create_id()),
         email: Set(email),
         full_name: Set(full_name),
         username: Set(username),
-        password: Set(Some(password)),
+        password: Set(Some(hashed_password)),
         status: Set(UserStatus::Active),
         role: Set(UserRole::User),
         created_at: NotSet,

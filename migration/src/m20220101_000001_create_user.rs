@@ -39,7 +39,7 @@ impl MigrationTrait for Migration {
                     .col(string_len_uniq(User::Username, 20))
                     .col(string_len_uniq(User::Email, 50))
                     .col(string_len(User::FullName, 30))
-                    .col(string_len_null(User::Password, 20))
+                    .col(string_null(User::Password))
                     .col(enumeration(
                         User::Status,
                         UserStatusEnum,

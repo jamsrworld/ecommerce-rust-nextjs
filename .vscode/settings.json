@@ -1,7 +1,9 @@
 {
   "cSpell.words": [
+    "actix",
     "CUID",
     "Iden",
-    "openapi"
+    "openapi",
+    "utoipa"
   ]
 }

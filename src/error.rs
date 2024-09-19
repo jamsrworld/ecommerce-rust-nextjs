@@ -23,7 +23,8 @@ pub enum HttpError {
 }
 
 impl From<String> for HttpError {
-    fn from(_: String) -> Self {
+    fn from(e: String) -> Self {
+        dbg!(e);
         Self::UserNotFound // replace this with the relevant error variant
     }
 }
