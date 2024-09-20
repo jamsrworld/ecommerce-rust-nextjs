@@ -1,9 +1,17 @@
 {
   "cSpell.words": [
     "actix",
+    "chrono",
     "CUID",
+    "dotenv",
+    "dotenvy",
+    "Hasher",
     "Iden",
+    "jsonwebtoken",
+    "Mcart",
     "openapi",
-    "utoipa"
+    "thiserror",
+    "utoipa",
+    "utoipauto"
   ]
 }
