@@ -1,5 +1,6 @@
 use actix_web::{http::StatusCode, ResponseError};
 use serde::Serialize;
+use utoipa::ToSchema;
 
 #[derive(Debug, thiserror::Error)]
 pub enum ErrorMessage {
@@ -62,7 +63,7 @@ impl std::fmt::Display for HttpError {
     }
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, ToSchema)]
 pub struct ResponseWithMessage {
     pub message: String,
 }

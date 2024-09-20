@@ -1,10 +1,10 @@
 use crate::{
-    error::HttpError, extractors::validator::ValidatedJson, utils::password::hash_password,
-    validator::auth::Register, AppState,
+    error::HttpError, extractors::validator::ValidatedJson, routes::auth::messages::AuthMessage,
+    utils::password::hash_password, validator::auth::Register, AppState,
 };
 use actix_web::{post, web, HttpResponse};
 use entity::sea_orm_active_enums::{UserRole, UserStatus};
-use sea_orm::{ActiveModelTrait, ActiveValue::NotSet, Set};
+use sea_orm::{ActiveModelTrait, ActiveValue::NotSet, ColumnTrait, EntityTrait, QueryFilter, Set};
 
 /// Register
 #[utoipa::path(
@@ -27,6 +27,28 @@ pub async fn register(
         username,
         ..
     } = input.into_inner();
+
+    // check unique username
+    let user = entity::user::Entity::find()
+        .filter(entity::user::Column::Username.eq(username.clone()))
+        .one(db)
+        .await
+        .map_err(|e| HttpError::server_error(e.to_string()))?;
+    if user.is_some() {
+        return Err(HttpError::conflict(AuthMessage::UsernameAlreadyExist(
+            username,
+        )));
+    }
+
+    // check unique email
+    let user = entity::user::Entity::find()
+        .filter(entity::user::Column::Email.eq(email.clone()))
+        .one(db)
+        .await
+        .map_err(|e| HttpError::server_error(e.to_string()))?;
+    if user.is_some() {
+        return Err(HttpError::conflict(AuthMessage::EmailAlreadyExist(email)));
+    }
 
     // hash password
     let hashed_password =

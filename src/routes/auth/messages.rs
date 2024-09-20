@@ -11,6 +11,12 @@ pub enum AuthMessage {
 
     #[error("This account does not use a password. Please use an alternative login method.")]
     NonPasswordAccount,
+
+    #[error("Username already exists: {0}.")]
+    UsernameAlreadyExist(String),
+
+    #[error("Email already exists: {0}.")]
+    EmailAlreadyExist(String),
 }
 
 impl Into<String> for AuthMessage {
