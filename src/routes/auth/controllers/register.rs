@@ -19,16 +19,14 @@ pub async fn register(
     app_data: web::Data<AppState>,
     input: ValidatedJson<Register>,
 ) -> Result<HttpResponse, HttpError> {
-    println!("login {:#?}", input);
     let db = &app_data.db;
-
     let Register {
         email,
         full_name,
         password,
         username,
         ..
-    } = input.0;
+    } = input.into_inner();
 
     // hash password
     let hashed_password =
@@ -50,7 +48,5 @@ pub async fn register(
         .insert(db)
         .await
         .map_err(|e| HttpError::server_error(e.to_string()))?;
-    dbg!(&user);
-
     Ok(HttpResponse::Ok().json(user))
 }

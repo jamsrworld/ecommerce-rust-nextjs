@@ -1,5 +1,6 @@
 use actix_web::cookie::{time::Duration, Cookie, SameSite};
 
+// pub fn create_cookie<'a>(name: impl Into<String>, value: impl Into<String>) -> Cookie<'a> {
 pub fn create_cookie(name: impl Into<String>, value: impl Into<String>) -> Cookie<'static> {
     Cookie::build(name.into(), value.into())
         .path("/")

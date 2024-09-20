@@ -1,5 +1,7 @@
 use std::env;
 
+pub mod session_keys;
+
 #[derive(Debug)]
 pub struct Config {
     pub database_url: String,

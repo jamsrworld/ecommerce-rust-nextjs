@@ -10,12 +10,9 @@ use validator::Validate;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ValidatedJson<T>(pub T);
-
-impl<T> std::ops::Deref for ValidatedJson<T> {
-    type Target = T;
-
-    fn deref(&self) -> &Self::Target {
-        &self.0
+impl<T> ValidatedJson<T> {
+    pub fn into_inner(self) -> T {
+        self.0 
     }
 }
 

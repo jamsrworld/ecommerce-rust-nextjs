@@ -1,6 +1,18 @@
 use actix_web::{http::StatusCode, ResponseError};
 use serde::Serialize;
 
+#[derive(Debug, thiserror::Error)]
+pub enum ErrorMessage {
+    #[error("An error occurred during password hashing")]
+    HashingError,
+}
+
+impl Into<String> for ErrorMessage {
+    fn into(self) -> String {
+        self.to_string()
+    }
+}
+
 #[derive(Debug)]
 pub struct HttpError {
     message: String,
