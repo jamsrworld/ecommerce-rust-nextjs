@@ -1,10 +1,9 @@
 use actix_web::{web, Scope};
 
-pub mod forgot_password;
-pub mod login;
-pub mod logout;
-pub mod register;
-pub mod reset_password;
+pub mod controllers;
+pub mod messages;
+
+use controllers::*;
 
 pub fn auth_routes() -> Scope {
     web::scope("/auth")

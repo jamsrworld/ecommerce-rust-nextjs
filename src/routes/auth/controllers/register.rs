@@ -31,7 +31,8 @@ pub async fn register(
     } = input.0;
 
     // hash password
-    let hashed_password = hash_password(password)?;
+    let hashed_password =
+        hash_password(password).map_err(|e| HttpError::server_error(e.to_string()))?;
 
     // create user
     let new_user = entity::user::ActiveModel {
@@ -45,7 +46,10 @@ pub async fn register(
         created_at: NotSet,
         updated_at: NotSet,
     };
-    let user = new_user.insert(db).await.map_err(|e| e.to_string())?;
+    let user = new_user
+        .insert(db)
+        .await
+        .map_err(|e| HttpError::server_error(e.to_string()))?;
     dbg!(&user);
 
     Ok(HttpResponse::Ok().json(user))

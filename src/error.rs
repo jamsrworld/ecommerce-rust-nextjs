@@ -1,53 +1,68 @@
 use actix_web::{http::StatusCode, ResponseError};
-use jsonwebtoken::errors::Error as JwtError;
-use serde::{Deserialize, Serialize};
-use utoipa::ToSchema;
+use serde::Serialize;
 
-#[derive(Debug, thiserror::Error)]
-#[error("Authentication Error")]
-pub enum HttpError {
-    #[error("Incorrect Password")]
-    IncorrectPassword,
-    #[error("No account is registered with this email address")]
-    EmailNotFound,
-    #[error("Username already exist")]
-    UsernameAlreadyExist,
-    #[error("Email already exist")]
-    EmailAlreadyExist,
-    #[error("User not found")]
-    UserNotFound,
-    #[error("Invalid credentials")]
-    InvalidCredentials,
-    #[error("Invalid token")]
-    InvalidToken,
+#[derive(Debug)]
+pub struct HttpError {
+    message: String,
+    status_code: StatusCode,
 }
 
-impl From<String> for HttpError {
-    fn from(e: String) -> Self {
-        dbg!(e);
-        Self::UserNotFound // replace this with the relevant error variant
+impl HttpError {
+    pub fn new(message: impl Into<String>, status: StatusCode) -> Self {
+        Self {
+            message: message.into(),
+            status_code: status,
+        }
+    }
+
+    pub fn server_error(message: impl Into<String>) -> Self {
+        Self::new(message, StatusCode::INTERNAL_SERVER_ERROR)
+    }
+
+    pub fn not_found(message: impl Into<String>) -> Self {
+        Self::new(message, StatusCode::NOT_FOUND)
+    }
+
+    pub fn bad_request(message: impl Into<String>) -> Self {
+        Self::new(message, StatusCode::BAD_REQUEST)
+    }
+
+    pub fn unauthorized(message: impl Into<String>) -> Self {
+        Self::new(message, StatusCode::UNAUTHORIZED)
+    }
+
+    pub fn forbidden(message: impl Into<String>) -> Self {
+        Self::new(message, StatusCode::FORBIDDEN)
+    }
+
+    pub fn conflict(message: impl Into<String>) -> Self {
+        Self::new(message, StatusCode::CONFLICT)
+    }
+
+    pub fn internal_server_error(message: impl Into<String>) -> Self {
+        Self::new(message, StatusCode::INTERNAL_SERVER_ERROR)
     }
 }
 
-impl From<JwtError> for HttpError {
-    fn from(_: JwtError) -> Self {
-        Self::InvalidToken
+impl std::fmt::Display for HttpError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.message)
     }
 }
 
-#[derive(Debug, ToSchema, Serialize, Deserialize)]
+#[derive(Serialize)]
 pub struct ResponseWithMessage {
     pub message: String,
 }
 
 impl ResponseError for HttpError {
-    fn status_code(&self) -> actix_web::http::StatusCode {
-        StatusCode::BAD_REQUEST
+    fn status_code(&self) -> StatusCode {
+        self.status_code
     }
 
     fn error_response(&self) -> actix_web::HttpResponse<actix_web::body::BoxBody> {
-        actix_web::HttpResponse::build(self.status_code()).json(ResponseWithMessage {
-            message: self.to_string(),
+        actix_web::HttpResponse::build(self.status_code).json(ResponseWithMessage {
+            message: self.message.clone(),
         })
     }
 }
