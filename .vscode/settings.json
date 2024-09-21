@@ -1,13 +1,16 @@
 {
   "cSpell.words": [
     "actix",
+    "askama",
     "chrono",
     "CUID",
     "dotenv",
     "dotenvy",
     "Hasher",
     "Iden",
+    "jamsrworld",
     "jsonwebtoken",
+    "lettre",
     "Mcart",
     "openapi",
     "thiserror",

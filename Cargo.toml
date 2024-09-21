@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = [".", "migration","entity"]
+members = [".", "migration", "entity"]
 
 [dependencies]
 migration = { path = "migration" }
@@ -38,3 +38,4 @@ utoipa-swagger-ui = { version = "7.1.0", features = ["actix-web"] }
 utoipauto = "0.1.14"
 validator = { version = "0.16.1", features = ["derive"] }
 argon2 = "0.5.3"
+askama = { version = "0.12.1" }
