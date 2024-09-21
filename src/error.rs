@@ -1,5 +1,6 @@
 use actix_web::{http::StatusCode, ResponseError};
 use log::error;
+use sea_orm::DbErr;
 use serde::Serialize;
 use utoipa::ToSchema;
 
@@ -19,6 +20,33 @@ impl Into<String> for ErrorMessage {
 pub struct HttpError {
     message: String,
     status_code: StatusCode,
+}
+
+impl From<DbErr> for HttpError {
+    fn from(value: DbErr) -> Self {
+        Self {
+            message: value.to_string(),
+            status_code: StatusCode::INTERNAL_SERVER_ERROR,
+        }
+    }
+}
+
+impl From<argon2::password_hash::Error> for HttpError {
+    fn from(value: argon2::password_hash::Error) -> Self {
+        Self {
+            message: value.to_string(),
+            status_code: StatusCode::INTERNAL_SERVER_ERROR,
+        }
+    }
+}
+
+impl From<jsonwebtoken::errors::Error> for HttpError {
+    fn from(value: jsonwebtoken::errors::Error) -> Self {
+        Self {
+            message: value.to_string(),
+            status_code: StatusCode::INTERNAL_SERVER_ERROR,
+        }
+    }
 }
 
 impl HttpError {
@@ -58,6 +86,11 @@ impl HttpError {
     pub fn internal_server_error(message: impl Into<String>) -> Self {
         Self::new(message, StatusCode::INTERNAL_SERVER_ERROR)
     }
+
+    pub fn precondition_failed(message: impl Into<String>) -> Self {
+        Self::new(message, StatusCode::PRECONDITION_FAILED)
+    }
+
 }
 
 impl std::fmt::Display for HttpError {

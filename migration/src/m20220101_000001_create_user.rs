@@ -1,4 +1,7 @@
-use crate::utils::pg_primary_id;
+use crate::{
+    config::{EMAIL_LENGTH, FULL_NAME_LENGTH, USERNAME_LENGTH},
+    utils::pg_primary_id,
+};
 use extension::postgres::Type;
 use sea_orm::{EnumIter, Iterable};
 use sea_orm_migration::{prelude::*, schema::*};
@@ -36,9 +39,9 @@ impl MigrationTrait for Migration {
                     .table(User::Table)
                     .if_not_exists()
                     .col(pg_primary_id(User::Id))
-                    .col(string_len_uniq(User::Username, 20))
-                    .col(string_len_uniq(User::Email, 50))
-                    .col(string_len(User::FullName, 30))
+                    .col(string_len_uniq(User::Username, USERNAME_LENGTH))
+                    .col(string_len_uniq(User::Email, EMAIL_LENGTH))
+                    .col(string_len(User::FullName, FULL_NAME_LENGTH))
                     .col(string_null(User::Password))
                     .col(enumeration(
                         User::Status,

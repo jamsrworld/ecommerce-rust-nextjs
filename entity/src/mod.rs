@@ -3,5 +3,6 @@
 pub mod prelude;
 
 pub mod login_session;
+pub mod otp;
 pub mod sea_orm_active_enums;
 pub mod user;

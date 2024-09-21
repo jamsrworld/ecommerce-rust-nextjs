@@ -38,8 +38,7 @@ pub async fn register_verify(
     // TODO: verify otp
 
     // hash password
-    let hashed_password =
-        hash_password(password).map_err(|e| HttpError::server_error(e.to_string()))?;
+    let hashed_password = hash_password(password)?;
 
     // create user
     let new_user = entity::user::ActiveModel {
@@ -53,10 +52,7 @@ pub async fn register_verify(
         created_at: NotSet,
         updated_at: NotSet,
     };
-    let user = new_user
-        .insert(db)
-        .await
-        .map_err(|e| HttpError::server_error(e.to_string()))?;
+    let user = new_user.insert(db).await?;
 
     Ok(HttpResponse::Ok().json(user))
 }

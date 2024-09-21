@@ -15,6 +15,7 @@
     "lettre",
     "Mcart",
     "openapi",
+    "otps",
     "thiserror",
     "utoipa",
     "utoipauto"

@@ -1,14 +1,16 @@
 use super::utils::{check_unique_email, check_unique_username};
+use super::AuthMessage;
 use crate::{
     error::{HttpError, ResponseWithMessage},
     extractors::validator::ValidatedJson,
+    routes::auth::utils::generate_otp,
     services::mailer::Mailer,
-    utils::number::generate_otp,
     validator::auth::Register,
     AppState,
 };
 use actix_web::{post, web, HttpResponse};
 use askama::Template;
+use entity::sea_orm_active_enums::OtpPurpose;
 
 #[derive(Template)]
 #[template(path = "register/verification.jinja")]
@@ -43,7 +45,7 @@ pub async fn register(
     check_unique_email(db, email).await?;
 
     // send email
-    let otp = generate_otp();
+    let otp = generate_otp(db, email.to_owned(), OtpPurpose::Register).await?;
     let heading = "Registration Verification";
     let subject = "Registration Verification";
 
@@ -62,7 +64,7 @@ pub async fn register(
 
     // send response
     let message = ResponseWithMessage {
-        message: "Otp has been sent to your email",
+        message: AuthMessage::OtpSentSuccessfully,
     };
     return Ok(HttpResponse::Ok().json(message));
 }

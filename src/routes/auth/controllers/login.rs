@@ -33,8 +33,7 @@ pub async fn login(
     let user = Entity::find()
         .filter(entity::user::Column::Email.eq(email))
         .one(db)
-        .await
-        .map_err(|e| HttpError::server_error(e.to_string()))?
+        .await?
         .ok_or_else(|| HttpError::bad_request(AuthMessage::UserNotFound(email)))?;
 
     // return error if account don't use password
@@ -43,14 +42,13 @@ pub async fn login(
         .ok_or_else(|| HttpError::bad_request(AuthMessage::NonPasswordAccount))?;
 
     // validate password
-    let is_password_valid =
-        verify_password(hashed_password, password).map_err(HttpError::server_error)?;
+    let is_password_valid = verify_password(hashed_password, password)?;
     if !is_password_valid {
         return Err(HttpError::bad_request(AuthMessage::IncorrectPassword));
     }
 
     // create session token
-    let jwt = create_token(email.to_owned()).map_err(|e| HttpError::server_error(e.to_string()))?;
+    let jwt = create_token(email.to_owned())?;
 
     // create session cookie
     let cookie = create_cookie(SessionKey::Authorization, jwt);

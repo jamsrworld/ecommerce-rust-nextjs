@@ -19,6 +19,12 @@ pub enum AuthMessage<'a> {
 
     #[error("Email already exists: {0}.")]
     EmailAlreadyExist(&'a str),
+
+    #[error("Otp has been sent to your email.")]
+    OtpSentSuccessfully,
+
+    #[error("Otp has not requested.")]
+    OtpNotRequested,
 }
 
 impl<'a> Into<String> for AuthMessage<'a> {
