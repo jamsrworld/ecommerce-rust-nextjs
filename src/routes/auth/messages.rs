@@ -1,4 +1,6 @@
-#[derive(thiserror::Error, Debug)]
+use serde::Serialize;
+
+#[derive(thiserror::Error, Debug, Serialize)]
 pub enum AuthMessage<'a> {
     #[error("Login successful.")]
     LoginSuccessful,

@@ -67,8 +67,8 @@ impl std::fmt::Display for HttpError {
 }
 
 #[derive(Serialize, ToSchema)]
-pub struct ResponseWithMessage {
-    pub message: String,
+pub struct ResponseWithMessage<T: Into<String>> {
+    pub message: T,
 }
 
 impl ResponseError for HttpError {

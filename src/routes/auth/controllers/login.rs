@@ -57,7 +57,7 @@ pub async fn login(
 
     // send response with cookie
     let response = ResponseWithMessage {
-        message: AuthMessage::LoginSuccessful.to_string(),
+        message: AuthMessage::LoginSuccessful,
     };
     Ok(HttpResponse::Ok().cookie(cookie).json(response))
 }

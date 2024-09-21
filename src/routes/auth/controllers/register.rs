@@ -62,7 +62,7 @@ pub async fn register(
 
     // send response
     let message = ResponseWithMessage {
-        message: "Otp has been sent to your email".to_string(),
+        message: "Otp has been sent to your email",
     };
     return Ok(HttpResponse::Ok().json(message));
 }
