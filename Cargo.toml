@@ -39,3 +39,4 @@ utoipauto = "0.1.14"
 validator = { version = "0.16.1", features = ["derive"] }
 argon2 = "0.5.3"
 askama = { version = "0.12.1" }
+rand = "0.8.5"

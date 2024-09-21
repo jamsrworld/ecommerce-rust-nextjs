@@ -8,12 +8,13 @@ use utoipa_swagger_ui::SwaggerUi;
 use utoipauto::utoipauto;
 
 mod config;
+mod error;
 mod extractors;
 mod models;
 mod routes;
+mod services;
 mod utils;
 mod validator;
-mod error;
 
 #[utoipauto()]
 #[derive(OpenApi)]

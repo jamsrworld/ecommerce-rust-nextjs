@@ -12,6 +12,9 @@ build:
 generate:
 	sea-orm-cli generate entity -o entity/src --with-serde both
 
+fix:
+	cargo fix --allow-dirty --allow-staged	
+
 open:
 	open http://localhost:8008
 	open http://localhost:8008/scalar

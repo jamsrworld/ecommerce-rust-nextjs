@@ -3,11 +3,13 @@
     "actix",
     "askama",
     "chrono",
+    "creds",
     "CUID",
     "dotenv",
     "dotenvy",
     "Hasher",
     "Iden",
+    "Jamsr",
     "jamsrworld",
     "jsonwebtoken",
     "lettre",
@@ -16,5 +18,8 @@
     "thiserror",
     "utoipa",
     "utoipauto"
-  ]
+  ],
+  "files.associations": {
+    "*.html": "jinja-html"
+  }
 }

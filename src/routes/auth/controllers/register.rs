@@ -1,10 +1,22 @@
+use super::utils::{check_unique_email, check_unique_username};
 use crate::{
-    error::HttpError, extractors::validator::ValidatedJson, routes::auth::messages::AuthMessage,
-    utils::password::hash_password, validator::auth::Register, AppState,
+    error::{HttpError, ResponseWithMessage},
+    extractors::validator::ValidatedJson,
+    services::mailer::Mailer,
+    utils::number::generate_otp,
+    validator::auth::Register,
+    AppState,
 };
 use actix_web::{post, web, HttpResponse};
-use entity::sea_orm_active_enums::{UserRole, UserStatus};
-use sea_orm::{ActiveModelTrait, ActiveValue::NotSet, ColumnTrait, EntityTrait, QueryFilter, Set};
+use askama::Template;
+
+#[derive(Template)]
+#[template(path = "register/verification.jinja")]
+struct VerificationEmail<'a> {
+    email: &'a str,
+    otp: u16,
+    heading: &'a str,
+}
 
 /// Register
 #[utoipa::path(
@@ -21,54 +33,36 @@ pub async fn register(
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let Register {
-        email,
-        full_name,
-        password,
-        username,
-        ..
-    } = input.into_inner();
+        email, username, ..
+    } = &input.into_inner();
 
     // check unique username
-    let user = entity::user::Entity::find()
-        .filter(entity::user::Column::Username.eq(username.clone()))
-        .one(db)
-        .await
-        .map_err(|e| HttpError::server_error(e.to_string()))?;
-    if user.is_some() {
-        return Err(HttpError::conflict(AuthMessage::UsernameAlreadyExist(
-            username,
-        )));
-    }
+    check_unique_username(db, username).await?;
 
     // check unique email
-    let user = entity::user::Entity::find()
-        .filter(entity::user::Column::Email.eq(email.clone()))
-        .one(db)
-        .await
-        .map_err(|e| HttpError::server_error(e.to_string()))?;
-    if user.is_some() {
-        return Err(HttpError::conflict(AuthMessage::EmailAlreadyExist(email)));
-    }
+    check_unique_email(db, email).await?;
 
-    // hash password
-    let hashed_password =
-        hash_password(password).map_err(|e| HttpError::server_error(e.to_string()))?;
+    // send email
+    let otp = generate_otp();
+    let heading = "Registration Verification";
+    let subject = "Registration Verification";
 
-    // create user
-    let new_user = entity::user::ActiveModel {
-        id: Set(cuid2::create_id()),
-        email: Set(email),
-        full_name: Set(full_name),
-        username: Set(username),
-        password: Set(Some(hashed_password)),
-        status: Set(UserStatus::Active),
-        role: Set(UserRole::User),
-        created_at: NotSet,
-        updated_at: NotSet,
+    let template = VerificationEmail {
+        email,
+        otp,
+        heading,
     };
-    let user = new_user
-        .insert(db)
-        .await
-        .map_err(|e| HttpError::server_error(e.to_string()))?;
-    Ok(HttpResponse::Ok().json(user))
+    let body = &Mailer::render_template(&template)?;
+    let mailer = Mailer {
+        body,
+        email,
+        subject,
+    };
+    mailer.send()?;
+
+    // send response
+    let message = ResponseWithMessage {
+        message: "Otp has been sent to your email".to_string(),
+    };
+    return Ok(HttpResponse::Ok().json(message));
 }

@@ -1,4 +1,5 @@
 use actix_web::{http::StatusCode, ResponseError};
+use log::error;
 use serde::Serialize;
 use utoipa::ToSchema;
 
@@ -22,8 +23,10 @@ pub struct HttpError {
 
 impl HttpError {
     pub fn new(message: impl Into<String>, status: StatusCode) -> Self {
+        let message: String = message.into();
+        error!("{}", message);
         Self {
-            message: message.into(),
+            message,
             status_code: status,
         }
     }
