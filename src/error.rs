@@ -78,7 +78,7 @@ impl ResponseError for HttpError {
 
     fn error_response(&self) -> actix_web::HttpResponse<actix_web::body::BoxBody> {
         actix_web::HttpResponse::build(self.status_code).json(ResponseWithMessage {
-            message: self.message.clone(),
+            message: self.message.to_string(),
         })
     }
 }

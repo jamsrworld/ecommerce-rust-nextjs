@@ -7,14 +7,14 @@ pub async fn check_unique_username(
     username: &String,
 ) -> Result<(), HttpError> {
     let user = entity::user::Entity::find()
-        .filter(entity::user::Column::Username.eq(username.clone()))
+        .filter(entity::user::Column::Username.eq(username))
         .one(db)
         .await
         .map_err(|e| HttpError::server_error(e.to_string()))?;
 
     if user.is_some() {
         return Err(HttpError::conflict(AuthMessage::UsernameAlreadyExist(
-            username.to_owned(),
+            username,
         )));
     }
 
@@ -29,9 +29,7 @@ pub async fn check_unique_email(db: &DatabaseConnection, email: &String) -> Resu
         .map_err(|e| HttpError::server_error(e.to_string()))?;
 
     if user.is_some() {
-        return Err(HttpError::conflict(AuthMessage::EmailAlreadyExist(
-            email.to_owned(),
-        )));
+        return Err(HttpError::conflict(AuthMessage::EmailAlreadyExist(email)));
     }
 
     Ok(())

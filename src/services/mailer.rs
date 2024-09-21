@@ -55,9 +55,9 @@ impl<'a> Mailer<'a> {
     }
 
     pub fn send(&self) -> Result<lettre::transport::smtp::response::Response, HttpError> {
-        let email = self.email.clone();
+        let email = self.email;
         let body = self.body.clone();
-        let subject = self.subject.clone();
+        let subject = self.subject;
         let MailConfig {
             host,
             password,
@@ -73,15 +73,15 @@ impl<'a> Mailer<'a> {
             .subject(subject)
             .header(lettre::message::header::ContentType::TEXT_HTML)
             .body(body)
-            .unwrap();
+            .map_err(|e| HttpError::server_error(e.to_string()))?;
 
         let creds = Credentials::new(username, password);
         let tls_params = TlsParameters::builder(host.clone())
             .dangerous_accept_invalid_certs(true)
             .build()
-            .unwrap();
+            .map_err(|e| HttpError::server_error(e.to_string()))?;
 
-        let mailer = SmtpTransport::relay(host.as_str())
+        let mailer = SmtpTransport::relay(&host)
             .unwrap()
             .credentials(creds)
             .port(port)

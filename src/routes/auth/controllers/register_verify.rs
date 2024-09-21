@@ -35,7 +35,7 @@ pub async fn register_verify(
     // check unique email
     check_unique_email(db, &email).await?;
 
-    // TODO: verify email
+    // TODO: verify otp
 
     // hash password
     let hashed_password =

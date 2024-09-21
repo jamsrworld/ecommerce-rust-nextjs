@@ -35,7 +35,7 @@ pub async fn login(
         .one(db)
         .await
         .map_err(|e| HttpError::server_error(e.to_string()))?
-        .ok_or_else(|| HttpError::bad_request(AuthMessage::UserNotFound(email.to_owned())))?;
+        .ok_or_else(|| HttpError::bad_request(AuthMessage::UserNotFound(email)))?;
 
     // return error if account don't use password
     let hashed_password = user
@@ -49,7 +49,7 @@ pub async fn login(
         return Err(HttpError::bad_request(AuthMessage::IncorrectPassword));
     }
 
-    // create login token
+    // create session token
     let jwt = create_token(email.to_owned()).map_err(|e| HttpError::server_error(e.to_string()))?;
 
     // create session cookie
