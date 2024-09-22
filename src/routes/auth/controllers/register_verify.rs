@@ -1,7 +1,10 @@
 use super::utils::{check_unique_email, check_unique_username};
 use crate::{
-    error::HttpError, extractors::validator::ValidatedJson, utils::password::hash_password,
-    validator::auth::Register, AppState,
+    error::HttpError,
+    extractors::validator::ValidatedJson,
+    utils::password::hash_password,
+    validator::auth::{Register, RegisterVerify},
+    AppState,
 };
 use actix_web::{post, web, HttpResponse};
 use entity::sea_orm_active_enums::{UserRole, UserStatus};
@@ -18,16 +21,10 @@ responses( (status=200, body = Response) )
 #[post("/register/verify")]
 pub async fn register_verify(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<Register>,
+    input: ValidatedJson<RegisterVerify>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
-    let Register {
-        email,
-        full_name,
-        password,
-        username,
-        ..
-    } = input.into_inner();
+    let RegisterVerify { code, register } = input.into_inner();
 
     // check unique username
     check_unique_username(db, &username).await?;

@@ -53,7 +53,7 @@ pub async fn generate_otp(
     let new_otp = entity::otp::ActiveModel {
         email: Set(email),
         id: Set(cuid2::create_id()),
-        code: Set(otp_code.into()),
+        code: Set(otp_code as i16),
         purpose: Set(purpose),
         valid_till: Set(valid_till_fixed),
     };
@@ -65,30 +65,21 @@ pub async fn verify_otp(
     db: &DatabaseConnection,
     email: String,
     purpose: OtpPurpose,
-    code: u32,
+    code: i16,
 ) -> Result<(), HttpError> {
-    let otp = entity::otp::Entity::find()
+    let current_time = chrono::Utc::now();
+
+    entity::otp::Entity::find()
         .filter(
             entity::otp::Column::Email
                 .eq(email)
                 .and(entity::otp::Column::Purpose.eq(purpose))
-                .and(entity::otp::Column::Code.eq(code)),
+                .and(entity::otp::Column::Code.eq(code))
+                .and(entity::otp::Column::ValidTill.gte(current_time)),
         )
         .one(db)
         .await?
         .ok_or_else(|| HttpError::precondition_failed(AuthMessage::OtpNotRequested))?;
 
     Ok(())
-
-    // let code: u32 = otp.code.into();
-
-    // if let Some(otp) = otp {
-    //     if otp.code == code {
-    //         Ok(())
-    //     } else {
-    //         Err(HttpError::unauthorized(AuthMessage::IncorrectPassword))
-    //     }
-    // } else {
-    //     Err(HttpError::unauthorized(AuthMessage::IncorrectPassword))
-    // }
 }
