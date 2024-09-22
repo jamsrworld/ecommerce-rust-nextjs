@@ -2,19 +2,20 @@ use super::utils::{check_unique_email, check_unique_username};
 use crate::{
     error::HttpError,
     extractors::validator::ValidatedJson,
+    routes::auth::utils::verify_otp,
     utils::password::hash_password,
     validator::auth::{Register, RegisterVerify},
     AppState,
 };
 use actix_web::{post, web, HttpResponse};
-use entity::sea_orm_active_enums::{UserRole, UserStatus};
+use entity::sea_orm_active_enums::{OtpPurpose, UserRole, UserStatus};
 use sea_orm::{ActiveModelTrait, ActiveValue::NotSet, Set};
 
 /// Register
 #[utoipa::path(
 tag = "Auth", 
 context_path = "/auth",
-request_body(content = Register),
+request_body(content = RegisterVerify),
 responses( (status=200, body = Response) )
 )
 ]
@@ -24,7 +25,16 @@ pub async fn register_verify(
     input: ValidatedJson<RegisterVerify>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
+    // let RegisterVerify { code, register } = input.into_inner();
+
     let RegisterVerify { code, register } = input.into_inner();
+    let Register {
+        full_name,
+        username,
+        email,
+        password,
+        ..
+    } = register;
 
     // check unique username
     check_unique_username(db, &username).await?;
@@ -32,7 +42,8 @@ pub async fn register_verify(
     // check unique email
     check_unique_email(db, &email).await?;
 
-    // TODO: verify otp
+    // verify otp
+    verify_otp(db, &email, OtpPurpose::Register, code).await?;
 
     // hash password
     let hashed_password = hash_password(password)?;

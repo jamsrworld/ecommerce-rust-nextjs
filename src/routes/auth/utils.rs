@@ -63,7 +63,7 @@ pub async fn generate_otp(
 
 pub async fn verify_otp(
     db: &DatabaseConnection,
-    email: String,
+    email: &String,
     purpose: OtpPurpose,
     code: i16,
 ) -> Result<(), HttpError> {

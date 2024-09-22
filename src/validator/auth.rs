@@ -61,16 +61,16 @@ pub struct Register {
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
 pub struct RegisterVerify {
-    #[validate(length(min = 1, message = "Verification code is required"))]
+    #[validate(range(min = 1000, max = 9999, message = "Verification code is invalid"))]
     #[schema(example = "1234")]
     /// Verification code (OTP).
-    pub code: String,
+    pub code: i16,
 
     #[serde(flatten)]
-    /// Reuse the fields from Register.
+    #[validate]
+    /// The original Register struct fields.
     pub register: Register,
 }
-
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
 pub struct ForgotPassword {
