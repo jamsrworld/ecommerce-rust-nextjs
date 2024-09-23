@@ -1,0 +1,12 @@
+{
+  "name": "@repo/hooks",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "@repo/tailwind-config": "workspace:^",
+    "@repo/typescript-config": "workspace:^",
+    "@repo/prettier-config": "workspace:^",
+    "@types/react": "^18.3.8",
+    "tailwindcss": "^3.4.12"
+  }
+}

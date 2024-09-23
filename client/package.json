@@ -1,28 +1,19 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "mcart",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@jamsr-ui/react": "^0.0.128",
-    "next": "15.0.0-canary.162",
-    "react": "19.0.0-rc-e4953922-20240919",
-    "react-dom": "19.0.0-rc-e4953922-20240919"
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@jamsr-ui/theme": "^0.0.45",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.13",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "prettier": "^3.2.5",
+    "turbo": "^2.1.2",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "pnpm@8.15.6",
+  "engines": {
+    "node": ">=18"
   }
 }

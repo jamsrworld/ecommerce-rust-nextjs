@@ -1,26 +1,5 @@
 {
   "cSpell.words": [
-    "actix",
-    "askama",
-    "chrono",
-    "creds",
-    "CUID",
-    "dotenv",
-    "dotenvy",
-    "Hasher",
-    "Iden",
-    "Jamsr",
-    "jamsrworld",
-    "jsonwebtoken",
-    "lettre",
-    "Mcart",
-    "openapi",
-    "otps",
-    "thiserror",
-    "utoipa",
-    "utoipauto"
-  ],
-  "files.associations": {
-    "*.html": "jinja-html"
-  }
+    "Mcart"
+  ]
 }

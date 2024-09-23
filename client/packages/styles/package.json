@@ -1,0 +1,12 @@
+{
+  "name": "@repo/styles",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    "./globals.css": "./src/globals.css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.12",
+    "@repo/tailwind-config": "workspace:^"
+  }
+}

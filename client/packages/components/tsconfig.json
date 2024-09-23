@@ -1,0 +1,14 @@
+{
+  "extends": "@repo/typescript-config/nextjs.json",
+  "include": [
+    "src",
+    ".eslintrc.cjs",
+    "prettier.config.cjs",
+    "tailwind.config.ts",
+    "prettier.config.mjs"
+  ],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "rootDir": "."
+  }
+}

@@ -1,8 +1,25 @@
 {
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
   "cSpell.words": [
-    "Jamsr",
+    "jamsr",
+    "jamsrui",
     "Mcart",
-    "open",
-    "opensans"
-  ]
+    "nextjs",
+    "opensans",
+    "tailwindcss"
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/node_modules": true
+  },
+  "explorerExclude.backup": {}
 }
