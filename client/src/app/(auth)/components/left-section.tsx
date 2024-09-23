@@ -21,7 +21,7 @@ export const LeftSection = () => {
       <Image
         src={BoyImage}
         alt="boy"
-        className="h-80 align-self-end w-auto mx-auto mt-auto"
+        className="h-96 align-self-end w-auto mx-auto py-4 mt-auto"
       />
     </div>
   );

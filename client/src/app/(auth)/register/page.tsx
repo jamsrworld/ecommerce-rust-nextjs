@@ -1,8 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import { AppLogo } from "@/components/app-logo";
 import { Button, Divider, Input, Link, Typography } from "@jamsr-ui/react";
+import { Metadata } from "next";
 import NextLink from "next/link";
 import { LeftSection } from "../components/left-section";
+
+export const metadata: Metadata = {
+  title: "Register",
+};
 
 const Login = () => {
   return (

@@ -1,15 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import { AppLogo } from "@/components/app-logo";
 import { Button, Divider, Input, Link, Typography } from "@jamsr-ui/react";
+import { Metadata } from "next";
 import NextLink from "next/link";
 import { LeftSection } from "../components/left-section";
 
+export const metadata: Metadata = {
+  title: "Login",
+};
+
 const Login = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="container md:my-8 gap-8 max-w-screen-lg mx-auto grid grid-cols-1 md:grid-cols-2">
+    <div className="min-h-screen bg-background-secondary  flex items-center justify-center">
+      <div className="container bg-background border-2 border-white rounded-3xl md:my-8 overflow-hidden max-w-screen-lg mx-auto grid grid-cols-1 md:grid-cols-2">
         <LeftSection />
-        <div className="flex flex-col justify-center gap-4">
+        <div className="flex flex-col justify-center px-8 gap-4">
           <div className="space-y-1">
             <AppLogo className="mb-4 inline-block" />
             <Typography
