@@ -1,11 +1,11 @@
 {
-  "name": "@app/www",
+  "name": "@app/admin",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 4000",
+    "dev": "next dev -p 4001",
     "build": "next build",
-    "start": "next start -p 4000",
+    "start": "next start -p 4001",
     "lint": "next lint"
   },
   "dependencies": {
