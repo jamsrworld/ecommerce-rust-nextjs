@@ -2,11 +2,39 @@
   "name": "@repo/hooks",
   "version": "0.0.0",
   "private": true,
+  "exports": {
+    "./*": "./src/*.tsx",
+    "./rhf": "./src/rhf/index.ts",
+    "./sidebar": "./src/sidebar/index.tsx",
+    "./upload": "./src/sidebar/upload.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
   "devDependencies": {
-    "@repo/tailwind-config": "workspace:^",
-    "@repo/typescript-config": "workspace:^",
+    "@repo/config": "workspace:^",
+    "@repo/eslint-config": "workspace:^",
+    "@repo/hooks": "workspace:^",
+    "@repo/icons": "workspace:^",
     "@repo/prettier-config": "workspace:^",
+    "@repo/tailwind-config": "workspace:^",
+    "@repo/types": "workspace:^",
+    "@repo/typescript-config": "workspace:^",
     "@types/react": "^18.3.8",
+    "framer-motion": "^11.5.6",
+    "next": "15.0.0-canary.162",
+    "react": "19.0.0-rc-e4953922-20240919",
+    "react-dom": "19.0.0-rc-e4953922-20240919",
     "tailwindcss": "^3.4.12"
+  },
+  "dependencies": {
+    "@repo/utils": "workspace:^",
+    "react-hook-form": "^7.53.0"
+  },
+  "peerDependencies": {
+    "framer-motion": "^11.5.6",
+    "next": "15.0.0-canary.162",
+    "react": "19.0.0-rc-e4953922-20240919",
+    "react-dom": "19.0.0-rc-e4953922-20240919"
   }
 }

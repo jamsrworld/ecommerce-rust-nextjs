@@ -5,12 +5,14 @@
     }
   ],
   "cSpell.words": [
+    "clsx",
     "jamsr",
     "jamsrui",
     "Mcart",
     "nextjs",
     "opensans",
-    "tailwindcss"
+    "tailwindcss",
+    "typecheck"
   ],
   "files.exclude": {
     "**/.git": true,
