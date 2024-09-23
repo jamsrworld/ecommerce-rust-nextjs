@@ -25,6 +25,12 @@ pub enum AuthMessage<'a> {
 
     #[error("Otp has not requested.")]
     OtpNotRequested,
+
+    #[error("Register success.")]
+    RegisterSuccess,
+
+    #[error("Reset password success.")]
+    ResetPasswordSuccess,
 }
 
 impl<'a> Into<String> for AuthMessage<'a> {

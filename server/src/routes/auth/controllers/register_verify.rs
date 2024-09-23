@@ -1,15 +1,23 @@
+use super::schema::{Register, RegisterVerify};
 use super::utils::{check_unique_email, check_unique_username};
+use super::AuthMessage;
+use crate::error::ResponseWithMessage;
+use crate::services::mailer::Mailer;
 use crate::{
-    error::HttpError,
-    extractors::validator::ValidatedJson,
-    routes::auth::utils::verify_otp,
-    utils::password::hash_password,
-    validator::auth::{Register, RegisterVerify},
-    AppState,
+    error::HttpError, extractors::validator::ValidatedJson, routes::auth::utils::verify_otp,
+    utils::password::hash_password, AppState,
 };
 use actix_web::{post, web, HttpResponse};
+use askama::Template;
 use entity::sea_orm_active_enums::{OtpPurpose, UserRole, UserStatus};
 use sea_orm::{ActiveModelTrait, ActiveValue::NotSet, Set};
+
+#[derive(Template)]
+#[template(path = "register/success.jinja")]
+struct SuccessEmail<'a> {
+    username: &'a str,
+    heading: &'a str,
+}
 
 /// Register
 #[utoipa::path(
@@ -51,16 +59,35 @@ pub async fn register_verify(
     // create user
     let new_user = entity::user::ActiveModel {
         id: Set(cuid2::create_id()),
-        email: Set(email),
+        email: Set(email.clone()),
         full_name: Set(full_name),
-        username: Set(username),
+        username: Set(username.clone()),
         password: Set(Some(hashed_password)),
         status: Set(UserStatus::Active),
         role: Set(UserRole::User),
         created_at: NotSet,
         updated_at: NotSet,
     };
-    let user = new_user.insert(db).await?;
+    new_user.insert(db).await?;
 
-    Ok(HttpResponse::Ok().json(user))
+    // send success email
+    let heading = "Registration Success";
+    let subject = "Registration Success";
+    let template: SuccessEmail<'_> = SuccessEmail {
+        username: username.as_str(),
+        heading,
+    };
+    let body = &Mailer::render_template(&template)?;
+    let mailer = Mailer {
+        body,
+        email: email.as_str(),
+        subject,
+    };
+    mailer.send()?;
+
+    let response = ResponseWithMessage {
+        message: AuthMessage::RegisterSuccess,
+    };
+
+    Ok(HttpResponse::Ok().json(response))
 }

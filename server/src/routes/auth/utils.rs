@@ -65,7 +65,7 @@ pub async fn verify_otp(
     db: &DatabaseConnection,
     email: &String,
     purpose: OtpPurpose,
-    code: i16,
+    code: u16,
 ) -> Result<(), HttpError> {
     let current_time = chrono::Utc::now();
 

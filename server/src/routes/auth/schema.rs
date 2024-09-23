@@ -64,7 +64,7 @@ pub struct RegisterVerify {
     #[validate(range(min = 1000, max = 9999, message = "Verification code is invalid"))]
     #[schema(example = "1234")]
     /// Verification code (OTP).
-    pub code: i16,
+    pub code: u16,
 
     #[serde(flatten)]
     #[validate]
@@ -85,10 +85,18 @@ pub struct ForgotPassword {
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
 pub struct ResetPassword {
-    #[validate(length(min = 1, message = "Token is required"))]
-    #[schema(example = "[jwt token]")]
+    #[validate(
+        length(min = 1, message = "Email is required"),
+        email(message = "Invalid email address")
+    )]
+    #[schema(example = "princeraj9137@gmail.com")]
+    /// Email address of the user.
+    pub email: String,
+
+    #[validate(range(min = 1000, max = 9999, message = "Otp is required"))]
+    #[schema(example = "[otp code]")]
     /// Token to validate request.
-    pub token: String,
+    pub otp: u16,
 
     #[validate(
         length(min = 1, message = "Password is required"),

@@ -96,4 +96,6 @@ pub enum OtpPurpose {
     Register,
     #[iden = "Login"]
     Login,
+    #[iden = "ResetPassword"]
+    ResetPassword,
 }

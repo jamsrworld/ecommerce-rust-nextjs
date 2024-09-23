@@ -6,4 +6,5 @@ pub mod register_verify;
 pub mod reset_password;
 
 use super::messages::*;
+use super::schema;
 use super::utils;

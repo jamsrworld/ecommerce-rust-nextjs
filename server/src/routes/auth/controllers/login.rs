@@ -1,10 +1,10 @@
+use super::schema::Login;
 use super::AuthMessage;
 use crate::{
     config::session_keys::SessionKey,
     error::{HttpError, ResponseWithMessage},
     extractors::validator::ValidatedJson,
     utils::{cookie::create_cookie, jwt::create_token, password::verify_password},
-    validator::auth::Login,
     AppState,
 };
 use actix_web::{post, web, HttpResponse};

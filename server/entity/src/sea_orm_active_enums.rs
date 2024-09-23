@@ -10,6 +10,8 @@ pub enum OtpPurpose {
     Login,
     #[sea_orm(string_value = "Register")]
     Register,
+    #[sea_orm(string_value = "ResetPassword")]
+    ResetPassword,
 }
 #[derive(Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum, Serialize, Deserialize)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_role")]

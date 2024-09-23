@@ -1,3 +1,4 @@
+use super::schema::Register;
 use super::utils::{check_unique_email, check_unique_username};
 use super::AuthMessage;
 use crate::{
@@ -5,7 +6,6 @@ use crate::{
     extractors::validator::ValidatedJson,
     routes::auth::utils::generate_otp,
     services::mailer::Mailer,
-    validator::auth::Register,
     AppState,
 };
 use actix_web::{post, web, HttpResponse};
@@ -48,7 +48,6 @@ pub async fn register(
     let otp = generate_otp(db, email.to_owned(), OtpPurpose::Register).await?;
     let heading = "Registration Verification";
     let subject = "Registration Verification";
-
     let template = VerificationEmail {
         email,
         otp,

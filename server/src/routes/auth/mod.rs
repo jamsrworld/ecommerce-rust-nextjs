@@ -2,6 +2,7 @@ use actix_web::{web, Scope};
 
 pub mod controllers;
 pub mod messages;
+pub mod schema;
 pub mod utils;
 
 use controllers::*;
