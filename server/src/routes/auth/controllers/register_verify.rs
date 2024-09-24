@@ -1,5 +1,5 @@
 use super::schema::{Register, RegisterVerify};
-use super::utils::{check_unique_email, check_unique_username};
+use super::utils::check_unique_email;
 use super::AuthMessage;
 use crate::error::ResponseWithMessage;
 use crate::services::mailer::Mailer;
@@ -15,7 +15,7 @@ use sea_orm::{ActiveModelTrait, ActiveValue::NotSet, Set};
 #[derive(Template)]
 #[template(path = "register/success.jinja")]
 struct SuccessEmail<'a> {
-    username: &'a str,
+    full_name: &'a str,
     heading: &'a str,
 }
 
@@ -38,14 +38,10 @@ pub async fn register_verify(
     let RegisterVerify { code, register } = input.into_inner();
     let Register {
         full_name,
-        username,
         email,
         password,
         ..
     } = register;
-
-    // check unique username
-    check_unique_username(db, &username).await?;
 
     // check unique email
     check_unique_email(db, &email).await?;
@@ -60,8 +56,7 @@ pub async fn register_verify(
     let new_user = entity::user::ActiveModel {
         id: Set(cuid2::create_id()),
         email: Set(email.clone()),
-        full_name: Set(full_name),
-        username: Set(username.clone()),
+        full_name: Set(full_name.clone()),
         password: Set(Some(hashed_password)),
         status: Set(UserStatus::Active),
         role: Set(UserRole::User),
@@ -74,7 +69,7 @@ pub async fn register_verify(
     let heading = "Registration Success";
     let subject = "Registration Success";
     let template: SuccessEmail<'_> = SuccessEmail {
-        username: username.as_str(),
+        full_name: full_name.as_str(),
         heading,
     };
     let body = &Mailer::render_template(&template)?;

@@ -14,9 +14,6 @@ pub enum AuthMessage<'a> {
     #[error("This account does not use a password. Please use an alternative login method.")]
     NonPasswordAccount,
 
-    #[error("Username already exists: {0}.")]
-    UsernameAlreadyExist(&'a str),
-
     #[error("Email already exists: {0}.")]
     EmailAlreadyExist(&'a str),
 

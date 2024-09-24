@@ -1,5 +1,5 @@
 use super::schema::Register;
-use super::utils::{check_unique_email, check_unique_username};
+use super::utils::check_unique_email;
 use super::AuthMessage;
 use crate::{
     error::{HttpError, ResponseWithMessage},
@@ -34,12 +34,7 @@ pub async fn register(
     input: ValidatedJson<Register>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
-    let Register {
-        email, username, ..
-    } = &input.into_inner();
-
-    // check unique username
-    check_unique_username(db, username).await?;
+    let Register { email, .. } = &input.into_inner();
 
     // check unique email
     check_unique_email(db, email).await?;

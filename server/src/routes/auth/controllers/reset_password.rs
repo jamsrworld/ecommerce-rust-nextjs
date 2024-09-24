@@ -16,7 +16,7 @@ use sea_orm::{ActiveModelTrait, Set};
 #[derive(Template)]
 #[template(path = "reset-password/success.jinja")]
 struct SuccessEmail<'a> {
-    username: &'a str,
+    full_name: &'a str,
     heading: &'a str,
 }
 
@@ -47,8 +47,8 @@ pub async fn reset_password(
     // hash password
     let hashed_password = hash_password(&password)?;
 
-    // TODO: change username
-    let username = "".to_string();
+    // TODO: change full_name
+    let full_name = "".to_string();
 
     // update new password of user
     let user = entity::user::ActiveModel {
@@ -61,7 +61,7 @@ pub async fn reset_password(
     let heading = "Registration Success";
     let subject = "Registration Success";
     let template: SuccessEmail<'_> = SuccessEmail {
-        username: username.as_str(),
+        full_name: full_name.as_str(),
         heading,
     };
     let body = &Mailer::render_template(&template)?;

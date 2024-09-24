@@ -1,5 +1,5 @@
 use crate::{
-    config::{EMAIL_LENGTH, FULL_NAME_LENGTH, USERNAME_LENGTH},
+    config::{EMAIL_LENGTH, FULL_NAME_LENGTH},
     utils::pg_primary_id,
 };
 use extension::postgres::Type;
@@ -39,7 +39,6 @@ impl MigrationTrait for Migration {
                     .table(User::Table)
                     .if_not_exists()
                     .col(pg_primary_id(User::Id))
-                    .col(string_len_uniq(User::Username, USERNAME_LENGTH))
                     .col(string_len_uniq(User::Email, EMAIL_LENGTH))
                     .col(string_len(User::FullName, FULL_NAME_LENGTH))
                     .col(string_null(User::Password))

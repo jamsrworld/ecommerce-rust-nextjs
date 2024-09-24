@@ -38,10 +38,6 @@ const Login = () => {
             />
             <Input
               size="lg"
-              placeholder="Username"
-            />
-            <Input
-              size="lg"
               placeholder="Email Address"
             />
             <Input

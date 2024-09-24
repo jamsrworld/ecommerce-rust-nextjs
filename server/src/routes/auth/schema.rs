@@ -26,12 +26,6 @@ pub struct Register {
     /// Full name of the user.
     pub full_name: String,
 
-    #[validate(length(min = 1, message = "Username is required"))]
-    #[schema(example = "jamsrworld12")]
-    /// Username of the user.
-    /// It must be unique.
-    pub username: String,
-
     #[validate(
         length(min = 1, message = "Email is required"),
         email(message = "Invalid email address")

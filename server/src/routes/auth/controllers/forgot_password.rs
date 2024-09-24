@@ -13,7 +13,7 @@ use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
 #[derive(Template)]
 #[template(path = "reset-password/verification.jinja")]
 struct VerificationEmail<'a> {
-    username: &'a str,
+    full_name: &'a str,
     otp: u16,
     heading: &'a str,
 }
@@ -45,10 +45,10 @@ pub async fn forgot_password(
     let otp = generate_otp(db, email.to_owned(), OtpPurpose::ResetPassword).await?;
     let heading = "Reset Password";
     let subject = "Reset Password";
-    let username = user.username;
+    let full_name = user.full_name;
 
     let template = VerificationEmail {
-        username: username.as_str(),
+        full_name: full_name.as_str(),
         otp,
         heading,
     };

@@ -4,24 +4,6 @@ use chrono::FixedOffset;
 use entity::sea_orm_active_enums::OtpPurpose;
 use sea_orm::{ActiveModelTrait, ColumnTrait, DatabaseConnection, EntityTrait, QueryFilter, Set};
 
-pub async fn check_unique_username(
-    db: &DatabaseConnection,
-    username: &String,
-) -> Result<(), HttpError> {
-    let user = entity::user::Entity::find()
-        .filter(entity::user::Column::Username.eq(username))
-        .one(db)
-        .await?;
-
-    if user.is_some() {
-        return Err(HttpError::conflict(AuthMessage::UsernameAlreadyExist(
-            username,
-        )));
-    }
-
-    Ok(())
-}
-
 pub async fn check_unique_email(db: &DatabaseConnection, email: &String) -> Result<(), HttpError> {
     let user = entity::user::Entity::find()
         .filter(entity::user::Column::Email.eq(email.clone()))
