@@ -1,7 +1,7 @@
 import { Typography } from "@jamsr-ui/react";
 import Image from "next/image";
 import BoyImage from "./assets/register-boy.png";
-import UnderlineSvg from "./assets/underline.svg";
+import UnderlineSvg from "./assets/underline.svg?url";
 
 export const LeftSection = () => {
   return (
@@ -17,7 +17,7 @@ export const LeftSection = () => {
         <div className="inline-flex flex-col">
           dashboard
           <Image
-            src={UnderlineSvg as string}
+            src={UnderlineSvg}
             alt=""
             className="w-36"
           />
