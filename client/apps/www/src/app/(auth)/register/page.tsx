@@ -15,14 +15,14 @@ const Login = () => {
       <div className="container mx-auto grid max-w-screen-lg grid-cols-1 gap-8 md:my-8 md:grid-cols-2">
         <LeftSection />
         <div className="flex flex-col justify-center gap-4">
-          <div className="space-y-1">
+          <div className="space-y-1 text-center">
             <AppLogo className="mb-4 inline-block" />
             <Typography
               as="h1"
               variant="h2"
               className="leading-none"
             >
-              Register
+              Create account
             </Typography>
             <Typography
               as="p"
@@ -39,6 +39,7 @@ const Login = () => {
             <Input
               size="lg"
               placeholder="Email Address"
+              type="email"
             />
             <Input
               size="lg"

@@ -53,9 +53,17 @@ pub async fn login(
     // create session cookie
     let cookie = create_cookie(SessionKey::Authorization, jwt);
 
+    let string = AuthMessage::LoginSuccessful;
+    dbg!(string.to_string());
+
     // send response with cookie
+    // let response2 = ResponseWithMessage {
+    //     message: AuthMessage::LoginSuccessful,
+    // };
+    // println!("{:#?}", response2);
+
     let response = ResponseWithMessage {
-        message: AuthMessage::LoginSuccessful,
+        message: AuthMessage::LoginSuccessful.to_string(),
     };
     Ok(HttpResponse::Ok().cookie(cookie).json(response))
 }

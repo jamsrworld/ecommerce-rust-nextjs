@@ -65,3 +65,19 @@ pub async fn verify_otp(
 
     Ok(())
 }
+
+pub async fn delete_otp(
+    db: &DatabaseConnection,
+    email: &String,
+    code: u16,
+) -> Result<(), HttpError> {
+    entity::otp::Entity::delete_many()
+        .filter(
+            entity::otp::Column::Email
+                .eq(email)
+                .and(entity::otp::Column::Code.eq(code)),
+        )
+        .exec(db)
+        .await?;
+    Ok(())
+}

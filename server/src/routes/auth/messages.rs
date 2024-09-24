@@ -20,7 +20,7 @@ pub enum AuthMessage<'a> {
     #[error("Otp has been sent to your email.")]
     OtpSentSuccessfully,
 
-    #[error("Otp has not requested.")]
+    #[error("Otp has not requested or has been expired.")]
     OtpNotRequested,
 
     #[error("Register success.")]

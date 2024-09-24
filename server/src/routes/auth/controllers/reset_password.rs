@@ -1,5 +1,5 @@
 use super::schema::ResetPassword;
-use super::utils::verify_otp;
+use super::utils::{delete_otp, verify_otp};
 use super::AuthMessage;
 use crate::{
     error::{HttpError, ResponseWithMessage},
@@ -11,7 +11,7 @@ use crate::{
 use actix_web::{post, web, HttpResponse};
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
-use sea_orm::{ActiveModelTrait, Set};
+use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
 
 #[derive(Template)]
 #[template(path = "reset-password/success.jinja")]
@@ -47,19 +47,24 @@ pub async fn reset_password(
     // hash password
     let hashed_password = hash_password(&password)?;
 
-    // TODO: change full_name
-    let full_name = "".to_string();
-
     // update new password of user
-    let user = entity::user::ActiveModel {
-        password: Set(Some(hashed_password)),
-        ..Default::default()
-    };
+    let user = entity::user::Entity::find()
+        .filter(entity::user::Column::Email.eq(email.clone()))
+        .one(db)
+        .await?
+        .ok_or_else(|| HttpError::bad_request(AuthMessage::UserNotFound(&email)))?;
+    let full_name = user.full_name.clone();
+
+    let mut user: entity::user::ActiveModel = user.into();
+    user.password = Set(Some(hashed_password.clone()));
     user.update(db).await?;
 
+    // delete otp
+    delete_otp(db, &email, otp).await?;
+
     // send success email
-    let heading = "Registration Success";
-    let subject = "Registration Success";
+    let heading = "Reset Password Success";
+    let subject = "Reset Password Success";
     let template: SuccessEmail<'_> = SuccessEmail {
         full_name: full_name.as_str(),
         heading,

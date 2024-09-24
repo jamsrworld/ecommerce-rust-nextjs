@@ -90,7 +90,6 @@ impl HttpError {
     pub fn precondition_failed(message: impl Into<String>) -> Self {
         Self::new(message, StatusCode::PRECONDITION_FAILED)
     }
-
 }
 
 impl std::fmt::Display for HttpError {
@@ -99,7 +98,7 @@ impl std::fmt::Display for HttpError {
     }
 }
 
-#[derive(Serialize, ToSchema)]
+#[derive(Debug, Serialize, ToSchema)]
 pub struct ResponseWithMessage<T: Into<String>> {
     pub message: T,
 }

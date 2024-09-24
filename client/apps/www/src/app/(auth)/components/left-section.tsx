@@ -1,6 +1,6 @@
 import { Typography } from "@jamsr-ui/react";
 import Image from "next/image";
-import BoyImage from "./assets/login-boy.png";
+import BoyImage from "./assets/register-boy.png";
 import UnderlineSvg from "./assets/underline.svg";
 
 export const LeftSection = () => {
@@ -26,11 +26,15 @@ export const LeftSection = () => {
       <p className="mt-4">
         Simply your e-commerce management with our user-friendly admin dashboard
       </p>
+      <div style={{
+        transform:"rotateY(180deg)"
+      }} >
       <Image
         src={BoyImage}
         alt="boy"
         className="mx-auto mt-auto h-96 w-auto py-4"
       />
+      </div>
     </div>
   );
 };
