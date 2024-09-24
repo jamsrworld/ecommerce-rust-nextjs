@@ -1,4 +1,4 @@
-use super::schema::ResetPassword;
+use super::schema::AuthResetPassword;
 use super::utils::{delete_otp, verify_otp};
 use super::AuthMessage;
 use crate::{
@@ -13,28 +13,26 @@ use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
 use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
 
-#[derive(Template)]
-#[template(path = "reset-password/success.jinja")]
-struct SuccessEmail<'a> {
-    full_name: &'a str,
-    heading: &'a str,
-}
 
 /// Reset Password
 #[utoipa::path(
   tag = "Auth", 
   context_path = "/auth",
-  request_body(content = ResetPassword),
-  responses( (status=200, body = Response) )
+  request_body(content = AuthResetPassword),
+  responses( 
+    (status=StatusCode::OK, body = ResponseWithMessage),
+    (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
+    (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
+  )
 )
 ]
 #[post("/reset-password")]
 pub async fn reset_password(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<ResetPassword>,
+    input: ValidatedJson<AuthResetPassword>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
-    let ResetPassword {
+    let AuthResetPassword {
         password,
         email,
         otp,
@@ -78,7 +76,15 @@ pub async fn reset_password(
     mailer.send()?;
 
     let response = ResponseWithMessage {
-        message: AuthMessage::ResetPasswordSuccess,
+        message: AuthMessage::ResetPasswordSuccess.to_string(),
     };
     Ok(HttpResponse::Ok().json(response))
+}
+
+
+#[derive(Template)]
+#[template(path = "reset-password/success.jinja")]
+struct SuccessEmail<'a> {
+    full_name: &'a str,
+    heading: &'a str,
 }

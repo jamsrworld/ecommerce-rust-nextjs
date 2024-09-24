@@ -1,4 +1,4 @@
-use super::schema::Login;
+use super::schema::AuthLogin;
 use super::AuthMessage;
 use crate::{
     config::session_keys::SessionKey,
@@ -17,17 +17,21 @@ use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
 #[utoipa::path(
   tag = "Auth",
   context_path = "/auth",
-  request_body(content = Login),
-  responses( (status=200, body = ResponseWithMessage, example = json!({"message":"Login Successful"})) )
+  request_body(content = AuthLogin),
+  responses(
+    (status=StatusCode::OK, body = ResponseWithMessage),
+    (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
+    (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
+ )
 )
 ]
 #[post("/login")]
 pub async fn login(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<Login>,
+    input: ValidatedJson<AuthLogin>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
-    let Login { email, password } = &input.into_inner();
+    let AuthLogin { email, password } = &input.into_inner();
 
     // check if user exist
     let user = Entity::find()
@@ -53,17 +57,9 @@ pub async fn login(
     // create session cookie
     let cookie = create_cookie(SessionKey::Authorization, jwt);
 
-    let string = AuthMessage::LoginSuccessful;
-    dbg!(string.to_string());
-
-    // send response with cookie
-    // let response2 = ResponseWithMessage {
-    //     message: AuthMessage::LoginSuccessful,
-    // };
-    // println!("{:#?}", response2);
-
     let response = ResponseWithMessage {
         message: AuthMessage::LoginSuccessful.to_string(),
     };
+
     Ok(HttpResponse::Ok().cookie(cookie).json(response))
 }

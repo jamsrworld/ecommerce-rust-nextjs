@@ -48,7 +48,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let db = Database::connect(opt).await.map_err(|e| e.to_string())?;
     // database_url
 
-    println!("Starting server at http://{}:{}", host, port);
+    println!("Starting server at http://localhost:{}", port);
     println!("Hello, world!");
 
     let app_data = actix_web::web::Data::new(AppState { db });

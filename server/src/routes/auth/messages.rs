@@ -28,6 +28,9 @@ pub enum AuthMessage<'a> {
 
     #[error("Reset password success.")]
     ResetPasswordSuccess,
+
+    #[error("Logout success.")]
+    LogoutSuccessful,
 }
 
 impl<'a> Into<String> for AuthMessage<'a> {

@@ -1,4 +1,4 @@
-use super::schema::{Register, RegisterVerify};
+use super::schema::{AuthRegister, AuthRegisterVerify};
 use super::utils::check_unique_email;
 use super::AuthMessage;
 use crate::error::ResponseWithMessage;
@@ -19,24 +19,29 @@ struct SuccessEmail<'a> {
     heading: &'a str,
 }
 
-/// Register
+/// Register Verification
 #[utoipa::path(
 tag = "Auth", 
 context_path = "/auth",
-request_body(content = RegisterVerify),
-responses( (status=200, body = Response) )
+request_body(content = AuthRegisterVerify),
+responses( 
+    (status=StatusCode::OK, body = ResponseWithMessage),
+    (status=StatusCode::CONFLICT, body = ResponseWithMessage),
+    (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
+    (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
+)
 )
 ]
 #[post("/register/verify")]
 pub async fn register_verify(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<RegisterVerify>,
+    input: ValidatedJson<AuthRegisterVerify>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     // let RegisterVerify { code, register } = input.into_inner();
 
-    let RegisterVerify { code, register } = input.into_inner();
-    let Register {
+    let AuthRegisterVerify { code, register } = input.into_inner();
+    let AuthRegister {
         full_name,
         email,
         password,
@@ -81,7 +86,7 @@ pub async fn register_verify(
     mailer.send()?;
 
     let response = ResponseWithMessage {
-        message: AuthMessage::RegisterSuccess,
+        message: AuthMessage::RegisterSuccess.to_string(),
     };
 
     Ok(HttpResponse::Ok().json(response))

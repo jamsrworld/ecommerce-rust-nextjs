@@ -4,7 +4,7 @@ use validator::Validate;
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
 /// Credentials of the user.
-pub struct Login {
+pub struct AuthLogin {
     #[validate(
         length(min = 1, message = "Email is required"),
         email(message = "Invalid email address")
@@ -20,7 +20,7 @@ pub struct Login {
 }
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
-pub struct Register {
+pub struct AuthRegister {
     #[validate(length(min = 1, message = "Full name is required"))]
     #[schema(example = "Jamsr World")]
     /// Full name of the user.
@@ -54,20 +54,20 @@ pub struct Register {
 }
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
-pub struct RegisterVerify {
+pub struct AuthRegisterVerify {
     #[validate(range(min = 1000, max = 9999, message = "Verification code is invalid"))]
-    #[schema(example = "1234")]
+    #[schema(example = 1234)]
     /// Verification code (OTP).
     pub code: u16,
 
     #[serde(flatten)]
     #[validate]
     /// The original Register struct fields.
-    pub register: Register,
+    pub register: AuthRegister,
 }
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
-pub struct ForgotPassword {
+pub struct AuthForgotPassword {
     #[validate(
         length(min = 1, message = "Email is required"),
         email(message = "Invalid email address")
@@ -78,7 +78,7 @@ pub struct ForgotPassword {
 }
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
-pub struct ResetPassword {
+pub struct AuthResetPassword {
     #[validate(
         length(min = 1, message = "Email is required"),
         email(message = "Invalid email address")
@@ -88,8 +88,8 @@ pub struct ResetPassword {
     pub email: String,
 
     #[validate(range(min = 1000, max = 9999, message = "Otp is required"))]
-    #[schema(example = "[otp code]")]
-    /// Token to validate request.
+    #[schema(example = 1234)]
+    /// Verification code (OTP).
     pub otp: u16,
 
     #[validate(

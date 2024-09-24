@@ -1,4 +1,4 @@
-use super::schema::ForgotPassword;
+use super::schema::AuthForgotPassword;
 use super::utils::generate_otp;
 use super::AuthMessage;
 use crate::error::ResponseWithMessage;
@@ -22,16 +22,19 @@ struct VerificationEmail<'a> {
 #[utoipa::path(
   tag = "Auth", 
   context_path = "/auth",
-  request_body(content = ForgotPassword),
-  responses( (status=200, body = ForgotPassword) )
+  request_body(content = AuthForgotPassword),
+  responses( 
+    (status=StatusCode::OK, body = ResponseWithMessage),
+    (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
+   )
 )
 ]
 #[post("/forgot-password")]
 pub async fn forgot_password(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<ForgotPassword>,
+    input: ValidatedJson<AuthForgotPassword>,
 ) -> Result<HttpResponse, HttpError> {
-    let ForgotPassword { email } = &input.into_inner();
+    let AuthForgotPassword { email } = &input.into_inner();
     let db = &app_data.db;
 
     // check if email is registered
@@ -62,7 +65,7 @@ pub async fn forgot_password(
 
     // send response
     let message = ResponseWithMessage {
-        message: AuthMessage::OtpSentSuccessfully,
+        message: AuthMessage::OtpSentSuccessfully.to_string(),
     };
     return Ok(HttpResponse::Ok().json(message));
 }

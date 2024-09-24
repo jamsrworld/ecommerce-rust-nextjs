@@ -1,4 +1,4 @@
-use super::schema::Register;
+use super::schema::AuthRegister;
 use super::utils::check_unique_email;
 use super::AuthMessage;
 use crate::{
@@ -24,17 +24,22 @@ struct VerificationEmail<'a> {
 #[utoipa::path(
   tag = "Auth", 
   context_path = "/auth",
-  request_body(content = Register),
-  responses( (status=200, body = Response) )
+  request_body(content = AuthRegister),
+  responses( 
+    (status=StatusCode::OK, body = ResponseWithMessage),
+    (status=StatusCode::CONFLICT, body = ResponseWithMessage),
+    (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
+    (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
+  )
 )
 ]
 #[post("/register")]
 pub async fn register(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<Register>,
+    input: ValidatedJson<AuthRegister>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
-    let Register { email, .. } = &input.into_inner();
+    let AuthRegister { email, .. } = &input.into_inner();
 
     // check unique email
     check_unique_email(db, email).await?;
@@ -58,7 +63,7 @@ pub async fn register(
 
     // send response
     let message = ResponseWithMessage {
-        message: AuthMessage::OtpSentSuccessfully,
+        message: AuthMessage::OtpSentSuccessfully.to_string(),
     };
     return Ok(HttpResponse::Ok().json(message));
 }

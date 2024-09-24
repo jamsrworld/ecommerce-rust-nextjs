@@ -83,10 +83,6 @@ impl HttpError {
         Self::new(message, StatusCode::CONFLICT)
     }
 
-    pub fn internal_server_error(message: impl Into<String>) -> Self {
-        Self::new(message, StatusCode::INTERNAL_SERVER_ERROR)
-    }
-
     pub fn precondition_failed(message: impl Into<String>) -> Self {
         Self::new(message, StatusCode::PRECONDITION_FAILED)
     }
@@ -99,8 +95,8 @@ impl std::fmt::Display for HttpError {
 }
 
 #[derive(Debug, Serialize, ToSchema)]
-pub struct ResponseWithMessage<T: Into<String>> {
-    pub message: T,
+pub struct ResponseWithMessage {
+    pub message: String,
 }
 
 impl ResponseError for HttpError {
