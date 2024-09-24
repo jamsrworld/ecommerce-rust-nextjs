@@ -1,6 +1,6 @@
-/* eslint-disable react/no-unescaped-entities */
 import { AppLogo } from "@/components/app-logo";
 import { Button, Divider, Input, Link, Typography } from "@jamsr-ui/react";
+import { GoogleIcon } from "@repo/icons/social";
 import { type Metadata } from "next";
 import NextLink from "next/link";
 import { LeftSection } from "../components/left-section";
@@ -43,7 +43,12 @@ const Login = () => {
               isSecuredText
             />
             <div className="text-right">
-            <Link as={NextLink} href="/forgot-password" >Forgot Password?</Link>
+              <Link
+                as={NextLink}
+                href="/forgot-password"
+              >
+                Forgot Password?
+              </Link>
             </div>
             <Button
               color="primary"
@@ -58,6 +63,7 @@ const Login = () => {
               color="danger"
               variant="outline"
               size="lg"
+              startContent={<GoogleIcon />}
             >
               Continue with Google
             </Button>

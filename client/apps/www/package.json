@@ -10,16 +10,17 @@
   },
   "dependencies": {
     "@jamsr-ui/react": "^0.0.128",
+    "@repo/icons": "workspace:^",
     "next": "15.0.0-canary.162",
     "react": "19.0.0-rc-e4953922-20240919",
     "react-dom": "19.0.0-rc-e4953922-20240919"
   },
   "devDependencies": {
+    "@repo/eslint-config": "workspace:^",
     "@repo/prettier-config": "workspace:^",
+    "@repo/styles": "workspace:^",
     "@repo/tailwind-config": "workspace:^",
     "@repo/typescript-config": "workspace:^",
-    "@repo/eslint-config": "workspace:^",
-    "@repo/styles": "workspace:^",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
