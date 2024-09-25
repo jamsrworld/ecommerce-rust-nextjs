@@ -1,6 +1,6 @@
 use actix_web::{App, HttpServer};
 use dotenvy::dotenv;
-use routes::{auth::auth_routes, home::health_check, profile::profile_routes};
+use routes::{admin::auth::admin_auth_routes, auth::auth_routes, home::health_check, profile::profile_routes};
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use utoipa::OpenApi;
 use utoipa_scalar::{Scalar, Servable};
@@ -59,6 +59,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .app_data(app_data.clone())
             .service(health_check)
             .service(auth_routes())
+            .service(admin_auth_routes())
             .service(profile_routes())
             .service(
                 SwaggerUi::new("/swagger-ui/{_:.*}").url("/api-doc/openapi.json", openapi.clone()),
