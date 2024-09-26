@@ -1,13 +1,9 @@
 use crate::{
-    config::session_keys::SessionKey,
-    error::{HttpError, ResponseWithMessage},
+    error::HttpError,
     extractors::validator::ValidatedJson,
-    utils::{cookie::create_cookie, jwt::create_token, password::verify_password},
     AppState,
 };
 use actix_web::{post, web, HttpResponse};
-use entity::user::Entity;
-use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
 use serde::{Deserialize, Serialize};
 use utoipa::ToSchema;
 use validator::Validate;

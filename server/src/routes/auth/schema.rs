@@ -3,6 +3,7 @@ use utoipa::ToSchema;
 use validator::Validate;
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
+#[serde(rename_all = "camelCase")]
 /// Credentials of the user.
 pub struct AuthLogin {
     #[validate(
@@ -20,6 +21,7 @@ pub struct AuthLogin {
 }
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct AuthRegister {
     #[validate(length(min = 1, message = "Full name is required"))]
     #[schema(example = "Jamsr World")]
@@ -54,6 +56,7 @@ pub struct AuthRegister {
 }
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct AuthRegisterVerify {
     #[validate(range(min = 1000, max = 9999, message = "Verification code is invalid"))]
     #[schema(example = 1234)]
@@ -67,6 +70,7 @@ pub struct AuthRegisterVerify {
 }
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct AuthForgotPassword {
     #[validate(
         length(min = 1, message = "Email is required"),
@@ -78,6 +82,7 @@ pub struct AuthForgotPassword {
 }
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct AuthResetPassword {
     #[validate(
         length(min = 1, message = "Email is required"),

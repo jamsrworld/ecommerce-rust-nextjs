@@ -1,6 +1,9 @@
-use actix_web::{App, HttpServer};
+use actix_cors::Cors;
+use actix_web::{http, App, HttpServer};
 use dotenvy::dotenv;
-use routes::{admin::auth::admin_auth_routes, auth::auth_routes, home::health_check, profile::profile_routes};
+use routes::{
+    admin::auth::admin_auth_routes, auth::auth_routes, home::health_check, profile::profile_routes,
+};
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use utoipa::OpenApi;
 use utoipa_scalar::{Scalar, Servable};
@@ -55,7 +58,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let openapi = ApiDoc::openapi();
 
     HttpServer::new(move || {
+        let cors = Cors::default()
+            .allowed_origin("http://localhost:5000")
+            .allowed_methods(vec!["GET", "POST", "PUT", "DELETE", "OPTION", "PATCH"])
+            .allowed_headers(vec![
+                http::header::CONTENT_TYPE,
+                http::header::ACCEPT,
+                http::header::AUTHORIZATION,
+            ]);
+
         App::new()
+            .wrap(cors)
             .app_data(app_data.clone())
             .service(health_check)
             .service(auth_routes())
