@@ -20,7 +20,7 @@ client.setConfig({
 export const LoginForm = () => {
   const defaultValues: FormValues = {
     email: "adityah1357908642@gmail.com",
-    password: "adsf",
+    password: "admin790",
   };
   const methods = useForm<FormValues>({
     defaultValues,

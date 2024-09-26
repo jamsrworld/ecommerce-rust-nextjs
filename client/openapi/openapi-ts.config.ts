@@ -6,3 +6,5 @@ export default defineConfig({
   output: "../apps/www/src/api",
   plugins: ["@tanstack/react-query"],
 });
+
+
