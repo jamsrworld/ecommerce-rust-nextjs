@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { object, string as _string, type z, type ZodNumber } from "zod";
+import { string as _string, object, type z, type ZodNumber } from "zod";
 
 type Implements<Model> = {
   [key in keyof Model]-?: undefined extends Model[key]
@@ -8,7 +8,7 @@ type Implements<Model> = {
       : z.ZodOptionalType<z.ZodType<Model[key]>>
     : null extends Model[key]
       ? z.ZodNullableType<z.ZodType<Model[key]>>
-      : z.ZodType<Model[key]>;
+      : z.ZodType<Model[key]> | z.ZodEffects<z.ZodString, Model[key], string>;
 };
 
 export const string = () => _string().trim();
@@ -20,7 +20,7 @@ export const email = () =>
     .toLowerCase();
 
 export const coerceNumber = (schema: ZodNumber, message: string) =>
-  string().min(1, message).transform(Number).pipe(schema).or(schema);
+  string().min(1, message).transform(Number);
 
 function schema<Model = never>() {
   return {

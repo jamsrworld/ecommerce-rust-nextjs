@@ -1,15 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import { AppLogo } from "@/components/app-logo";
-import { Button, Divider, Input, Link, Typography } from "@jamsr-ui/react";
+import { Button, Divider, Link, Typography } from "@jamsr-ui/react";
 import { type Metadata } from "next";
 import NextLink from "next/link";
 import { LeftSection } from "../components/left-section";
+import { RegisterFormWrapper } from "./_lib/components/register-wrapper";
 
 export const metadata: Metadata = {
   title: "Register",
 };
 
-const Login = () => {
+const page = () => {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="container mx-auto grid max-w-screen-lg grid-cols-1 gap-8 md:my-8 md:grid-cols-2">
@@ -31,59 +32,31 @@ const Login = () => {
               Please enter your details
             </Typography>
           </div>
-          <form className="flex flex-col justify-center gap-4">
-            <Input
-              size="lg"
-              placeholder="Full Name"
-            />
-            <Input
-              size="lg"
-              placeholder="Email Address"
-              type="email"
-            />
-            <Input
-              size="lg"
-              placeholder="Password"
-              isSecuredText
-            />
-            <Input
-              size="lg"
-              placeholder="Confirm Password"
-              isSecuredText
-            />
-            <Button
-              color="primary"
-              variant="solid"
-              fullWidth
-              size="lg"
+          <RegisterFormWrapper />
+          <Divider variant="gradient">OR</Divider>
+          <Button
+            color="danger"
+            variant="outline"
+            size="lg"
+          >
+            Continue with Google
+          </Button>
+          <Typography
+            as="p"
+            className="text-center"
+          >
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              as={NextLink}
             >
-              Register
-            </Button>
-            <Divider variant="gradient">OR</Divider>
-            <Button
-              color="danger"
-              variant="outline"
-              size="lg"
-            >
-              Continue with Google
-            </Button>
-            <Typography
-              as="p"
-              className="text-center"
-            >
-              Already have an account?{" "}
-              <Link
-                href="/login"
-                as={NextLink}
-              >
-                Login
-              </Link>
-            </Typography>
-          </form>
+              Login
+            </Link>
+          </Typography>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default page;

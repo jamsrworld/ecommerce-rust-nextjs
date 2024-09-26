@@ -13,7 +13,7 @@ export const AppProvider = (props: Props) => {
     <JamsrUIProvider>
       <Toast />
       <Confirmation />
-      <QueryProvider>{children}</QueryProvider>;
+      <QueryProvider>{children}</QueryProvider>
     </JamsrUIProvider>
   );
 };
