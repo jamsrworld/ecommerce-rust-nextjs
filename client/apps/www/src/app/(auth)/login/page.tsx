@@ -1,9 +1,8 @@
 import { AppLogo } from "@/components/app-logo";
-import { Button, Divider, Input, Link, Typography } from "@jamsr-ui/react";
-import { GoogleIcon } from "@repo/icons/social";
+import { Typography } from "@jamsr-ui/react";
 import { type Metadata } from "next";
-import NextLink from "next/link";
 import { LeftSection } from "../components/left-section";
+import { LoginForm } from "./_lib/components/login-form";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -31,55 +30,7 @@ const Login = () => {
               Please login to your account
             </Typography>
           </div>
-          <form className="flex flex-col justify-center gap-4">
-            <Input
-              size="lg"
-              placeholder="Email Address"
-              type="email"
-            />
-            <Input
-              size="lg"
-              placeholder="Password"
-              isSecuredText
-            />
-            <div className="text-right">
-              <Link
-                as={NextLink}
-                href="/forgot-password"
-              >
-                Forgot Password?
-              </Link>
-            </div>
-            <Button
-              color="primary"
-              variant="solid"
-              fullWidth
-              size="lg"
-            >
-              Login
-            </Button>
-            <Divider variant="gradient">OR</Divider>
-            <Button
-              color="danger"
-              variant="outline"
-              size="lg"
-              startContent={<GoogleIcon />}
-            >
-              Continue with Google
-            </Button>
-            <Typography
-              as="p"
-              className="text-center"
-            >
-              Don't have an account?{" "}
-              <Link
-                href="/register"
-                as={NextLink}
-              >
-                Register
-              </Link>
-            </Typography>
-          </form>
+          <LoginForm />
         </div>
       </div>
     </div>

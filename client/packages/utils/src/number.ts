@@ -1,6 +1,9 @@
-import { ChargeType } from "@repo/db/enums";
-
 const currency = "USD";
+
+enum ChargeType {
+  Fixed,
+  Percent,
+}
 
 export const fPrice = (amount: number) => {
   const formatter = new Intl.NumberFormat("en-US", {
@@ -16,9 +19,7 @@ export const fPercent = (value: number) => {
 };
 
 export const fCharge = (charge: number, chargeType: ChargeType) => {
-  return chargeType === ChargeType.Fixed
-    ? fPrice(charge)
-    : fPercent(charge);
+  return chargeType === ChargeType.Fixed ? fPrice(charge) : fPercent(charge);
 };
 
 export const fNumber = (value: number) => {

@@ -1,4 +1,5 @@
-import { JamsrUIProvider } from "@jamsr-ui/react";
+import { client } from "@/api";
+import { AppProvider } from "@/providers/app";
 import type { Metadata } from "next";
 import { Inter, Open_Sans } from "next/font/google";
 import "../styles/globals.css";
@@ -21,6 +22,10 @@ export const metadata: Metadata = {
   description: "Modern Shopping website for shopping with ease",
 };
 
+client.setConfig({
+  baseUrl: "http://localhost:5003",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +37,7 @@ export default function RootLayout({
       className={`dark ${inter.variable} ${opensans.variable} antialiased`}
     >
       <body className="bg-background text-foreground">
-        <JamsrUIProvider>{children}</JamsrUIProvider>
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );

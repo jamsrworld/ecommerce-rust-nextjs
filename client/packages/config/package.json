@@ -3,6 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./*": "./src/*.ts"
+    "./*": "./src/*.ts",
+    "./next.config.mjs": "./src/next.config.mjs"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:^",
+    "@repo/typescript-config": "workspace:^",
+    "next": "15.0.0-canary.162"
+  },
+  "peerDependencies": {
+    "next": "15.0.0-canary.162"
   }
 }

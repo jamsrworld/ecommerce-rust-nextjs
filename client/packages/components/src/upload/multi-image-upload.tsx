@@ -5,7 +5,7 @@ import type {
   MultiFileUploadProps as MultiImageUploadPropsUI,
 } from "@jamsr-ui/react";
 import { MultiFileUpload, Typography, toast } from "@jamsr-ui/react";
-import { uploadFile } from "@repo/hooks";
+import { uploadFile } from "@repo/hooks/use-upload";
 import type { ImageMetadata } from "@repo/types/file";
 import { getFileSrc } from "@repo/utils/url";
 import { useEffect, useState } from "react";

@@ -1,0 +1,10 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "include": [
+    "next-env.d.ts",
+    ".eslintrc.cjs",
+    "./src/*.config.*",
+    "./src/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

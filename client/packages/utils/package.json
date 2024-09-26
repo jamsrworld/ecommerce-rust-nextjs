@@ -13,9 +13,20 @@
     }
   },
   "dependencies": {
+    "@repo/config": "workspace:^",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "jose": "^5.9.3",
     "tailwind-merge": "^2.5.2"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:^",
+    "@repo/typescript-config": "workspace:^",
+    "@types/node": "^20",
+    "zod": "^3.23.8"
+  },
+  "peerDependencies": {
+    "next": "15.0.0-canary.162",
+    "zod": "^3.23.8"
   }
 }

@@ -6,7 +6,7 @@ import {
   Typography,
   toast,
 } from "@jamsr-ui/react";
-import { uploadFile } from "@repo/hooks";
+import { uploadFile } from "@repo/hooks/use-upload";
 import type { ImageMetadata } from "@repo/types/file";
 import { cn } from "@repo/utils/class-name";
 import { getFileSrc } from "@repo/utils/url";

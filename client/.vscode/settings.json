@@ -6,14 +6,20 @@
   ],
   "cSpell.words": [
     "clsx",
+    "googleusercontent",
+    "hookform",
     "jamsr",
     "jamsrui",
+    "jamsrworld",
     "Mcart",
     "nextjs",
+    "openapi",
     "opensans",
     "svgr",
     "tailwindcss",
-    "typecheck"
+    "tanstack",
+    "typecheck",
+    "zustand"
   ],
   "files.exclude": {
     "**/.git": true,

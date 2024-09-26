@@ -1,9 +1,5 @@
-import {
-  APP_NAME,
-  APP_SERVER_URL,
-  COUNTRY_NAME,
-} from "@repo/shared/config";
-import { APP_SEO_CONFIG } from "@repo/shared/seo";
+import { APP_NAME, APP_SERVER_URL, COUNTRY_NAME } from "@repo/config/app";
+import { APP_SEO_CONFIG } from "@repo/config/seo";
 import type { Metadata } from "next";
 import { withAppServerUrl } from "./url";
 

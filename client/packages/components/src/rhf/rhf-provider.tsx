@@ -25,11 +25,11 @@ export const RHFProvider = <T extends FieldValues>(
     onSubmit,
     methods,
     className,
-    isDisabled: isDisabled,
+    isDisabled,
     isPending,
     ...restProps
   } = props;
-  let a= 2;
+  const a= 2;
   return (
     <FormProvider {...methods}>
       <form

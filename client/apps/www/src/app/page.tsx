@@ -1,7 +1,10 @@
+import { healthCheck } from "@/api";
 import { Link } from "@jamsr-ui/react";
 import NextLink from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const { data } = await healthCheck();
+  console.log("data:->", data);
   return (
     <div className="flex h-screen flex-col items-center justify-center">
       <p className="text-4xl">
