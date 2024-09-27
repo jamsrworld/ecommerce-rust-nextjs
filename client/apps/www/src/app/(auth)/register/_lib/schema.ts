@@ -1,9 +1,9 @@
 import { type AuthRegister, type AuthRegisterVerify } from "@/api";
-import { string, withSchema } from "@repo/utils/zod";
+import { email, string, withSchema } from "@repo/utils/zod";
 
 const baseSchema = withSchema<AuthRegister>()({
+  email: email(),
   fullName: string().min(1, "Full Name is required"),
-  email: string().min(1, "Email is required").email(),
   password: string().min(1, "Password is required"),
   confirmPassword: string().min(1, "Confirm Password is required"),
 });

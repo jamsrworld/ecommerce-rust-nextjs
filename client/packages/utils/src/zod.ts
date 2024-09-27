@@ -36,3 +36,23 @@ function schema<Model = never>() {
 
 export const withSchema = <T extends Record<string, unknown>>() =>
   schema<T>().with;
+
+const MIN_PASSWORD_LENGTH = 8;
+const OTP_LENGTH = 4;
+
+export const password = (name: string) =>
+  string()
+    .min(1, `${name} is required`)
+    .min(
+      MIN_PASSWORD_LENGTH,
+      `${name} must be at least ${MIN_PASSWORD_LENGTH} characters`
+    )
+    .max(50, `${name} must be at most 50 characters`);
+
+export const otpCode = (name?: string) =>
+  string()
+    .length(
+      OTP_LENGTH,
+      `${name ?? "Otp"} must be ${OTP_LENGTH} characters long`
+    )
+    .transform(Number);

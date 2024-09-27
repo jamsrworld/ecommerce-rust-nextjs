@@ -1,6 +1,6 @@
 "use client";
 
-import { client, type AuthLogin } from "@/api";
+import { type AuthLogin } from "@/api";
 import { loginMutation } from "@/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Divider, Link, Typography } from "@jamsr-ui/react";
@@ -8,16 +8,14 @@ import { NextLink } from "@repo/components/next";
 import { RHFInput, RHFProvider } from "@repo/components/rhf";
 import { GoogleIcon } from "@repo/icons/social";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { loginSchema } from "../schema";
 
 type FormValues = AuthLogin;
 
-client.setConfig({
-  baseUrl: "http://localhost:5003",
-});
-
 export const LoginForm = () => {
+  const router = useRouter();
   const defaultValues: FormValues = {
     email: "adityah1357908642@gmail.com",
     password: "admin790",
@@ -33,9 +31,14 @@ export const LoginForm = () => {
 
   const { handleSubmit } = methods;
   const onSubmit = handleSubmit((data) => {
-    mutation.mutate({
-      body: data,
-    });
+    mutation.mutate(
+      {
+        body: data,
+      },
+      {
+        onSuccess: () => router.replace("/"),
+      },
+    );
   });
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { client, type AuthRegister } from "@/api";
+import { type AuthRegister } from "@/api";
 import { registerMutation } from "@/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
@@ -8,10 +8,6 @@ import { RHFInput, RHFProvider } from "@repo/components/rhf";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "../schema";
-
-client.setConfig({
-  baseUrl: "http://localhost:5003",
-});
 
 type FormValues = AuthRegister;
 type Props = {
