@@ -4,8 +4,9 @@ import { type AuthRegister } from "@/api";
 import { registerMutation } from "@/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
-import { RHFInput, RHFProvider } from "@repo/components/rhf";
+import { onRHFInvalid, RHFInput, RHFProvider } from "@repo/components/rhf";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "../schema";
 
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export const RegisterForm = (props: Props) => {
+  const [showPassword, setShowPassword] = useState(false);
   const { onSuccess } = props;
   const defaultValues: FormValues = {
     fullName: "",
@@ -44,7 +46,7 @@ export const RegisterForm = (props: Props) => {
         },
       },
     );
-  });
+  }, onRHFInvalid);
 
   return (
     <RHFProvider
@@ -69,12 +71,16 @@ export const RegisterForm = (props: Props) => {
         size="lg"
         placeholder="Password"
         isSecuredText
+        showPassword={showPassword}
+        setShowPassword={setShowPassword}
       />
       <RHFInput<FormValues>
         name="confirmPassword"
         size="lg"
         placeholder="Confirm Password"
         isSecuredText
+        showPassword={showPassword}
+        setShowPassword={setShowPassword}
       />
       <Button
         color="primary"

@@ -2,7 +2,7 @@ import { type AuthForgotPassword } from "@/api";
 import { forgotPasswordMutation } from "@/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
-import { RHFInput, RHFProvider } from "@repo/components/rhf";
+import { onRHFInvalid, RHFInput, RHFProvider } from "@repo/components/rhf";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { forgotPasswordSchema } from "../schema";
@@ -27,6 +27,7 @@ export const ForgotPasswordForm = (props: Props) => {
   const mutation = useMutation({
     ...forgotPasswordMutation(),
   });
+
   const onSubmit = handleSubmit((data) => {
     mutation.mutate(
       {
@@ -36,7 +37,7 @@ export const ForgotPasswordForm = (props: Props) => {
         onSuccess: () => onSuccess(data),
       },
     );
-  });
+  }, onRHFInvalid);
 
   return (
     <RHFProvider

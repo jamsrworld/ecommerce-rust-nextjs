@@ -1,10 +1,16 @@
-import { type AuthResetPassword, type AuthForgotPassword } from "@/api";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { type AuthForgotPassword, type AuthResetPassword } from "@/api";
 import { resetPasswordMutation } from "@/api/@tanstack/react-query.gen";
-import { RHFInput, RHFOtpInput, RHFProvider } from "@repo/components/rhf";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
+import {
+  onRHFInvalid,
+  RHFInput,
+  RHFOtpInput,
+  RHFProvider,
+} from "@repo/components/rhf";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { resetPasswordSchema } from "../schema";
 
 type Props = {
@@ -15,6 +21,7 @@ type Props = {
 type FormValues = AuthResetPassword;
 
 export const ResetPasswordForm = (props: Props) => {
+  const [showPassword, setShowPassword] = useState(false);
   const { formData, onSuccess } = props;
 
   const defaultValues: FormValues = {
@@ -42,7 +49,7 @@ export const ResetPasswordForm = (props: Props) => {
         onSuccess,
       },
     );
-  });
+  }, onRHFInvalid);
 
   return (
     <RHFProvider
@@ -54,11 +61,15 @@ export const ResetPasswordForm = (props: Props) => {
         name="password"
         placeholder="Enter new password"
         isSecuredText
+        showPassword={showPassword}
+        setShowPassword={setShowPassword}
       />
       <RHFInput<FormValues>
         name="confirmPassword"
         placeholder="Enter new password again"
         isSecuredText
+        showPassword={showPassword}
+        setShowPassword={setShowPassword}
       />
       <RHFOtpInput<FormValues>
         name="otp"

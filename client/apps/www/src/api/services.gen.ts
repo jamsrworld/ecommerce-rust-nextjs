@@ -35,7 +35,8 @@ import type {
 
 export const client = createClient(
   createConfig({
-    baseUrl: "https://api.mcart.dev",
+    baseUrl: "http://localhost:5003",
+    // baseUrl: "https://api.mcart.dev",
     credentials: "include",
   }),
 );

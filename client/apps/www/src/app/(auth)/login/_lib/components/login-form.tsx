@@ -5,7 +5,7 @@ import { loginMutation } from "@/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Divider, Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
-import { RHFInput, RHFProvider } from "@repo/components/rhf";
+import { onRHFInvalid, RHFInput, RHFProvider } from "@repo/components/rhf";
 import { GoogleIcon } from "@repo/icons/social";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -39,7 +39,7 @@ export const LoginForm = () => {
         onSuccess: () => router.replace("/"),
       },
     );
-  });
+  }, onRHFInvalid);
 
   return (
     <RHFProvider

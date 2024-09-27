@@ -2,7 +2,7 @@ import { type AuthRegister, type AuthRegisterVerify } from "@/api";
 import { registerVerifyMutation } from "@/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
-import { RHFOtpInput, RHFProvider } from "@repo/components/rhf";
+import { onRHFInvalid, RHFOtpInput, RHFProvider } from "@repo/components/rhf";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { registerVerifySchema } from "../schema";
@@ -41,7 +41,7 @@ export const RegisterVerifyForm = (props: Props) => {
         onSuccess,
       },
     );
-  });
+  }, onRHFInvalid);
 
   return (
     <RHFProvider
