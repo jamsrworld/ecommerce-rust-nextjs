@@ -59,13 +59,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     HttpServer::new(move || {
         let cors = Cors::default()
-            .allowed_origin("http://localhost:5000")
+            // .allowed_origin("http://localhost:5000")
+            .allow_any_origin()
+            .supports_credentials()
             .allowed_methods(vec!["GET", "POST", "PUT", "DELETE", "OPTION", "PATCH"])
             .allowed_headers(vec![
                 http::header::CONTENT_TYPE,
                 http::header::ACCEPT,
                 http::header::AUTHORIZATION,
-            ]);
+            ])
+            .max_age(3600);
 
         App::new()
             .wrap(cors)
