@@ -3,12 +3,26 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
+}
+
+html,
+body {
   scrollbar-width: none;
 }
+
+body {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+
 body::-webkit-scrollbar {
   display: none;
+}
+
+body.is-scrolling {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grabbing;
 }
 
 :root {

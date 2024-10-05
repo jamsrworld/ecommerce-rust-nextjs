@@ -1,10 +1,7 @@
-import { healthCheck } from "@/api";
 import { Link } from "@jamsr-ui/react";
 import NextLink from "next/link";
 
-export default async function Home() {
-  const { data } = await healthCheck();
-  console.log("data:->", data);
+export default function Home() {
   return (
     <div className="flex h-screen flex-col items-center justify-center">
       <p className="text-4xl">
@@ -15,6 +12,12 @@ export default async function Home() {
         href="/login"
       >
         Go to login
+      </Link>
+      <Link
+        as={NextLink}
+        href="/products/id"
+      >
+        View Product
       </Link>
     </div>
   );

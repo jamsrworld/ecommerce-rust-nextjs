@@ -7,7 +7,7 @@ import { ProductInfo } from "./_lib/components/product-info";
 
 const page = () => {
   return (
-    <div className="flex flex-col gap-8 bg-white md:gap-24">
+    <div className="flex flex-col gap-8 bg-white pr-3 md:gap-24">
       <section className="grid gap-12 pt-20 md:grid-cols-12">
         <div className="md:col-span-8">
           <ProductImages />

@@ -4,6 +4,8 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { m, useScroll, useSpring, useTransform } from "framer-motion";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+const HIDE_SCROLLBAR_TIMEOUT = 2000;
+
 export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   const { scrollYProgress } = useScroll();
   const [contentHeight, setContentHeight] = useState(0);
@@ -11,13 +13,16 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   const [windowHeight, setWindowHeight] = useState(0);
   const customScrollBarRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const [startY, setStartY] = useState(0);
   const [startScrollY, setStartScrollY] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const smoothProgress = useSpring(scrollYProgress, {
-    damping: 20,
-    mass: 0.3,
-    stiffness: 50,
+    damping: 15,
+    mass: 0.2,
+    stiffness: 70,
   });
 
   const y = useTransform(
@@ -30,7 +35,6 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       setContentHeight(contentRef.current.scrollHeight);
     }
   }, []);
-
   const debouncedResize = useDebounce(handleResize, 100);
 
   useEffect(() => {
@@ -52,7 +56,6 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       if (!isDragging || !customScrollBarRef.current) return;
-
       const deltaY = e.clientY - startY;
       const scrollFactor = contentHeight / windowHeight;
       window.scrollTo(0, startScrollY + deltaY * scrollFactor);
@@ -65,6 +68,14 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   };
 
   // Update custom scrollbar size and position
+
+  useEffect(() => {
+    if (customScrollBarRef.current) {
+      const scrollHeight = (windowHeight / contentHeight) * windowHeight;
+      customScrollBarRef.current.style.height = `${scrollHeight}px`;
+    }
+  }, [contentHeight, windowHeight]);
+
   useEffect(() => {
     const unsubscribe = smoothProgress.on("change", (v) => {
       if (customScrollBarRef.current) {
@@ -81,13 +92,11 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   // Add mouse event listeners for dragging
   useEffect(() => {
     if (isDragging) {
-      document.body.style.cursor = "grabbing";
-      document.body.style.userSelect = "none";
+      document.body.classList.add("is-scrolling");
       window.addEventListener("mousemove", handleMouseMove);
       window.addEventListener("mouseup", handleMouseUp);
     } else {
-      document.body.style.cursor = ""; // Reset cursor after drag
-      document.body.style.userSelect = "auto";
+      document.body.classList.remove("is-scrolling");
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     }
@@ -97,6 +106,41 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [handleMouseMove, isDragging]);
+
+  // Function to handle showing scrollbar on scroll
+  const handleScroll = useCallback(() => {
+    setIsScrolling(true);
+
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+    }
+
+    hideTimeoutRef.current = setTimeout(() => {
+      setIsScrolling(false);
+    }, HIDE_SCROLLBAR_TIMEOUT);
+  }, []);
+
+  // Hover state for showing the scrollbar track
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (!isScrolling) {
+      hideTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, HIDE_SCROLLBAR_TIMEOUT);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   return (
     <>
@@ -112,8 +156,13 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       {/* Custom Scrollbar */}
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
-        className="fixed right-0.5 top-0 z-50 h-screen w-1.5 bg-transparent transition-[width] duration-300 hover:w-3"
+        className="fixed right-0.5 top-0 z-50 h-screen w-1.5 bg-transparent transition-[width,opacity] duration-300 hover:w-3"
         onMouseDown={handleMouseDown}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          opacity: isDragging || isScrolling || isHovered ? 1 : 0, // Show scrollbar when dragging or scrolling
+        }}
       >
         <div
           className="absolute top-0 w-full rounded-full bg-[#757575] transition-[width] duration-300"

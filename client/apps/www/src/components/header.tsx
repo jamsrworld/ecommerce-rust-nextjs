@@ -30,7 +30,7 @@ export const AppHeader = () => {
   return (
     <Header
       hideOnScroll
-      className="justify-between"
+      className="justify-between pr-3"
     >
       <AppLogo />
       <nav>
@@ -47,7 +47,7 @@ export const AppHeader = () => {
           ))}
         </ul>
       </nav>
-      <div className="flex items-center gap-4">
+      <div className="mr-6 flex items-center gap-4">
         <CartIcon />
         <UserIcon />
       </div>
