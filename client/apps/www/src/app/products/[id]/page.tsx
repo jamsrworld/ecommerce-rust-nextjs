@@ -9,8 +9,8 @@ import { ProductInfo } from "./_lib/components/product-info";
 const page = () => {
   return (
     <SmoothScroll>
-      <div className="flex flex-col gap-8 bg-[#f7f6f3] md:gap-24">
-        <section className="grid gap-12 pt-48 md:grid-cols-12">
+      <div className="flex flex-col gap-8 bg-white md:gap-24">
+        <section className="grid gap-12 pt-20 md:grid-cols-12">
           <div className="md:col-span-8">
             <ProductImages />
           </div>

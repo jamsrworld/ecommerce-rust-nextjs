@@ -1,4 +1,5 @@
 import { Button, Divider, Rating, Typography } from "@jamsr-ui/react";
+import { cn } from "@repo/utils/class-name";
 
 export const ProductDetails = () => {
   return (
@@ -65,7 +66,10 @@ export const ProductDetails = () => {
               variant="outline"
               size="lg"
               isIconOnly
-              className={isSelected ? "bg-black text-white" : ""}
+              className={cn(
+                isSelected && "bg-black text-white",
+                "rounded",
+              )}
             >
               {item}
             </Button>
