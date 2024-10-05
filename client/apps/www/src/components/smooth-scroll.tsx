@@ -9,6 +9,7 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
   const [windowHeight, setWindowHeight] = useState(0);
+  const customScrollBarRef = useRef<HTMLDivElement>(null);
 
   const smoothProgress = useSpring(scrollYProgress, {
     damping: 20,
@@ -37,6 +38,23 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       window.removeEventListener("resize", debouncedResize);
     };
   }, [handleResize, debouncedResize]);
+
+  // Update custom scrollbar
+  useEffect(() => {
+    const unsubscribe = smoothProgress.on("change", (v) => {
+      if (customScrollBarRef.current && contentHeight > windowHeight) {
+        // Set scrollbar handle height relative to window and content height
+        const scrollHeight = (windowHeight / contentHeight) * windowHeight;
+        customScrollBarRef.current.style.height = `${scrollHeight}px`;
+
+        // Set the scroll handle position relative to the current scroll progress
+        const targetY = v * (windowHeight - scrollHeight);
+        customScrollBarRef.current.style.transform = `translateY(${targetY}px)`;
+      }
+    });
+
+    return () => unsubscribe();
+  }, [smoothProgress, contentHeight, windowHeight]);
   return (
     <>
       <div style={{ height: contentHeight }} />
@@ -47,6 +65,14 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       >
         {children}
       </m.div>
+
+      {/* Custom Scrollbar */}
+      <div className="fixed right-2.5 top-0 z-50 h-screen w-[8px] rounded bg-red-700">
+        <div
+          className="absolute top-0 w-full rounded bg-purple-400 transition-transform"
+          ref={customScrollBarRef}
+        />
+      </div>
     </>
   );
 };
