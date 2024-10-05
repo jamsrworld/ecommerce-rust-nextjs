@@ -67,9 +67,9 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       </m.div>
 
       {/* Custom Scrollbar */}
-      <div className="fixed right-2.5 top-0 z-50 h-screen w-[8px] rounded bg-red-700">
+      <div className="fixed right-0.5 top-0 z-50 h-screen w-[8px] rounded bg-transparent transition-transform hover:w-3">
         <div
-          className="absolute top-0 w-full rounded bg-purple-400 transition-transform"
+          className="absolute top-0 w-full rounded bg-[#757575] transition-transform"
           ref={customScrollBarRef}
         />
       </div>
