@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${opensans.variable} antialiased`}
+      className={`light ${inter.variable} ${opensans.variable} antialiased`}
     >
       <body className="bg-background text-foreground">
         <AppProvider>{children}</AppProvider>
