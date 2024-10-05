@@ -9,12 +9,12 @@ import { ProductInfo } from "./_lib/components/product-info";
 const page = () => {
   return (
     <SmoothScroll>
-      <div className="flex flex-col gap-24 bg-[#f7f6f3]">
-        <section className="grid grid-cols-12 gap-12 pt-48">
-          <div className="col-span-8">
+      <div className="flex flex-col gap-8 bg-[#f7f6f3] md:gap-24">
+        <section className="grid gap-12 pt-48 md:grid-cols-12">
+          <div className="md:col-span-8">
             <ProductImages />
           </div>
-          <div className="col-span-4 flex flex-col gap-6">
+          <div className="flex flex-col gap-6 md:col-span-4">
             <ProductDetails />
             <ProductFeatures />
             <ProductInfo />
@@ -23,7 +23,7 @@ const page = () => {
         <section className="container mx-auto max-w-screen-lg">
           <ProductExtraDetails />
         </section>
-        <section className="container mx-auto max-w-screen-lg py-24">
+        <section className="container mx-auto max-w-screen-lg py-6 md:py-24">
           <ProductCompanyInfo />
         </section>
       </div>

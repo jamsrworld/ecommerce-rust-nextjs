@@ -86,9 +86,9 @@ export const ProductExtraDetails = () => {
         return (
           <div
             key={index}
-            className="grid grid-cols-1 gap-40 md:grid-cols-2"
+            className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-40"
           >
-            <div className={cn("", isEven && "order-last")}>
+            <div className={cn("", isEven && "md:order-last")}>
               <Typography
                 as="h3"
                 variant="h2"
