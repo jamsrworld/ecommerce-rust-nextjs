@@ -1,5 +1,6 @@
 import { Accordion, AccordionItem, Divider, Typography } from "@jamsr-ui/react";
 import React from "react";
+import { AccordionIndicator } from "./indicator";
 
 const items: { heading: string; description: string }[] = [
   {
@@ -72,6 +73,7 @@ export const ProductInfo = () => {
               <AccordionItem
                 title={item.heading}
                 className="bg-transparent [&_svg_path]:stroke-2"
+                indicator={AccordionIndicator}
               >
                 <Typography
                   as="p"

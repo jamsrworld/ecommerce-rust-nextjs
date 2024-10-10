@@ -29,7 +29,6 @@ export const RHFProvider = <T extends FieldValues>(
     isPending,
     ...restProps
   } = props;
-  const a= 2;
   return (
     <FormProvider {...methods}>
       <form

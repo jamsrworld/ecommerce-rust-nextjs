@@ -61,7 +61,7 @@ export const ProductImages = () => {
               alt="product image"
               key={index}
               src={item.item}
-              className={isThumbnail ? "col-span-2" : ""}
+              className={isThumbnail ? "col-span-2 aspect-video object-cover" : ""}
             />
           );
         }

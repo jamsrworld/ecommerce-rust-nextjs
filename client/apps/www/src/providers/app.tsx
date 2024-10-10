@@ -1,6 +1,6 @@
 "use client";
 
-import { Confirmation, JamsrUIProvider, Toast } from "@jamsr-ui/react";
+import { Confirmation, Toast, UIProvider } from "@jamsr-ui/react";
 import { QueryProvider } from "./client";
 
 type Props = {
@@ -10,10 +10,10 @@ type Props = {
 export const AppProvider = (props: Props) => {
   const { children } = props;
   return (
-    <JamsrUIProvider>
+    <UIProvider>
       <Toast />
       <Confirmation />
       <QueryProvider>{children}</QueryProvider>
-    </JamsrUIProvider>
+    </UIProvider>
   );
 };

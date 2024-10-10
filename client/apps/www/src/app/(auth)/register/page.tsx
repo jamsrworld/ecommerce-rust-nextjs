@@ -36,7 +36,7 @@ const page = () => {
           <Divider variant="gradient">OR</Divider>
           <Button
             color="danger"
-            variant="outline"
+            variant="outlined"
             size="lg"
           >
             Continue with Google

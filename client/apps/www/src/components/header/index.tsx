@@ -1,7 +1,8 @@
-import { Header } from "@jamsr-ui/react";
+import { Button, Header } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
-import { CartIcon, UserIcon } from "@repo/icons";
-import { AppLogo } from "./app-logo";
+import { UserIcon } from "@repo/icons";
+import { AppLogo } from "../app-logo";
+import { CartDrawer } from "./cart-drawer";
 
 const navItems = [
   {
@@ -48,8 +49,13 @@ export const AppHeader = () => {
         </ul>
       </nav>
       <div className="mr-6 flex items-center gap-4">
-        <CartIcon />
-        <UserIcon />
+        <CartDrawer />
+        <Button
+          isIconOnly
+          variant="outlined"
+        >
+          <UserIcon />
+        </Button>
       </div>
     </Header>
   );

@@ -20,9 +20,11 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const smoothProgress = useSpring(scrollYProgress, {
-    damping: 15,
-    mass: 0.2,
-    stiffness: 70,
+    damping: 20, // Increase resistance to slow it down towards the end
+    mass: 0.2, // Keep the same mass
+    stiffness: 50, // Lower stiffness for a slower response
+    restDelta: 0.001, // More precise rest point
+    restSpeed: 0.001, // Reduce resting speed threshold
   });
 
   const y = useTransform(
@@ -78,6 +80,7 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const unsubscribe = smoothProgress.on("change", (v) => {
+      console.log("v:->", v);
       if (customScrollBarRef.current) {
         const scrollHeight = (windowHeight / contentHeight) * windowHeight;
         const targetY = v * (windowHeight - scrollHeight);

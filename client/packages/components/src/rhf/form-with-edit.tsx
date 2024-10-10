@@ -94,7 +94,7 @@ export const FormCardWithEdit = <T extends FieldValues>(props: Props<T>) => {
           >
             <CardFooter className={classNames?.footer}>
               <Button
-                variant="outline"
+                variant="outlined"
                 onClick={cancelEditing}
               >
                 Cancel

@@ -20,15 +20,12 @@ export const ProductDetails = () => {
           Mineral Grey
         </Typography>
         <div className="flex items-center gap-2">
-          <div
-            className="scale-50 "
-            style={{
-              transformOrigin: "center left",
-              marginRight: "-12%",
+          <Rating
+            isReadonly
+            classNames={{
+              star: "size-4",
             }}
-          >
-            <Rating isReadonly />
-          </div>
+          />
           <Typography
             as="p"
             variant="body1"
@@ -63,13 +60,10 @@ export const ProductDetails = () => {
             <Button
               key={index}
               color="default"
-              variant="outline"
+              variant="outlined"
               size="lg"
               isIconOnly
-              className={cn(
-                isSelected && "bg-black text-white",
-                "rounded",
-              )}
+              className={cn(isSelected && "bg-black text-white", "rounded")}
             >
               {item}
             </Button>
@@ -79,11 +73,20 @@ export const ProductDetails = () => {
       <Button
         fullWidth
         color="default"
-        variant="shadow"
+        variant="solid"
         size="lg"
-        className="rounded-full bg-black text-white"
+        className="rounded-full"
       >
         Add to cart
+      </Button>
+      <Button
+        fullWidth
+        color="default"
+        variant="outlined"
+        size="lg"
+        className="rounded-full"
+      >
+        Checkout
       </Button>
       <Typography
         className="text-center text-foreground-tertiary"

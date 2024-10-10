@@ -81,7 +81,7 @@ export const LoginForm = () => {
       <Divider variant="gradient">OR</Divider>
       <Button
         color="danger"
-        variant="outline"
+        variant="outlined"
         size="lg"
         startContent={<GoogleIcon />}
         disabled={mutation.isPending}

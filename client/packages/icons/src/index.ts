@@ -29,9 +29,11 @@ import ReferralsIcon from "./svg/gift.svg";
 import CopyIcon from "./svg/copy.svg";
 import MoonIcon from "./svg/moon.svg";
 import SunIcon from "./svg/sun.svg";
+import MinusIcon from "./svg/minus.svg"
 
 export {
   AddIcon,
+  MinusIcon,
   CartIcon,
   CheckIcon,
   CommentIcon,

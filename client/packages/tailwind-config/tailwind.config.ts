@@ -12,25 +12,19 @@ const config: Omit<Config, "content"> = {
       container: {
         center: true,
       },
-      screens: {
-        _sm: {
-          max: "639px",
-        },
-        _md: {
-          max: "767px",
-        },
-        _lg: {
-          max: "1023px",
-        },
-        _xl: {
-          max: "1279px",
-        },
-        _2xl: {
-          max: "1535px",
-        },
-      },
     },
   },
-  plugins: [...jamsrui()],
+  plugins: [
+    ...jamsrui({
+      colors: {
+        light: {
+          default: {
+            DEFAULT: "#000",
+            foreground: "#fff",
+          },
+        },
+      },
+    }),
+  ],
 };
 export default config;
