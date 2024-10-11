@@ -15,57 +15,53 @@ export const AddressForm = () => {
         as="h3"
         variant="h6"
       >
-        Delivery Address
+        Shipping Address
       </Typography>
       <div className="grid gap-2">
-        <Select
-          size="lg"
-          className="placeholder:opacity-50"
-        >
+        <Select size="lg" placeholder="Country/Region">
           <SelectItem value="france">France</SelectItem>
           <SelectItem value="india">India</SelectItem>
           <SelectItem value="spain">Spain</SelectItem>
         </Select>
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-       
           <Input
-            placeholder="First Name"
+            label="First Name"
             name="firstName"
             size="lg"
-            className="placeholder:opacity-50"
+            labelPlacement="inside"
           />
           <Input
-            placeholder="Last Name"
+            label="Last Name"
             name="lastName"
             size="lg"
-            className="placeholder:opacity-50"
+            labelPlacement="inside"
           />
         </div>
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           <Input
-            placeholder="Postal Code"
+            label="Postal Code"
             name="postalCode"
             size="lg"
-            className="placeholder:opacity-50"
+            labelPlacement="inside"
           />
           <Input
-            placeholder="City"
+            label="City"
             name="city"
             size="lg"
-            className="placeholder:opacity-50"
+            labelPlacement="inside"
           />
         </div>
         <Input
-          placeholder="Address"
+          label="Full Address"
           name="address"
           size="lg"
-          className="placeholder:opacity-50"
+          labelPlacement="inside"
         />
         <Input
-          placeholder="Landmark (optional)"
+          label="Landmark (optional)"
           name="apartment"
           size="lg"
-          className="placeholder:opacity-50"
+          labelPlacement="inside"
         />
       </div>
       <Checkbox

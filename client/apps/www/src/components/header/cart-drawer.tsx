@@ -2,7 +2,9 @@
 
 import { useDisclosure } from "@jamsr-ui/hooks";
 import { Button, Divider, Drawer, Typography } from "@jamsr-ui/react";
-import { CartIcon, CrossCircleIcon } from "@repo/icons";
+import { NextLink } from "@repo/components/next";
+import { CartIcon, CloseIcon } from "@repo/icons";
+import { m } from "framer-motion";
 import { CartItems } from "./cart-items";
 
 export const CartDrawer = () => {
@@ -19,9 +21,10 @@ export const CartDrawer = () => {
       <Drawer
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        className="flex w-full flex-col md:min-w-[700px]"
+        className="flex w-full flex-col md:min-w-[500px]"
       >
-        <div className="flex items-center justify-between p-4 md:justify-center">
+        <div className="flex items-center justify-between p-4">
+          <div className="hidden md:block" />
           <Typography
             as="h1"
             variant="h3"
@@ -29,29 +32,49 @@ export const CartDrawer = () => {
           >
             Cart
           </Typography>
-          <Button
-            isIconOnly
-            onClick={onClose}
-            className="text-foreground md:hidden"
-            variant="light"
+          <m.div
+            initial={{
+              scale: 1,
+            }}
+            whileHover={{
+              scale: 1.3,
+              rotate: 90,
+            }}
           >
-            <CrossCircleIcon />
-          </Button>
+            <Button
+              isIconOnly
+              onClick={onClose}
+              className="text-foreground"
+              variant="light"
+              rounded
+            >
+              <CloseIcon className="[&>path]:stroke-[3]" />
+            </Button>
+          </m.div>
         </div>
         <Divider />
         <div className="grow overflow-y-auto overflow-x-hidden">
           <CartItems />
         </div>
-        <Divider className="pb-4" />
-        <div className="p-4">
+        <Divider />
+        <div className="px-4 py-2">
           <div className="flex items-center justify-between">
-            <Typography
-              variant="h6"
-              as="p"
-              className="uppercase"
-            >
-              Total
-            </Typography>
+            <div className="flex items-center">
+              <Typography
+                variant="h6"
+                as="div"
+                className="uppercase"
+              >
+                Total
+              </Typography>
+              <Typography
+                as="span"
+                className="text-foreground-secondary"
+              >
+                {" "}
+                (8 items)
+              </Typography>
+            </div>
             <Typography
               variant="h4"
               as="p"
@@ -63,15 +86,17 @@ export const CartDrawer = () => {
             <Button
               size="lg"
               fullWidth
-              variant="outlined"
+              as={NextLink}
+              href="/checkout"
             >
-              Continue Shopping
+              Place Order
             </Button>
             <Button
               size="lg"
               fullWidth
+              variant="outlined"
             >
-              Checkout
+              Continue Shopping
             </Button>
           </div>
         </div>

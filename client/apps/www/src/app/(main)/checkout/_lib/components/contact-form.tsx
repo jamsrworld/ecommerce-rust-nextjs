@@ -10,14 +10,14 @@ export const ContactForm = () => {
         Enter your contact details:
       </Typography>
       <Input
-        placeholder="Email Address"
+        label="Email Address"
         size="lg"
-        className="placeholder:opacity-50"
+        labelPlacement="inside"
       />
       <Input
-        placeholder="Phone Number"
+        label="Phone Number"
         size="lg"
-        className="placeholder:opacity-50"
+        labelPlacement="inside"
       />
     </div>
   );

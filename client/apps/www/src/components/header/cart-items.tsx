@@ -1,42 +1,52 @@
 import { Button, Divider, Typography } from "@jamsr-ui/react";
 import Image from "next/image";
 import ProductImg from "./cart-item.jpg";
+import { QuantityCounter } from "./quantity-counter";
 
 const products = [
   {
-    title: "Terra -E",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
     thumbnail: ProductImg,
   },
   {
-    title: "Terra -E",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
     thumbnail: ProductImg,
   },
   {
-    title: "Terra -E",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
     thumbnail: ProductImg,
   },
   {
-    title: "Terra -E",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
     thumbnail: ProductImg,
   },
   {
-    title: "Terra -E",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
     thumbnail: ProductImg,
   },
   {
-    title: "Terra -E",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
     thumbnail: ProductImg,
   },
   {
-    title: "Terra -E",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
     thumbnail: ProductImg,
   },
   {
-    title: "Terra -E",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
     thumbnail: ProductImg,
   },
   {
-    title: "Terra -E",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
     thumbnail: ProductImg,
   },
 ];
@@ -59,54 +69,34 @@ export const CartItems = () => {
               <div className="grow">
                 <Typography
                   as="h6"
-                  variant="h6"
-                  className="font-bold"
+                  className="line-clamp-1 font-bold"
                 >
                   {product.title}
                 </Typography>
-                <Typography
-                  as="p"
-                  variant="body1"
-                  className="text-foreground-secondary"
-                >
-                  1 x $ 99.99
-                </Typography>
-              </div>
-              <div className="flex items-center gap-1">
-                <Button
-                  isIconOnly
-                  variant="link"
-                  className="text-foreground"
-                >
-                  -
-                </Button>
-                <div className="grid size-8 place-content-center border-[1.5px] border-divider p-1">
-                  2
+
+                <div className="mt-2 flex items-center justify-between">
+                  <Typography
+                    as="p"
+                    className="text-foreground-secondary"
+                  >
+                    Blue / Large
+                  </Typography>
+                  <QuantityCounter />
+                  <Button
+                    variant="link"
+                    color="danger"
+                    disableRipple
+                  >
+                    DELETE
+                  </Button>
                 </div>
-                <Button
-                  isIconOnly
-                  variant="link"
-                  className="text-foreground"
-                >
-                  +
-                </Button>
-              </div>
-              <div>
+
                 <Typography
                   as="p"
-                  variant="h3"
+                  variant="h6"
                 >
                   $293
                 </Typography>
-              </div>
-              <div>
-                <Button
-                  variant="link"
-                  color="danger"
-                  disableRipple
-                >
-                  DELETE
-                </Button>
               </div>
             </div>
             <Divider />

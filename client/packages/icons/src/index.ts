@@ -30,12 +30,14 @@ import CopyIcon from "./svg/copy.svg";
 import MoonIcon from "./svg/moon.svg";
 import SunIcon from "./svg/sun.svg";
 import MinusIcon from "./svg/minus.svg"
+import CloseIcon from "./svg/close.svg"
 
 export {
   AddIcon,
   MinusIcon,
   CartIcon,
   CheckIcon,
+  CloseIcon,
   CommentIcon,
   CrossCircleIcon,
   DeleteIcon,

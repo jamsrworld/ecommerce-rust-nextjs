@@ -1,7 +1,7 @@
 import { Typography } from "@jamsr-ui/react";
 import Image, { type StaticImageData } from "next/image";
-import Img1 from "../assets/checkout-1.webp";
-import Img2 from "../assets/checkout-2.webp";
+import Img1 from "../assets/checkout-1.jpg";
+import Img2 from "../assets/checkout-2.jpg";
 
 const items: {
   title: string;
@@ -11,15 +11,97 @@ const items: {
   price: number;
 }[] = [
   {
-    title: "terra-e-man",
-    info: "Black Night/40",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
     count: 2,
     thumbnail: Img1,
     price: 27800,
   },
   {
-    title: "vola-female",
-    info: "Prune /36",
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
+    count: 11,
+    thumbnail: Img2,
+    price: 12900,
+  },
+  {
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
+    count: 2,
+    thumbnail: Img1,
+    price: 27800,
+  },
+  {
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
+    count: 11,
+    thumbnail: Img2,
+    price: 12900,
+  },
+  {
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
+    count: 2,
+    thumbnail: Img1,
+    price: 27800,
+  },
+  {
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
+    count: 11,
+    thumbnail: Img2,
+    price: 12900,
+  },
+  {
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
+    count: 2,
+    thumbnail: Img1,
+    price: 27800,
+  },
+  {
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
+    count: 11,
+    thumbnail: Img2,
+    price: 12900,
+  },
+  {
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
+    count: 2,
+    thumbnail: Img1,
+    price: 27800,
+  },
+  {
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
+    count: 11,
+    thumbnail: Img2,
+    price: 12900,
+  },
+  {
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
+    count: 2,
+    thumbnail: Img1,
+    price: 27800,
+  },
+  {
+    title:
+      "Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite Super Combed Cotton French Terry Solid Sweatshirt with Ribbed Cuffs - Graphite",
+    info: "Blue / Large",
     count: 11,
     thumbnail: Img2,
     price: 12900,
@@ -28,19 +110,29 @@ const items: {
 
 export const CheckoutItems = () => {
   return (
-    <div>
+    <div className="flex grow flex-col gap-4 overflow-y-auto overflow-x-hidden py-4">
       {items.map((item) => (
         <div
           key={item.title}
-          className="flex items-center gap-2 py-4"
+          className="flex gap-2"
         >
-          <Image
-            src={item.thumbnail}
-            alt={item.title}
-            className="size-12 rounded"
-          />
+          <div className="relative w-44">
+            <Image
+              src={item.thumbnail}
+              alt={item.title}
+              className="max-h-20 w-auto rounded"
+            />
+            <div className="absolute right-0 top-0 grid size-5 -translate-y-1/2 translate-x-1/2 place-content-center rounded-full bg-black/70 text-xs font-bold text-white">
+              3
+            </div>
+          </div>
           <div className="grow">
-            <Typography as="h3">{item.title}</Typography>
+            <Typography
+              as="h3"
+              className="line-clamp-2"
+            >
+              {item.title}
+            </Typography>
             <Typography
               as="p"
               className="text-foreground-secondary"
@@ -48,7 +140,12 @@ export const CheckoutItems = () => {
               {item.info}
             </Typography>
           </div>
-          <Typography as="h3">${item.price}</Typography>
+          <Typography
+            as="h3"
+            className="pl-4"
+          >
+            ${item.price}
+          </Typography>
         </div>
       ))}
     </div>

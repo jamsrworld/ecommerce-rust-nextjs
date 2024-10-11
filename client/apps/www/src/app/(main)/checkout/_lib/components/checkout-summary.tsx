@@ -2,10 +2,10 @@ import { Typography } from "@jamsr-ui/react";
 
 export const CheckoutSummary = () => {
   return (
-    <div className="flex flex-col gap-4 pt-4">
+    <div className="flex flex-col gap-4">
       <div className="flex justify-between">
         <Typography as="p">Subtotal - 3 items</Typography>
-        <Typography as="p">407,00$</Typography>
+        <Typography as="p">$407,00</Typography>
       </div>
       <div className="flex justify-between">
         <Typography as="p">Shipping</Typography>
@@ -28,15 +28,9 @@ export const CheckoutSummary = () => {
             as="p"
             variant="h5"
           >
-            407,00$
+            $407,00
           </Typography>
         </div>
-        <Typography
-          as="p"
-          className="text-foreground-secondary"
-        >
-          Taxes included
-        </Typography>
       </div>
     </div>
   );

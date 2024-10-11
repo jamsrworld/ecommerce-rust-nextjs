@@ -4,13 +4,10 @@ export const DiscountForm = () => {
   return (
     <div className="flex flex-row items-center gap-1">
       <Input
-        placeholder="Discount code or gift card"
-        classNames={{
-          base: "w-full",
-        }}
-        className="placeholder:opacity-50"
+        placeholder="Coupon Code"
+        fullWidth
       />
-      <Button>Validate</Button>
+      <Button>Apply</Button>
     </div>
   );
 };
