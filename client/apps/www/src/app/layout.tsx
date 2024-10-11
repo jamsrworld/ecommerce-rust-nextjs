@@ -36,7 +36,7 @@ export default function RootLayout({
       lang="en"
       className={`light ${inter.variable} ${opensans.variable} antialiased`}
     >
-      <body className="bg-background text-foreground">
+      <body className="flex flex-col bg-background text-foreground">
         <AppProvider>{children}</AppProvider>
       </body>
     </html>

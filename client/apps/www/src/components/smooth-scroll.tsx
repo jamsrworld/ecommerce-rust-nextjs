@@ -80,7 +80,6 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const unsubscribe = smoothProgress.on("change", (v) => {
-      console.log("v:->", v);
       if (customScrollBarRef.current) {
         const scrollHeight = (windowHeight / contentHeight) * windowHeight;
         const targetY = v * (windowHeight - scrollHeight);

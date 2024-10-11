@@ -29,10 +29,7 @@ const navItems = [
 
 export const AppHeader = () => {
   return (
-    <Header
-      hideOnScroll
-      className="justify-between pr-3"
-    >
+    <Header className="shrink-0 justify-between pr-3">
       <AppLogo />
       <nav>
         <ul className="flex items-center gap-4">

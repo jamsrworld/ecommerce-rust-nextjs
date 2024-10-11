@@ -19,9 +19,9 @@ export const CartDrawer = () => {
       <Drawer
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        className="flex w-full flex-col p-4 md:min-w-[500px]"
+        className="flex w-full flex-col md:min-w-[700px]"
       >
-        <div className="flex items-center justify-between md:justify-center">
+        <div className="flex items-center justify-between p-4 md:justify-center">
           <Typography
             as="h1"
             variant="h3"
@@ -38,26 +38,42 @@ export const CartDrawer = () => {
             <CrossCircleIcon />
           </Button>
         </div>
-
-        <Divider className="pb-4" />
-        <div className="grow">
+        <Divider />
+        <div className="grow overflow-y-auto overflow-x-hidden">
           <CartItems />
         </div>
         <Divider className="pb-4" />
-        <div className="flex flex-col gap-4">
-          <Button
-            size="lg"
-            fullWidth
-            variant="outlined"
-          >
-            Continue Shopping
-          </Button>
-          <Button
-            size="lg"
-            fullWidth
-          >
-            Checkout
-          </Button>
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            <Typography
+              variant="h6"
+              as="p"
+              className="uppercase"
+            >
+              Total
+            </Typography>
+            <Typography
+              variant="h4"
+              as="p"
+            >
+              $699.99
+            </Typography>
+          </div>
+          <div className="flex flex-col gap-4 pt-4">
+            <Button
+              size="lg"
+              fullWidth
+              variant="outlined"
+            >
+              Continue Shopping
+            </Button>
+            <Button
+              size="lg"
+              fullWidth
+            >
+              Checkout
+            </Button>
+          </div>
         </div>
       </Drawer>
     </div>

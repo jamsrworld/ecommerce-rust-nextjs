@@ -1,3 +1,5 @@
+"use client";
+
 import BtcpayIcon from "./svg/btcpay.svg";
 import NowpaymentsIcon from "./svg/nowpayments.svg";
 import PaypalIcon from "./svg/paypal.svg";
