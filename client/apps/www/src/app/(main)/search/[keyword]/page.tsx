@@ -1,14 +1,9 @@
 import { Typography } from "@jamsr-ui/react";
 import Image from "next/image";
+import { ProductSlider } from "./components/product-slider";
 import { searchProducts } from "./list";
 
-type Props = {
-  params: {
-    keyword: string;
-  };
-};
-
-const Page = (props: Props) => {
+const Page = () => {
   const price = 293;
   const mrp = 500;
   return (
@@ -19,17 +14,25 @@ const Page = (props: Props) => {
           return (
             <li
               key={idx}
-              className="cursor-pointer rounded-md transition-all duration-300 hover:shadow-lg"
+              className="relative cursor-pointer transition-all duration-300"
             >
-              <Image
-                src={thumbnail}
-                alt={title}
-                width={400}
-                height={600}
-                className="aspect-[9/12]"
-              />
+              <div className="group relative overflow-hidden">
+                <Image
+                  src={thumbnail}
+                  alt={title}
+                  width={400}
+                  height={600}
+                  className="aspect-[9/12]"
+                />
+                <ProductSlider />
+              </div>
               <div className="p-2">
-                <Typography as="p">{title}</Typography>
+                <Typography
+                  className="font-medium"
+                  as="p"
+                >
+                  {title}
+                </Typography>
                 <div className="flex items-center gap-1">
                   <Typography
                     as="p"
