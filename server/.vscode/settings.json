@@ -16,6 +16,7 @@
     "Mcart",
     "openapi",
     "otps",
+    "sqlx",
     "thiserror",
     "utoipa",
     "utoipauto"

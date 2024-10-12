@@ -88,7 +88,6 @@ pub enum User {
     Table,
     Id,
     FullName,
-    Username,
     Email,
     Password,
     Status,
