@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
 import { useDebounce } from "@/hooks/use-debounce";
 import { cn } from "@repo/utils/class-name";
 import { m, useScroll, useSpring, useTransform } from "framer-motion";
@@ -157,7 +159,6 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       </m.div>
 
       {/* Custom Scrollbar */}
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
         className={cn(
           "fixed right-0.5 top-0 z-50 h-screen w-1.5 bg-transparent opacity-0 transition-[width,opacity] duration-300",

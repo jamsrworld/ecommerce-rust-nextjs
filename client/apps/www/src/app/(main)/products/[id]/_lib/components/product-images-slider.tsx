@@ -1,10 +1,12 @@
 "use client";
 
+import { FollowCursor } from "@/components/follow-cursor";
+import { HorizontalScroll } from "@/components/horizontal-scroll";
 import { Button, Drawer } from "@jamsr-ui/react";
 import { CloseIcon } from "@repo/icons";
 import { m } from "framer-motion";
 import Image from "next/image";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { imagesItems } from "./image";
 
 type Props = {
@@ -16,6 +18,7 @@ type Props = {
 
 export const ProductImagesSlider = (props: Props) => {
   const { isOpen, onOpenChange, onClose, activeIndex } = props;
+  const scrollRef = useRef(null);
   const ref = useCallback(
     (idx: number, node: HTMLLIElement | null) => {
       if (activeIndex === idx && node) {
@@ -59,24 +62,29 @@ export const ProductImagesSlider = (props: Props) => {
           <CloseIcon className="[&>path]:stroke-[2]" />
         </Button>
       </m.div>
-      <ul className="flex overflow-x-auto">
-        {imagesItems.map((item, idx) => {
-          return (
-            <li
-              key={idx}
-              className="shrink-0"
-              id={`img-li-${idx}`}
-              ref={(node) => ref(idx, node)}
-            >
-              <Image
-                alt="product image"
-                src={item.item}
-                className="h-dvh w-auto shrink-0"
-              />
-            </li>
-          );
-        })}
-      </ul>
+      <HorizontalScroll ref={scrollRef}>
+        <FollowCursor parentRef={scrollRef} />
+        <ul className="flex">
+          {imagesItems.map((item, idx) => {
+            return (
+              <li
+                key={idx}
+                className="shrink-0"
+                ref={(node) => ref(idx, node)}
+              >
+                <Image
+                  alt="product image"
+                  src={item.item}
+                  className="pointer-events-none h-dvh w-auto shrink-0"
+                />
+                <div className="flex size-96 items-center justify-center bg-black text-5xl  text-white">
+                  {idx}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </HorizontalScroll>
     </Drawer>
   );
 };
