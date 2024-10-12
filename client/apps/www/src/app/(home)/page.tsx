@@ -15,6 +15,18 @@ export default function Home() {
       </Link>
       <Link
         as={NextLink}
+        href="/search/t-shirts"
+      >
+        Search Product
+      </Link>
+      <Link
+        as={NextLink}
+        href="/checkout"
+      >
+        Checkout
+      </Link>
+      <Link
+        as={NextLink}
         href="/products/id"
       >
         View Product

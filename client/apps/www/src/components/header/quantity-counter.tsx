@@ -21,7 +21,10 @@ export const QuantityCounter = () => {
         <MinusIcon />
       </Button>
       <div className="relative grid size-8 place-content-center overflow-hidden border-[1.5px] border-divider p-1 font-medium">
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence
+          mode="popLayout"
+          initial={false}
+        >
           {quantity !== 0 && (
             <m.div
               key={quantity}

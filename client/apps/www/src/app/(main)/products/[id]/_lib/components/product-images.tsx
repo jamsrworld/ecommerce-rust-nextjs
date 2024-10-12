@@ -7,11 +7,9 @@ import Img5 from "../assets/images/5.jpg";
 import Img6 from "../assets/images/6.jpg";
 import Img7 from "../assets/images/7.jpg";
 import Img8 from "../assets/images/8.jpg";
+import { ProductImagesSlider } from "./product-images-slider";
 
-const items: (
-  | { type: "image"; item: StaticImageData }
-  | { type: "video"; src: string }
-)[] = [
+export const imagesItems: { type: "image"; item: StaticImageData }[] = [
   {
     type: "image",
     item: Img1,
@@ -23,10 +21,6 @@ const items: (
   {
     type: "image",
     item: Img3,
-  },
-  {
-    type: "video",
-    src: "/product.mp4",
   },
   {
     type: "image",
@@ -53,25 +47,13 @@ const items: (
 export const ProductImages = () => {
   return (
     <div className="grid grid-cols-2 gap-2">
-      {items.map((item, index) => {
-        if (item.type === "image") {
-          return (
-            <Image
-              alt="product image"
-              key={index}
-              src={item.item}
-            />
-          );
-        }
-        return null;
+      <ProductImagesSlider />
+      {imagesItems.map((item, index) => {
         return (
-          // eslint-disable-next-line jsx-a11y/media-has-caption
-          <video
-            src={item.src}
+          <Image
+            alt="product image"
             key={index}
-            muted
-            autoPlay
-            loop
+            src={item.item}
           />
         );
       })}

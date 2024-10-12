@@ -148,7 +148,7 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
     <>
       <div style={{ height: contentHeight }} />
       <m.div
-        className="fixed top-0 flex w-screen flex-col"
+        className="fixed top-0 flex w-screen flex-col pt-16"
         style={{ y, width: "calc(100% - 6px)" }}
         ref={contentRef}
       >

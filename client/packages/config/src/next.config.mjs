@@ -53,6 +53,9 @@ export const nextSharedConfig = () => ({
       {
         hostname: "*.jamsrworld.dev",
       },
+      {
+        hostname: "*.cloudfront.net",
+      },
     ],
   },
   experimental: {

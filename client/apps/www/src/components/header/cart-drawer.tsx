@@ -9,6 +9,11 @@ import { CartItems } from "./cart-items";
 
 export const CartDrawer = () => {
   const { isOpen, onOpenChange, onOpen, onClose } = useDisclosure();
+
+  // useEffect(() => {
+  //   if (isOpen) onClose();
+  // }, [isOpen, onClose, pathname]);
+
   return (
     <div>
       <Button

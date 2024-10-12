@@ -1,4 +1,5 @@
 import { AppHeader } from "@/components/header";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import React from "react";
 
 type Props = {
@@ -10,8 +11,8 @@ const layout = (props: Props) => {
   return (
     <>
       <AppHeader />
-      {/* <SmoothScroll>{children}</SmoothScroll> */}
-      {children}
+      <SmoothScroll>{children}</SmoothScroll>
+      {/* {children} */}
     </>
   );
 };
