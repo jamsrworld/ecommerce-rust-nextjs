@@ -1,6 +1,7 @@
 "use client";
 
 import { useDebounce } from "@/hooks/use-debounce";
+import { cn } from "@repo/utils/class-name";
 import { m, useScroll, useSpring, useTransform } from "framer-motion";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -158,13 +159,16 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       {/* Custom Scrollbar */}
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
-        className="fixed right-0.5 top-0 z-50 h-screen w-1.5 bg-transparent transition-[width,opacity] duration-300 hover:w-3"
+        className={cn(
+          "fixed right-0.5 top-0 z-50 h-screen w-1.5 bg-transparent opacity-0 transition-[width,opacity] duration-300",
+          {
+            "opacity-100": isDragging || isScrolling || isHovered,
+            "w-3": isDragging || isHovered,
+          },
+        )}
         onMouseDown={handleMouseDown}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        style={{
-          opacity: isDragging || isScrolling || isHovered ? 1 : 0, // Show scrollbar when dragging or scrolling
-        }}
       >
         <div
           className="absolute top-0 w-full rounded-full bg-[#757575] transition-[width] duration-300"

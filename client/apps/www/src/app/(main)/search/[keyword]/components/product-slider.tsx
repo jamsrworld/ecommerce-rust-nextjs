@@ -15,11 +15,15 @@ import Img6 from "../assets/6.jpg";
 
 const images = [Img1, Img2, Img3, Img4, Img5, Img6];
 
-export const ProductSlider = () => {
+type Props = {
+  isHovered: boolean;
+};
+
+export const ProductSlider = (props: Props) => {
+  const { isHovered } = props;
   const imageCount = images.length;
   const [currentImage, setCurrentImage] = useState(0);
   const [isInterrupted, setIsInterrupted] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
@@ -28,27 +32,32 @@ export const ProductSlider = () => {
     setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
-  const handleOnClickPagination = (idx: number) => {
+  const preventDefault = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+  };
+
+  const handleOnClickPagination = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    idx: number,
+  ) => {
+    preventDefault(e);
     setIsInterrupted(true);
     setCurrentImage(idx);
   };
 
-  const handleOnClickNext = () => {
+  const handleOnClickNext = (e: React.MouseEvent<HTMLButtonElement>) => {
+    preventDefault(e);
     setIsInterrupted(true);
     nextImage();
   };
 
-  const handleOnClickPrev = () => {
+  const handleOnClickPrev = (e: React.MouseEvent<HTMLButtonElement>) => {
+    preventDefault(e);
     setIsInterrupted(true);
     prevImage();
   };
 
-  const handleOnMouseEnter = () => {
-    setIsHovered(true);
-  };
-
   const handleOnMouseLeave = () => {
-    setIsHovered(false);
     setIsInterrupted(false);
   };
 
@@ -56,7 +65,7 @@ export const ProductSlider = () => {
     if (isInterrupted || !isHovered) return () => {};
     const timeoutId = setInterval(() => {
       nextImage();
-    }, 2500);
+    }, 2000);
     return () => {
       if (timeoutId) {
         clearInterval(timeoutId);
@@ -66,9 +75,10 @@ export const ProductSlider = () => {
 
   return (
     <div
-      onMouseEnter={handleOnMouseEnter}
       onMouseLeave={handleOnMouseLeave}
-      className="absolute inset-0 z-10 hidden overflow-hidden group-hover:block"
+      className={cn("absolute inset-0 z-10 hidden overflow-hidden", {
+        block: isHovered,
+      })}
     >
       <AnimatePresence>
         <m.div
@@ -76,7 +86,7 @@ export const ProductSlider = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ type: "spring", duration: 1 }}
           className="absolute inset-0"
         >
           <Image
@@ -111,28 +121,34 @@ export const ProductSlider = () => {
         </Button>
       </div>
       {/*  */}
-      <ul className="absolute bottom-4 flex w-full justify-center gap-1">
-        <Repeater count={imageCount}>
-          {(idx) => {
-            const isActive = idx === currentImage;
-            return (
-              <li>
-                <button
-                  type="button"
-                  onClick={() => handleOnClickPagination(idx)}
-                  className={cn(
-                    "h-0.5 w-8 shrink-0 rounded-md bg-black transition-all hover:h-2",
-                    {
-                      "bg-white": isActive,
-                    },
-                  )}
-                  aria-label="product-slider"
-                />
-              </li>
-            );
-          }}
-        </Repeater>
-      </ul>
+      <div className="absolute bottom-4 flex w-full justify-center">
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
+        <ul
+          className="group flex gap-1"
+          onClick={preventDefault}
+        >
+          <Repeater count={imageCount}>
+            {(idx) => {
+              const isActive = idx === currentImage;
+              return (
+                <li>
+                  <button
+                    type="button"
+                    onClick={(e) => handleOnClickPagination(e, idx)}
+                    className={cn(
+                      "h-0.5 w-8 shrink-0 rounded-md bg-black transition-all duration-500 group-hover:h-2",
+                      {
+                        "bg-white": isActive,
+                      },
+                    )}
+                    aria-label="product-slider"
+                  />
+                </li>
+              );
+            }}
+          </Repeater>
+        </ul>
+      </div>
     </div>
   );
 };
