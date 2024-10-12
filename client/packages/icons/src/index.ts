@@ -31,6 +31,7 @@ import MoonIcon from "./svg/moon.svg";
 import SunIcon from "./svg/sun.svg";
 import MinusIcon from "./svg/minus.svg"
 import CloseIcon from "./svg/close.svg"
+import CheckoutIcon from "./svg/checkout.svg"
 
 export {
   AddIcon,
@@ -40,6 +41,7 @@ export {
   CloseIcon,
   CommentIcon,
   CrossCircleIcon,
+  CheckoutIcon,
   DeleteIcon,
   DownloadIcon,
   EditIcon,

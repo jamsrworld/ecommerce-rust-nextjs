@@ -41,3 +41,12 @@ body.is-scrolling {
 .debug * {
   outline: 1px solid red;
 }
+
+.diagonal-divider {
+  position: absolute;
+  width: 140%;
+  height: 1;
+  transform: rotate(-45deg);
+  transform-origin: 100% 50%;
+  @apply border-default border-t-2 pointer-events-none right-0 top-0;
+}

@@ -1,16 +1,18 @@
-import { Button, Divider, Rating, Typography } from "@jamsr-ui/react";
-import { cn } from "@repo/utils/class-name";
+import { Button, Rating, Typography } from "@jamsr-ui/react";
+import { CartIcon, CheckoutIcon } from "@repo/icons";
+import { SelectColors } from "./select-colors";
+import { SelectSize } from "./select-size";
 
 export const ProductDetails = () => {
   return (
     <div className="flex flex-col gap-4">
-      <div>
+      <section className="flex flex-col">
         <Typography
           as="h1"
           variant="h3"
           className="font-bold uppercase"
         >
-          Vola Sneakers
+          Loreta Wool-Blend Coat
         </Typography>
         <Typography
           as="h3"
@@ -37,63 +39,47 @@ export const ProductDetails = () => {
           as="p"
           className="text-foreground-secondary line-through"
         >
-          129.00 €
+          $129.00
         </Typography>
         <Typography
           as="p"
           variant="h6"
         >
-          99.00 €
+          $99.00
         </Typography>
-      </div>
-      <Divider />
-      <Typography
-        className="font-medium"
-        as="h6"
-      >
-        Select Your Size
-      </Typography>
-      <div className="flex gap-2">
-        {[35, 36, 37, 38, 39, 40, 41].map((item, index) => {
-          const isSelected = index === 2;
-          return (
-            <Button
-              key={index}
-              color="default"
-              variant="outlined"
-              size="lg"
-              isIconOnly
-              className={cn(isSelected && "bg-black text-white", "rounded")}
-            >
-              {item}
-            </Button>
-          );
-        })}
-      </div>
-      <Button
-        fullWidth
-        color="default"
-        variant="solid"
-        size="lg"
-        className="rounded-full"
-      >
-        Add to cart
-      </Button>
-      <Button
-        fullWidth
-        color="default"
-        variant="outlined"
-        size="lg"
-        className="rounded-full"
-      >
-        Checkout
-      </Button>
-      <Typography
-        className="text-center text-foreground-tertiary"
-        as="p"
-      >
-        Free shipping on orders over 100€
-      </Typography>
+      </section>
+      
+      <SelectColors />
+      <SelectSize />
+      
+      <section className="flex flex-col gap-2">
+        <Button
+          fullWidth
+          color="default"
+          variant="solid"
+          size="lg"
+          className="rounded-full"
+          startContent={<CartIcon />}
+        >
+          Add to Cart
+        </Button>
+        <Button
+          fullWidth
+          color="default"
+          variant="outlined"
+          size="lg"
+          className="rounded-full"
+          startContent={<CheckoutIcon />}
+        >
+          Checkout
+        </Button>
+        <Typography
+          className="text-center text-foreground-tertiary"
+          as="p"
+        >
+          Free shipping on orders over $100
+        </Typography>
+      </section>
     </div>
   );
 };

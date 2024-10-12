@@ -1,5 +1,6 @@
 import { ProductCompanyInfo } from "./_lib/components/company-info";
 import { ProductExtraDetails } from "./_lib/components/extra-details";
+import { ProductBreadcrumb } from "./_lib/components/product-breadcrumb";
 import { ProductDetails } from "./_lib/components/product-details";
 import { ProductFeatures } from "./_lib/components/product-features";
 import { ProductImages } from "./_lib/components/product-images";
@@ -7,12 +8,13 @@ import { ProductInfo } from "./_lib/components/product-info";
 
 const page = () => {
   return (
-    <div className="flex flex-col gap-8 pr-3 md:gap-24">
+    <div className="flex flex-col gap-8 p-2 pr-3 md:gap-24">
       <section className="grid gap-12 md:grid-cols-12">
         <div className="md:col-span-7">
           <ProductImages />
         </div>
-        <div className="flex flex-col gap-6 md:col-span-5">
+        <div className="flex flex-col gap-2 md:col-span-5">
+          <ProductBreadcrumb />
           <ProductDetails />
           <ProductFeatures />
           <ProductInfo />
