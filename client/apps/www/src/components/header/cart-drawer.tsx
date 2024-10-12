@@ -49,7 +49,6 @@ export const CartDrawer = () => {
             <Button
               isIconOnly
               onClick={onClose}
-              className="text-foreground"
               variant="light"
               rounded
             >

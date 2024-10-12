@@ -14,9 +14,9 @@ export const QuantityCounter = () => {
       <Button
         isIconOnly
         variant="link"
-        className="text-foreground"
         onClick={onDecrease}
         isDisabled={!canDecrease}
+        disableRipple
       >
         <MinusIcon />
       </Button>
@@ -41,9 +41,9 @@ export const QuantityCounter = () => {
       <Button
         isIconOnly
         variant="link"
-        className="text-foreground"
         onClick={onIncrease}
         isDisabled={!canIncrease}
+        disableRipple
       >
         <AddIcon />
       </Button>

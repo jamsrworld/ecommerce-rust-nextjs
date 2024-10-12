@@ -61,6 +61,7 @@ export const nextSharedConfig = () => ({
   experimental: {
     typedRoutes: true,
     typedEnv: true,
+    scrollRestoration: false,
   },
   logging: {
     fetches: {
