@@ -37,7 +37,7 @@ export const SelectColors = () => {
         className="text-foreground-secondary"
         as="h6"
       >
-        Select Color
+        More Color
       </Typography>
       <div className="flex gap-2">
         {colorsItemList.map((item, index) => {

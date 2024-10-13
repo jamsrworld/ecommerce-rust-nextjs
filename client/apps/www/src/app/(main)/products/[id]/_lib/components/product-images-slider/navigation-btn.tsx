@@ -2,7 +2,12 @@ import { useFollowCursor } from "@/components/follow-cursor/provider";
 import { cn } from "@repo/utils/class-name";
 import { m, type SpringOptions, type Variants } from "framer-motion";
 
-type Props = {
+type ButtonProps = {
+  onClick: () => void;
+  isDisabled: boolean;
+};
+
+type Props = ButtonProps & {
   className: string;
   children?: React.ReactNode;
 };
@@ -25,57 +30,6 @@ const variantsInner: Variants = {
   },
 };
 const physics: SpringOptions = { mass: 1, stiffness: 100, damping: 15 };
-
-const NavigationBtn = (props: Props) => {
-  const { className, children } = props;
-  const { setShowCursor } = useFollowCursor();
-  const handleMouseEnter = () => setShowCursor(false);
-  const handleMouseLeave = () => setShowCursor(true);
-
-  const btnSize = 100;
-  const handleClick = () => {
-    console.log("clicked");
-  };
-
-  return (
-    <m.button
-      style={{
-        width: btnSize,
-        height: btnSize,
-      }}
-      type="button"
-      className={cn(
-        "absolute top-1/2 z-20 flex items-center justify-center rounded-full",
-        className,
-      )}
-      aria-label="Next"
-      initial="initial"
-      whileHover="hovered"
-      whileTap="tapped"
-      variants={{
-        tapped: {
-          scale: 0.9,
-        },
-      }}
-      transition={{ type: "spring", ...physics }}
-      onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <m.div
-        className="absolute size-full rounded-full border border-black"
-        variants={variantsOuter}
-        transition={{ type: "spring", ...physics }}
-      />
-      <m.div
-        className="absolute size-full rounded-full border border-dashed border-black"
-        variants={variantsInner}
-        transition={{ type: "spring", ...physics }}
-      />
-      <span className="absolute">{children}</span>
-    </m.button>
-  );
-};
 
 const Arrow = (props: { direction: "left" | "right" }) => {
   const { direction } = props;
@@ -103,17 +57,74 @@ const Arrow = (props: { direction: "left" | "right" }) => {
   );
 };
 
-export const NavigationPrevBtn = () => {
+const NavigationBtn = (props: Props) => {
+  const { className, children, onClick, isDisabled, ...restProps } = props;
+  const { setShowCursor } = useFollowCursor();
+  const handleMouseEnter = () => setShowCursor(false);
+  const handleMouseLeave = () => setShowCursor(true);
+  const btnSize = 100;
   return (
-    <NavigationBtn className="left-4">
+    <m.button
+      {...restProps}
+      style={{
+        width: btnSize,
+        height: btnSize,
+      }}
+      type="button"
+      className={cn(
+        "absolute top-1/2 z-20 flex items-center justify-center rounded-full",
+        className,
+        isDisabled && "cursor-not-allowed opacity-50",
+      )}
+      {...(!isDisabled && {
+        initial: "initial",
+        whileHover: "hovered",
+        whileTap: "tapped",
+      })}
+      variants={{
+        tapped: {
+          scale: 0.9,
+        },
+      }}
+      transition={{ type: "spring", ...physics }}
+      onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <m.div
+        className="absolute size-full rounded-full border border-black"
+        variants={variantsOuter}
+        transition={{ type: "spring", ...physics }}
+      />
+      <m.div
+        className="absolute size-full rounded-full border border-dashed border-black"
+        variants={variantsInner}
+        transition={{ type: "spring", ...physics }}
+      />
+      <span className="absolute">{children}</span>
+    </m.button>
+  );
+};
+
+export const NavigationPrevBtn = (props: ButtonProps) => {
+  return (
+    <NavigationBtn
+      className="left-4"
+      aria-label="Previous"
+      {...props}
+    >
       <Arrow direction="left" />
     </NavigationBtn>
   );
 };
 
-export const NavigationNextBtn = () => {
+export const NavigationNextBtn = (props: ButtonProps) => {
   return (
-    <NavigationBtn className="right-4">
+    <NavigationBtn
+      className="right-4"
+      aria-label="Next"
+      {...props}
+    >
       <Arrow direction="right" />
     </NavigationBtn>
   );

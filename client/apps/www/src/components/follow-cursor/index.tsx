@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useFollowCursor } from "./provider";
 
 type Props = {
-  parentRef: React.RefObject<HTMLElement>;
+  parentDom: HTMLElement | null | undefined;
 };
 
 const INITIAL_CURSOR_SIZE = 96;
@@ -14,7 +14,7 @@ const MINI_CURSOR_SIZE = 70;
 const physics = { stiffness: 120, damping: 20 };
 
 export const FollowCursor = (props: Props) => {
-  const { parentRef } = props;
+  const { parentDom } = props;
   const [isGrabbing, setIsGrabbing] = useState(false);
   const cursorSize = useSpring(INITIAL_CURSOR_SIZE, physics);
   const mouseX = useSpring(0, physics);
@@ -27,8 +27,8 @@ export const FollowCursor = (props: Props) => {
       const currentCursorSize = cursorSize.get();
       let x = e.clientX;
       let y = e.clientY;
-      if (parentRef.current) {
-        const { scrollLeft, scrollTop } = parentRef.current;
+      if (parentDom) {
+        const { scrollLeft, scrollTop } = parentDom;
         x = e.clientX + scrollLeft;
         y = e.clientY + scrollTop;
       }
@@ -36,17 +36,17 @@ export const FollowCursor = (props: Props) => {
       const translateY = y - currentCursorSize / 2;
       mouseX.set(translateX);
       mouseY.set(translateY);
-      console.log({
-        clientX: e.clientX,
-        clientY: e.clientY,
-        x,
-        y,
-        translateX,
-        translateY,
-        currentCursorSize,
-      });
+      // console.log({
+      //   clientX: e.clientX,
+      //   clientY: e.clientY,
+      //   x,
+      //   y,
+      //   translateX,
+      //   translateY,
+      //   currentCursorSize,
+      // });
     },
-    [cursorSize, parentRef, mouseX, mouseY],
+    [cursorSize, parentDom, mouseX, mouseY],
   );
 
   const handleMouseDown = useCallback(
@@ -64,7 +64,7 @@ export const FollowCursor = (props: Props) => {
   }, [cursorSize]);
 
   useEffect(() => {
-    const container = parentRef.current;
+    const container = parentDom;
     if (!container) return () => {};
     container.addEventListener("mousemove", handleMouseMove);
     container.addEventListener("mousedown", handleMouseDown);
@@ -74,7 +74,7 @@ export const FollowCursor = (props: Props) => {
       container.removeEventListener("mousedown", handleMouseDown);
       container.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [handleMouseMove, handleMouseDown, handleMouseUp, parentRef]);
+  }, [handleMouseMove, handleMouseDown, handleMouseUp, parentDom]);
 
   useEffect(() => {
     if (showCursor) {

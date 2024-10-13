@@ -2,10 +2,13 @@
 
 import { FollowCursor } from "@/components/follow-cursor";
 import { FollowCursorProvider } from "@/components/follow-cursor/provider";
-import { HorizontalScroll } from "@/components/horizontal-scroll";
+import {
+  HorizontalScroll,
+  type ScrollHandle,
+} from "@/components/horizontal-scroll";
 import { Drawer } from "@jamsr-ui/react";
 import Image from "next/image";
-import { useCallback, useRef } from "react";
+import { useCallback, useState } from "react";
 import { imagesItems } from "../image";
 import { CloseBtn } from "./close-btn";
 import { NavigationNextBtn, NavigationPrevBtn } from "./navigation-btn";
@@ -19,7 +22,7 @@ type Props = {
 
 export const ProductImagesSlider = (props: Props) => {
   const { isOpen, onOpenChange, onClose, activeIndex } = props;
-  const scrollRef = useRef(null);
+  const [scrollRef, setScrollRef] = useState<ScrollHandle | null>(null);
   const ref = useCallback(
     (idx: number, node: HTMLLIElement | null) => {
       if (activeIndex === idx && node) {
@@ -34,7 +37,13 @@ export const ProductImagesSlider = (props: Props) => {
     },
     [activeIndex],
   );
-
+  const handleNext = () => {
+    scrollRef?.slideRight();
+  };
+  const handlePrev = () => {
+    scrollRef?.slideLeft();
+  };
+  const parentDom = scrollRef?.current;
   return (
     <Drawer
       isOpen={isOpen}
@@ -44,12 +53,18 @@ export const ProductImagesSlider = (props: Props) => {
       className="relative"
     >
       <FollowCursorProvider>
-        <NavigationPrevBtn />
-        <NavigationNextBtn />
+        <NavigationPrevBtn
+          onClick={handlePrev}
+          isDisabled={!scrollRef?.canSlideLeft}
+        />
+        <NavigationNextBtn
+          onClick={handleNext}
+          isDisabled={!scrollRef?.canSlideRight}
+        />
+        <FollowCursor parentDom={parentDom} />
         <CloseBtn onClose={onClose} />
-        <FollowCursor parentRef={scrollRef} />
       </FollowCursorProvider>
-      <HorizontalScroll ref={scrollRef}>
+      <HorizontalScroll ref={setScrollRef}>
         <ul className="flex">
           {imagesItems.map((item, idx) => {
             return (
