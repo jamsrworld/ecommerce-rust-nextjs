@@ -25,7 +25,7 @@ export const HorizontalScroll = (props: Props) => {
       });
     }
   }, []);
-  const onResizeDebounced = useDebounce(handleResize, 200);
+  const onResizeDebounced = useDebounce(handleResize, 100);
 
   useEffect(() => {
     handleResize();

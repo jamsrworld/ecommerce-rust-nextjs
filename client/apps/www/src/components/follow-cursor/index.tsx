@@ -1,8 +1,9 @@
 "use client";
 
 import { cn } from "@repo/utils/class-name";
-import { m, useMotionValue, useSpring } from "framer-motion";
+import { m, useSpring } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
+import { useFollowCursor } from "./provider";
 
 type Props = {
   parentRef: React.RefObject<HTMLElement>;
@@ -10,19 +11,16 @@ type Props = {
 
 const INITIAL_CURSOR_SIZE = 96;
 const MINI_CURSOR_SIZE = 70;
+const physics = { stiffness: 120, damping: 20 };
 
 export const FollowCursor = (props: Props) => {
   const { parentRef } = props;
   const [isGrabbing, setIsGrabbing] = useState(false);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const cursorSize = useSpring(INITIAL_CURSOR_SIZE, {
-    stiffness: 120,
-    damping: 20,
-  });
-  const springX = useSpring(mouseX, { stiffness: 120, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 120, damping: 20 });
+  const cursorSize = useSpring(INITIAL_CURSOR_SIZE, physics);
+  const mouseX = useSpring(0, physics);
+  const mouseY = useSpring(0, physics);
+  const cursorScale = useSpring(1, physics);
+  const { showCursor } = useFollowCursor();
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -30,26 +28,25 @@ export const FollowCursor = (props: Props) => {
       let x = e.clientX;
       let y = e.clientY;
       if (parentRef.current) {
-        const parentRect = parentRef.current.getBoundingClientRect();
         const { scrollLeft, scrollTop } = parentRef.current;
-        x = e.clientX - parentRect.left + scrollLeft;
-        y = e.clientY - parentRect.top + scrollTop;
+        x = e.clientX + scrollLeft;
+        y = e.clientY + scrollTop;
       }
       const translateX = x - currentCursorSize / 2;
       const translateY = y - currentCursorSize / 2;
       mouseX.set(translateX);
       mouseY.set(translateY);
-      // console.log({
-      //   translateX,
-      //   translateY,
-      //   x,
-      //   y,
-      //   cursorSize: cursorSize.get(),
-      //   mouseX: mouseX.get(),
-      //   mouseY: mouseY.get(),
-      // });
+      console.log({
+        clientX: e.clientX,
+        clientY: e.clientY,
+        x,
+        y,
+        translateX,
+        translateY,
+        currentCursorSize,
+      });
     },
-    [cursorSize, mouseX, mouseY, parentRef],
+    [cursorSize, parentRef, mouseX, mouseY],
   );
 
   const handleMouseDown = useCallback(
@@ -67,7 +64,8 @@ export const FollowCursor = (props: Props) => {
   }, [cursorSize]);
 
   useEffect(() => {
-    const container = window;
+    const container = parentRef.current;
+    if (!container) return () => {};
     container.addEventListener("mousemove", handleMouseMove);
     container.addEventListener("mousedown", handleMouseDown);
     container.addEventListener("mouseup", handleMouseUp);
@@ -76,7 +74,15 @@ export const FollowCursor = (props: Props) => {
       container.removeEventListener("mousedown", handleMouseDown);
       container.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [handleMouseMove, handleMouseDown, handleMouseUp]);
+  }, [handleMouseMove, handleMouseDown, handleMouseUp, parentRef]);
+
+  useEffect(() => {
+    if (showCursor) {
+      cursorScale.set(1);
+    } else {
+      cursorScale.set(0);
+    }
+  }, [cursorSize, cursorScale, showCursor]);
 
   return (
     <m.div
@@ -84,10 +90,11 @@ export const FollowCursor = (props: Props) => {
         "pointer-events-none fixed left-0 top-0 z-50 grid place-content-center rounded-full border border-black",
       )}
       style={{
-        x: springX,
-        y: springY,
+        x: mouseX,
+        y: mouseY,
         width: cursorSize,
         height: cursorSize,
+        scale: cursorScale,
       }}
     >
       <div className="absolute left-1/2 top-1/2 size-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-inherit" />

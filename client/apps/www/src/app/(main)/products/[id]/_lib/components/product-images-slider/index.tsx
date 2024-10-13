@@ -1,13 +1,14 @@
 "use client";
 
 import { FollowCursor } from "@/components/follow-cursor";
+import { FollowCursorProvider } from "@/components/follow-cursor/provider";
 import { HorizontalScroll } from "@/components/horizontal-scroll";
-import { Button, Drawer } from "@jamsr-ui/react";
-import { CloseIcon } from "@repo/icons";
-import { m } from "framer-motion";
+import { Drawer } from "@jamsr-ui/react";
 import Image from "next/image";
 import { useCallback, useRef } from "react";
-import { imagesItems } from "./image";
+import { imagesItems } from "../image";
+import { CloseBtn } from "./close-btn";
+import { NavigationNextBtn, NavigationPrevBtn } from "./navigation-btn";
 
 type Props = {
   isOpen: boolean;
@@ -42,28 +43,13 @@ export const ProductImagesSlider = (props: Props) => {
       anchor="bottom"
       className="relative"
     >
-      <m.div
-        initial={{
-          scale: 1.3,
-        }}
-        whileHover={{
-          scale: 1.5,
-          rotate: 90,
-        }}
-        className="absolute right-0 top-0 z-20"
-      >
-        <Button
-          isIconOnly
-          onClick={onClose}
-          variant="light"
-          rounded
-          size="lg"
-        >
-          <CloseIcon className="[&>path]:stroke-[2]" />
-        </Button>
-      </m.div>
-      <HorizontalScroll ref={scrollRef}>
+      <FollowCursorProvider>
+        <NavigationPrevBtn />
+        <NavigationNextBtn />
+        <CloseBtn onClose={onClose} />
         <FollowCursor parentRef={scrollRef} />
+      </FollowCursorProvider>
+      <HorizontalScroll ref={scrollRef}>
         <ul className="flex">
           {imagesItems.map((item, idx) => {
             return (
@@ -77,9 +63,6 @@ export const ProductImagesSlider = (props: Props) => {
                   src={item.item}
                   className="pointer-events-none h-dvh w-auto shrink-0"
                 />
-                <div className="flex size-96 items-center justify-center bg-black text-5xl  text-white">
-                  {idx}
-                </div>
               </li>
             );
           })}
