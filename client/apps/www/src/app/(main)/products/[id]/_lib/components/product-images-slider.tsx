@@ -50,7 +50,7 @@ export const ProductImagesSlider = (props: Props) => {
           scale: 1.5,
           rotate: 90,
         }}
-        className="absolute right-0 top-0"
+        className="absolute right-0 top-0 z-20"
       >
         <Button
           isIconOnly

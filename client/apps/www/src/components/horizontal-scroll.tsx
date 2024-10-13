@@ -1,11 +1,12 @@
 "use client";
 
+import { useDebounce } from "@/hooks/use-debounce";
 import { m } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Props = {
   children: React.ReactNode;
-  ref?: React.MutableRefObject<HTMLDivElement>;
+  ref?: React.MutableRefObject<HTMLDivElement | null>;
 };
 
 export const HorizontalScroll = (props: Props) => {
@@ -13,7 +14,7 @@ export const HorizontalScroll = (props: Props) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [constraints, setConstraints] = useState({ left: 0, right: 0 });
 
-  useEffect(() => {
+  const handleResize = useCallback(() => {
     if (containerRef.current) {
       const containerWidth = containerRef.current.offsetWidth;
       const contentWidth = containerRef.current.scrollWidth;
@@ -23,14 +24,27 @@ export const HorizontalScroll = (props: Props) => {
         right: 0,
       });
     }
-  }, [containerRef]);
+  }, []);
+  const onResizeDebounced = useDebounce(handleResize, 200);
+
+  useEffect(() => {
+    handleResize();
+  }, [handleResize]);
+
+  useEffect(() => {
+    window.addEventListener("resize", onResizeDebounced);
+    return () => {
+      window.removeEventListener("resize", onResizeDebounced);
+    };
+  }, [onResizeDebounced]);
 
   return (
     <div className="w-full overflow-hidden">
       <m.div
-        className="flex gap-8" // Allow the content to be arranged in a row
-        drag="x" // Enable horizontal dragging
-        dragConstraints={constraints} // Apply dynamic constraints
+        className="flex gap-8"
+        drag="x"
+        dragConstraints={constraints}
+        dragElastic={0.1}
         ref={(ref) => {
           containerRef.current = ref;
           if (propRef && ref) propRef.current = ref;
