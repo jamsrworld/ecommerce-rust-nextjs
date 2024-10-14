@@ -76,11 +76,9 @@ const NavigationBtn = (props: Props) => {
         className,
         isDisabled && "cursor-not-allowed opacity-50",
       )}
-      {...(!isDisabled && {
-        initial: "initial",
-        whileHover: "hovered",
-        whileTap: "tapped",
-      })}
+      initial="initial"
+      whileHover={isDisabled ? undefined : "hovered"}
+      whileTap={isDisabled ? undefined : "tapped"}
       variants={{
         tapped: {
           scale: 0.9,

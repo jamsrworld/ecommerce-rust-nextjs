@@ -23,20 +23,6 @@ type Props = {
 export const ProductImagesSlider = (props: Props) => {
   const { isOpen, onOpenChange, onClose, activeIndex } = props;
   const [scrollRef, setScrollRef] = useState<ScrollHandle | null>(null);
-  const ref = useCallback(
-    (idx: number, node: HTMLLIElement | null) => {
-      if (activeIndex === idx && node) {
-        setTimeout(() => {
-          node.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-            inline: "start",
-          });
-        }, 500);
-      }
-    },
-    [activeIndex],
-  );
   const handleNext = () => {
     scrollRef?.slideRight();
   };
@@ -44,6 +30,17 @@ export const ProductImagesSlider = (props: Props) => {
     scrollRef?.slideLeft();
   };
   const parentDom = scrollRef?.current;
+
+  const targetRef = useCallback((node: HTMLLIElement | null) => {
+    if (!node) return;
+    setTimeout(() => {
+      node.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+    }, 1000);
+  }, []);
   return (
     <Drawer
       isOpen={isOpen}
@@ -71,7 +68,7 @@ export const ProductImagesSlider = (props: Props) => {
               <li
                 key={idx}
                 className="shrink-0"
-                ref={(node) => ref(idx, node)}
+                ref={activeIndex === idx ? targetRef : null}
               >
                 <Image
                   alt="product image"

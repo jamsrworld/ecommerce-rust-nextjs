@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export const useDebounce = <T extends (...args: unknown[]) => void>(
+export const useDebounce = <T extends (...args: never[]) => void>(
   func: T,
   delay: number,
 ): ((...args: Parameters<T>) => void) => {

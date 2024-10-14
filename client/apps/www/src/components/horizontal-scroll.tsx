@@ -20,7 +20,7 @@ export type ScrollHandle = {
 
 type Props = {
   children: React.ReactNode;
-  ref?: React.RefObject<ScrollHandle>;
+  ref?: React.RefObject<ScrollHandle> | React.RefCallback<ScrollHandle>;
 };
 
 const physics = { stiffness: 120, damping: 20 };
@@ -43,7 +43,7 @@ export const HorizontalScroll = (props: Props) => {
       });
     }
   }, []);
-  const onResizeDebounced = useDebounce(handleResize, 100);
+  const onResizeDebounced = useDebounce(handleResize, 10);
 
   useEffect(() => {
     handleResize();
@@ -87,7 +87,7 @@ export const HorizontalScroll = (props: Props) => {
     [constraints.left],
   );
 
-  const onChangePositionDebounce = useDebounce(onChangePosition, 10);
+  const onChangePositionDebounce = useDebounce(onChangePosition, 50);
   position.on("change", onChangePositionDebounce);
 
   const slideLeft = useCallback(() => {
@@ -108,6 +108,21 @@ export const HorizontalScroll = (props: Props) => {
     }),
     [canSlideLeft, canSlideRight, slideLeft, slideRight],
   );
+
+  // add keydown event listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        slideLeft();
+      } else if (e.key === "ArrowRight") {
+        slideRight();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [slideLeft, slideRight]);
 
   return (
     <div className="w-full overflow-hidden">
