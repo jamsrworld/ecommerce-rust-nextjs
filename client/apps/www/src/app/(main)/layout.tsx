@@ -12,7 +12,6 @@ const layout = (props: Props) => {
     <>
       <AppHeader />
       <SmoothScroll>{children}</SmoothScroll>
-      {/* {children} */}
     </>
   );
 };

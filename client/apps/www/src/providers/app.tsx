@@ -1,6 +1,11 @@
 "use client";
 
-import { Confirmation, Toast, UIProvider } from "@jamsr-ui/react";
+import {
+  Confirmation,
+  Toast,
+  UIProvider,
+  UIStyleProvider,
+} from "@jamsr-ui/react";
 import { QueryProvider } from "./client";
 
 type Props = {
@@ -13,7 +18,17 @@ export const AppProvider = (props: Props) => {
     <UIProvider>
       <Toast />
       <Confirmation />
-      <QueryProvider>{children}</QueryProvider>
+      <QueryProvider>
+        <UIStyleProvider
+          input={{
+            classNames: {
+              inputWrapper: "group-data-[focus=true]:border-black",
+            },
+          }}
+        >
+          {children}
+        </UIStyleProvider>
+      </QueryProvider>
     </UIProvider>
   );
 };
