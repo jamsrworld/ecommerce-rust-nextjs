@@ -73,7 +73,7 @@ pub async fn register_verify(
     // send success email
     let heading = "Registration Success";
     let subject = "Registration Success";
-    let template: SuccessEmail<'_> = SuccessEmail {
+    let template = SuccessEmail {
         full_name: full_name.as_str(),
         heading,
     };

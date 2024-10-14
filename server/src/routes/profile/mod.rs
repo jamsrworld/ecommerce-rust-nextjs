@@ -1,8 +1,16 @@
-mod controllers;
+pub mod controllers;
 
-use crate::{extractors::validator::ValidatedJson, validator::profile::UpdateProfile};
-use actix_web::{post, web, HttpResponse, Responder, Scope};
+use actix_web::{web, Scope};
+use controllers::{get_user, update_profile};
+use entity::sea_orm_active_enums::UserRole;
 
-pub fn profile_routes() -> Scope {
-    web::scope("/profile").service(update_profile)
+use crate::middlewares::auth::RequireAuth;
+
+pub fn profile_routes(config: &mut web::ServiceConfig) {
+    config.service(
+        web::scope("/profile")
+            .wrap(RequireAuth::allowed_roles(vec![UserRole::User]))
+            .service(update_profile::update_profile)
+            .service(get_user::get_user),
+    );
 }

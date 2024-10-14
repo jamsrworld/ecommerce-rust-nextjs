@@ -86,6 +86,10 @@ impl HttpError {
     pub fn precondition_failed(message: impl Into<String>) -> Self {
         Self::new(message, StatusCode::PRECONDITION_FAILED)
     }
+
+    pub fn internal_server_error(message: impl Into<String>) -> Self {
+        Self::new(message, StatusCode::INTERNAL_SERVER_ERROR)
+    }
 }
 
 impl std::fmt::Display for HttpError {

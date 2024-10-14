@@ -52,7 +52,7 @@ pub async fn login(
     }
 
     // create session token
-    let jwt = create_token(email.to_owned())?;
+    let jwt = create_token(user.id.to_owned())?;
 
     // create session cookie
     let cookie = create_cookie(SessionKey::Authorization, jwt);

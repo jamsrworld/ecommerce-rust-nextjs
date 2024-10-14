@@ -18,6 +18,7 @@ mod routes;
 mod services;
 mod utils;
 mod validator;
+mod middlewares;
 
 #[utoipauto()]
 #[derive(OpenApi)]
@@ -73,10 +74,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         App::new()
             .wrap(cors)
             .app_data(app_data.clone())
+            .configure(profile_routes)
             .service(health_check)
             .service(auth_routes())
             .service(admin_auth_routes())
-            .service(profile_routes())
             .service(
                 SwaggerUi::new("/swagger-ui/{_:.*}").url("/api-doc/openapi.json", openapi.clone()),
             )
