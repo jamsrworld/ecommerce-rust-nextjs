@@ -1,4 +1,7 @@
-import { type AuthForgotPassword, type AuthResetPassword } from "@/api";
+import {
+  type AuthForgotPasswordInput,
+  type AuthResetPasswordInput,
+} from "@/api";
 import { resetPasswordMutation } from "@/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
@@ -14,11 +17,11 @@ import { useForm } from "react-hook-form";
 import { resetPasswordSchema } from "../schema";
 
 type Props = {
-  formData: AuthForgotPassword;
+  formData: AuthForgotPasswordInput;
   onSuccess: () => void;
 };
 
-type FormValues = AuthResetPassword;
+type FormValues = AuthResetPasswordInput;
 
 export const ResetPasswordForm = (props: Props) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -73,12 +76,11 @@ export const ResetPasswordForm = (props: Props) => {
       />
       <RHFOtpInput<FormValues>
         name="otp"
-        placeholder="Enter OTP code"
+        placeholder="Enter OTP"
       />
       <Button
         type="submit"
         color="primary"
-        size="lg"
         isLoading={mutation.isPending}
       >
         Set new Password

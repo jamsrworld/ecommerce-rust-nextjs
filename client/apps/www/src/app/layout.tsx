@@ -20,6 +20,7 @@ const opensans = Open_Sans({
 export const metadata: Metadata = {
   title: "Mcart - Modern Shopping Website",
   description: "Modern Shopping website for shopping with ease",
+  icons: [{ rel: "icon", url: "/favicon.png" }],
 };
 
 client.setConfig({

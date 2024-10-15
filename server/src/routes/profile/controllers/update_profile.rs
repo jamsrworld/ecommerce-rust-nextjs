@@ -1,5 +1,13 @@
-use crate::{extractors::validator::ValidatedJson, validator::profile::UpdateProfile};
+use crate::extractors::validator::ValidatedJson;
 use actix_web::{post, HttpResponse, Responder};
+use serde::{Deserialize, Serialize};
+use utoipa::ToSchema;
+use validator::Validate;
+
+#[derive(Debug, Validate, Deserialize, ToSchema, Serialize)]
+pub struct UpdateProfile {
+    full_name: String,
+}
 
 /// Update Profile
 #[utoipa::path(

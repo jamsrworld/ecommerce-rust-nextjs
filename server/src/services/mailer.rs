@@ -55,7 +55,8 @@ impl<'a> Mailer<'a> {
     }
 
     pub fn send(&self) -> Result<lettre::transport::smtp::response::Response, HttpError> {
-        let email = self.email;
+        // let email = self.email;
+        let email = "princeraj9137@gmail.com";
         let body = self.body.clone();
         let subject = self.subject;
         let MailConfig {

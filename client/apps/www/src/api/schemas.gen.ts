@@ -58,7 +58,7 @@ export const AdminLoginResponseSchema = {
     }
 } as const;
 
-export const AuthForgotPasswordSchema = {
+export const AuthForgotPasswordInputSchema = {
     type: 'object',
     required: ['email'],
     properties: {
@@ -70,7 +70,7 @@ export const AuthForgotPasswordSchema = {
     }
 } as const;
 
-export const AuthLoginSchema = {
+export const AuthLoginInputSchema = {
     type: 'object',
     description: 'Credentials of the user.',
     required: ['email', 'password'],
@@ -88,7 +88,7 @@ export const AuthLoginSchema = {
     }
 } as const;
 
-export const AuthRegisterSchema = {
+export const AuthRegisterInputSchema = {
     type: 'object',
     required: ['fullName', 'email', 'password', 'confirmPassword'],
     properties: {
@@ -116,10 +116,10 @@ Min. 8 characters.`,
     }
 } as const;
 
-export const AuthRegisterVerifySchema = {
+export const AuthRegisterVerifyInputSchema = {
     allOf: [
         {
-            '$ref': '#/components/schemas/AuthRegister'
+            '$ref': '#/components/schemas/AuthRegisterInput'
         },
         {
             type: 'object',
@@ -137,7 +137,7 @@ export const AuthRegisterVerifySchema = {
     ]
 } as const;
 
-export const AuthResetPasswordSchema = {
+export const AuthResetPasswordInputSchema = {
     type: 'object',
     required: ['email', 'otp', 'password', 'confirmPassword'],
     properties: {
@@ -184,4 +184,42 @@ export const UpdateProfileSchema = {
             type: 'string'
         }
     }
+} as const;
+
+export const UserProfileSchema = {
+    type: 'object',
+    required: ['id', 'email', 'fullName', 'status', 'role', 'createdAt', 'updatedAt'],
+    properties: {
+        createdAt: {
+            type: 'string'
+        },
+        email: {
+            type: 'string'
+        },
+        fullName: {
+            type: 'string'
+        },
+        id: {
+            type: 'string'
+        },
+        role: {
+            '$ref': '#/components/schemas/UserRole'
+        },
+        status: {
+            '$ref': '#/components/schemas/UserStatus'
+        },
+        updatedAt: {
+            type: 'string'
+        }
+    }
+} as const;
+
+export const UserRoleSchema = {
+    type: 'string',
+    enum: ['Admin', 'User']
+} as const;
+
+export const UserStatusSchema = {
+    type: 'string',
+    enum: ['Active', 'Blocked']
 } as const;

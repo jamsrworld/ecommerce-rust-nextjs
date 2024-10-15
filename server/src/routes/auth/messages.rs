@@ -23,10 +23,10 @@ pub enum AuthMessage<'a> {
     #[error("Otp has not requested or has been expired.")]
     OtpNotRequested,
 
-    #[error("Register success.")]
+    #[error("Registration successful.")]
     RegisterSuccess,
 
-    #[error("Reset password success.")]
+    #[error("Password has been reset.")]
     ResetPasswordSuccess,
 
     #[error("Logout success.")]

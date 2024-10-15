@@ -1,5 +1,5 @@
 import { type AuthRegister, type AuthRegisterVerify } from "@/api";
-import { email, string, withSchema } from "@repo/utils/zod";
+import { email, otpCode, string, withSchema } from "@repo/utils/zod";
 
 const baseSchema = withSchema<AuthRegister>()({
   email: email(),
@@ -18,7 +18,7 @@ export const registerSchema = baseSchema.refine(
 
 const registerVerifySchemaBase = withSchema<Pick<AuthRegisterVerify, "code">>()(
   {
-    code: string().length(4, "Code is required").transform(Number),
+    code: otpCode(),
   },
 );
 

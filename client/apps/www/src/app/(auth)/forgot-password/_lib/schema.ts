@@ -9,5 +9,5 @@ export const resetPasswordSchema = withSchema<AuthResetPassword>()({
   password: password("Password"),
   confirmPassword: password("Confirm Password"),
   email: email(),
-  otp: otpCode("OTP Code"),
+  otp: otpCode(),
 });

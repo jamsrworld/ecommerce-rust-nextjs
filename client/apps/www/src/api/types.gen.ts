@@ -22,7 +22,7 @@ export type AdminLoginResponse = {
     yourName: string;
 };
 
-export type AuthForgotPassword = {
+export type AuthForgotPasswordInput = {
     /**
      * Email address of the user.
      */
@@ -32,7 +32,7 @@ export type AuthForgotPassword = {
 /**
  * Credentials of the user.
  */
-export type AuthLogin = {
+export type AuthLoginInput = {
     /**
      * Email address of the user.
      */
@@ -43,7 +43,7 @@ export type AuthLogin = {
     password: string;
 };
 
-export type AuthRegister = {
+export type AuthRegisterInput = {
     /**
      * Password Confirmation.
      */
@@ -63,14 +63,14 @@ export type AuthRegister = {
     password: string;
 };
 
-export type AuthRegisterVerify = AuthRegister & {
+export type AuthRegisterVerifyInput = AuthRegisterInput & {
     /**
      * Verification code (OTP).
      */
     code: number;
 };
 
-export type AuthResetPassword = {
+export type AuthResetPasswordInput = {
     /**
      * Password Confirmation.
      */
@@ -97,6 +97,20 @@ export type UpdateProfile = {
     full_name: string;
 };
 
+export type UserProfile = {
+    createdAt: string;
+    email: string;
+    fullName: string;
+    id: string;
+    role: UserRole;
+    status: UserStatus;
+    updatedAt: string;
+};
+
+export type UserRole = 'Admin' | 'User';
+
+export type UserStatus = 'Active' | 'Blocked';
+
 export type HealthCheckResponse = (string);
 
 export type HealthCheckError = unknown;
@@ -110,7 +124,7 @@ export type AdminLoginResponse2 = (AdminLoginResponse);
 export type AdminLoginError = (AdminBadRequest | AdminInternalServerError);
 
 export type ForgotPasswordData = {
-    body: AuthForgotPassword;
+    body: AuthForgotPasswordInput;
 };
 
 export type ForgotPasswordResponse = (ResponseWithMessage);
@@ -118,7 +132,7 @@ export type ForgotPasswordResponse = (ResponseWithMessage);
 export type ForgotPasswordError = (ResponseWithMessage);
 
 export type LoginData = {
-    body: AuthLogin;
+    body: AuthLoginInput;
 };
 
 export type LoginResponse = (ResponseWithMessage);
@@ -130,7 +144,7 @@ export type LogoutResponse = (ResponseWithMessage);
 export type LogoutError = (ResponseWithMessage);
 
 export type RegisterData = {
-    body: AuthRegister;
+    body: AuthRegisterInput;
 };
 
 export type RegisterResponse = (ResponseWithMessage);
@@ -138,7 +152,7 @@ export type RegisterResponse = (ResponseWithMessage);
 export type RegisterError = (ResponseWithMessage);
 
 export type RegisterVerifyData = {
-    body: AuthRegisterVerify;
+    body: AuthRegisterVerifyInput;
 };
 
 export type RegisterVerifyResponse = (ResponseWithMessage);
@@ -146,7 +160,7 @@ export type RegisterVerifyResponse = (ResponseWithMessage);
 export type RegisterVerifyError = (ResponseWithMessage);
 
 export type ResetPasswordData = {
-    body: AuthResetPassword;
+    body: AuthResetPasswordInput;
 };
 
 export type ResetPasswordResponse = (ResponseWithMessage);
@@ -160,3 +174,7 @@ export type UpdateProfileData = {
 export type UpdateProfileResponse = (string);
 
 export type UpdateProfileError = unknown;
+
+export type GetUserResponse = (UserProfile);
+
+export type GetUserError = unknown;

@@ -1,4 +1,4 @@
-use super::schema::AuthResetPassword;
+use super::schema::AuthResetPasswordInput;
 use super::utils::{delete_otp, verify_otp};
 use super::AuthMessage;
 use crate::{
@@ -18,7 +18,7 @@ use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
 #[utoipa::path(
   tag = "Auth", 
   context_path = "/auth",
-  request_body(content = AuthResetPassword),
+  request_body(content = AuthResetPasswordInput),
   responses( 
     (status=StatusCode::OK, body = ResponseWithMessage),
     (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
@@ -29,10 +29,10 @@ use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
 #[post("/reset-password")]
 pub async fn reset_password(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<AuthResetPassword>,
+    input: ValidatedJson<AuthResetPasswordInput>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
-    let AuthResetPassword {
+    let AuthResetPasswordInput {
         password,
         email,
         otp,

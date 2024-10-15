@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hey-api/openapi-ts": "^0.53.4"
+    "@hey-api/openapi-ts": "^0.53.11"
   }
 }

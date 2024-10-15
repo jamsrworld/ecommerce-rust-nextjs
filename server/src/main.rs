@@ -13,11 +13,9 @@ use utoipauto::utoipauto;
 mod config;
 mod error;
 mod extractors;
-mod models;
 mod routes;
 mod services;
 mod utils;
-mod validator;
 mod middlewares;
 
 #[utoipauto()]

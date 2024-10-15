@@ -1,6 +1,6 @@
 import { Link } from "@jamsr-ui/react";
-import { NextLink } from "./next";
 import { APP_NAME } from "@repo/config/app";
+import { NextLink } from "./next";
 
 type Props = {
   width?: number;

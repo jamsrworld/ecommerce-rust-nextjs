@@ -18,7 +18,7 @@ const config: Omit<Config, "content"> = {
     ...jamsrui({
       colors: {
         light: {
-          default: {
+          primary: {
             DEFAULT: "#000",
             foreground: "#fff",
           },

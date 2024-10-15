@@ -1,9 +1,9 @@
 "use client";
 
-import { type AuthLogin } from "@/api";
+import { type AuthLoginInput } from "@/api";
 import { loginMutation } from "@/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Divider, Link, Typography } from "@jamsr-ui/react";
+import { Button, Divider, Link } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { onRHFInvalid, RHFInput, RHFProvider } from "@repo/components/rhf";
 import { GoogleIcon } from "@repo/icons/social";
@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { loginSchema } from "../schema";
 
-type FormValues = AuthLogin;
+type FormValues = AuthLoginInput;
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -78,7 +78,15 @@ export const LoginForm = () => {
       >
         Login
       </Button>
-      <Divider variant="gradient">OR</Divider>
+      <Divider
+        variant="gradient"
+        className="font-medium"
+        classNames={{
+          divider: "h-0.5",
+        }}
+      >
+        OR
+      </Divider>
       <Button
         color="danger"
         variant="outlined"
@@ -88,18 +96,6 @@ export const LoginForm = () => {
       >
         Continue with Google
       </Button>
-      <Typography
-        as="p"
-        className="text-center"
-      >
-        Don't have an account?{" "}
-        <Link
-          href="/register"
-          as={NextLink}
-        >
-          Register
-        </Link>
-      </Typography>
     </RHFProvider>
   );
 };

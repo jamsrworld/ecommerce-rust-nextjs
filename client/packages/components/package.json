@@ -21,7 +21,7 @@
     "@repo/types": "workspace:^",
     "@repo/typescript-config": "workspace:^",
     "@types/react": "^18.3.8",
-    "framer-motion": "^11.5.6",
+    "framer-motion": "12.0.0-alpha.1",
     "next": "15.0.0-canary.162",
     "react": "19.0.0-rc-e4953922-20240919",
     "react-dom": "19.0.0-rc-e4953922-20240919",
@@ -32,7 +32,7 @@
     "react-hook-form": "^7.53.0"
   },
   "peerDependencies": {
-    "framer-motion": "^11.5.6",
+    "framer-motion": "12.0.0-alpha.1",
     "next": "15.0.0-canary.162",
     "react": "19.0.0-rc-e4953922-20240919",
     "react-dom": "19.0.0-rc-e4953922-20240919"

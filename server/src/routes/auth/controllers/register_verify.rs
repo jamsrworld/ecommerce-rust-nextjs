@@ -1,8 +1,11 @@
-use super::schema::{AuthRegister, AuthRegisterVerify};
+use super::schema::{AuthRegisterInput, AuthRegisterVerifyInput};
 use super::utils::check_unique_email;
 use super::AuthMessage;
+use crate::config::session_keys::SessionKey;
 use crate::error::ResponseWithMessage;
 use crate::services::mailer::Mailer;
+use crate::utils::cookie::create_cookie;
+use crate::utils::jwt::create_token;
 use crate::{
     error::HttpError, extractors::validator::ValidatedJson, routes::auth::utils::verify_otp,
     utils::password::hash_password, AppState,
@@ -23,7 +26,7 @@ struct SuccessEmail<'a> {
 #[utoipa::path(
 tag = "Auth", 
 context_path = "/auth",
-request_body(content = AuthRegisterVerify),
+request_body(content = AuthRegisterVerifyInput),
 responses( 
     (status=StatusCode::OK, body = ResponseWithMessage),
     (status=StatusCode::CONFLICT, body = ResponseWithMessage),
@@ -35,13 +38,13 @@ responses(
 #[post("/register/verify")]
 pub async fn register_verify(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<AuthRegisterVerify>,
+    input: ValidatedJson<AuthRegisterVerifyInput>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     // let RegisterVerify { code, register } = input.into_inner();
 
-    let AuthRegisterVerify { code, register } = input.into_inner();
-    let AuthRegister {
+    let AuthRegisterVerifyInput { code, register } = input.into_inner();
+    let AuthRegisterInput {
         full_name,
         email,
         password,
@@ -58,8 +61,9 @@ pub async fn register_verify(
     let hashed_password = hash_password(password)?;
 
     // create user
+    let new_user_id  = cuid2::create_id();
     let new_user = entity::user::ActiveModel {
-        id: Set(cuid2::create_id()),
+        id: Set(new_user_id.clone()),
         email: Set(email.clone()),
         full_name: Set(full_name.clone()),
         password: Set(Some(hashed_password)),
@@ -85,9 +89,15 @@ pub async fn register_verify(
     };
     mailer.send()?;
 
+     // create session token
+     let jwt = create_token(new_user_id)?;
+
+    // create session cookie
+    let cookie = create_cookie(SessionKey::Authorization, jwt);
+
     let response = ResponseWithMessage {
         message: AuthMessage::RegisterSuccess.to_string(),
     };
 
-    Ok(HttpResponse::Ok().json(response))
+    Ok(HttpResponse::Ok().cookie(cookie).json(response))
 }

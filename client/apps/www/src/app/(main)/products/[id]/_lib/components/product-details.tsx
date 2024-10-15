@@ -48,14 +48,14 @@ export const ProductDetails = () => {
           $99.00
         </Typography>
       </section>
-      
+
       <SelectColors />
       <SelectSize />
-      
+
       <section className="flex flex-col gap-2">
         <Button
           fullWidth
-          color="default"
+          color="primary"
           variant="solid"
           size="lg"
           className="rounded-full"
@@ -65,7 +65,7 @@ export const ProductDetails = () => {
         </Button>
         <Button
           fullWidth
-          color="default"
+          color="primary"
           variant="outlined"
           size="lg"
           className="rounded-full"

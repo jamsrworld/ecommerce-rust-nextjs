@@ -1,4 +1,4 @@
-import { type AuthForgotPassword } from "@/api";
+import { type AuthForgotPasswordInput } from "@/api";
 import { forgotPasswordMutation } from "@/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { forgotPasswordSchema } from "../schema";
 
-type FormValues = AuthForgotPassword;
+type FormValues = AuthForgotPasswordInput;
 type Props = {
   onSuccess: (data: FormValues) => void;
 };
@@ -53,7 +53,6 @@ export const ForgotPasswordForm = (props: Props) => {
       <Button
         type="submit"
         color="primary"
-        size="lg"
         isLoading={mutation.isPending}
       >
         Continue

@@ -1,20 +1,22 @@
-import { type AuthRegister, type AuthRegisterVerify } from "@/api";
+import { type AuthRegisterInput, type AuthRegisterVerifyInput } from "@/api";
 import { registerVerifyMutation } from "@/api/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
 import { onRHFInvalid, RHFOtpInput, RHFProvider } from "@repo/components/rhf";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { registerVerifySchema } from "../schema";
+import { registerVerifySchema } from "../../schema";
 
-type FormValues = AuthRegisterVerify;
+type FormValues = AuthRegisterVerifyInput;
 
 type Props = {
-  prevFormData: AuthRegister;
+  prevFormData: AuthRegisterInput;
   onSuccess: () => void;
 };
 
 export const RegisterVerifyForm = (props: Props) => {
+  const router = useRouter();
   const { prevFormData, onSuccess } = props;
   const defaultValues: FormValues = {
     ...prevFormData,
@@ -38,11 +40,13 @@ export const RegisterVerifyForm = (props: Props) => {
         body: data,
       },
       {
-        onSuccess,
+        onSuccess: () => {
+          onSuccess();
+          router.push("/");
+        },
       },
     );
   }, onRHFInvalid);
-
   return (
     <RHFProvider
       methods={methods}
@@ -53,7 +57,7 @@ export const RegisterVerifyForm = (props: Props) => {
       <RHFOtpInput<FormValues>
         name="code"
         size="lg"
-        placeholder="Enter your otp code"
+        placeholder="Enter the OTP"
       />
       <Button
         color="primary"
@@ -63,7 +67,7 @@ export const RegisterVerifyForm = (props: Props) => {
         type="submit"
         isLoading={mutation.isPending}
       >
-        Verify
+        Verify Account
       </Button>
     </RHFProvider>
   );

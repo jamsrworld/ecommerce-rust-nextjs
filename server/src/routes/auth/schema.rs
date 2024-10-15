@@ -5,7 +5,7 @@ use validator::Validate;
 #[derive(Debug, Deserialize, Validate, ToSchema)]
 #[serde(rename_all = "camelCase")]
 /// Credentials of the user.
-pub struct AuthLogin {
+pub struct AuthLoginInput {
     #[validate(
         length(min = 1, message = "Email is required"),
         email(message = "Invalid email address")
@@ -22,7 +22,7 @@ pub struct AuthLogin {
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
 #[serde(rename_all = "camelCase")]
-pub struct AuthRegister {
+pub struct AuthRegisterInput {
     #[validate(length(min = 1, message = "Full name is required"))]
     #[schema(example = "Jamsr World")]
     /// Full name of the user.
@@ -57,7 +57,7 @@ pub struct AuthRegister {
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
 #[serde(rename_all = "camelCase")]
-pub struct AuthRegisterVerify {
+pub struct AuthRegisterVerifyInput {
     #[validate(range(min = 1000, max = 9999, message = "Verification code is invalid"))]
     #[schema(example = 1234)]
     /// Verification code (OTP).
@@ -66,12 +66,12 @@ pub struct AuthRegisterVerify {
     #[serde(flatten)]
     #[validate]
     /// The original Register struct fields.
-    pub register: AuthRegister,
+    pub register: AuthRegisterInput,
 }
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
 #[serde(rename_all = "camelCase")]
-pub struct AuthForgotPassword {
+pub struct AuthForgotPasswordInput {
     #[validate(
         length(min = 1, message = "Email is required"),
         email(message = "Invalid email address")
@@ -83,7 +83,7 @@ pub struct AuthForgotPassword {
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
 #[serde(rename_all = "camelCase")]
-pub struct AuthResetPassword {
+pub struct AuthResetPasswordInput {
     #[validate(
         length(min = 1, message = "Email is required"),
         email(message = "Invalid email address")

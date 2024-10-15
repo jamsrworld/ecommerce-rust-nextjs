@@ -5,7 +5,7 @@ import { RHFInput } from "./rhf-input";
 type Props<T extends FieldValues> = UseControllerProps<T> & InputProps;
 
 export const RHFOtpInput = <T extends FieldValues>(props: Props<T>) => {
-  const { name, label } = props;
+  const { name, label, ...restProps } = props;
   return (
     <RHFInput<T>
       label={label}
@@ -14,6 +14,7 @@ export const RHFOtpInput = <T extends FieldValues>(props: Props<T>) => {
       mask="number"
       precision={0}
       maxLength={6}
+      {...restProps}
     />
   );
 };

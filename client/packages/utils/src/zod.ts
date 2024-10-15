@@ -15,7 +15,7 @@ export const string = () => _string().trim();
 export const id = () => string().min(24);
 export const email = () =>
   string()
-    .min(1, "Email address is required")
+    .min(1, "Email Address is required")
     .email("Please enter a valid email address")
     .toLowerCase();
 
@@ -53,6 +53,6 @@ export const otpCode = (name?: string) =>
   string()
     .length(
       OTP_LENGTH,
-      `${name ?? "Otp"} must be ${OTP_LENGTH} characters long`
+      `${name ?? "OTP"} must be ${OTP_LENGTH} characters long`
     )
     .transform(Number);

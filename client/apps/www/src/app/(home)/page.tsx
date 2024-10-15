@@ -1,5 +1,6 @@
 import { Link } from "@jamsr-ui/react";
 import NextLink from "next/link";
+import { UserData } from "./user-data";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <p className="text-4xl">
         Hii 👋 there, this is a modern cart(mcart) built with next.js and rust
       </p>
+      <UserData />
       <Link
         as={NextLink}
         href="/login"

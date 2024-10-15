@@ -2,7 +2,7 @@
 
 import type { Options } from '@hey-api/client-fetch';
 import { queryOptions, type UseMutationOptions } from '@tanstack/react-query';
-import { client, healthCheck, adminLogin, forgotPassword, login, logout, register, registerVerify, resetPassword, updateProfile } from '../services.gen';
+import { client, healthCheck, adminLogin, forgotPassword, login, logout, register, registerVerify, resetPassword, updateProfile, getUser } from '../services.gen';
 import type { AdminLoginData, AdminLoginError, AdminLoginResponse2, ForgotPasswordData, ForgotPasswordError, ForgotPasswordResponse, LoginData, LoginError, LoginResponse, LogoutError, LogoutResponse, RegisterData, RegisterError, RegisterResponse, RegisterVerifyData, RegisterVerifyError, RegisterVerifyResponse, ResetPasswordData, ResetPasswordError, ResetPasswordResponse, UpdateProfileData, UpdateProfileError, UpdateProfileResponse } from '../types.gen';
 
 type QueryKey<TOptions extends Options> = [
@@ -64,10 +64,11 @@ export const adminLoginOptions = (options: Options<AdminLoginData>) => { return 
     queryKey: adminLoginQueryKey(options)
 }); };
 
-export const adminLoginMutation = () => { const mutationOptions: UseMutationOptions<AdminLoginResponse2, AdminLoginError, Options<AdminLoginData>> = {
-    mutationFn: async (options) => {
+export const adminLoginMutation = (options?: Partial<Options<AdminLoginData>>) => { const mutationOptions: UseMutationOptions<AdminLoginResponse2, AdminLoginError, Options<AdminLoginData>> = {
+    mutationFn: async (localOptions) => {
         const { data } = await adminLogin({
             ...options,
+            ...localOptions,
             throwOnError: true
         });
         return data;
@@ -90,10 +91,11 @@ export const forgotPasswordOptions = (options: Options<ForgotPasswordData>) => {
     queryKey: forgotPasswordQueryKey(options)
 }); };
 
-export const forgotPasswordMutation = () => { const mutationOptions: UseMutationOptions<ForgotPasswordResponse, ForgotPasswordError, Options<ForgotPasswordData>> = {
-    mutationFn: async (options) => {
+export const forgotPasswordMutation = (options?: Partial<Options<ForgotPasswordData>>) => { const mutationOptions: UseMutationOptions<ForgotPasswordResponse, ForgotPasswordError, Options<ForgotPasswordData>> = {
+    mutationFn: async (localOptions) => {
         const { data } = await forgotPassword({
             ...options,
+            ...localOptions,
             throwOnError: true
         });
         return data;
@@ -116,20 +118,22 @@ export const loginOptions = (options: Options<LoginData>) => { return queryOptio
     queryKey: loginQueryKey(options)
 }); };
 
-export const loginMutation = () => { const mutationOptions: UseMutationOptions<LoginResponse, LoginError, Options<LoginData>> = {
-    mutationFn: async (options) => {
+export const loginMutation = (options?: Partial<Options<LoginData>>) => { const mutationOptions: UseMutationOptions<LoginResponse, LoginError, Options<LoginData>> = {
+    mutationFn: async (localOptions) => {
         const { data } = await login({
             ...options,
+            ...localOptions,
             throwOnError: true
         });
         return data;
     }
 }; return mutationOptions; };
 
-export const logoutMutation = () => { const mutationOptions: UseMutationOptions<LogoutResponse, LogoutError, Options> = {
-    mutationFn: async (options) => {
+export const logoutMutation = (options?: Partial<Options>) => { const mutationOptions: UseMutationOptions<LogoutResponse, LogoutError, Options> = {
+    mutationFn: async (localOptions) => {
         const { data } = await logout({
             ...options,
+            ...localOptions,
             throwOnError: true
         });
         return data;
@@ -152,10 +156,11 @@ export const registerOptions = (options: Options<RegisterData>) => { return quer
     queryKey: registerQueryKey(options)
 }); };
 
-export const registerMutation = () => { const mutationOptions: UseMutationOptions<RegisterResponse, RegisterError, Options<RegisterData>> = {
-    mutationFn: async (options) => {
+export const registerMutation = (options?: Partial<Options<RegisterData>>) => { const mutationOptions: UseMutationOptions<RegisterResponse, RegisterError, Options<RegisterData>> = {
+    mutationFn: async (localOptions) => {
         const { data } = await register({
             ...options,
+            ...localOptions,
             throwOnError: true
         });
         return data;
@@ -178,10 +183,11 @@ export const registerVerifyOptions = (options: Options<RegisterVerifyData>) => {
     queryKey: registerVerifyQueryKey(options)
 }); };
 
-export const registerVerifyMutation = () => { const mutationOptions: UseMutationOptions<RegisterVerifyResponse, RegisterVerifyError, Options<RegisterVerifyData>> = {
-    mutationFn: async (options) => {
+export const registerVerifyMutation = (options?: Partial<Options<RegisterVerifyData>>) => { const mutationOptions: UseMutationOptions<RegisterVerifyResponse, RegisterVerifyError, Options<RegisterVerifyData>> = {
+    mutationFn: async (localOptions) => {
         const { data } = await registerVerify({
             ...options,
+            ...localOptions,
             throwOnError: true
         });
         return data;
@@ -204,10 +210,11 @@ export const resetPasswordOptions = (options: Options<ResetPasswordData>) => { r
     queryKey: resetPasswordQueryKey(options)
 }); };
 
-export const resetPasswordMutation = () => { const mutationOptions: UseMutationOptions<ResetPasswordResponse, ResetPasswordError, Options<ResetPasswordData>> = {
-    mutationFn: async (options) => {
+export const resetPasswordMutation = (options?: Partial<Options<ResetPasswordData>>) => { const mutationOptions: UseMutationOptions<ResetPasswordResponse, ResetPasswordError, Options<ResetPasswordData>> = {
+    mutationFn: async (localOptions) => {
         const { data } = await resetPassword({
             ...options,
+            ...localOptions,
             throwOnError: true
         });
         return data;
@@ -230,12 +237,29 @@ export const updateProfileOptions = (options: Options<UpdateProfileData>) => { r
     queryKey: updateProfileQueryKey(options)
 }); };
 
-export const updateProfileMutation = () => { const mutationOptions: UseMutationOptions<UpdateProfileResponse, UpdateProfileError, Options<UpdateProfileData>> = {
-    mutationFn: async (options) => {
+export const updateProfileMutation = (options?: Partial<Options<UpdateProfileData>>) => { const mutationOptions: UseMutationOptions<UpdateProfileResponse, UpdateProfileError, Options<UpdateProfileData>> = {
+    mutationFn: async (localOptions) => {
         const { data } = await updateProfile({
             ...options,
+            ...localOptions,
             throwOnError: true
         });
         return data;
     }
 }; return mutationOptions; };
+
+export const getUserQueryKey = (options?: Options) => [
+    createQueryKey("getUser", options)
+];
+
+export const getUserOptions = (options?: Options) => { return queryOptions({
+    queryFn: async ({ queryKey }) => {
+        const { data } = await getUser({
+            ...options,
+            ...queryKey[0],
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getUserQueryKey(options)
+}); };

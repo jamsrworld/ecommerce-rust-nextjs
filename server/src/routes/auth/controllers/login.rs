@@ -1,4 +1,4 @@
-use super::schema::AuthLogin;
+use super::schema::AuthLoginInput;
 use super::AuthMessage;
 use crate::{
     config::session_keys::SessionKey,
@@ -17,7 +17,7 @@ use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
 #[utoipa::path(
   tag = "Auth",
   context_path = "/auth",
-  request_body(content = AuthLogin),
+  request_body(content = AuthLoginInput),
   responses(
     (status=StatusCode::OK, body = ResponseWithMessage),
     (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
@@ -28,10 +28,10 @@ use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
 #[post("/login")]
 pub async fn login(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<AuthLogin>,
+    input: ValidatedJson<AuthLoginInput>,
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
-    let AuthLogin { email, password } = &input.into_inner();
+    let AuthLoginInput { email, password } = &input.into_inner();
 
     // check if user exist
     let user = Entity::find()

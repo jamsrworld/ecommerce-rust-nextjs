@@ -1,5 +1,0 @@
-Error opening file "/Users/jamsrworld/Documents/code/online-projects/rust/mcart-rust-nextjs/client/openapi/openapi.json" 
-ENOENT: no such file or directory, open '/Users/jamsrworld/Documents/code/online-projects/rust/mcart-rust-nextjs/client/openapi/openapi.json'
-ResolverError: Error opening file "/Users/jamsrworld/Documents/code/online-projects/rust/mcart-rust-nextjs/client/openapi/openapi.json" 
-ENOENT: no such file or directory, open '/Users/jamsrworld/Documents/code/online-projects/rust/mcart-rust-nextjs/client/openapi/openapi.json'
-    at Object.read (/Users/jamsrworld/Documents/code/online-projects/rust/mcart-rust-nextjs/client/node_modules/.pnpm/@apidevtools+json-schema-ref-parser@11.7.0/node_modules/@apidevtools/json-schema-ref-parser/dist/lib/resolvers/file.js:61:19)
