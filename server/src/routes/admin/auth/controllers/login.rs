@@ -6,6 +6,7 @@ use crate::{
 use actix_web::{post, web, HttpResponse};
 use serde::{Deserialize, Serialize};
 use utoipa::ToSchema;
+use utoipauto::utoipa_ignore;
 use validator::Validate;
 
 #[derive(Debug, ToSchema, Serialize, Deserialize, Validate)]
@@ -41,6 +42,7 @@ pub struct AdminInternalServerError {
 /// Login
 ///
 /// Api to login for user
+#[utoipa_ignore]
 #[utoipa::path(
   tag = "AdminAuth",
   context_path = "/admin",

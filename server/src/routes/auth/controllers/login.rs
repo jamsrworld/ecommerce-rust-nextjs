@@ -23,8 +23,7 @@ use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
     (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
     (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
  )
-)
-]
+)]
 #[post("/login")]
 pub async fn login(
     app_data: web::Data<AppState>,

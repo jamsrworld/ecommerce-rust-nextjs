@@ -2,7 +2,7 @@ use actix_cors::Cors;
 use actix_web::{http, App, HttpServer};
 use dotenvy::dotenv;
 use routes::{
-    admin::auth::admin_auth_routes, auth::auth_routes, home::health_check, profile::profile_routes,
+    admin::auth::admin_auth_routes, auth::auth_routes, home::health_check, user::user_routes,
 };
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use utoipa::OpenApi;
@@ -13,10 +13,10 @@ use utoipauto::utoipauto;
 mod config;
 mod error;
 mod extractors;
+mod middlewares;
 mod routes;
 mod services;
 mod utils;
-mod middlewares;
 
 #[utoipauto()]
 #[derive(OpenApi)]
@@ -72,7 +72,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         App::new()
             .wrap(cors)
             .app_data(app_data.clone())
-            .configure(profile_routes)
+            .configure(user_routes)
             .service(health_check)
             .service(auth_routes())
             .service(admin_auth_routes())

@@ -99,5 +99,5 @@ pub async fn register_verify(
         message: AuthMessage::RegisterSuccess.to_string(),
     };
 
-    Ok(HttpResponse::Ok().cookie(cookie).json(response))
+    Ok(HttpResponse::Created().cookie(cookie).json(response))
 }
