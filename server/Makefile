@@ -10,7 +10,7 @@ build:
 	@cargo build --release
 
 generate:
-	sea-orm-cli generate entity -o entity/src --with-serde both
+	sea-orm-cli generate entity -o entity/src --with-serde both --model-extra-derives "utoipa::ToSchema" --enum-extra-derives "utoipa::ToSchema"
 
 fix:
 	cargo fix --allow-dirty --allow-staged	

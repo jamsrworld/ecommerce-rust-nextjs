@@ -4,14 +4,16 @@ use super::sea_orm_active_enums::OtpPurpose;
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
+#[derive(
+    Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, utoipa :: ToSchema,
+)]
 #[sea_orm(table_name = "otp")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: String,
     pub code: i16,
     pub email: String,
-    pub valid_till: DateTimeWithTimeZone,
+    pub valid_till: chrono::DateTime<chrono::FixedOffset>,
     pub purpose: OtpPurpose,
 }
 

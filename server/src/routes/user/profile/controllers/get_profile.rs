@@ -1,5 +1,6 @@
 use crate::extractors::auth::Authenticated;
 use actix_web::{get, HttpResponse, Responder};
+use entity::sea_orm_active_enums::UserRole;
 use serde::{Deserialize, Serialize};
 use utoipa::ToSchema;
 
@@ -9,6 +10,7 @@ pub struct UserProfile {
     pub id: String,
     pub email: String,
     pub full_name: String,
+    pub role: UserRole,
 }
 
 /// Get Profile
@@ -26,6 +28,7 @@ pub async fn get_profile(user: Authenticated) -> impl Responder {
         full_name,
         email,
         id,
+        role: user.role.clone(),
     };
     HttpResponse::Ok().json(user)
 }

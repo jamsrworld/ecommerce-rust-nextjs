@@ -21,7 +21,7 @@ use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
         (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
     )
 )]
-#[patch("/{id}")]
+#[patch("/{id}/default")]
 pub async fn mark_default_address(
     app_data: web::Data<AppState>,
     id: Path<String>,

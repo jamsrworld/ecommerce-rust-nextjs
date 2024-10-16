@@ -7,7 +7,7 @@ use crate::{
     AppState,
 };
 use actix_web::{
-    post,
+    patch,
     web::{self, Path},
     HttpResponse,
 };
@@ -27,7 +27,7 @@ use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
         (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
     )
 )]
-#[post("/{id}")]
+#[patch("/{id}")]
 pub async fn update_address(
     app_data: web::Data<AppState>,
     id: Path<String>,

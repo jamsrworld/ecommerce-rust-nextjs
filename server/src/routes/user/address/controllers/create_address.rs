@@ -28,7 +28,7 @@ pub struct CreateAddressResponse {
         (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
       )
 )]
-#[post("/create")]
+#[post("")]
 pub async fn create_address(
     app_data: web::Data<AppState>,
     input: ValidatedJson<CreateAddressInput>,

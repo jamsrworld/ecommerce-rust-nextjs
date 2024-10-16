@@ -3,7 +3,9 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
+#[derive(
+    Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, utoipa :: ToSchema,
+)]
 #[sea_orm(table_name = "login_session")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
@@ -19,8 +21,8 @@ pub struct Model {
     pub is_active: bool,
     pub role: String,
     pub is_login_as_client: bool,
-    pub created_at: DateTimeWithTimeZone,
-    pub valid_till: DateTimeWithTimeZone,
+    pub created_at: chrono::DateTime<chrono::FixedOffset>,
+    pub valid_till: chrono::DateTime<chrono::FixedOffset>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
