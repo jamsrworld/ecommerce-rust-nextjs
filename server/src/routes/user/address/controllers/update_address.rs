@@ -1,6 +1,8 @@
+use super::create_address::CreateAddressResponse;
+use super::messages::AddressMessage;
 use super::schema::CreateAddressInput;
 use crate::{
-    error::HttpError,
+    error::{HttpError, ResponseWithMessage},
     extractors::{auth::Authenticated, validator::ValidatedJson},
     AppState,
 };
@@ -10,7 +12,6 @@ use actix_web::{
     HttpResponse,
 };
 use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
-use serde_json::json;
 
 /// Update An Address
 #[utoipa::path(
@@ -20,6 +21,11 @@ use serde_json::json;
         ("id", description = "Address Id"),
     ),
     request_body(content = CreateAddressInput),
+    responses(
+        (status=StatusCode::OK, body = CreateAddressResponse),
+        (status=StatusCode::NOT_FOUND, body = ResponseWithMessage),
+        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
+    )
 )]
 #[post("/{id}")]
 pub async fn update_address(
@@ -43,15 +49,13 @@ pub async fn update_address(
         state,
     } = input.into_inner();
 
-    let address = entity::address::Entity::find_by_id(address_id)
-        .filter(entity::address::Column::UserId.eq(user_id.clone()))
+    let address = entity::address::Entity::find_by_id(&address_id)
+        .filter(entity::address::Column::UserId.eq(&user_id))
         .one(db)
-        .await?;
+        .await?
+        .ok_or_else(|| HttpError::not_found(AddressMessage::AddressNotFound(&address_id)))?;
 
-    if address.is_none() {
-        return Err(HttpError::not_found("Address not found"));
-    };
-    let mut address: entity::address::ActiveModel = address.unwrap().into();
+    let mut address: entity::address::ActiveModel = address.into();
     address.city = Set(city);
     address.first_name = Set(first_name);
     address.full_address = Set(full_address);
@@ -60,13 +64,10 @@ pub async fn update_address(
     address.phone_number = Set(phone_number);
     address.postal_code = Set(postal_code);
     address.state = Set(state);
-    address.user_id = Set(user_id);
 
     let address = address.update(db).await?;
-    let response = json!({
-        "message":"Address has been updated",
-        "data":address
-    });
+    let message = AddressMessage::AddressUpdated.to_string();
 
+    let response: CreateAddressResponse = CreateAddressResponse { address, message };
     Ok(HttpResponse::Ok().json(response))
 }

@@ -1,18 +1,32 @@
+use super::messages::AddressMessage;
 use super::schema::CreateAddressInput;
+use super::utils::check_address_limit;
 use crate::{
-    error::HttpError,
+    error::{HttpError, ResponseWithMessage},
     extractors::{auth::Authenticated, validator::ValidatedJson},
     AppState,
 };
 use actix_web::{post, web, HttpResponse};
 use sea_orm::{ActiveValue::NotSet, EntityTrait, Set};
-use serde_json::json;
+use serde::Serialize;
+use utoipa::ToSchema;
+
+#[derive(Serialize,ToSchema)]
+pub struct CreateAddressResponse {
+    pub message: String,
+    pub address: entity::address::Model,
+}
 
 /// Create An Address
 #[utoipa::path(
     tag = "Address",
     context_path = "/user/addresses", 
-    request_body(content = CreateAddressInput)
+    request_body(content = CreateAddressInput),
+    responses(
+        (status=StatusCode::CREATED, body = CreateAddressResponse),
+        (status=StatusCode::TOO_MANY_REQUESTS, body = ResponseWithMessage),
+        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
+      )
 )]
 #[post("/create")]
 pub async fn create_address(
@@ -32,6 +46,8 @@ pub async fn create_address(
         state,
     } = input.into_inner();
     let user_id = user.id.clone();
+
+    check_address_limit(db, user_id.clone()).await?;
 
     // create new address
     let id = cuid2::create_id();
@@ -53,10 +69,9 @@ pub async fn create_address(
         .exec_with_returning(db)
         .await?;
 
-    let response = json!({
-        "message": "Address has been created".to_string(),
-        "data": new_address,
-    });
-
+    let response = CreateAddressResponse {
+        message: AddressMessage::AddressCreated.to_string(),
+        address: new_address,
+    };
     Ok(HttpResponse::Created().json(response))
 }

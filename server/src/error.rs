@@ -90,6 +90,10 @@ impl HttpError {
     pub fn internal_server_error(message: impl Into<String>) -> Self {
         Self::new(message, StatusCode::INTERNAL_SERVER_ERROR)
     }
+
+    pub fn too_many_requests(message: impl Into<String>) -> Self {
+        Self::new(message, StatusCode::TOO_MANY_REQUESTS)
+    }
 }
 
 impl std::fmt::Display for HttpError {

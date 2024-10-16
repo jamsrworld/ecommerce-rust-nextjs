@@ -26,7 +26,7 @@ struct VerificationEmail<'a> {
   context_path = "/auth",
   request_body(content = AuthRegisterInput),
   responses( 
-    (status=StatusCode::OK, body = ResponseWithMessage),
+    (status=StatusCode::CREATED, body = ResponseWithMessage),
     (status=StatusCode::CONFLICT, body = ResponseWithMessage),
     (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
     (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),

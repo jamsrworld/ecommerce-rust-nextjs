@@ -79,7 +79,7 @@ where
         }
         let token = token.unwrap();
 
-        let app_state = req.app_data::<web::Data<AppState>>().unwrap(); 
+        let app_state = req.app_data::<web::Data<AppState>>().unwrap();
         let user_id = match decode_token(&token) {
             Ok(id) => id,
             Err(e) => {
@@ -99,8 +99,8 @@ where
                 .await
                 .map_err(|e| {
                     ErrorInternalServerError(HttpError::internal_server_error(e.to_string()))
-                })?;
-            let user = user.ok_or(ErrorUnauthorized(HttpError::not_found("User not found")))?;
+                })?
+                .ok_or_else(|| ErrorUnauthorized(HttpError::not_found("User not found")))?;
 
             if allowed_roles.contains(&user.role) {
                 req.extensions_mut().insert::<user::Model>(user);

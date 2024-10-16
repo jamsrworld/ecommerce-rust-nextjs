@@ -1,3 +1,4 @@
+use super::messages::AddressMessage;
 use crate::{
     error::{HttpError, ResponseWithMessage},
     extractors::auth::Authenticated,
@@ -16,6 +17,11 @@ use sea_orm::{ColumnTrait, EntityTrait, ModelTrait, QueryFilter};
     context_path = "/user/addresses",
     params(
     ("id", description = "Address Id"),
+    ),
+    responses(
+        (status=StatusCode::OK, body = ResponseWithMessage),
+        (status=StatusCode::NOT_FOUND, body = ResponseWithMessage),
+        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
     )
 )
 ]
@@ -29,17 +35,17 @@ pub async fn delete_address(
     let address_id = id.into_inner();
     let user_id = user.id.clone();
 
-    let address = entity::address::Entity::find_by_id(address_id)
+    // find address
+    let address = entity::address::Entity::find_by_id(&address_id)
         .filter(entity::address::Column::UserId.eq(user_id))
         .one(db)
         .await?
-        .ok_or_else(|| HttpError::not_found("Address not found"))?;
-
+        .ok_or_else(|| HttpError::not_found(AddressMessage::AddressNotFound(&address_id)))?;
+    // delete address
     address.delete(db).await?;
 
     let response = ResponseWithMessage {
-        message: "Address deleted successfully".to_string(),
+        message: AddressMessage::AddressDeleted.to_string(),
     };
-
     Ok(HttpResponse::Ok().json(response))
 }

@@ -2,8 +2,10 @@
 
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
+use utoipa::ToSchema;
+use chrono::{DateTime, Utc};
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize,ToSchema)]
 #[sea_orm(table_name = "address")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
@@ -18,7 +20,7 @@ pub struct Model {
     pub phone_number: String,
     pub landmark: String,
     pub is_default: bool,
-    pub created_at: DateTimeWithTimeZone,
+    pub created_at: DateTime<Utc>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

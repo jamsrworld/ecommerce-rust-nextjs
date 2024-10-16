@@ -1,9 +1,24 @@
-use crate::{error::HttpError, extractors::auth::Authenticated, AppState};
+use crate::{
+    error::{HttpError, ResponseWithMessage},
+    extractors::auth::Authenticated,
+    AppState,
+};
 use actix_web::{get, web, HttpResponse};
 use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
+use utoipa::ToSchema;
+
+#[derive(ToSchema)]
+pub struct GetAllAddresses(Vec<entity::address::Model>);
 
 /// Get All Addresses
-#[utoipa::path(tag = "Address", context_path = "/user/addresses")]
+#[utoipa::path(
+    tag = "Address",
+    context_path = "/user/addresses",
+    responses(
+        (status=StatusCode::OK, body = GetAllAddresses),
+        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
+    )
+)]
 #[get("")]
 pub async fn get_addresses(
     app_data: web::Data<AppState>,
