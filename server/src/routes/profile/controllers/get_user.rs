@@ -1,7 +1,5 @@
 use crate::extractors::auth::Authenticated;
 use actix_web::{get, HttpResponse, Responder};
-use chrono::{DateTime, Utc};
-use sea_orm::prelude::DateTimeWithTimeZone;
 use serde::{Deserialize, Serialize};
 use utoipa::ToSchema;
 
@@ -23,10 +21,6 @@ pub struct UserProfile {
     pub id: String,
     pub email: String,
     pub full_name: String,
-    pub status: UserStatus,
-    pub role: UserRole,
-    pub created_at: String,
-    pub updated_at: String,
 }
 
 /// Get Profile
@@ -37,6 +31,19 @@ pub struct UserProfile {
 )]
 #[get("/user")]
 pub async fn get_user(user: Authenticated) -> impl Responder {
-    println!("user{:#?}", user);
+    // let user::Model {
+    //     full_name,
+    //     email,
+    //     id,
+    //     ..
+    // } = *user;
+    let full_name = user.full_name.clone();
+    let email = user.email.clone();
+    let id = user.id.clone();
+    let user = UserProfile {
+        full_name,
+        email,
+        id,
+    };
     HttpResponse::Ok().json(user)
 }

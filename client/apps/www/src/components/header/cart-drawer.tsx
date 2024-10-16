@@ -92,6 +92,7 @@ export const CartDrawer = () => {
               fullWidth
               as={NextLink}
               href="/checkout"
+              color="primary"
             >
               Place Order
             </Button>
@@ -99,6 +100,7 @@ export const CartDrawer = () => {
               size="lg"
               fullWidth
               variant="outlined"
+              color="primary"
             >
               Continue Shopping
             </Button>

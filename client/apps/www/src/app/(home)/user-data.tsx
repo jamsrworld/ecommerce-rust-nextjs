@@ -12,7 +12,7 @@ export const UserData = async () => {
     },
   });
   if (response.error) return response.error;
-  const fullName = response.data?.fullName as unknown as string;
+  const fullName = response.data?.fullName;
   return (
     <div>
       <Typography
@@ -21,6 +21,13 @@ export const UserData = async () => {
       >
         Hello👋 {fullName}
       </Typography>
+      <Link
+        as={NextLink}
+        href="/user/profile"
+        className="block"
+      >
+        Profile
+      </Link>
       <Link
         as={NextLink}
         href="/logout"
