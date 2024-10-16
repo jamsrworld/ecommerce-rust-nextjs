@@ -11,7 +11,7 @@ use sea_orm::{ActiveValue::NotSet, EntityTrait, Set};
 use serde::Serialize;
 use utoipa::ToSchema;
 
-#[derive(Serialize,ToSchema)]
+#[derive(Serialize, ToSchema)]
 pub struct CreateAddressResponse {
     pub message: String,
     pub address: entity::address::Model,
@@ -23,9 +23,9 @@ pub struct CreateAddressResponse {
     context_path = "/user/addresses", 
     request_body(content = CreateAddressInput),
     responses(
-        (status=StatusCode::CREATED, body = CreateAddressResponse),
-        (status=StatusCode::TOO_MANY_REQUESTS, body = ResponseWithMessage),
-        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
+        (status=StatusCode::CREATED, body = CreateAddressResponse, description= "Address Created"),
+        (status=StatusCode::TOO_MANY_REQUESTS, body = ResponseWithMessage, description= "Address Limit Reached"),
+        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage, description= "Internal Server Error"),
       )
 )]
 #[post("")]
@@ -47,6 +47,7 @@ pub async fn create_address(
     } = input.into_inner();
     let user_id = user.id.clone();
 
+    // validate if user reached address limit
     check_address_limit(db, user_id.clone()).await?;
 
     // create new address

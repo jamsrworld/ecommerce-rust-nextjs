@@ -32,7 +32,7 @@ thiserror = "1.0.64"
 tokio = { version = "1.40.0", features = ["full"] }
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
-utoipa = { version = "5.1.0", features = ["actix_extras", "chrono"] }
+utoipa = { version = "5.1.1", features = ["actix_extras", "chrono"] }
 utoipa-scalar = { version = "0.2.0", features = ["actix-web"] }
 utoipa-swagger-ui = { version = "8.0.1", features = ["actix-web"] }
 utoipauto = "0.1.14"

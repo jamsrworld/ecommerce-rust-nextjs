@@ -1,5 +1,9 @@
 use super::messages::AddressMessage;
-use crate::{error::HttpError, extractors::auth::Authenticated, AppState};
+use crate::{
+    error::{HttpError, ResponseWithMessage},
+    extractors::auth::Authenticated,
+    AppState,
+};
 use actix_web::{
     get,
     web::{self, Path},
@@ -11,9 +15,11 @@ use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
 #[utoipa::path(
     tag = "Address",
     context_path = "/user/addresses",
-    params(
-        ("id", description = "Address Id"),
-    ),
+    params(("id", description = "Address Id", min_length = 24, max_length = 24)),
+    responses(
+        (status=StatusCode::OK, body = entity::address::Model, description= "Address"),
+        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage, description= "Internal Server Error"),
+    )
 )]
 #[get("/{id}")]
 pub async fn get_address(

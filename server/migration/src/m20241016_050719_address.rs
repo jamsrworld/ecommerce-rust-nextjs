@@ -23,7 +23,7 @@ impl MigrationTrait for Migration {
                     .col(string_len(Address::State, 50))
                     .col(string_len(Address::FullAddress, 300))
                     .col(string_len(Address::PhoneNumber, 15))
-                    .col(string_len(Address::Landmark, 200))
+                    .col(string_len_null(Address::Landmark, 200))
                     .col(boolean(Address::IsDefault))
                     .col(
                         timestamp_with_time_zone(Address::CreatedAt)

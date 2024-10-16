@@ -12,13 +12,11 @@ use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
 #[utoipa::path(
     tag = "Address",
     context_path = "/user/addresses",
-    params(
-        ("id", description = "Address Id"),
-    ),
+    params(("id", description = "Address Id", min_length = 24, max_length = 24)),
     responses(
-        (status=StatusCode::OK, body = CreateAddressResponse),
-        (status=StatusCode::NOT_FOUND, body = ResponseWithMessage),
-        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
+        (status=StatusCode::OK, body = CreateAddressResponse, description= "Address Marked as Default"),
+        (status=StatusCode::NOT_FOUND, body = ResponseWithMessage, description= "Address Not Found"),
+        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage, description= "Internal Server Error"),
     )
 )]
 #[patch("/{id}/default")]

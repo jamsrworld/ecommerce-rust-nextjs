@@ -5,18 +5,14 @@ use crate::{
 };
 use actix_web::{get, web, HttpResponse};
 use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
-use utoipa::ToSchema;
-
-#[derive(ToSchema)]
-pub struct GetAllAddresses(Vec<entity::address::Model>);
 
 /// Get All Addresses
 #[utoipa::path(
     tag = "Address",
     context_path = "/user/addresses",
     responses(
-        (status=StatusCode::OK, body = GetAllAddresses),
-        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
+        (status=StatusCode::OK, body = [entity::address::Model], description= "Addresses"),
+        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage, description= "Internal Server Error"),
     )
 )]
 #[get("")]

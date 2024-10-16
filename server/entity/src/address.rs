@@ -18,7 +18,7 @@ pub struct Model {
     pub state: String,
     pub full_address: String,
     pub phone_number: String,
-    pub landmark: String,
+    pub landmark: Option<String>,
     pub is_default: bool,
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
 }
