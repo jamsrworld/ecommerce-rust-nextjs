@@ -1,4 +1,4 @@
-import { getUser } from "@/api";
+import { getProfile } from "@/api";
 import { Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { cookies } from "next/headers";
@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 export const UserData = async () => {
   const userSession = cookies().get("x-session")?.value;
   if (!userSession) return "You aren't loggedin";
-  const response = await getUser({
+  const response = await getProfile({
     headers: {
       Cookie: cookies().toString(),
     },

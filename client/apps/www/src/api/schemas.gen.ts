@@ -119,7 +119,8 @@ Min. 8 characters.`,
 export const AuthRegisterVerifyInputSchema = {
     allOf: [
         {
-            '$ref': '#/components/schemas/AuthRegisterInput'
+            '$ref': '#/components/schemas/AuthRegisterInput',
+            description: 'The original Register struct fields.'
         },
         {
             type: 'object',
@@ -166,6 +167,115 @@ export const AuthResetPasswordInputSchema = {
     }
 } as const;
 
+export const CreateAddressInputSchema = {
+    type: 'object',
+    required: ['firstName', 'lastName', 'phoneNumber', 'fullAddress', 'city', 'state', 'postalCode', 'landmark'],
+    properties: {
+        city: {
+            type: 'string',
+            description: 'City of the user.'
+        },
+        firstName: {
+            type: 'string',
+            description: 'First name of the user.',
+            example: 'John'
+        },
+        fullAddress: {
+            type: 'string',
+            description: 'Address of the user.'
+        },
+        landmark: {
+            type: 'string',
+            description: 'State of the user.'
+        },
+        lastName: {
+            type: 'string',
+            description: 'Last name of the user.',
+            example: 'Doe'
+        },
+        phoneNumber: {
+            type: 'string',
+            description: 'Phone number of the user.',
+            example: '1234567890'
+        },
+        postalCode: {
+            type: 'integer',
+            format: 'int32',
+            description: 'Postal Code of the user.',
+            example: 123456
+        },
+        state: {
+            type: 'string',
+            description: 'State of the user.'
+        }
+    }
+} as const;
+
+export const CreateAddressResponseSchema = {
+    type: 'object',
+    required: ['message', 'address'],
+    properties: {
+        address: {
+            '$ref': '#/components/schemas/Model'
+        },
+        message: {
+            type: 'string'
+        }
+    }
+} as const;
+
+export const GetAllAddressesSchema = {
+    type: 'array',
+    items: {
+        '$ref': '#/components/schemas/Model'
+    }
+} as const;
+
+export const ModelSchema = {
+    type: 'object',
+    required: ['id', 'user_id', 'first_name', 'last_name', 'postal_code', 'city', 'state', 'full_address', 'phone_number', 'landmark', 'is_default', 'created_at'],
+    properties: {
+        city: {
+            type: 'string'
+        },
+        created_at: {
+            type: 'string',
+            format: 'date-time'
+        },
+        first_name: {
+            type: 'string'
+        },
+        full_address: {
+            type: 'string'
+        },
+        id: {
+            type: 'string'
+        },
+        is_default: {
+            type: 'boolean'
+        },
+        landmark: {
+            type: 'string'
+        },
+        last_name: {
+            type: 'string'
+        },
+        phone_number: {
+            type: 'string'
+        },
+        postal_code: {
+            type: 'integer',
+            format: 'int32'
+        },
+        state: {
+            type: 'string'
+        },
+        user_id: {
+            type: 'string'
+        }
+    }
+} as const;
+
 export const ResponseWithMessageSchema = {
     type: 'object',
     required: ['message'],
@@ -188,11 +298,8 @@ export const UpdateProfileSchema = {
 
 export const UserProfileSchema = {
     type: 'object',
-    required: ['id', 'email', 'fullName', 'status', 'role', 'createdAt', 'updatedAt'],
+    required: ['id', 'email', 'fullName', 'role'],
     properties: {
-        createdAt: {
-            type: 'string'
-        },
         email: {
             type: 'string'
         },
@@ -204,12 +311,6 @@ export const UserProfileSchema = {
         },
         role: {
             '$ref': '#/components/schemas/UserRole'
-        },
-        status: {
-            '$ref': '#/components/schemas/UserStatus'
-        },
-        updatedAt: {
-            type: 'string'
         }
     }
 } as const;
@@ -217,9 +318,4 @@ export const UserProfileSchema = {
 export const UserRoleSchema = {
     type: 'string',
     enum: ['Admin', 'User']
-} as const;
-
-export const UserStatusSchema = {
-    type: 'string',
-    enum: ['Active', 'Blocked']
 } as const;

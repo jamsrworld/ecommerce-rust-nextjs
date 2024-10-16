@@ -8,9 +8,6 @@ import {
 import type {
   HealthCheckError,
   HealthCheckResponse,
-  AdminLoginData,
-  AdminLoginError,
-  AdminLoginResponse2,
   ForgotPasswordData,
   ForgotPasswordError,
   ForgotPasswordResponse,
@@ -28,17 +25,32 @@ import type {
   ResetPasswordData,
   ResetPasswordError,
   ResetPasswordResponse,
+  GetAddressesError,
+  GetAddressesResponse,
+  CreateAddressData,
+  CreateAddressError,
+  CreateAddressResponse2,
+  GetAddressData,
+  DeleteAddressData,
+  DeleteAddressError,
+  DeleteAddressResponse,
+  UpdateAddressData,
+  UpdateAddressError,
+  UpdateAddressResponse,
+  MarkDefaultAddressData,
+  MarkDefaultAddressError,
+  MarkDefaultAddressResponse,
+  GetProfileError,
+  GetProfileResponse,
   UpdateProfileData,
   UpdateProfileError,
   UpdateProfileResponse,
-  GetUserError,
-  GetUserResponse,
 } from "./types.gen";
 
 export const client = createClient(
   createConfig({
     baseUrl: "http://localhost:5003",
-    credentials: "include",
+    credentials:"include"
   }),
 );
 
@@ -52,23 +64,6 @@ export const healthCheck = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: "/",
-  });
-};
-
-/**
- * Login
- * Api to login for user
- */
-export const adminLogin = <ThrowOnError extends boolean = false>(
-  options: Options<AdminLoginData, ThrowOnError>,
-) => {
-  return (options?.client ?? client).post<
-    AdminLoginResponse2,
-    AdminLoginError,
-    ThrowOnError
-  >({
-    ...options,
-    url: "/admin/admin/login",
   });
 };
 
@@ -170,33 +165,173 @@ export const resetPassword = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * Update Profile
+ * Get All Addresses
  */
-export const updateProfile = <ThrowOnError extends boolean = false>(
-  options: Options<UpdateProfileData, ThrowOnError>,
+export const getAddresses = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>,
 ) => {
-  return (options?.client ?? client).post<
-    UpdateProfileResponse,
-    UpdateProfileError,
+  return (options?.client ?? client).get<
+    GetAddressesResponse,
+    GetAddressesError,
     ThrowOnError
   >({
     ...options,
-    url: "/profile/me",
+    url: "/user/addresses",
+  });
+};
+
+/**
+ * Create An Address
+ */
+export const createAddress = <ThrowOnError extends boolean = false>(
+  options: Options<CreateAddressData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).post<
+    CreateAddressResponse2,
+    CreateAddressError,
+    ThrowOnError
+  >({
+    ...options,
+    url: "/user/addresses",
+  });
+};
+
+/**
+ * Get An Address
+ */
+export const getAddress = <ThrowOnError extends boolean = false>(
+  options: Options<GetAddressData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).get<void, unknown, ThrowOnError>({
+    ...options,
+    url: "/user/addresses/{id}",
+  });
+};
+
+/**
+ * Delete An Address
+ */
+export const deleteAddress = <ThrowOnError extends boolean = false>(
+  options: Options<DeleteAddressData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).delete<
+    DeleteAddressResponse,
+    DeleteAddressError,
+    ThrowOnError
+  >({
+    ...options,
+    url: "/user/addresses/{id}",
+  });
+};
+
+/**
+ * Update An Address
+ */
+export const updateAddress = <ThrowOnError extends boolean = false>(
+  options: Options<UpdateAddressData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).patch<
+    UpdateAddressResponse,
+    UpdateAddressError,
+    ThrowOnError
+  >({
+    ...options,
+    url: "/user/addresses/{id}",
+  });
+};
+
+/**
+ * Mark Default Address
+ */
+export const markDefaultAddress = <ThrowOnError extends boolean = false>(
+  options: Options<MarkDefaultAddressData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).patch<
+    MarkDefaultAddressResponse,
+    MarkDefaultAddressError,
+    ThrowOnError
+  >({
+    ...options,
+    url: "/user/addresses/{id}/default",
+  });
+};
+
+/**
+ * Get All Orders
+ */
+export const getOrders = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>,
+) => {
+  return (options?.client ?? client).get<void, unknown, ThrowOnError>({
+    ...options,
+    url: "/user/orders",
+  });
+};
+
+/**
+ * Get An Order
+ */
+export const getOrder = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>,
+) => {
+  return (options?.client ?? client).get<void, unknown, ThrowOnError>({
+    ...options,
+    url: "/user/orders/id",
   });
 };
 
 /**
  * Get Profile
  */
-export const getUser = <ThrowOnError extends boolean = false>(
+export const getProfile = <ThrowOnError extends boolean = false>(
   options?: Options<unknown, ThrowOnError>,
 ) => {
   return (options?.client ?? client).get<
-    GetUserResponse,
-    GetUserError,
+    GetProfileResponse,
+    GetProfileError,
     ThrowOnError
   >({
     ...options,
-    url: "/profile/user",
+    url: "/user/profile",
+  });
+};
+
+/**
+ * Update Profile
+ */
+export const updateProfile = <ThrowOnError extends boolean = false>(
+  options: Options<UpdateProfileData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).patch<
+    UpdateProfileResponse,
+    UpdateProfileError,
+    ThrowOnError
+  >({
+    ...options,
+    url: "/user/profile",
+  });
+};
+
+/**
+ * Logout All
+ */
+export const logoutAll = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>,
+) => {
+  return (options?.client ?? client).patch<void, unknown, ThrowOnError>({
+    ...options,
+    url: "/user/profile/logout-all",
+  });
+};
+
+/**
+ * Change Password
+ */
+export const changePassword = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>,
+) => {
+  return (options?.client ?? client).patch<void, unknown, ThrowOnError>({
+    ...options,
+    url: "/user/profile/password",
   });
 };

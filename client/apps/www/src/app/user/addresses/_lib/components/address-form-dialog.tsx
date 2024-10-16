@@ -5,7 +5,7 @@ import { Button, Drawer } from "@jamsr-ui/react";
 import { AddressForm } from "./address-form";
 
 export const AddressFormDialog = () => {
-  const { isOpen, onClose, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <>
       <Button

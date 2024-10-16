@@ -89,6 +89,63 @@ export type AuthResetPasswordInput = {
     password: string;
 };
 
+export type CreateAddressInput = {
+    /**
+     * City of the user.
+     */
+    city: string;
+    /**
+     * First name of the user.
+     */
+    firstName: string;
+    /**
+     * Address of the user.
+     */
+    fullAddress: string;
+    /**
+     * State of the user.
+     */
+    landmark: string;
+    /**
+     * Last name of the user.
+     */
+    lastName: string;
+    /**
+     * Phone number of the user.
+     */
+    phoneNumber: string;
+    /**
+     * Postal Code of the user.
+     */
+    postalCode: number;
+    /**
+     * State of the user.
+     */
+    state: string;
+};
+
+export type CreateAddressResponse = {
+    address: Model;
+    message: string;
+};
+
+export type GetAllAddresses = Array<Model>;
+
+export type Model = {
+    city: string;
+    created_at: string;
+    first_name: string;
+    full_address: string;
+    id: string;
+    is_default: boolean;
+    landmark: string;
+    last_name: string;
+    phone_number: string;
+    postal_code: number;
+    state: string;
+    user_id: string;
+};
+
 export type ResponseWithMessage = {
     message: string;
 };
@@ -98,30 +155,17 @@ export type UpdateProfile = {
 };
 
 export type UserProfile = {
-    createdAt: string;
     email: string;
     fullName: string;
     id: string;
     role: UserRole;
-    status: UserStatus;
-    updatedAt: string;
 };
 
 export type UserRole = 'Admin' | 'User';
 
-export type UserStatus = 'Active' | 'Blocked';
-
 export type HealthCheckResponse = (string);
 
 export type HealthCheckError = unknown;
-
-export type AdminLoginData = {
-    body: AdminLoginInput;
-};
-
-export type AdminLoginResponse2 = (AdminLoginResponse);
-
-export type AdminLoginError = (AdminBadRequest | AdminInternalServerError);
 
 export type ForgotPasswordData = {
     body: AuthForgotPasswordInput;
@@ -167,6 +211,71 @@ export type ResetPasswordResponse = (ResponseWithMessage);
 
 export type ResetPasswordError = (ResponseWithMessage);
 
+export type GetAddressesResponse = (GetAllAddresses);
+
+export type GetAddressesError = (ResponseWithMessage);
+
+export type CreateAddressData = {
+    body: CreateAddressInput;
+};
+
+export type CreateAddressResponse2 = (CreateAddressResponse);
+
+export type CreateAddressError = (ResponseWithMessage);
+
+export type GetAddressData = {
+    path: {
+        /**
+         * Address Id
+         */
+        id: string;
+    };
+};
+
+export type DeleteAddressData = {
+    path: {
+        /**
+         * Address Id
+         */
+        id: string;
+    };
+};
+
+export type DeleteAddressResponse = (ResponseWithMessage);
+
+export type DeleteAddressError = (ResponseWithMessage);
+
+export type UpdateAddressData = {
+    body: CreateAddressInput;
+    path: {
+        /**
+         * Address Id
+         */
+        id: string;
+    };
+};
+
+export type UpdateAddressResponse = (CreateAddressResponse);
+
+export type UpdateAddressError = (ResponseWithMessage);
+
+export type MarkDefaultAddressData = {
+    path: {
+        /**
+         * Address Id
+         */
+        id: string;
+    };
+};
+
+export type MarkDefaultAddressResponse = (CreateAddressResponse);
+
+export type MarkDefaultAddressError = (ResponseWithMessage);
+
+export type GetProfileResponse = (UserProfile);
+
+export type GetProfileError = unknown;
+
 export type UpdateProfileData = {
     body: UpdateProfile;
 };
@@ -174,7 +283,3 @@ export type UpdateProfileData = {
 export type UpdateProfileResponse = (string);
 
 export type UpdateProfileError = unknown;
-
-export type GetUserResponse = (UserProfile);
-
-export type GetUserError = unknown;

@@ -1,6 +1,7 @@
 import { Divider, Typography } from "@jamsr-ui/react";
 import { type Metadata } from "next";
-import { AddressFormDialog } from "./_components/address-form-dialog";
+import { AddressFormDialog } from "./_lib/components/address-form-dialog";
+import { AddressList } from "./_lib/components/address-list";
 
 export const metadata: Metadata = {
   title: "Addresses",
@@ -20,6 +21,7 @@ const Page = () => {
         <Divider />
       </section>
       <section>
+        <AddressList />
         <AddressFormDialog />
       </section>
     </div>
