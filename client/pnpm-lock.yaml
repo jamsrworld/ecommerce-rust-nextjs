@@ -29,9 +29,15 @@ importers:
       '@repo/config':
         specifier: workspace:^
         version: link:../../packages/config
+      '@repo/icons':
+        specifier: workspace:^
+        version: link:../../packages/icons
       '@svgr/webpack':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.6.2)
+      framer-motion:
+        specifier: 12.0.0-alpha.1
+        version: 12.0.0-alpha.1(react-dom@19.0.0-rc-e4953922-20240919(react@19.0.0-rc-e4953922-20240919))(react@19.0.0-rc-e4953922-20240919)
       next:
         specifier: 15.0.0-canary.162
         version: 15.0.0-canary.162(@babel/core@7.25.2)(react-dom@19.0.0-rc-e4953922-20240919(react@19.0.0-rc-e4953922-20240919))(react@19.0.0-rc-e4953922-20240919)

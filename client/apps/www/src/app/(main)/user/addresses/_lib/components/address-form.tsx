@@ -32,6 +32,8 @@ export const AddressForm = (props: Props) => {
         mask="number"
         precision={0}
         inputMode="numeric"
+        maxLength={6}
+        minLength={6}
       />
       <RHFInput<FormValues>
         label="City"
@@ -65,6 +67,8 @@ export const AddressForm = (props: Props) => {
         mask="number"
         precision={0}
         inputMode="numeric"
+        maxLength={10}
+        minLength={10}
       />
       <Button
         color="primary"

@@ -1,4 +1,4 @@
-import { JamsrUIProvider } from "@jamsr-ui/react";
+import { UIProvider } from "@jamsr-ui/react";
 import type { Metadata } from "next";
 import { Inter, Open_Sans } from "next/font/google";
 import "../styles/globals.css";
@@ -29,10 +29,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${opensans.variable} antialiased`}
+      className={`light ${inter.variable} ${opensans.variable} antialiased`}
     >
       <body className="bg-background text-foreground">
-        <JamsrUIProvider>{children}</JamsrUIProvider>
+        <UIProvider>{children}</UIProvider>
       </body>
     </html>
   );
