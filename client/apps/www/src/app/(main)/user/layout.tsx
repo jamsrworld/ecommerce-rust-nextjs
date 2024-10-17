@@ -25,7 +25,7 @@ const items: { title: string; href: LinkProps<never>["href"] }[] = [
 const Layout = (props: Props) => {
   const { children } = props;
   return (
-    <div className="container flex max-w-screen-2xl py-24">
+    <div className="container flex h-[95vh] max-w-screen-2xl py-24">
       <div className="w-full max-w-sm">
         <UserGreeting />
         <ul className="flex flex-col gap-2">

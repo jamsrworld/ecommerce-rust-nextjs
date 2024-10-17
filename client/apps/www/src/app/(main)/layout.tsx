@@ -1,6 +1,5 @@
 import { AppHeader } from "@/components/header";
 import { SmoothScroll } from "@/components/smooth-scroll";
-import React from "react";
 
 type Props = {
   children: React.ReactNode;

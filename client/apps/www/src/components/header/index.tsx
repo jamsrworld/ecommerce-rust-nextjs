@@ -50,6 +50,8 @@ export const AppHeader = () => {
         <Button
           isIconOnly
           variant="outlined"
+          as={NextLink}
+          href="/user/profile"
         >
           <UserIcon />
         </Button>
