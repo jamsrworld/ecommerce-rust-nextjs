@@ -16,9 +16,7 @@ const layout = (props: Props) => {
           width: "calc(100% - 280px)",
         }}
       >
-        <div className="size-full grow rounded-lg bg-background p-4">
-          {children}
-        </div>
+        {children}
       </div>
     </>
   );

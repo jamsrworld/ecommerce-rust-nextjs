@@ -16,19 +16,19 @@ export const AddressForm = (props: Props) => {
         label="First Name"
         name="firstName"
         size="lg"
-        labelPlacement="inside"
+        variant="outlined"
       />
       <RHFInput<FormValues>
         label="Last Name"
         name="lastName"
         size="lg"
-        labelPlacement="inside"
+        variant="outlined"
       />
       <RHFInput<FormValues>
         label="Postal Code"
         name="postalCode"
         size="lg"
-        labelPlacement="inside"
+        variant="outlined"
         mask="number"
         precision={0}
         inputMode="numeric"
@@ -39,31 +39,31 @@ export const AddressForm = (props: Props) => {
         label="City"
         name="city"
         size="lg"
-        labelPlacement="inside"
+        variant="outlined"
       />
       <RHFInput<FormValues>
         label="State"
         name="state"
         size="lg"
-        labelPlacement="inside"
+        variant="outlined"
       />
       <RHFInput<FormValues>
         label="Full Address"
         name="fullAddress"
         size="lg"
-        labelPlacement="inside"
+        variant="outlined"
       />
       <RHFInput<FormValues>
         label="Landmark (optional)"
         name="landmark"
         size="lg"
-        labelPlacement="inside"
+        variant="outlined"
       />
       <RHFInput<FormValues>
         label="Phone Number"
         name="phoneNumber"
         size="lg"
-        labelPlacement="inside"
+        variant="outlined"
         mask="number"
         precision={0}
         inputMode="numeric"

@@ -26,8 +26,7 @@ export const AddressFormDrawer = () => {
       <Drawer
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        size="2xl"
-        className="flex w-full flex-col justify-center gap-4 overflow-auto p-4"
+        className="flex w-full flex-col justify-center gap-4 p-4"
       >
         <CreateAddressForm onSuccess={onSuccess} />
         <Button

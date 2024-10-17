@@ -35,6 +35,7 @@
     "framer-motion": "12.0.0-alpha.1",
     "next": "15.0.0-canary.162",
     "react": "19.0.0-rc-e4953922-20240919",
-    "react-dom": "19.0.0-rc-e4953922-20240919"
+    "react-dom": "19.0.0-rc-e4953922-20240919",
+    "@jamsr-ui/react": "0.0.144"
   }
 }

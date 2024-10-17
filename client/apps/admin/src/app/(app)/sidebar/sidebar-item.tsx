@@ -4,30 +4,40 @@ import { Button, Divider } from "@jamsr-ui/react";
 import { cn } from "@jamsr-ui/utils";
 import { ChevronDownIcon } from "@repo/icons/chevron";
 import { AnimatePresence, m } from "framer-motion";
+import Link, { type LinkProps } from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 export type SidebarItemType = {
   heading: string;
   icon?: React.ReactNode;
-  path: "/";
+  path: LinkProps<never>["href"];
   items?: SidebarItemType[];
   className?: string;
 };
 
 export const SidebarItem = (props: SidebarItemType) => {
-  const { heading, icon, items, className } = props;
+  const { heading, icon, items, path, className } = props;
   const [isOpen, setIsOpen] = useState(false);
   const hasItems = items && items.length > 0;
+  const Component = items?.length ? undefined : Link;
+  const pathname = usePathname();
+  const isActive = pathname === path;
   return (
     <li className={cn("overflow-hidden", className)}>
       <Button
+        as={Component}
+        href={path}
         variant="light"
         fullWidth
-        className="justify-start hover:bg-content2"
+        className={cn("justify-start hover:bg-content2", {
+          "bg-content3": isActive,
+        })}
         onClick={() => setIsOpen(!isOpen)}
         disableRipple
       >
         {icon}
+        
         {heading}
         {hasItems && (
           <m.span

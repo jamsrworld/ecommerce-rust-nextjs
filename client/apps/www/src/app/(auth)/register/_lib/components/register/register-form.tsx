@@ -59,14 +59,14 @@ export const RegisterForm = (props: Props) => {
         name="fullName"
         size="lg"
         label="Full Name"
-        labelPlacement="inside"
+        variant="outlined"
       />
       <RHFInput<FormValues>
         name="email"
         size="lg"
         label="Email Address"
         type="email"
-        labelPlacement="inside"
+        variant="outlined"
       />
       <RHFInput<FormValues>
         name="password"
@@ -75,7 +75,7 @@ export const RegisterForm = (props: Props) => {
         isSecuredText
         showPassword={showPassword}
         setShowPassword={setShowPassword}
-        labelPlacement="inside"
+        variant="outlined"
       />
       <RHFInput<FormValues>
         name="confirmPassword"
@@ -84,7 +84,7 @@ export const RegisterForm = (props: Props) => {
         isSecuredText
         showPassword={showPassword}
         setShowPassword={setShowPassword}
-        labelPlacement="inside"
+        variant="outlined"
       />
       <Button
         color="primary"

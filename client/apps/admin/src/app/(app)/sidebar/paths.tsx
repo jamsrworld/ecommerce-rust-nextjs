@@ -209,7 +209,6 @@ export const sidebarLinkList: SidebarGroupItemType[] = [
             heading: "Checkout",
             path: "/",
           },
-         
         ],
       },
       {
@@ -221,7 +220,6 @@ export const sidebarLinkList: SidebarGroupItemType[] = [
             heading: "Checkout",
             path: "/",
           },
-         
         ],
       },
       {
@@ -242,7 +240,7 @@ export const sidebarLinkList: SidebarGroupItemType[] = [
             path: "/",
           },
           {
-            heading: "Seo",
+            heading: "SEO",
             path: "/",
           },
           {
@@ -283,17 +281,17 @@ export const sidebarLinkList: SidebarGroupItemType[] = [
       {
         heading: "Profile",
         icon: <SidebarIcons.Profile />,
-        path: "/",
+        path: "/profile",
       },
       {
         heading: "Login Sessions",
         icon: <SidebarIcons.LoginSession className="rotate-180" />,
-        path: "/",
+        path: "/login-sessions",
       },
       {
         heading: "System Information",
         icon: <SidebarIcons.ServerInfo />,
-        path: "/",
+        path: "/server-information",
       },
     ],
   },

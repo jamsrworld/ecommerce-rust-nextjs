@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@jamsr-ui/react": "^0.0.143",
+    "@jamsr-ui/react": "^0.0.144",
     "@repo/config": "workspace:^",
     "@repo/icons": "workspace:^",
     "@svgr/webpack": "^8.1.0",

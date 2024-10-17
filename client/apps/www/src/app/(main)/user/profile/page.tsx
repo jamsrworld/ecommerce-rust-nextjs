@@ -84,13 +84,13 @@ const Page = async () => {
         </div>
         <div className="flex flex-col gap-2">
           <Input
-            labelPlacement="inside"
+            variant="outlined"
             label="Full Name"
             size="lg"
             defaultValue={fullName}
           />
           <Input
-            labelPlacement="inside"
+            variant="outlined"
             label="Phone Number (Optional)"
             size="lg"
           />
