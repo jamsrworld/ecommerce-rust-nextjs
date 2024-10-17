@@ -169,53 +169,69 @@ export const AuthResetPasswordInputSchema = {
 
 export const CreateAddressInputSchema = {
     type: 'object',
-    required: ['firstName', 'lastName', 'phoneNumber', 'fullAddress', 'city', 'state', 'postalCode', 'landmark'],
+    required: ['firstName', 'lastName', 'phoneNumber', 'fullAddress', 'city', 'state', 'postalCode'],
     properties: {
         city: {
             type: 'string',
-            description: 'City of the user.'
+            description: 'City of the user.',
+            maxLength: 50,
+            minLength: 1
         },
         firstName: {
             type: 'string',
             description: 'First name of the user.',
-            example: 'John'
+            example: 'John',
+            maxLength: 20,
+            minLength: 1
         },
         fullAddress: {
             type: 'string',
-            description: 'Address of the user.'
+            description: 'Address of the user.',
+            maxLength: 300,
+            minLength: 1
         },
         landmark: {
-            type: 'string',
-            description: 'State of the user.'
+            type: ['string', 'null'],
+            description: 'Landmark of the user.',
+            maxLength: 200,
+            minLength: 1
         },
         lastName: {
             type: 'string',
             description: 'Last name of the user.',
-            example: 'Doe'
+            example: 'Doe',
+            maxLength: 20,
+            minLength: 1
         },
         phoneNumber: {
             type: 'string',
             description: 'Phone number of the user.',
-            example: '1234567890'
+            example: '1234567890',
+            maxLength: 10,
+            minLength: 1
         },
         postalCode: {
             type: 'integer',
             format: 'int32',
             description: 'Postal Code of the user.',
-            example: 123456
+            example: 123456,
+            maximum: 999999,
+            minimum: 100000
         },
         state: {
             type: 'string',
-            description: 'State of the user.'
+            description: 'State of the user.',
+            maxLength: 50,
+            minLength: 1
         }
     }
 } as const;
 
 export const CreateAddressResponseSchema = {
     type: 'object',
-    required: ['message', 'address'],
+    required: ['message', 'data'],
     properties: {
-        address: {
+        data: {
             '$ref': '#/components/schemas/Model'
         },
         message: {
@@ -224,53 +240,56 @@ export const CreateAddressResponseSchema = {
     }
 } as const;
 
-export const GetAllAddressesSchema = {
-    type: 'array',
-    items: {
-        '$ref': '#/components/schemas/Model'
+export const GetAddressResponseSchema = {
+    type: 'object',
+    required: ['data'],
+    properties: {
+        data: {
+            '$ref': '#/components/schemas/Model'
+        }
     }
 } as const;
 
 export const ModelSchema = {
     type: 'object',
-    required: ['id', 'user_id', 'first_name', 'last_name', 'postal_code', 'city', 'state', 'full_address', 'phone_number', 'landmark', 'is_default', 'created_at'],
+    required: ['id', 'userId', 'firstName', 'lastName', 'postalCode', 'city', 'state', 'fullAddress', 'phoneNumber', 'isDefault', 'createdAt'],
     properties: {
         city: {
             type: 'string'
         },
-        created_at: {
+        createdAt: {
             type: 'string',
             format: 'date-time'
         },
-        first_name: {
+        firstName: {
             type: 'string'
         },
-        full_address: {
+        fullAddress: {
             type: 'string'
         },
         id: {
             type: 'string'
         },
-        is_default: {
+        isDefault: {
             type: 'boolean'
         },
         landmark: {
+            type: ['string', 'null']
+        },
+        lastName: {
             type: 'string'
         },
-        last_name: {
+        phoneNumber: {
             type: 'string'
         },
-        phone_number: {
-            type: 'string'
-        },
-        postal_code: {
+        postalCode: {
             type: 'integer',
             format: 'int32'
         },
         state: {
             type: 'string'
         },
-        user_id: {
+        userId: {
             type: 'string'
         }
     }

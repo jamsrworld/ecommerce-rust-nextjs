@@ -10,6 +10,13 @@ use actix_web::{
     HttpResponse,
 };
 use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
+use serde::Serialize;
+use utoipa::ToSchema;
+
+#[derive(Debug, Serialize, ToSchema)]
+pub struct GetAddressResponse {
+    data: entity::address::Model,
+}
 
 /// Get An Address
 #[utoipa::path(
@@ -17,7 +24,7 @@ use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
     context_path = "/user/addresses",
     params(("id", description = "Address Id", min_length = 24, max_length = 24)),
     responses(
-        (status=StatusCode::OK, body = entity::address::Model, description= "Address"),
+        (status=StatusCode::OK, body = GetAddressResponse, description= "Address"),
         (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage, description= "Internal Server Error"),
     )
 )]
@@ -37,5 +44,9 @@ pub async fn get_address(
         .await?
         .ok_or_else(|| HttpError::not_found(AddressMessage::AddressNotFound(&address_id)))?;
 
-    Ok(HttpResponse::Ok().json(address))
+    let response = GetAddressResponse {
+        data: address,
+    };
+
+    Ok(HttpResponse::Ok().json(response))
 }

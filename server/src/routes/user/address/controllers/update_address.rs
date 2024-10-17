@@ -66,6 +66,9 @@ pub async fn update_address(
     let address = address.update(db).await?;
     let message = AddressMessage::AddressUpdated.to_string();
 
-    let response: CreateAddressResponse = CreateAddressResponse { address, message };
+    let response: CreateAddressResponse = CreateAddressResponse {
+        message,
+        data: address,
+    };
     Ok(HttpResponse::Ok().json(response))
 }

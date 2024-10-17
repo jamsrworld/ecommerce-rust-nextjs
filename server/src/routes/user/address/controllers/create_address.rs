@@ -14,7 +14,7 @@ use utoipa::ToSchema;
 #[derive(Serialize, ToSchema)]
 pub struct CreateAddressResponse {
     pub message: String,
-    pub address: entity::address::Model,
+    pub data: entity::address::Model,
 }
 
 /// Create An Address
@@ -72,7 +72,7 @@ pub async fn create_address(
 
     let response = CreateAddressResponse {
         message: AddressMessage::AddressCreated.to_string(),
-        address: new_address,
+        data: new_address,
     };
     Ok(HttpResponse::Created().json(response))
 }

@@ -103,9 +103,9 @@ export type CreateAddressInput = {
      */
     fullAddress: string;
     /**
-     * State of the user.
+     * Landmark of the user.
      */
-    landmark: string;
+    landmark?: (string) | null;
     /**
      * Last name of the user.
      */
@@ -125,25 +125,27 @@ export type CreateAddressInput = {
 };
 
 export type CreateAddressResponse = {
-    address: Model;
+    data: Model;
     message: string;
 };
 
-export type GetAllAddresses = Array<Model>;
+export type GetAddressResponse = {
+    data: Model;
+};
 
 export type Model = {
     city: string;
-    created_at: string;
-    first_name: string;
-    full_address: string;
+    createdAt: string;
+    firstName: string;
+    fullAddress: string;
     id: string;
-    is_default: boolean;
-    landmark: string;
-    last_name: string;
-    phone_number: string;
-    postal_code: number;
+    isDefault: boolean;
+    landmark?: (string) | null;
+    lastName: string;
+    phoneNumber: string;
+    postalCode: number;
     state: string;
-    user_id: string;
+    userId: string;
 };
 
 export type ResponseWithMessage = {
@@ -211,7 +213,7 @@ export type ResetPasswordResponse = (ResponseWithMessage);
 
 export type ResetPasswordError = (ResponseWithMessage);
 
-export type GetAddressesResponse = (GetAllAddresses);
+export type GetAddressesResponse = (Array<Model>);
 
 export type GetAddressesError = (ResponseWithMessage);
 
@@ -231,6 +233,10 @@ export type GetAddressData = {
         id: string;
     };
 };
+
+export type GetAddressResponse2 = (GetAddressResponse);
+
+export type GetAddressError = (ResponseWithMessage);
 
 export type DeleteAddressData = {
     path: {

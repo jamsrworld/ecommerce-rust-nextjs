@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use actix_web::{http::StatusCode, ResponseError};
 use log::error;
 use sea_orm::DbErr;
@@ -105,6 +107,12 @@ impl std::fmt::Display for HttpError {
 #[derive(Debug, Serialize, ToSchema)]
 pub struct ResponseWithMessage {
     pub message: String,
+}
+
+impl Display for ResponseWithMessage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.message)
+    }
 }
 
 impl ResponseError for HttpError {

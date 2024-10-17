@@ -4,7 +4,7 @@ use crate::{
     AppState,
 };
 use actix_web::{get, web, HttpResponse};
-use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
+use sea_orm::{ColumnTrait, EntityTrait, Order, QueryFilter, QueryOrder};
 
 /// Get All Addresses
 #[utoipa::path(
@@ -25,6 +25,7 @@ pub async fn get_addresses(
 
     let addresses = entity::address::Entity::find()
         .filter(entity::address::Column::UserId.eq(user_id))
+        .order_by(entity::address::Column::CreatedAt, Order::Desc)
         .all(db)
         .await?;
 

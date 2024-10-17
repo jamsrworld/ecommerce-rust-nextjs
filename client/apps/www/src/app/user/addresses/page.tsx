@@ -1,6 +1,6 @@
 import { Divider, Typography } from "@jamsr-ui/react";
 import { type Metadata } from "next";
-import { AddressFormDialog } from "./_lib/components/address-form-dialog";
+import { AddressFormDrawer } from "./_lib/components/address-form-drawer";
 import { AddressList } from "./_lib/components/address-list";
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const Page = () => {
   return (
-    <div>
+    <div className="flex flex-col">
       <section className="flex flex-col gap-2">
         <Typography
           as="h1"
@@ -22,7 +22,7 @@ const Page = () => {
       </section>
       <section>
         <AddressList />
-        <AddressFormDialog />
+        <AddressFormDrawer />
       </section>
     </div>
   );

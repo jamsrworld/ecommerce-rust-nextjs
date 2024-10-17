@@ -1,11 +1,20 @@
-import { Button, Divider, Input, Typography } from "@jamsr-ui/react";
+import { getProfile } from "@/api";
+import { Button, Divider, Input, Skeleton, Typography } from "@jamsr-ui/react";
 import { type Metadata } from "next";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Profile",
 };
 
-const Page = () => {
+const Page = async () => {
+  const { data } = await getProfile({
+    headers: {
+      Cookie: cookies().toString(),
+    },
+  });
+  if (!data) return <Skeleton className="h-12" />;
+  const { email, fullName } = data;
   return (
     <div>
       <section className="flex flex-col gap-2">
@@ -38,7 +47,7 @@ const Page = () => {
               className="text-base"
               as="p"
             >
-              admin@gmail.com
+              {email}
             </Typography>
           </li>
           <li className="flex justify-between">
@@ -78,6 +87,7 @@ const Page = () => {
             labelPlacement="inside"
             label="Full Name"
             size="lg"
+            defaultValue={fullName}
           />
           <Input
             labelPlacement="inside"

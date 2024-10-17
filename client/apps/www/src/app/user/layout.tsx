@@ -1,6 +1,7 @@
 import { type LinkProps } from "next/link";
 import React from "react";
 import { ProfileLinkItem } from "./_lib/components/link-item";
+import { UserGreeting } from "./_lib/components/user-greeting";
 
 type Props = {
   children: React.ReactNode;
@@ -26,6 +27,7 @@ const Layout = (props: Props) => {
   return (
     <div className="container flex max-w-screen-2xl py-24">
       <div className="w-full max-w-sm">
+        <UserGreeting />
         <ul className="flex flex-col gap-2">
           {items.map((item, index) => {
             return (

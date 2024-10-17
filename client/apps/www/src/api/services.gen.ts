@@ -31,6 +31,8 @@ import type {
   CreateAddressError,
   CreateAddressResponse2,
   GetAddressData,
+  GetAddressError,
+  GetAddressResponse2,
   DeleteAddressData,
   DeleteAddressError,
   DeleteAddressResponse,
@@ -48,10 +50,7 @@ import type {
 } from "./types.gen";
 
 export const client = createClient(
-  createConfig({
-    baseUrl: "http://localhost:5003",
-    credentials:"include"
-  }),
+  createConfig({ baseUrl: "http://localhost:5003", credentials: "include" }),
 );
 
 export const healthCheck = <ThrowOnError extends boolean = false>(
@@ -202,7 +201,11 @@ export const createAddress = <ThrowOnError extends boolean = false>(
 export const getAddress = <ThrowOnError extends boolean = false>(
   options: Options<GetAddressData, ThrowOnError>,
 ) => {
-  return (options?.client ?? client).get<void, unknown, ThrowOnError>({
+  return (options?.client ?? client).get<
+    GetAddressResponse2,
+    GetAddressError,
+    ThrowOnError
+  >({
     ...options,
     url: "/user/addresses/{id}",
   });

@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { getAddresses } from "@/api";
-import { Typography } from "@jamsr-ui/react";
-import { CheckIcon } from "@repo/icons";
+import { Divider, Typography } from "@jamsr-ui/react";
 import { cookies } from "next/headers";
+import { getAddresses } from "@/api";
+import { DefaultAddress } from "./default-address";
 import { DeleteAddress } from "./delete-address";
+import { EditAddress } from "./edit-address";
+import { SetAsDefaultAddress } from "./set-as-default";
 
 export const AddressList = async () => {
   const response = await getAddresses({
@@ -14,57 +16,85 @@ export const AddressList = async () => {
   if (response.error) return response.error;
   const { data } = response;
   return (
-    <div className="flex flex-col gap-4">
+    <ul className="flex flex-col">
       {data.map((item) => {
         const {
-          first_name,
-          city,
-          full_address,
-          is_default,
-          landmark,
-          last_name,
-          phone_number,
-          postal_code,
+          fullAddress,
+          firstName,
+          isDefault,
+          lastName,
+          phoneNumber,
+          postalCode,
           state,
+          city,
+          landmark,
           id,
         } = item;
         return (
-          <div key={id}>
-            {is_default && <CheckIcon className="text-success" />}
-            <DeleteAddress id={id} />
-            <Typography
-              as="p"
-              className="font-normal"
+          <>
+            <li
+              className="py-4"
+              key={id}
             >
-              {first_name} {last_name}
-            </Typography>
-            <Typography
-              as="p"
-              className="font-normal"
-            >
-              {full_address}
-            </Typography>
-            <Typography
-              as="p"
-              className="font-normal"
-            >
-              {postal_code} {city} {state}
-            </Typography>
-            <Typography
-              as="p"
-              className="font-normal"
-            >
-              {phone_number}
-            </Typography>
-            <Typography
-              as="p"
-              className="font-normal"
-            >
-              {landmark}
-            </Typography>
-          </div>
+              <div className="flex items-center justify-between">
+                <div>{isDefault && <DefaultAddress />}</div>
+                <div className="flex gap-4">
+                  {!isDefault && <SetAsDefaultAddress id={id} />}
+                  <EditAddress
+                    formData={item}
+                    id={id}
+                  />
+                  <DeleteAddress id={id} />
+                </div>
+              </div>
+              <div className="text-base font-normal text-foreground-secondary">
+                <Typography
+                  as="p"
+                  className="font-medium text-foreground"
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                >
+                  {firstName} {lastName}
+                </Typography>
+                <Typography
+                  as="p"
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                >
+                  {fullAddress}
+                </Typography>
+                <Typography
+                  as="p"
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                >
+                  {postalCode} {city} {state}
+                </Typography>
+                <Typography
+                  as="p"
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                >
+                  {phoneNumber}
+                </Typography>
+                <Typography
+                  as="p"
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                >
+                  {landmark}
+                </Typography>
+              </div>
+            </li>
+            <Divider />
+          </>
         );
       })}
-    </div>
+    </ul>
   );
 };

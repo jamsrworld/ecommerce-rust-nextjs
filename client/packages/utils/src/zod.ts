@@ -20,7 +20,7 @@ export const email = () =>
     .toLowerCase();
 
 export const coerceNumber = (schema: ZodNumber, message: string) =>
-  string().min(1, message).transform(Number);
+  string().min(1, message).transform(Number).pipe(schema).or(schema);
 
 function schema<Model = never>() {
   return {

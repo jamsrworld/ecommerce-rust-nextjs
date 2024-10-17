@@ -61,9 +61,9 @@ pub struct CreateAddressInput {
 
     #[validate(
         length(min = 1, message = "Landmark is required"),
-        length(max = 50, message = "Maximum 50 characters are allowed")
+        length(max = 200, message = "Maximum 200 characters are allowed")
     )]
-    #[schema(min_length = 1, max_length = 50)]
+    #[schema(min_length = 1, max_length = 200)]
     /// Landmark of the user.
     pub landmark: Option<String>,
 }
