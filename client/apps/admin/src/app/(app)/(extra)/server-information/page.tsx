@@ -32,10 +32,16 @@ const Page = () => {
                   <Typography
                     className="text-foreground-secondary"
                     as="p"
+                    variant="paragraph"
                   >
                     {key}
                   </Typography>
-                  <Typography as="p">{value}</Typography>
+                  <Typography
+                    variant="paragraph"
+                    as="p"
+                  >
+                    {value}
+                  </Typography>
                 </li>
               );
             })}

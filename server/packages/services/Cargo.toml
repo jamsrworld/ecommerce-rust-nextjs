@@ -1,0 +1,9 @@
+[package]
+name = "services"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+askama = { version = "0.12.1" }
+lettre = "0.11.9"
+utils = { path = "../utils" }

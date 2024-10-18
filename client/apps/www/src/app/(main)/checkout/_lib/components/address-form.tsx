@@ -3,9 +3,7 @@
 import {
   Checkbox,
   Input,
-  Select,
-  SelectItem,
-  Typography,
+  Typography
 } from "@jamsr-ui/react";
 
 export const AddressForm = () => {
@@ -18,23 +16,18 @@ export const AddressForm = () => {
         Shipping Address
       </Typography>
       <div className="grid gap-2">
-        <Select size="lg" placeholder="Country/Region">
-          <SelectItem value="france">France</SelectItem>
-          <SelectItem value="india">India</SelectItem>
-          <SelectItem value="spain">Spain</SelectItem>
-        </Select>
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           <Input
             label="First Name"
             name="firstName"
             size="lg"
-            labelPlacement="inside"
+            variant="outlined"
           />
           <Input
             label="Last Name"
             name="lastName"
             size="lg"
-            labelPlacement="inside"
+            variant="outlined"
           />
         </div>
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
@@ -42,26 +35,26 @@ export const AddressForm = () => {
             label="Postal Code"
             name="postalCode"
             size="lg"
-            labelPlacement="inside"
+            variant="outlined"
           />
           <Input
             label="City"
             name="city"
             size="lg"
-            labelPlacement="inside"
+            variant="outlined"
           />
         </div>
         <Input
           label="Full Address"
           name="address"
           size="lg"
-          labelPlacement="inside"
+          variant="outlined"
         />
         <Input
           label="Landmark (optional)"
           name="apartment"
           size="lg"
-          labelPlacement="inside"
+          variant="outlined"
         />
       </div>
       <Checkbox

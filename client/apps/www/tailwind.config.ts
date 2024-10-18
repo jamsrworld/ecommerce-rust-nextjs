@@ -6,7 +6,8 @@ const config: Config = {
     "./src/**/*.{ts,tsx}",
     "../../packages/components/src/**/*.{ts,tsx}",
     // for jamsr-ui
-    "../../node_modules/@jamsr-ui/**/dist/*.{js,jsx,mjs}",
+    "../../node_modules/@jamsr-ui/*/dist/*.{js,jsx,mjs}",
+    "!node_modules",
   ],
   presets: [sharedConfig],
 };

@@ -1,0 +1,16 @@
+[package]
+name = "middlewares"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4.9.0"
+entity = { path = "../../db/entity" }
+futures-util = "0.3.31"
+utils = { path = "../../packages/utils" }
+sea-orm = { version = "1.1.0", features = [
+  "sqlx-postgres",
+  "runtime-tokio-rustls",
+  "macros",
+  "debug-print",
+] }

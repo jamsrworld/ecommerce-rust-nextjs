@@ -1,0 +1,12 @@
+[package]
+name = "extractors"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+entity = { path = "../../db/entity" }
+utils = { path = "../../packages/utils" }
+actix-web = "4.9.0"
+futures-util = "0.3.31"
+serde = "1.0.210"
+validator = { version = "0.16.1", features = ["derive"] }

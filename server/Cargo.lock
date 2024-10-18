@@ -230,6 +230,29 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "512761e0bb2578dd7380c6baaa0f4ce03e84f95e960231d1dec8bf4d7d6e2627"
 
 [[package]]
+name = "admin"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "askama",
+ "chrono",
+ "config",
+ "cuid2",
+ "entity",
+ "extractors",
+ "middlewares",
+ "migration",
+ "sea-orm",
+ "serde",
+ "serde_json",
+ "services",
+ "thiserror",
+ "utils",
+ "utoipa",
+ "validator",
+]
+
+[[package]]
 name = "ahash"
 version = "0.7.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -929,6 +952,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "config"
+version = "0.1.0"
+
+[[package]]
 name = "const-oid"
 version = "0.9.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1262,6 +1289,18 @@ checksum = "0f214dc438f977e6d4e3500aaa277f5ad94ca83fbbd9b1a15713ce2344ccc5a1"
 dependencies = [
  "event-listener 5.3.1",
  "pin-project-lite",
+]
+
+[[package]]
+name = "extractors"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "entity",
+ "futures-util",
+ "serde",
+ "utils",
+ "validator",
 ]
 
 [[package]]
@@ -2052,10 +2091,12 @@ dependencies = [
  "actix-cors",
  "actix-extensible-rate-limit",
  "actix-web",
+ "admin",
  "argon2",
  "askama",
  "async-trait",
  "chrono",
+ "config",
  "cuid2",
  "dotenvy",
  "entity",
@@ -2073,11 +2114,13 @@ dependencies = [
  "tokio",
  "tracing",
  "tracing-subscriber",
+ "utils",
  "utoipa",
  "utoipa-scalar",
  "utoipa-swagger-ui",
  "utoipauto",
  "validator",
+ "www",
 ]
 
 [[package]]
@@ -2095,6 +2138,17 @@ name = "memchr"
 version = "2.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
+
+[[package]]
+name = "middlewares"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "entity",
+ "futures-util",
+ "sea-orm",
+ "utils",
+]
 
 [[package]]
 name = "migration"
@@ -3231,9 +3285,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.128"
+version = "1.0.129"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6ff5456707a1de34e7e37f2a6fd3d3f808c318259cbd01ab6377795054b483d8"
+checksum = "6dbcf9b78a125ee667ae19388837dd12294b858d101fdd393cb9d5501ef09eb2"
 dependencies = [
  "itoa",
  "memchr",
@@ -3251,6 +3305,15 @@ dependencies = [
  "itoa",
  "ryu",
  "serde",
+]
+
+[[package]]
+name = "services"
+version = "0.1.0"
+dependencies = [
+ "askama",
+ "lettre",
+ "utils",
 ]
 
 [[package]]
@@ -4064,6 +4127,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "06abde3611657adf66d383f00b093d7faecc7fa57071cce2578660c9f1010821"
 
 [[package]]
+name = "utils"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "argon2",
+ "chrono",
+ "jsonwebtoken",
+ "log",
+ "rand",
+ "sea-orm",
+ "serde",
+ "thiserror",
+ "utoipa",
+]
+
+[[package]]
 name = "utoipa"
 version = "5.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4559,6 +4638,29 @@ name = "writeable"
 version = "0.5.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1e9df38ee2d2c3c5948ea468a8406ff0db0b29ae1ffde1bcf20ef305bcc95c51"
+
+[[package]]
+name = "www"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "askama",
+ "chrono",
+ "config",
+ "cuid2",
+ "entity",
+ "extractors",
+ "middlewares",
+ "migration",
+ "sea-orm",
+ "serde",
+ "serde_json",
+ "services",
+ "thiserror",
+ "utils",
+ "utoipa",
+ "validator",
+]
 
 [[package]]
 name = "wyz"

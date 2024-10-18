@@ -1,31 +1,26 @@
 use actix_cors::Cors;
 use actix_web::{http, App, HttpServer};
 use dotenvy::dotenv;
-use routes::{
-    admin::auth::admin_auth_routes, auth::auth_routes, home::health_check, user::user_routes,
-};
-use sea_orm::{ConnectOptions, Database, DatabaseConnection};
+use routes::home::health_check;
+use sea_orm::{ConnectOptions, Database};
+use utils::AppState;
 use utoipa::OpenApi;
 use utoipa_scalar::{Scalar, Servable};
-use utoipa_swagger_ui::SwaggerUi;
+use utoipa_swagger_ui::{SwaggerUi, Url};
 use utoipauto::utoipauto;
+use www::www_routes;
 
-mod config;
-mod error;
-mod extractors;
-mod middlewares;
 mod routes;
-mod services;
-mod utils;
 
-#[utoipauto()]
+#[utoipauto(paths = "./routers/www/src/lib.rs")]
 #[derive(OpenApi)]
 #[openapi(info(title = "Mcart api documentation"), paths())]
 struct ApiDoc;
 
-pub struct AppState {
-    pub db: DatabaseConnection,
-}
+// #[utoipauto(paths = "./routers/admin/src")]
+// #[derive(OpenApi)]
+// #[openapi(info(title = "Mcart admin api documentation"), paths())]
+// struct ApiDocAdmin;
 
 #[actix_web::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -54,7 +49,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Hello, world!");
 
     let app_data = actix_web::web::Data::new(AppState { db });
-    let openapi = ApiDoc::openapi();
 
     HttpServer::new(move || {
         let cors = Cors::default()
@@ -72,14 +66,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         App::new()
             .wrap(cors)
             .app_data(app_data.clone())
-            .configure(user_routes)
             .service(health_check)
-            .service(auth_routes())
-            .service(admin_auth_routes())
-            .service(
-                SwaggerUi::new("/swagger-ui/{_:.*}").url("/api-doc/openapi.json", openapi.clone()),
-            )
-            .service(Scalar::with_url("/scalar", openapi.clone()))
+            .configure(www_routes)
+            .service(SwaggerUi::new("/swagger-ui/{_:.*}").urls(vec![
+                (Url::new("api", "/api-docs/openapi.json"), ApiDoc::openapi()),
+                // (
+                //     Url::with_primary("api2", "/api-docs/openapi-admin.json", true),
+                //     ApiDocAdmin::openapi(),
+                // ),
+            ]))
+            .service(Scalar::with_url("/scalar", ApiDoc::openapi()))
+        // .service(Scalar::with_url("/scalar-admin", ApiDocAdmin::openapi()))
     })
     .bind((host, port))?
     .run()

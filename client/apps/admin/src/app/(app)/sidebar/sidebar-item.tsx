@@ -30,14 +30,14 @@ export const SidebarItem = (props: SidebarItemType) => {
         href={path}
         variant="light"
         fullWidth
-        className={cn("justify-start hover:bg-content2", {
-          "bg-content3": isActive,
+        className={cn("justify-start", {
+          "bg-content2": isActive,
         })}
         onClick={() => setIsOpen(!isOpen)}
         disableRipple
       >
         {icon}
-        
+
         {heading}
         {hasItems && (
           <m.span

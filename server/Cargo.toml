@@ -4,11 +4,26 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = [".", "migration", "entity"]
+members = [
+  ".",
+  "db/migration",
+  "db/entity",
+  "routers/www",
+  "routers/admin",
+  "packages/config",
+  "packages/extractors",
+  "packages/middlewares",
+  "packages/services",
+  "packages/utils",
+]
 
 [dependencies]
-migration = { path = "migration" }
-entity = { path = "entity" }
+migration = { path = "./db/migration" }
+entity = { path = "./db/entity" }
+www = { path = "./routers/www" }
+admin = { path = "./routers/admin" }
+config = { path = "./packages/config" }
+utils = { path = "./packages/utils" }
 actix-extensible-rate-limit = { version = "0.4.0", features = ["redis"] }
 actix-web = "4.9.0"
 async-trait = "0.1.83"
@@ -27,7 +42,7 @@ sea-orm = { version = "1.1.0", features = [
   "debug-print",
 ] }
 serde = { version = "1.0.210", features = ["derive"] }
-serde_json = "1.0.128"
+serde_json = "1.0.129"
 thiserror = "1.0.64"
 tokio = { version = "1.40.0", features = ["full"] }
 tracing = "0.1.40"

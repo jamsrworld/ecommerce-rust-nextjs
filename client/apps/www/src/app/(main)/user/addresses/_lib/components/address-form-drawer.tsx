@@ -26,18 +26,20 @@ export const AddressFormDrawer = () => {
       <Drawer
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        className="flex w-full flex-col justify-center gap-4 p-4"
+        className="flex w-full flex-col"
       >
-        <CreateAddressForm onSuccess={onSuccess} />
-        <Button
-          color="primary"
-          variant="link"
-          disableRipple
-          className="underline"
-          onClick={onClose}
-        >
-          Cancel
-        </Button>
+        <div className="my-auto flex flex-col gap-4 p-4">
+          <CreateAddressForm onSuccess={onSuccess} />
+          <Button
+            color="primary"
+            variant="link"
+            disableRipple
+            className="underline"
+            onClick={onClose}
+          >
+            Cancel
+          </Button>
+        </div>
       </Drawer>
     </>
   );

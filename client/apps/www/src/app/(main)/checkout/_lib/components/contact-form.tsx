@@ -12,12 +12,12 @@ export const ContactForm = () => {
       <Input
         label="Email Address"
         size="lg"
-        labelPlacement="inside"
+        variant="outlined"
       />
       <Input
         label="Phone Number"
         size="lg"
-        labelPlacement="inside"
+        variant="outlined"
       />
     </div>
   );

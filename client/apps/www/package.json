@@ -11,7 +11,7 @@
   "dependencies": {
     "@hey-api/client-fetch": "0.4.2",
     "@hookform/resolvers": "^3.9.0",
-    "@jamsr-ui/react": "0.0.144",
+    "@jamsr-ui/react": "0.0.146",
     "@repo/components": "workspace:^",
     "@repo/config": "workspace:^",
     "@repo/icons": "workspace:^",
@@ -34,11 +34,11 @@
     "@repo/styles": "workspace:^",
     "@repo/tailwind-config": "workspace:^",
     "@repo/typescript-config": "workspace:^",
-    "@types/node": "^20",
+    "@types/node": "22.7.6",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "postcss": "^8",
-    "prettier-plugin-tailwindcss": "^0.5.14",
+    "prettier-plugin-tailwindcss": "0.6.8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
