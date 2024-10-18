@@ -3,5 +3,5 @@ pub mod controllers;
 use super::auth::controllers::login;
 
 pub fn admin_auth_routes() -> Scope {
-    web::scope("/admin").service(login::login)
+    web::scope("/auth").service(login::login)
 }

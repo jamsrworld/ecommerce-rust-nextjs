@@ -2,14 +2,13 @@ use actix_cors::Cors;
 use actix_web::{http, App, HttpServer};
 use admin::AdminApiDoc;
 use dotenvy::dotenv;
-use routes::home::health_check;
 use sea_orm::{ConnectOptions, Database};
 use utils::AppState;
 use utoipa::OpenApi;
 use utoipa_scalar::{Scalar, Servable};
 use utoipa_swagger_ui::{SwaggerUi, Url};
 use www::{www_routes, WwwApiDoc};
-mod routes;
+use admin::admin_routes;
 
 #[actix_web::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -55,8 +54,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         App::new()
             .wrap(cors)
             .app_data(app_data.clone())
-            .service(health_check)
-            .configure(www_routes)
+            .configure(admin_routes)
             .service(SwaggerUi::new("/swagger-ui/{_:.*}").urls(vec![
                 (
                     Url::new("api", "/api-docs/openapi.json"),
@@ -69,6 +67,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             ]))
             .service(Scalar::with_url("/scalar", WwwApiDoc::openapi()))
             .service(Scalar::with_url("/scalar-admin", AdminApiDoc::openapi()))
+            .configure(www_routes)
     })
     .bind((host, port))?
     .run()
