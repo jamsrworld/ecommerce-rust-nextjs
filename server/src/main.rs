@@ -1,5 +1,6 @@
 use actix_cors::Cors;
 use actix_web::{http, App, HttpServer};
+use admin::AdminApiDoc;
 use dotenvy::dotenv;
 use routes::home::health_check;
 use sea_orm::{ConnectOptions, Database};
@@ -7,20 +8,8 @@ use utils::AppState;
 use utoipa::OpenApi;
 use utoipa_scalar::{Scalar, Servable};
 use utoipa_swagger_ui::{SwaggerUi, Url};
-use utoipauto::utoipauto;
-use www::www_routes;
-
+use www::{www_routes, WwwApiDoc};
 mod routes;
-
-#[utoipauto(paths = "./routers/www/src/lib.rs")]
-#[derive(OpenApi)]
-#[openapi(info(title = "Mcart api documentation"), paths())]
-struct ApiDoc;
-
-// #[utoipauto(paths = "./routers/admin/src")]
-// #[derive(OpenApi)]
-// #[openapi(info(title = "Mcart admin api documentation"), paths())]
-// struct ApiDocAdmin;
 
 #[actix_web::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -69,14 +58,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .service(health_check)
             .configure(www_routes)
             .service(SwaggerUi::new("/swagger-ui/{_:.*}").urls(vec![
-                (Url::new("api", "/api-docs/openapi.json"), ApiDoc::openapi()),
-                // (
-                //     Url::with_primary("api2", "/api-docs/openapi-admin.json", true),
-                //     ApiDocAdmin::openapi(),
-                // ),
+                (
+                    Url::new("api", "/api-docs/openapi.json"),
+                    WwwApiDoc::openapi(),
+                ),
+                (
+                    Url::with_primary("api2", "/api-docs/openapi-admin.json", true),
+                    AdminApiDoc::openapi(),
+                ),
             ]))
-            .service(Scalar::with_url("/scalar", ApiDoc::openapi()))
-        // .service(Scalar::with_url("/scalar-admin", ApiDocAdmin::openapi()))
+            .service(Scalar::with_url("/scalar", WwwApiDoc::openapi()))
+            .service(Scalar::with_url("/scalar-admin", AdminApiDoc::openapi()))
     })
     .bind((host, port))?
     .run()
