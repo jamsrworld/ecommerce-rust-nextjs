@@ -39,18 +39,17 @@ pub struct AdminInternalServerError {
 ///
 /// Api to login for user
 #[utoipa::path(
-  tag = "AdminAuth",
-  context_path = "/admin",
+  tag = "Auth",
+  context_path = "/auth",
   request_body(content = AdminLoginInput),
   responses(
     (status=StatusCode::OK, body = AdminLoginResponse),
     (status=StatusCode::BAD_REQUEST, body = AdminBadRequest),
     (status=StatusCode::INTERNAL_SERVER_ERROR, body = AdminInternalServerError),
- ),
- operation_id="admin_login"
+ )
 )
 ]
-#[post("/admin/login")]
+#[post("/login")]
 pub async fn login(
     app_data: web::Data<AppState>,
     input: ValidatedJson<AdminLoginInput>,

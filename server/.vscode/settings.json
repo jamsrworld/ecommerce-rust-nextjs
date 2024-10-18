@@ -17,6 +17,7 @@
     "openapi",
     "otps",
     "sqlx",
+    "sysinfo",
     "thiserror",
     "utoipa",
     "utoipauto"
