@@ -1,14 +1,14 @@
-/* eslint-disable */
-// @ts-nocheck
+/* eslint-disable  */
+import { type NextConfig } from "next";
 
-/** @return {import('next').NextConfig} */
-export const nextSharedConfig = () => ({
+// eslint-disable-next-line import/prefer-default-export
+export const sharedNextConfig: NextConfig = {
   webpack(config) {
     // Grab the existing rule that handles SVG imports
-    const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.(".svg")
+    const fileLoaderRule = config.module.rules.find(
+      (rule: { test: { test: (arg0: string) => any } }) =>
+        rule.test?.test?.(".svg")
     );
-
     config.module.rules.push(
       // Reapply the existing rule, but only for svg imports ending in ?url
       {
@@ -24,17 +24,14 @@ export const nextSharedConfig = () => ({
         use: ["@svgr/webpack"],
       }
     );
-
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     fileLoaderRule.exclude = /\.svg$/i;
-
     return config;
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
   images: {
     remotePatterns: [
@@ -58,14 +55,4 @@ export const nextSharedConfig = () => ({
       },
     ],
   },
-  experimental: {
-    typedRoutes: true,
-    typedEnv: true,
-    scrollRestoration: false,
-  },
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
-});
+};

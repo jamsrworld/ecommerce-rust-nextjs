@@ -4,11 +4,12 @@ import { NextLink } from "@repo/components/next";
 import { cookies } from "next/headers";
 
 export const UserData = async () => {
-  const userSession = cookies().get("x-session")?.value;
+  const cookieStore = await cookies();
+  const userSession = cookieStore.get("x-session")?.value;
   if (!userSession) return "You aren't loggedin";
   const response = await getProfile({
     headers: {
-      Cookie: cookies().toString(),
+      Cookie: cookieStore.toString(),
     },
   });
   if (response.error) return response.error;

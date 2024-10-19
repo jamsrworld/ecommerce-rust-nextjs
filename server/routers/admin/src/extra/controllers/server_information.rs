@@ -5,11 +5,12 @@ use chrono::DateTime;
 use chrono::Utc;
 use serde::Serialize;
 use sysinfo::System;
+use utoipa::ToSchema;
 
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, ToSchema)]
 #[serde(rename_all = "camelCase")]
-struct SystemInfo {
+pub struct SystemInfo {
     last_cron: DateTime<Utc>,
     last_success_cron: DateTime<Utc>,
     os_hostname: String,
@@ -26,7 +27,7 @@ struct SystemInfo {
   tag="Extra",
   context_path = "/extra",
   responses (
-      (status = 200, description = "health check", body = String)
+      (status = 200, description = "server information", body = SystemInfo)
   )
 )]
 #[get("/server-information")]

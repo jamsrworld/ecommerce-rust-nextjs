@@ -23,10 +23,6 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.png" }],
 };
 
-client.setConfig({
-  baseUrl: "http://localhost:5003",
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{
