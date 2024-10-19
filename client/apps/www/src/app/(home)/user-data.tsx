@@ -1,5 +1,5 @@
 import { getProfile } from "@/client";
-import { authedClient } from "@/utils/client";
+import { authedClient } from "@/utils/authed-client";
 import { Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { cookies } from "next/headers";

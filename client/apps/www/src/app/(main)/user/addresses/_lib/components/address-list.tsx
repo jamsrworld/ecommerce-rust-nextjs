@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { getAddresses } from "@/client";
-import { authedClient } from "@/utils/client";
+import { authedClient } from "@/utils/authed-client";
 import { Divider, Typography } from "@jamsr-ui/react";
 import { FetchError } from "@repo/components/fetch-error";
 import { DefaultAddress } from "./default-address";

@@ -6,6 +6,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "www:dev": "cd apps/www && pnpm dev",
+    "admin:dev": "cd apps/admin && pnpm dev",
     "typegen:www": "openapi-ts -f openapi/www.config.ts && tsx openapi/fix.ts www",
     "typegen:admin": "openapi-ts -f openapi/admin.config.ts && tsx openapi/fix.ts admin"
   },

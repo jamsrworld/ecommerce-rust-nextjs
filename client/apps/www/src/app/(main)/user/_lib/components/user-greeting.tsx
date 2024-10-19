@@ -1,5 +1,5 @@
 import { getProfile } from "@/client";
-import { authedClient } from "@/utils/client";
+import { authedClient } from "@/utils/authed-client";
 import { Skeleton, Typography } from "@jamsr-ui/react";
 
 export const UserGreeting = async () => {
