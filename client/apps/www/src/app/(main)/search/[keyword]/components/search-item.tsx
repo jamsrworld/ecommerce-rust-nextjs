@@ -45,7 +45,7 @@ export const SearchItem = (props: Props) => {
         <div className="flex items-center gap-1">
           <Typography
             as="p"
-            className="font-bold text-default"
+            className="font-bold"
           >
             ${price}
           </Typography>

@@ -1,20 +1,31 @@
-import { Card, CardContent, CardHeader, Typography } from "@jamsr-ui/react";
+import { serverInformation } from "@/api";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Skeleton,
+  Typography,
+} from "@jamsr-ui/react";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Server Information",
 };
 
-const Page = () => {
+const Page = async () => {
+  const { data } = await serverInformation();
+  if (!data) return <Skeleton className="h-12" />;
+
   const items = {
-    "Last Cron": "17 Oct 2024 17:08:03",
-    "Last Success Cron": "17 Oct 2024 17:08:03",
-    "Free Memory": "7.51 GiB",
-    "Host Name": "81af18c4e620",
-    "OS Version": "#41-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug 2 20:41:06 UTC 2024",
-    "Total Memory": "15.62 GiB",
-    "OS Type": "Linux",
-    "Up Time": "1 month 15 days 4 hours 50 minutes 16 seconds",
+    "Last Cron": data.lastCron,
+    "Last Success Cron": data.lastSuccessCron,
+    "Free Memory": `${data.freeMemory} MiB`,
+    "CPU Usage": `${data.cpuUsage}%`,
+    "Host Name": data.osHostname,
+    "OS Version": data.osVersion,
+    "Total Memory": data.totalMemory,
+    "OS Type": data.osPlatform,
+    "Up Time": data.upTime,
   };
 
   return (

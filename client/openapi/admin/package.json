@@ -1,0 +1,15 @@
+{
+  "name": "openapi-admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "openapi": "openapi-ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hey-api/openapi-ts": "^0.53.11"
+  }
+}
