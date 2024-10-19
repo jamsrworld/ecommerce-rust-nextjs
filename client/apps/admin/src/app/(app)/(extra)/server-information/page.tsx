@@ -1,4 +1,4 @@
-import { serverInformation } from "@/api";
+import { serverInformation } from "@/client";
 import {
   Card,
   CardContent,

@@ -1,6 +1,6 @@
 "use client";
 
-import { type AuthRegisterInput } from "@/api";
+import { type AuthRegisterInput } from "@/client";
 import { useState } from "react";
 import { RegisterContent } from "./register/register-content";
 import { RegisterVerifyContent } from "./verify/register-verify-content";

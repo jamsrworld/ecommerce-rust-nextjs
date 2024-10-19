@@ -3,7 +3,7 @@
 import { useDisclosure } from "@jamsr-ui/hooks";
 import { Button, Drawer } from "@jamsr-ui/react";
 import { useRouter } from "next/navigation";
-import { type CreateAddressInput } from "@/api";
+import { type CreateAddressInput } from "@/client";
 import { UpdateAddressForm } from "./update-address-form";
 
 type Props = {

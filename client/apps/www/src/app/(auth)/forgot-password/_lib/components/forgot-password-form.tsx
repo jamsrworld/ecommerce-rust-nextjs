@@ -1,5 +1,5 @@
-import { type AuthForgotPasswordInput } from "@/api";
-import { forgotPasswordMutation } from "@/api/@tanstack/react-query.gen";
+import { type AuthForgotPasswordInput } from "@/client";
+import { forgotPasswordMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
 import { onRHFInvalid, RHFInput, RHFProvider } from "@repo/components/rhf";

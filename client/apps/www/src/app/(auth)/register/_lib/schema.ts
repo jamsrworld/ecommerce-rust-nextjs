@@ -1,4 +1,4 @@
-import { type AuthRegister, type AuthRegisterVerify } from "@/api";
+import { type AuthRegister, type AuthRegisterVerify } from "@/client";
 import { email, otpCode, string, withSchema } from "@repo/utils/zod";
 
 const baseSchema = withSchema<AuthRegister>()({

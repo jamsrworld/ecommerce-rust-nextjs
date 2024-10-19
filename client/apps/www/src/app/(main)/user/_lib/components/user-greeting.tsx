@@ -1,12 +1,11 @@
-import { getProfile } from "@/api";
+import { getProfile } from "@/client";
+import { authedClient } from "@/utils/client";
 import { Skeleton, Typography } from "@jamsr-ui/react";
-import { cookies } from "next/headers";
 
 export const UserGreeting = async () => {
+  const fetchClient = await authedClient();
   const { data } = await getProfile({
-    headers: {
-      Cookie: cookies().toString(),
-    },
+    client: fetchClient,
   });
   if (!data) return <Skeleton className="h-10" />;
   const { fullName } = data;

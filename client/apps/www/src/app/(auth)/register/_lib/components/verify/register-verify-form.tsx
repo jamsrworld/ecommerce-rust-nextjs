@@ -1,5 +1,5 @@
-import { type AuthRegisterInput, type AuthRegisterVerifyInput } from "@/api";
-import { registerVerifyMutation } from "@/api/@tanstack/react-query.gen";
+import { type AuthRegisterInput, type AuthRegisterVerifyInput } from "@/client";
+import { registerVerifyMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
 import { onRHFInvalid, RHFOtpInput, RHFProvider } from "@repo/components/rhf";

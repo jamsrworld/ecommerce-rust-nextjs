@@ -1,6 +1,6 @@
 import { Button } from "@jamsr-ui/react";
 import { RHFInput } from "@repo/components/rhf";
-import { type CreateAddressInput } from "@/api";
+import { type CreateAddressInput } from "@/client";
 
 type FormValues = CreateAddressInput;
 

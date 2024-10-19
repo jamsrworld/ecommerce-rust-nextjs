@@ -9,8 +9,12 @@ dev:
 build:
 	@cargo build --release
 
-generate:
+fix_entity:
+	tsx scripts/fix_entity.ts
+
+generate_entity:
 	sea-orm-cli generate entity -o db/entity/src --with-serde both --model-extra-derives "utoipa::ToSchema" --model-extra-attributes "serde(rename_all=\"camelCase\")" --enum-extra-derives "utoipa::ToSchema"
+	@$(MAKE) fix_entity
 
 fix:
 	cargo fix --allow-dirty --allow-staged

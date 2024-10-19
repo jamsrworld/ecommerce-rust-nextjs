@@ -1,4 +1,4 @@
-import { type CreateAddressInput } from "@/api";
+import { type CreateAddressInput } from "@/client";
 import { coerceNumber, string, withSchema } from "@repo/utils/zod";
 import { literal, number } from "zod";
 

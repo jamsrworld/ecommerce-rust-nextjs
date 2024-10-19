@@ -1,16 +1,16 @@
-import { getProfile } from "@/api";
+import { getProfile } from "@/client";
+import { authedClient } from "@/utils/client";
 import { Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { cookies } from "next/headers";
 
 export const UserData = async () => {
+  const fetchClient = await authedClient();
   const cookieStore = await cookies();
   const userSession = cookieStore.get("x-session")?.value;
   if (!userSession) return "You aren't loggedin";
   const response = await getProfile({
-    headers: {
-      Cookie: cookieStore.toString(),
-    },
+    client: fetchClient,
   });
   if (response.error) return response.error;
   const fullName = response.data?.fullName;

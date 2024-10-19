@@ -25,8 +25,8 @@ export type AdminLoginResponse = {
 export type SystemInfo = {
     cpuUsage: number;
     freeMemory: number;
-    lastCron: string;
-    lastSuccessCron: string;
+    lastCron: Date;
+    lastSuccessCron: Date;
     osHostname: string;
     osPlatform: string;
     osVersion: string;

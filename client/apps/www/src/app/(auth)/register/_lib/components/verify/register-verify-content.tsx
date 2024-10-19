@@ -1,4 +1,4 @@
-import { type AuthRegisterInput } from "@/api";
+import { type AuthRegisterInput } from "@/client";
 import { AppLogo } from "@/components/app-logo";
 import { Card, CardContent, Typography } from "@jamsr-ui/react";
 import { RegisterResendOtp } from "./register-resend-otp";

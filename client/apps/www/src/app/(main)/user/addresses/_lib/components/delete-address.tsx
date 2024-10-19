@@ -4,7 +4,7 @@ import { Button, useConfirmation } from "@jamsr-ui/react";
 import { DeleteIcon } from "@repo/icons";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { deleteAddressMutation } from "@/api/@tanstack/react-query.gen";
+import { deleteAddressMutation } from "@/client/@tanstack/react-query.gen";
 
 type Props = {
   id: string;

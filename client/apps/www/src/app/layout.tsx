@@ -1,4 +1,3 @@
-import { client } from "@/api";
 import { AppProvider } from "@/providers/app";
 import type { Metadata } from "next";
 import { Inter, Open_Sans } from "next/font/google";

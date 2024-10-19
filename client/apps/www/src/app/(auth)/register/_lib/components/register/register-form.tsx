@@ -1,7 +1,7 @@
 "use client";
 
-import { type AuthRegisterInput } from "@/api";
-import { registerMutation } from "@/api/@tanstack/react-query.gen";
+import { type AuthRegisterInput } from "@/client";
+import { registerMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
 import { onRHFInvalid, RHFInput, RHFProvider } from "@repo/components/rhf";

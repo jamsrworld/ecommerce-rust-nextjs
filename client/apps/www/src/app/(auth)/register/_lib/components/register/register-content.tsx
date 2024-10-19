@@ -1,4 +1,4 @@
-import { type AuthRegisterInput } from "@/api";
+import { type AuthRegisterInput } from "@/client";
 import { LeftSection } from "@/app/(auth)/components/left-section";
 import { AppLogo } from "@/components/app-logo";
 import { Button, Divider, Link, Typography } from "@jamsr-ui/react";

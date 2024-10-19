@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import { getAddresses } from "@/client";
+import { authedClient } from "@/utils/client";
 import { Divider, Typography } from "@jamsr-ui/react";
-import { cookies } from "next/headers";
-import { getAddresses } from "@/api";
+import { FetchError } from "@repo/components/fetch-error";
 import { DefaultAddress } from "./default-address";
 import { DeleteAddress } from "./delete-address";
 import { EditAddress } from "./edit-address";
 import { SetAsDefaultAddress } from "./set-as-default";
 
 export const AddressList = async () => {
+  const fetchClient = await authedClient();
   const response = await getAddresses({
-    headers: {
-      Cookie: cookies().toString(),
-    },
+    client: fetchClient,
   });
-  if (response.error) return response.error;
+  if (response.error) return <FetchError />;
   const { data } = response;
   return (
     <ul className="flex flex-col">

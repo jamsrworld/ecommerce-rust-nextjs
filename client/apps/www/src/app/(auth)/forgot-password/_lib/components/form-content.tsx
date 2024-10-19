@@ -1,6 +1,6 @@
 "use client";
 
-import { type AuthForgotPasswordInput } from "@/api";
+import { type AuthForgotPasswordInput } from "@/client";
 import { useState } from "react";
 import { ForgotPasswordForm } from "./forgot-password-form";
 import { ForgotPasswordSection } from "./forgot-password-section";

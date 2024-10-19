@@ -1,7 +1,7 @@
 "use client";
 
-import { type AuthLoginInput } from "@/api";
-import { loginMutation } from "@/api/@tanstack/react-query.gen";
+import { type AuthLoginInput } from "@/client";
+import { loginMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Divider, Link } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";

@@ -1,15 +1,15 @@
 {
-  "name": "openapi-admin",
+  "name": "scripts",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "openapi": "openapi-ts"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@hey-api/openapi-ts": "^0.53.11"
+  "devDependencies": {
+    "@types/node": "^22.7.7"
   }
 }

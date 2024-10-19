@@ -1,8 +1,8 @@
 import {
   type AuthForgotPasswordInput,
   type AuthResetPasswordInput,
-} from "@/api";
-import { resetPasswordMutation } from "@/api/@tanstack/react-query.gen";
+} from "@/client";
+import { resetPasswordMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
 import {

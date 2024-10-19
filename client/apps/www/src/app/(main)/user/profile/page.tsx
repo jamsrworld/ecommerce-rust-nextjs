@@ -1,4 +1,4 @@
-import { getProfile } from "@/api";
+import { getProfile } from "@/client";
 import { Button, Divider, Input, Skeleton, Typography } from "@jamsr-ui/react";
 import { type Metadata } from "next";
 import { cookies } from "next/headers";
@@ -8,9 +8,10 @@ export const metadata: Metadata = {
 };
 
 const Page = async () => {
+  const cookieStore = await cookies();
   const { data } = await getProfile({
     headers: {
-      Cookie: cookies().toString(),
+      Cookie: cookieStore.toString(),
     },
   });
   if (!data) return <Skeleton className="h-12" />;

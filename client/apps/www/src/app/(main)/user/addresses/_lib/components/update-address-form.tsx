@@ -1,5 +1,5 @@
-import { type CreateAddressInput } from "@/api";
-import { updateAddressMutation } from "@/api/@tanstack/react-query.gen";
+import { type CreateAddressInput } from "@/client";
+import { updateAddressMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Typography } from "@jamsr-ui/react";
 import { RHFProvider } from "@repo/components/rhf";

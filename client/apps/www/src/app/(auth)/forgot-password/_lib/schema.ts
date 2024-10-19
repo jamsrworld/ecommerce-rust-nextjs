@@ -1,4 +1,4 @@
-import { type AuthForgotPassword, type AuthResetPassword } from "@/api";
+import { type AuthForgotPassword, type AuthResetPassword } from "@/client";
 import { email, otpCode, password, withSchema } from "@repo/utils/zod";
 
 export const forgotPasswordSchema = withSchema<AuthForgotPassword>()({

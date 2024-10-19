@@ -3,7 +3,7 @@
 import { Button } from "@jamsr-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { markDefaultAddressMutation } from "@/api/@tanstack/react-query.gen";
+import { markDefaultAddressMutation } from "@/client/@tanstack/react-query.gen";
 
 type Props = {
   id: string;
