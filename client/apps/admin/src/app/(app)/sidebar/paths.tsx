@@ -78,20 +78,6 @@ export const sidebarLinkList: SidebarGroupItemType[] = [
         heading: "Attributes",
         icon: <SidebarIcons.Support />,
         path: "/",
-        items: [
-          {
-            heading: "Registrations",
-            path: "/",
-          },
-          {
-            heading: "Orders",
-            path: "/",
-          },
-          {
-            heading: "Top Products",
-            path: "/",
-          },
-        ],
       },
     ],
   },
@@ -101,31 +87,17 @@ export const sidebarLinkList: SidebarGroupItemType[] = [
       {
         heading: "Products",
         icon: <SidebarIcons.Support />,
-        path: "/",
+        path: "/order-management/products",
       },
       {
         heading: "Categories",
         icon: <SidebarIcons.Support />,
-        path: "/",
+        path: "/order-management/categories",
       },
       {
         heading: "Attributes",
         icon: <SidebarIcons.Support />,
-        path: "/",
-        items: [
-          {
-            heading: "Registrations",
-            path: "/",
-          },
-          {
-            heading: "Orders",
-            path: "/",
-          },
-          {
-            heading: "Top Products",
-            path: "/",
-          },
-        ],
+        path: "/order-management/attributes",
       },
     ],
   },
@@ -135,31 +107,17 @@ export const sidebarLinkList: SidebarGroupItemType[] = [
       {
         heading: "Products",
         icon: <SidebarIcons.Support />,
-        path: "/",
+        path: "/product-management/products",
       },
       {
         heading: "Categories",
         icon: <SidebarIcons.Support />,
-        path: "/",
+        path: "/product-management/categories",
       },
       {
         heading: "Attributes",
         icon: <SidebarIcons.Support />,
-        path: "/",
-        items: [
-          {
-            heading: "Registrations",
-            path: "/",
-          },
-          {
-            heading: "Orders",
-            path: "/",
-          },
-          {
-            heading: "Top Products",
-            path: "/",
-          },
-        ],
+        path: "/product-management/attributes",
       },
     ],
   },
