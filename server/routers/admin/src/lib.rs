@@ -1,12 +1,16 @@
 use actix_web::web;
-mod auth;
+use auth::auth_routes;
 use extra::extra_routes;
+use hello::health_check;
+use product_management::product_management_routes;
 use utoipa::OpenApi;
 
+mod auth;
 mod extra;
 mod hello;
+mod product_management;
 
-#[utoipauto::utoipauto(paths = "./routers/admin")]
+#[utoipauto::utoipauto(paths = "./routers/admin/src")]
 #[derive(OpenApi)]
 #[openapi(info(title = "Mcart admin api documentation"), paths())]
 struct ApiDoc;
@@ -22,8 +26,9 @@ pub struct AdminApiDoc;
 pub fn admin_routes(config: &mut web::ServiceConfig) {
     config.service(
         web::scope("/admin")
-            .service(hello::health_check)
-            .service(auth::admin_auth_routes())
-            .service(extra_routes()),
+            .service(health_check)
+            .service(auth_routes())
+            .service(extra_routes())
+            .service(product_management_routes()),
     );
 }

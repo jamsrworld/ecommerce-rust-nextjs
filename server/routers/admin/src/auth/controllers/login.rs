@@ -1,7 +1,7 @@
-use actix_web::{post, web, HttpResponse};
+use actix_web::{ post, web, HttpResponse };
 use extractors::validator::ValidatedJson;
-use serde::{Deserialize, Serialize};
-use utils::{error::HttpError, AppState};
+use serde::{ Deserialize, Serialize };
+use utils::{ error::HttpError, AppState };
 use utoipa::ToSchema;
 use validator::Validate;
 
@@ -39,20 +39,19 @@ pub struct AdminInternalServerError {
 ///
 /// Api to login for user
 #[utoipa::path(
-  tag = "Auth",
-  context_path = "/auth",
-  request_body(content = AdminLoginInput),
-  responses(
-    (status=StatusCode::OK, body = AdminLoginResponse),
-    (status=StatusCode::BAD_REQUEST, body = AdminBadRequest),
-    (status=StatusCode::INTERNAL_SERVER_ERROR, body = AdminInternalServerError),
- )
-)
-]
+    tag = "Auth",
+    context_path = "/auth",
+    request_body(content = AdminLoginInput),
+    responses(
+        (status = StatusCode::OK, body = AdminLoginResponse),
+        (status = StatusCode::BAD_REQUEST, body = AdminBadRequest),
+        (status = StatusCode::INTERNAL_SERVER_ERROR, body = AdminInternalServerError)
+    )
+)]
 #[post("/login")]
 pub async fn login(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<AdminLoginInput>,
+    input: ValidatedJson<AdminLoginInput>
 ) -> Result<HttpResponse, HttpError> {
     let response = AdminLoginResponse {
         message: "Login Successful".to_string(),

@@ -1,11 +1,11 @@
 use super::schema::AuthRegisterInput;
 use super::utils::check_unique_email;
 use super::AuthMessage;
-use utils::{AppState, error::{HttpError, ResponseWithMessage}};
+use utils::{ AppState, error::{ HttpError, ResponseWithMessage } };
 use extractors::validator::ValidatedJson;
 use super::utils::generate_otp;
 use services::mailer::Mailer;
-use actix_web::{post, web, HttpResponse};
+use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
 
@@ -19,21 +19,20 @@ struct VerificationEmail<'a> {
 
 /// Register
 #[utoipa::path(
-  tag = "Auth", 
-  context_path = "/auth",
-  request_body(content = AuthRegisterInput),
-  responses( 
-    (status=StatusCode::CREATED, body = ResponseWithMessage),
-    (status=StatusCode::CONFLICT, body = ResponseWithMessage),
-    (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
-    (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
-  )
-)
-]
+    tag = "Auth",
+    context_path = "/auth",
+    request_body(content = AuthRegisterInput),
+    responses(
+        (status = StatusCode::CREATED, body = ResponseWithMessage),
+        (status = StatusCode::CONFLICT, body = ResponseWithMessage),
+        (status = StatusCode::BAD_REQUEST, body = ResponseWithMessage),
+        (status = StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage)
+    )
+)]
 #[post("/register")]
 pub async fn register(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<AuthRegisterInput>,
+    input: ValidatedJson<AuthRegisterInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let AuthRegisterInput { email, .. } = &input.into_inner();

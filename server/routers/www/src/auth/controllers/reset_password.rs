@@ -1,39 +1,32 @@
 use super::schema::AuthResetPasswordInput;
-use super::utils::{delete_otp, verify_otp};
+use super::utils::{ delete_otp, verify_otp };
 use super::AuthMessage;
-use utils::{AppState, password::hash_password, error::{ HttpError,ResponseWithMessage}};
+use utils::{ AppState, password::hash_password, error::{ HttpError, ResponseWithMessage } };
 use services::mailer::Mailer;
 use extractors::validator::ValidatedJson;
-use actix_web::{post, web, HttpResponse};
+use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
-use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
-
+use sea_orm::{ ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set };
 
 /// Reset Password
 #[utoipa::path(
-  tag = "Auth", 
-  context_path = "/auth",
-  request_body(content = AuthResetPasswordInput),
-  responses( 
-    (status=StatusCode::OK, body = ResponseWithMessage),
-    (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
-    (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
-  )
-)
-]
+    tag = "Auth",
+    context_path = "/auth",
+    request_body(content = AuthResetPasswordInput),
+    responses(
+        (status = StatusCode::OK, body = ResponseWithMessage),
+        (status = StatusCode::BAD_REQUEST, body = ResponseWithMessage),
+        (status = StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage)
+    )
+)]
 #[post("/reset-password")]
 pub async fn reset_password(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<AuthResetPasswordInput>,
+    input: ValidatedJson<AuthResetPasswordInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
-    let AuthResetPasswordInput {
-        password,
-        email,
-        otp,
-        ..
-    } = input.into_inner();
+    let AuthResetPasswordInput { password, email, otp, .. } = input.into_inner();
 
     // verify otp
     verify_otp(db, &email, OtpPurpose::ResetPassword, otp).await?;
@@ -42,10 +35,10 @@ pub async fn reset_password(
     let hashed_password = hash_password(&password)?;
 
     // update new password of user
-    let user = entity::user::Entity::find()
+    let user = entity::user::Entity
+        ::find()
         .filter(entity::user::Column::Email.eq(email.clone()))
-        .one(db)
-        .await?
+        .one(db).await?
         .ok_or_else(|| HttpError::bad_request(AuthMessage::UserNotFound(&email)))?;
     let full_name = user.full_name.clone();
 
@@ -76,7 +69,6 @@ pub async fn reset_password(
     };
     Ok(HttpResponse::Ok().json(response))
 }
-
 
 #[derive(Template)]
 #[template(path = "reset-password/success.jinja")]

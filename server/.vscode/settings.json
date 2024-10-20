@@ -19,6 +19,7 @@
     "sqlx",
     "sysinfo",
     "thiserror",
+    "timestampz",
     "utoipa",
     "utoipauto"
   ],

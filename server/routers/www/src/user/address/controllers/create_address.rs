@@ -1,14 +1,11 @@
 use super::messages::AddressMessage;
 use super::schema::CreateAddressInput;
 use super::utils::check_address_limit;
-use actix_web::{post, web, HttpResponse};
-use extractors::{auth::Authenticated, validator::ValidatedJson};
-use sea_orm::{ActiveValue::NotSet, EntityTrait, Set};
+use actix_web::{ post, web, HttpResponse };
+use extractors::{ auth::Authenticated, validator::ValidatedJson };
+use sea_orm::{ ActiveValue::NotSet, EntityTrait, Set };
 use serde::Serialize;
-use utils::{
-    error::{HttpError, ResponseWithMessage},
-    AppState,
-};
+use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 use utoipa::ToSchema;
 
 #[derive(Serialize, ToSchema)]
@@ -20,19 +17,31 @@ pub struct CreateAddressResponse {
 /// Create An Address
 #[utoipa::path(
     tag = "Address",
-    context_path = "/user/addresses", 
-    request_body(content = CreateAddressInput),
+    context_path = "/user/addresses",
+    request_body = CreateAddressInput,
     responses(
-        (status=StatusCode::CREATED, body = CreateAddressResponse, description= "Address Created"),
-        (status=StatusCode::TOO_MANY_REQUESTS, body = ResponseWithMessage, description= "Address Limit Reached"),
-        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage, description= "Internal Server Error"),
-      )
+        (
+            status = StatusCode::CREATED,
+            body = CreateAddressResponse,
+            description = "Address Created",
+        ),
+        (
+            status = StatusCode::TOO_MANY_REQUESTS,
+            body = ResponseWithMessage,
+            description = "Address Limit Reached",
+        ),
+        (
+            status = StatusCode::INTERNAL_SERVER_ERROR,
+            body = ResponseWithMessage,
+            description = "Internal Server Error",
+        )
+    )
 )]
 #[post("")]
 pub async fn create_address(
     app_data: web::Data<AppState>,
     input: ValidatedJson<CreateAddressInput>,
-    user: Authenticated,
+    user: Authenticated
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let CreateAddressInput {
@@ -66,9 +75,9 @@ pub async fn create_address(
         is_default: Set(false),
         postal_code: Set(postal_code),
     };
-    let new_address = entity::address::Entity::insert(new_address_model)
-        .exec_with_returning(db)
-        .await?;
+    let new_address = entity::address::Entity
+        ::insert(new_address_model)
+        .exec_with_returning(db).await?;
 
     let response = CreateAddressResponse {
         message: AddressMessage::AddressCreated.to_string(),

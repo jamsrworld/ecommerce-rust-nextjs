@@ -1,7 +1,7 @@
-use actix_web::{get, HttpResponse, Responder};
+use actix_web::{ get, HttpResponse, Responder };
 use entity::sea_orm_active_enums::UserRole;
 use extractors::auth::Authenticated;
-use serde::{Deserialize, Serialize};
+use serde::{ Deserialize, Serialize };
 use utoipa::ToSchema;
 
 #[derive(Debug, Serialize, Deserialize, ToSchema)]
@@ -15,9 +15,9 @@ pub struct UserProfile {
 
 /// Get Profile
 #[utoipa::path(
-  tag = "Profile",
-  context_path = "/user/profile",
-  responses( (status=200, body = UserProfile) )
+    tag = "Profile",
+    context_path = "/user/profile",
+    responses((status = 200, body = UserProfile))
 )]
 #[get("")]
 pub async fn get_profile(user: Authenticated) -> impl Responder {

@@ -7,7 +7,6 @@ use serde::Serialize;
 use sysinfo::System;
 use utoipa::ToSchema;
 
-
 #[derive(Debug, Serialize, ToSchema)]
 #[serde(rename_all = "camelCase")]
 pub struct SystemInfo {
@@ -23,17 +22,15 @@ pub struct SystemInfo {
 }
 
 /// Server Information
-#[utoipa::path(  
-  tag="Extra",
-  context_path = "/extra",
-  responses (
-      (status = 200, description = "server information", body = SystemInfo)
-  )
+#[utoipa::path(
+    tag = "Extra",
+    context_path = "/extra",
+    responses((status = 200, description = "server information", body = SystemInfo))
 )]
 #[get("/server-information")]
 pub async fn server_information() -> impl Responder {
-  let mut sys = System::new_all();
-  sys.refresh_all();
+    let mut sys = System::new_all();
+    sys.refresh_all();
 
     let cpu_usage = sys.global_cpu_usage().abs();
     let info = SystemInfo {
@@ -45,8 +42,8 @@ pub async fn server_information() -> impl Responder {
         os_platform: System::name().unwrap_or_else(|| "Unknown".to_string()),
         os_version: System::os_version().unwrap_or_else(|| "Unknown".to_string()),
         up_time: System::uptime(),
-        cpu_usage
+        cpu_usage,
     };
 
-  HttpResponse::Ok().json(info)
+    HttpResponse::Ok().json(info)
 }

@@ -1,6 +1,9 @@
 use sea_orm_migration::{prelude::*, schema::*};
 
-use crate::{m20220101_000001_create_user::User, utils::{pg_id, pg_primary_id}};
+use crate::{
+    m20220101_000001_create_user::User,
+    utils::{pg_id, pg_primary_id, timestampz_default},
+};
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -25,10 +28,7 @@ impl MigrationTrait for Migration {
                     .col(string_len(Address::PhoneNumber, 15))
                     .col(string_len_null(Address::Landmark, 200))
                     .col(boolean(Address::IsDefault))
-                    .col(
-                        timestamp_with_time_zone(Address::CreatedAt)
-                            .default(SimpleExpr::Keyword(Keyword::CurrentTimestamp)),
-                    )
+                    .col(timestampz_default(Address::CreatedAt))
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk-address_user")

@@ -4,11 +4,11 @@ use super::AuthMessage;
 use utils::error::ResponseWithMessage;
 use extractors::validator::ValidatedJson;
 use services::mailer::Mailer;
-use utils::{error::HttpError, AppState};
-use actix_web::{post, web, HttpResponse};
+use utils::{ error::HttpError, AppState };
+use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
-use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
+use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter };
 
 #[derive(Template)]
 #[template(path = "reset-password/verification.jinja")]
@@ -20,28 +20,27 @@ struct VerificationEmail<'a> {
 
 /// Forgot Password
 #[utoipa::path(
-  tag = "Auth", 
-  context_path = "/auth",
-  request_body(content = AuthForgotPasswordInput),
-  responses( 
-    (status=StatusCode::OK, body = ResponseWithMessage),
-    (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
-   )
-)
-]
+    tag = "Auth",
+    context_path = "/auth",
+    request_body(content = AuthForgotPasswordInput),
+    responses(
+        (status = StatusCode::OK, body = ResponseWithMessage),
+        (status = StatusCode::BAD_REQUEST, body = ResponseWithMessage)
+    )
+)]
 #[post("/forgot-password")]
 pub async fn forgot_password(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<AuthForgotPasswordInput>,
+    input: ValidatedJson<AuthForgotPasswordInput>
 ) -> Result<HttpResponse, HttpError> {
     let AuthForgotPasswordInput { email } = &input.into_inner();
     let db = &app_data.db;
 
     // check if email is registered
-    let user = entity::user::Entity::find()
+    let user = entity::user::Entity
+        ::find()
         .filter(entity::user::Column::Email.eq(email))
-        .one(db)
-        .await?
+        .one(db).await?
         .ok_or_else(|| HttpError::bad_request(AuthMessage::UserNotFound(email)))?;
 
     // send email

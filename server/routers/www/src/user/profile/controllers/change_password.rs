@@ -1,4 +1,4 @@
-use actix_web::{patch, HttpResponse, Responder};
+use actix_web::{ patch, HttpResponse, Responder };
 
 /// Change Password
 #[utoipa::path(tag = "Profile", context_path = "/user/profile")]

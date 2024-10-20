@@ -1,6 +1,6 @@
-use actix_web::{patch, HttpResponse, Responder};
+use actix_web::{ patch, HttpResponse, Responder };
 use extractors::validator::ValidatedJson;
-use serde::{Deserialize, Serialize};
+use serde::{ Deserialize, Serialize };
 use utoipa::ToSchema;
 use validator::Validate;
 
@@ -14,7 +14,7 @@ pub struct UpdateProfile {
     tag = "Profile",
     context_path = "/user/profile",
     request_body(content = UpdateProfile),
-    responses( (status=200, body = String) )
+    responses((status = 200, body = String))
 )]
 #[patch("")]
 pub async fn update_profile(input: ValidatedJson<UpdateProfile>) -> impl Responder {

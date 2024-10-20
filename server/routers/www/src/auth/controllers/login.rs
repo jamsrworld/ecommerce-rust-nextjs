@@ -1,33 +1,30 @@
 use super::schema::AuthLoginInput;
 use super::AuthMessage;
-use actix_web::{post, web, HttpResponse};
+use actix_web::{ post, web, HttpResponse };
 use config::session_keys::SessionKey;
 use entity::user::Entity;
 use extractors::validator::ValidatedJson;
-use sea_orm::{ColumnTrait, EntityTrait, QueryFilter};
-use utils::{cookie::create_cookie, jwt::create_token, password::verify_password};
-use utils::{
-    error::{HttpError, ResponseWithMessage},
-    AppState,
-};
+use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter };
+use utils::{ cookie::create_cookie, jwt::create_token, password::verify_password };
+use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 
 /// Login
 ///
 /// Api to login for user
 #[utoipa::path(
-  tag = "Auth",
-  context_path = "/auth",
-  request_body(content = AuthLoginInput),
-  responses(
-    (status=StatusCode::OK, body = ResponseWithMessage),
-    (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
-    (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
- )
+    tag = "Auth",
+    context_path = "/auth",
+    request_body(content = AuthLoginInput),
+    responses(
+        (status = StatusCode::OK, body = ResponseWithMessage),
+        (status = StatusCode::BAD_REQUEST, body = ResponseWithMessage),
+        (status = StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage)
+    )
 )]
 #[post("/login")]
 pub async fn login(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<AuthLoginInput>,
+    input: ValidatedJson<AuthLoginInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let AuthLoginInput { email, password } = &input.into_inner();
@@ -35,14 +32,13 @@ pub async fn login(
     // check if user exist
     let user = Entity::find()
         .filter(entity::user::Column::Email.eq(email))
-        .one(db)
-        .await?
+        .one(db).await?
         .ok_or_else(|| HttpError::bad_request(AuthMessage::UserNotFound(email)))?;
 
     // return error if account don't use password
-    let hashed_password = user
-        .password
-        .ok_or_else(|| HttpError::bad_request(AuthMessage::NonPasswordAccount))?;
+    let hashed_password = user.password.ok_or_else(||
+        HttpError::bad_request(AuthMessage::NonPasswordAccount)
+    )?;
 
     // validate password
     let is_password_valid = verify_password(hashed_password, password)?;

@@ -1,16 +1,16 @@
-use super::schema::{AuthRegisterInput, AuthRegisterVerifyInput};
+use super::schema::{ AuthRegisterInput, AuthRegisterVerifyInput };
 use super::utils::check_unique_email;
 use super::AuthMessage;
 use config::session_keys::SessionKey;
-use utils::error::{ResponseWithMessage, HttpError};
+use utils::error::{ ResponseWithMessage, HttpError };
 use services::mailer::Mailer;
 use extractors::validator::ValidatedJson;
 use super::utils::verify_otp;
-use utils::{password::hash_password, AppState, jwt::create_token, cookie::create_cookie};
-use actix_web::{post, web, HttpResponse};
+use utils::{ password::hash_password, AppState, jwt::create_token, cookie::create_cookie };
+use actix_web::{ post, web, HttpResponse };
 use askama::Template;
-use entity::sea_orm_active_enums::{OtpPurpose, UserRole, UserStatus};
-use sea_orm::{ActiveModelTrait, ActiveValue::NotSet, Set};
+use entity::sea_orm_active_enums::{ OtpPurpose, UserRole, UserStatus };
+use sea_orm::{ ActiveModelTrait, ActiveValue::NotSet, Set };
 
 #[derive(Template)]
 #[template(path = "register/success.jinja")]
@@ -21,32 +21,26 @@ struct SuccessEmail<'a> {
 
 /// Register Verification
 #[utoipa::path(
-tag = "Auth", 
-context_path = "/auth",
-request_body(content = AuthRegisterVerifyInput),
-responses( 
-    (status=StatusCode::OK, body = ResponseWithMessage),
-    (status=StatusCode::CONFLICT, body = ResponseWithMessage),
-    (status=StatusCode::BAD_REQUEST, body = ResponseWithMessage),
-    (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage),
-)
-)
-]
+    tag = "Auth",
+    context_path = "/auth",
+    request_body(content = AuthRegisterVerifyInput),
+    responses(
+        (status = StatusCode::OK, body = ResponseWithMessage),
+        (status = StatusCode::CONFLICT, body = ResponseWithMessage),
+        (status = StatusCode::BAD_REQUEST, body = ResponseWithMessage),
+        (status = StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage)
+    )
+)]
 #[post("/register/verify")]
 pub async fn register_verify(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<AuthRegisterVerifyInput>,
+    input: ValidatedJson<AuthRegisterVerifyInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     // let RegisterVerify { code, register } = input.into_inner();
 
     let AuthRegisterVerifyInput { code, register } = input.into_inner();
-    let AuthRegisterInput {
-        full_name,
-        email,
-        password,
-        ..
-    } = register;
+    let AuthRegisterInput { full_name, email, password, .. } = register;
 
     // check unique email
     check_unique_email(db, &email).await?;
@@ -58,7 +52,7 @@ pub async fn register_verify(
     let hashed_password = hash_password(password)?;
 
     // create user
-    let new_user_id  = cuid2::create_id();
+    let new_user_id = cuid2::create_id();
     let new_user = entity::user::ActiveModel {
         id: Set(new_user_id.clone()),
         email: Set(email.clone()),
@@ -86,8 +80,8 @@ pub async fn register_verify(
     };
     mailer.send()?;
 
-     // create session token
-     let jwt = create_token(new_user_id)?;
+    // create session token
+    let jwt = create_token(new_user_id)?;
 
     // create session cookie
     let cookie = create_cookie(SessionKey::Authorization, jwt);

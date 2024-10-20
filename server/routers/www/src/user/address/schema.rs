@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
-use utoipa::{ToResponse, ToSchema};
+use serde::{ Deserialize, Serialize };
+use utoipa::{ ToResponse, ToSchema };
 use validator::Validate;
 
 #[derive(Debug, Deserialize, Serialize, ToSchema, ToResponse, Validate)]

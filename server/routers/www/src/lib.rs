@@ -15,9 +15,6 @@ pub struct WwwApiDoc;
 
 pub fn www_routes(config: &mut web::ServiceConfig) {
     config.service(
-        web::scope("")
-            .service(health_check)
-            .service(auth_routes())
-            .configure(user_routes),
+        web::scope("").service(health_check).service(auth_routes()).configure(user_routes)
     );
 }

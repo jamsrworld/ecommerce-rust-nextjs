@@ -1,17 +1,10 @@
 use super::create_address::CreateAddressResponse;
 use super::messages::AddressMessage;
 use super::schema::CreateAddressInput;
-use actix_web::{
-    patch,
-    web::{self, Path},
-    HttpResponse,
-};
-use extractors::{auth::Authenticated, validator::ValidatedJson};
-use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
-use utils::{
-    error::{HttpError, ResponseWithMessage},
-    AppState,
-};
+use actix_web::{ patch, web::{ self, Path }, HttpResponse };
+use extractors::{ auth::Authenticated, validator::ValidatedJson };
+use sea_orm::{ ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set };
+use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 
 /// Update An Address
 #[utoipa::path(
@@ -20,9 +13,17 @@ use utils::{
     params(("id", description = "Address Id", min_length = 24, max_length = 24)),
     request_body(content = CreateAddressInput),
     responses(
-        (status=StatusCode::OK, body = CreateAddressResponse, description= "Address Updated"),
-        (status=StatusCode::NOT_FOUND, body = ResponseWithMessage, description= "Address Not Found"),
-        (status=StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage, description= "Internal Server Error"),
+        (status = StatusCode::OK, body = CreateAddressResponse, description = "Address Updated"),
+        (
+            status = StatusCode::NOT_FOUND,
+            body = ResponseWithMessage,
+            description = "Address Not Found",
+        ),
+        (
+            status = StatusCode::INTERNAL_SERVER_ERROR,
+            body = ResponseWithMessage,
+            description = "Internal Server Error",
+        )
     )
 )]
 #[patch("/{id}")]
@@ -30,7 +31,7 @@ pub async fn update_address(
     app_data: web::Data<AppState>,
     id: Path<String>,
     input: ValidatedJson<CreateAddressInput>,
-    user: Authenticated,
+    user: Authenticated
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let address_id = id.into_inner();
@@ -47,10 +48,10 @@ pub async fn update_address(
         state,
     } = input.into_inner();
 
-    let address = entity::address::Entity::find_by_id(&address_id)
+    let address = entity::address::Entity
+        ::find_by_id(&address_id)
         .filter(entity::address::Column::UserId.eq(&user_id))
-        .one(db)
-        .await?
+        .one(db).await?
         .ok_or_else(|| HttpError::not_found(AddressMessage::AddressNotFound(&address_id)))?;
 
     let mut address: entity::address::ActiveModel = address.into();
