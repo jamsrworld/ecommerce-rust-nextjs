@@ -9,6 +9,7 @@ use serde::{Deserialize, Serialize};
 )]
 #[sea_orm(table_name = "otp")]
 #[serde(rename_all = "camelCase")]
+#[schema(as = Otp)]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: String,

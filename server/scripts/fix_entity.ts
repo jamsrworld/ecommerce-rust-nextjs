@@ -11,11 +11,23 @@ async function main() {
     const data = readFileSync(file, "utf8");
     const lines = data.split("\n");
     const newLines = lines.map((line) => {
+      // replace date type
       if (line.includes("DateTimeWithTimeZone")) {
         return line.replace(
           "DateTimeWithTimeZone",
           `chrono::DateTime<chrono::FixedOffset>`
         );
+      }
+      // replace schema with name
+      const fileNameInPascalCase = path
+        .basename(file)
+        .replace(".rs", "")
+        .replace(/[-_]/g, " ")
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join("");
+      if (line.includes("pub struct Model")) {
+        return `#[schema(as = ${fileNameInPascalCase})]\n${line}`;
       }
       return line;
     });

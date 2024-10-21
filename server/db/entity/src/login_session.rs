@@ -8,6 +8,7 @@ use serde::{Deserialize, Serialize};
 )]
 #[sea_orm(table_name = "login_session")]
 #[serde(rename_all = "camelCase")]
+#[schema(as = LoginSession)]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: String,
