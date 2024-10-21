@@ -4,7 +4,9 @@ pub mod prelude;
 
 pub mod address;
 pub mod attribute;
+pub mod category;
 pub mod login_session;
 pub mod otp;
+pub mod product;
 pub mod sea_orm_active_enums;
 pub mod user;

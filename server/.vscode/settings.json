@@ -34,5 +34,6 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true
   },
-  "explorerExclude.backup": {}
+  "explorerExclude.backup": {},
+  "files.autoSave": "afterDelay"
 }

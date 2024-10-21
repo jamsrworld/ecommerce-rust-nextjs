@@ -12,6 +12,9 @@ build:
 run_migration:
 	sea-orm-cli migrate up -d db/migration
 
+down_migration:
+	sea-orm-cli migrate down -d db/migration
+
 fix_entity: # It is used to fix the chrono date time issue with utoipa ToSchema
 	tsx scripts/fix_entity.ts
 

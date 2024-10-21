@@ -6,15 +6,14 @@ use serde::{Deserialize, Serialize};
 #[derive(
     Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, utoipa :: ToSchema,
 )]
-#[sea_orm(table_name = "attribute")]
+#[sea_orm(table_name = "product")]
 #[serde(rename_all = "camelCase")]
-#[schema(as = Attribute)]
+#[schema(as = Product)]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: String,
-    pub name: String,
-    pub values: Vec<Json>,
-    pub created_at: chrono::DateTime<chrono::FixedOffset>,
+    pub title: String,
+    pub product: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

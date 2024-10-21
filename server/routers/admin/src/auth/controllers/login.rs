@@ -1,7 +1,7 @@
 use actix_web::{ post, web, HttpResponse };
 use extractors::validator::ValidatedJson;
 use serde::{ Deserialize, Serialize };
-use utils::{ error::HttpError, AppState };
+use utils::{ error::{HttpError, ResponseWithMessage}, AppState };
 use utoipa::ToSchema;
 use validator::Validate;
 
@@ -21,20 +21,6 @@ pub struct AdminLoginResponse {
     pub your_name: String,
 }
 
-#[derive(Debug, ToSchema, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AdminBadRequest {
-    pub message3: String,
-    pub my_name: String,
-}
-
-#[derive(Debug, ToSchema, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AdminInternalServerError {
-    pub message2: String,
-    pub his_name: String,
-}
-
 /// Login
 ///
 /// Api to login for user
@@ -44,8 +30,8 @@ pub struct AdminInternalServerError {
     request_body(content = AdminLoginInput),
     responses(
         (status = StatusCode::OK, body = AdminLoginResponse),
-        (status = StatusCode::BAD_REQUEST, body = AdminBadRequest),
-        (status = StatusCode::INTERNAL_SERVER_ERROR, body = AdminInternalServerError)
+        (status = StatusCode::BAD_REQUEST, body = ResponseWithMessage),
+        (status = StatusCode::INTERNAL_SERVER_ERROR, body = ResponseWithMessage)
     )
 )]
 #[post("/login")]

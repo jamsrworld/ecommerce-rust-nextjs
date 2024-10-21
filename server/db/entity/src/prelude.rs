@@ -2,6 +2,8 @@
 
 pub use super::address::Entity as Address;
 pub use super::attribute::Entity as Attribute;
+pub use super::category::Entity as Category;
 pub use super::login_session::Entity as LoginSession;
 pub use super::otp::Entity as Otp;
+pub use super::product::Entity as Product;
 pub use super::user::Entity as User;
