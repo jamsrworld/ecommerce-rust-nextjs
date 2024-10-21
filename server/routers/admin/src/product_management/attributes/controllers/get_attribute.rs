@@ -1,14 +1,14 @@
 use actix_web::{ get, web::{ self, Path }, HttpResponse };
 use utils::{ error::HttpError, AppState };
 use sea_orm::EntityTrait;
-use super::AttributeMessage;
+use super::{ AttributeModel, AttributeMessage };
 
 /// Get Attribute
 #[utoipa::path(
     tag = "Attribute",
     params(("id", description = "Attribute Id", min_length = 24, max_length = 24)),
     context_path = "/product-management/attributes",
-    responses((status = 200, description = "attribute", body = entity::attribute::Model))
+    responses((status = 200, description = "attribute", body = AttributeModel))
 )]
 #[get("/{id}")]
 pub async fn get_attribute(
@@ -23,6 +23,6 @@ pub async fn get_attribute(
         ::find_by_id(&attribute_id)
         .one(db).await?
         .ok_or_else(|| HttpError::not_found(AttributeMessage::AttributeNotFound(&attribute_id)))?;
-
+    let attribute:AttributeModel = attribute.into();
     Ok(HttpResponse::Ok().json(attribute))
 }

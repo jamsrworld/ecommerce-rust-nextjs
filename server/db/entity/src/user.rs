@@ -3,9 +3,11 @@
 use super::sea_orm_active_enums::UserRole;
 use super::sea_orm_active_enums::UserStatus;
 use sea_orm::entity::prelude::*;
-use serde::{ Deserialize, Serialize };
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, utoipa :: ToSchema,
+)]
 #[sea_orm(table_name = "user")]
 #[serde(rename_all = "camelCase")]
 #[schema(as = User)]

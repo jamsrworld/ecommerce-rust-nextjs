@@ -1,4 +1,4 @@
-use actix_web::{web, Scope};
+use actix_web::{ web, Scope };
 use controllers::*;
 use create_attribute::create_attribute;
 use delete_attribute::delete_attribute;
@@ -9,6 +9,7 @@ use update_attribute::update_attribute;
 pub mod controllers;
 pub mod schema;
 mod messages;
+pub mod model;
 
 pub fn attributes_routes() -> Scope {
     web::scope("/attributes")

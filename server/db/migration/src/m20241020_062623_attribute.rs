@@ -15,7 +15,7 @@ impl MigrationTrait for Migration {
                     .table(Attribute::Table)
                     .if_not_exists()
                     .col(pg_primary_id(Attribute::Id))
-                    .col(string_len(Attribute::Name, 50))
+                    .col(string_len_uniq(Attribute::Name, 50))
                     .col(string(Attribute::Values).array(ColumnType::JsonBinary))
                     .col(timestampz_default(Attribute::CreatedAt))
                     .to_owned(),

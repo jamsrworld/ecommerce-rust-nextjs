@@ -3,10 +3,11 @@ use serde::Serialize;
 use utils::{ error::HttpError, AppState };
 use utoipa::ToSchema;
 use sea_orm::EntityTrait;
+use super::AttributeModel;
 
 #[derive(ToSchema, Serialize)]
 pub struct GetAttributesResponse {
-    data: Vec<entity::attribute::Model>,
+    data: Vec<AttributeModel>,
 }
 
 /// Get All Attributes
@@ -20,6 +21,11 @@ pub async fn get_attributes(app_data: web::Data<AppState>) -> Result<HttpRespons
     let db = &app_data.db;
 
     let attributes = entity::attribute::Entity::find().all(db).await?;
+    let attributes: Vec<AttributeModel> = attributes
+        .into_iter()
+        .map(|model| model.into())
+        .collect();
+
     let response = GetAttributesResponse {
         data: attributes,
     };

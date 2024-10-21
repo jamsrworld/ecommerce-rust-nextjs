@@ -30,6 +30,5 @@ pub async fn delete_attribute(
     let response = ResponseWithMessage {
         message: AttributeMessage::AttributeDeleted(&attribute_name).to_string(),
     };
-
     Ok(HttpResponse::Ok().json(response))
 }
