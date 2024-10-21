@@ -19,15 +19,7 @@ export const AppProvider = (props: Props) => {
       <Toast />
       <Confirmation />
       <QueryProvider>
-        <UIStyleProvider
-          input={{
-            classNames: {
-              inputWrapper: "group-data-[focus=true]:border-black",
-            },
-          }}
-        >
-          {children}
-        </UIStyleProvider>
+        <UIStyleProvider>{children}</UIStyleProvider>
       </QueryProvider>
     </UIProvider>
   );

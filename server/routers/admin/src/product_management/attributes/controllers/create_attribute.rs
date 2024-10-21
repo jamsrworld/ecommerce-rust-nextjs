@@ -24,11 +24,16 @@ pub async fn create_attribute(
     let values = &input.values;
 
     // check if attribute exists
-    let attribute = entity::attribute::Entity
+    let is_attribute = entity::attribute::Entity
         ::find()
         .filter(entity::attribute::Column::Name.eq(&input.name))
         .one(db).await?
-        .ok_or_else(|| HttpError::not_found(AttributeMessage::AttributeNotFound(&input.name)))?;
+        .is_some();
+
+    if is_attribute {
+        return Err(HttpError::conflict(AttributeMessage::AttributeAlreadyExists(&input.name)));
+    }
+
     // check if attribute value exists
 
     let json_values = values

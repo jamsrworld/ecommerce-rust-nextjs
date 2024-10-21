@@ -2,8 +2,8 @@
 
 import type { Options } from '@hey-api/client-fetch';
 import { queryOptions, type UseMutationOptions } from '@tanstack/react-query';
-import { client, healthCheck, login, serverInformation } from '../services.gen';
-import type { LoginData, LoginError, LoginResponse } from '../types.gen';
+import { client, healthCheck, login, serverInformation, getAttributes, createAttribute, getAttribute, deleteAttribute, updateAttribute, getCategories, createCategory, getCategory, deleteCategory, updateCategory, getProducts, createProduct, getProduct, deleteProduct, updateProduct } from '../services.gen';
+import type { LoginData, LoginError, LoginResponse, CreateAttributeData, CreateAttributeError, CreateAttributeResponse, GetAttributeData, DeleteAttributeData, DeleteAttributeError, DeleteAttributeResponse, UpdateAttributeData, UpdateAttributeError, UpdateAttributeResponse, CreateCategoryData, CreateCategoryError, CreateCategoryResponse, GetCategoryData, DeleteCategoryData, DeleteCategoryError, DeleteCategoryResponse, UpdateCategoryData, UpdateCategoryError, UpdateCategoryResponse, CreateProductData, CreateProductError, CreateProductResponse, GetProductData, DeleteProductData, DeleteProductError, DeleteProductResponse, UpdateProductData, UpdateProductError, UpdateProductResponse } from '../types.gen';
 
 type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -90,3 +90,246 @@ export const serverInformationOptions = (options?: Options) => { return queryOpt
     },
     queryKey: serverInformationQueryKey(options)
 }); };
+
+export const getAttributesQueryKey = (options?: Options) => [
+    createQueryKey("getAttributes", options)
+];
+
+export const getAttributesOptions = (options?: Options) => { return queryOptions({
+    queryFn: async ({ queryKey }) => {
+        const { data } = await getAttributes({
+            ...options,
+            ...queryKey[0],
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getAttributesQueryKey(options)
+}); };
+
+export const createAttributeQueryKey = (options: Options<CreateAttributeData>) => [
+    createQueryKey("createAttribute", options)
+];
+
+export const createAttributeOptions = (options: Options<CreateAttributeData>) => { return queryOptions({
+    queryFn: async ({ queryKey }) => {
+        const { data } = await createAttribute({
+            ...options,
+            ...queryKey[0],
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: createAttributeQueryKey(options)
+}); };
+
+export const createAttributeMutation = (options?: Partial<Options<CreateAttributeData>>) => { const mutationOptions: UseMutationOptions<CreateAttributeResponse, CreateAttributeError, Options<CreateAttributeData>> = {
+    mutationFn: async (localOptions) => {
+        const { data } = await createAttribute({
+            ...options,
+            ...localOptions,
+            throwOnError: true
+        });
+        return data;
+    }
+}; return mutationOptions; };
+
+export const getAttributeQueryKey = (options: Options<GetAttributeData>) => [
+    createQueryKey("getAttribute", options)
+];
+
+export const getAttributeOptions = (options: Options<GetAttributeData>) => { return queryOptions({
+    queryFn: async ({ queryKey }) => {
+        const { data } = await getAttribute({
+            ...options,
+            ...queryKey[0],
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getAttributeQueryKey(options)
+}); };
+
+export const deleteAttributeMutation = (options?: Partial<Options<DeleteAttributeData>>) => { const mutationOptions: UseMutationOptions<DeleteAttributeResponse, DeleteAttributeError, Options<DeleteAttributeData>> = {
+    mutationFn: async (localOptions) => {
+        const { data } = await deleteAttribute({
+            ...options,
+            ...localOptions,
+            throwOnError: true
+        });
+        return data;
+    }
+}; return mutationOptions; };
+
+export const updateAttributeMutation = (options?: Partial<Options<UpdateAttributeData>>) => { const mutationOptions: UseMutationOptions<UpdateAttributeResponse, UpdateAttributeError, Options<UpdateAttributeData>> = {
+    mutationFn: async (localOptions) => {
+        const { data } = await updateAttribute({
+            ...options,
+            ...localOptions,
+            throwOnError: true
+        });
+        return data;
+    }
+}; return mutationOptions; };
+
+export const getCategoriesQueryKey = (options?: Options) => [
+    createQueryKey("getCategories", options)
+];
+
+export const getCategoriesOptions = (options?: Options) => { return queryOptions({
+    queryFn: async ({ queryKey }) => {
+        const { data } = await getCategories({
+            ...options,
+            ...queryKey[0],
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getCategoriesQueryKey(options)
+}); };
+
+export const createCategoryQueryKey = (options: Options<CreateCategoryData>) => [
+    createQueryKey("createCategory", options)
+];
+
+export const createCategoryOptions = (options: Options<CreateCategoryData>) => { return queryOptions({
+    queryFn: async ({ queryKey }) => {
+        const { data } = await createCategory({
+            ...options,
+            ...queryKey[0],
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: createCategoryQueryKey(options)
+}); };
+
+export const createCategoryMutation = (options?: Partial<Options<CreateCategoryData>>) => { const mutationOptions: UseMutationOptions<CreateCategoryResponse, CreateCategoryError, Options<CreateCategoryData>> = {
+    mutationFn: async (localOptions) => {
+        const { data } = await createCategory({
+            ...options,
+            ...localOptions,
+            throwOnError: true
+        });
+        return data;
+    }
+}; return mutationOptions; };
+
+export const getCategoryQueryKey = (options: Options<GetCategoryData>) => [
+    createQueryKey("getCategory", options)
+];
+
+export const getCategoryOptions = (options: Options<GetCategoryData>) => { return queryOptions({
+    queryFn: async ({ queryKey }) => {
+        const { data } = await getCategory({
+            ...options,
+            ...queryKey[0],
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getCategoryQueryKey(options)
+}); };
+
+export const deleteCategoryMutation = (options?: Partial<Options<DeleteCategoryData>>) => { const mutationOptions: UseMutationOptions<DeleteCategoryResponse, DeleteCategoryError, Options<DeleteCategoryData>> = {
+    mutationFn: async (localOptions) => {
+        const { data } = await deleteCategory({
+            ...options,
+            ...localOptions,
+            throwOnError: true
+        });
+        return data;
+    }
+}; return mutationOptions; };
+
+export const updateCategoryMutation = (options?: Partial<Options<UpdateCategoryData>>) => { const mutationOptions: UseMutationOptions<UpdateCategoryResponse, UpdateCategoryError, Options<UpdateCategoryData>> = {
+    mutationFn: async (localOptions) => {
+        const { data } = await updateCategory({
+            ...options,
+            ...localOptions,
+            throwOnError: true
+        });
+        return data;
+    }
+}; return mutationOptions; };
+
+export const getProductsQueryKey = (options?: Options) => [
+    createQueryKey("getProducts", options)
+];
+
+export const getProductsOptions = (options?: Options) => { return queryOptions({
+    queryFn: async ({ queryKey }) => {
+        const { data } = await getProducts({
+            ...options,
+            ...queryKey[0],
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getProductsQueryKey(options)
+}); };
+
+export const createProductQueryKey = (options: Options<CreateProductData>) => [
+    createQueryKey("createProduct", options)
+];
+
+export const createProductOptions = (options: Options<CreateProductData>) => { return queryOptions({
+    queryFn: async ({ queryKey }) => {
+        const { data } = await createProduct({
+            ...options,
+            ...queryKey[0],
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: createProductQueryKey(options)
+}); };
+
+export const createProductMutation = (options?: Partial<Options<CreateProductData>>) => { const mutationOptions: UseMutationOptions<CreateProductResponse, CreateProductError, Options<CreateProductData>> = {
+    mutationFn: async (localOptions) => {
+        const { data } = await createProduct({
+            ...options,
+            ...localOptions,
+            throwOnError: true
+        });
+        return data;
+    }
+}; return mutationOptions; };
+
+export const getProductQueryKey = (options: Options<GetProductData>) => [
+    createQueryKey("getProduct", options)
+];
+
+export const getProductOptions = (options: Options<GetProductData>) => { return queryOptions({
+    queryFn: async ({ queryKey }) => {
+        const { data } = await getProduct({
+            ...options,
+            ...queryKey[0],
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getProductQueryKey(options)
+}); };
+
+export const deleteProductMutation = (options?: Partial<Options<DeleteProductData>>) => { const mutationOptions: UseMutationOptions<DeleteProductResponse, DeleteProductError, Options<DeleteProductData>> = {
+    mutationFn: async (localOptions) => {
+        const { data } = await deleteProduct({
+            ...options,
+            ...localOptions,
+            throwOnError: true
+        });
+        return data;
+    }
+}; return mutationOptions; };
+
+export const updateProductMutation = (options?: Partial<Options<UpdateProductData>>) => { const mutationOptions: UseMutationOptions<UpdateProductResponse, UpdateProductError, Options<UpdateProductData>> = {
+    mutationFn: async (localOptions) => {
+        const { data } = await updateProduct({
+            ...options,
+            ...localOptions,
+            throwOnError: true
+        });
+        return data;
+    }
+}; return mutationOptions; };

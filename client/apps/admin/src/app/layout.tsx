@@ -1,7 +1,7 @@
-import { UIProvider } from "@jamsr-ui/react";
 import type { Metadata } from "next";
 import { Inter, Open_Sans } from "next/font/google";
 import "../styles/globals.css";
+import { AppProvider } from "@/providers/app";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,7 +32,7 @@ export default function RootLayout({
       className={`light ${inter.variable} ${opensans.variable} antialiased`}
     >
       <body className="bg-background text-foreground">
-        <UIProvider>{children}</UIProvider>
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );

@@ -1,5 +1,10 @@
 import React from 'react'
 
-export const FetchError = () => {
+type Props = {
+  error:unknown
+}
+
+export const FetchError = (props:Props) => {
   return <span>Something went wrong.</span>
 }
+
