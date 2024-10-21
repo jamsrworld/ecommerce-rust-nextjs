@@ -8,7 +8,7 @@ use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
     tag = "Address",
     context_path = "/user/addresses",
     responses(
-        (status = StatusCode::OK, body = [entity::address::Model], description = "Addresses"),
+        (status = StatusCode::OK, body = Vec<entity::address::Model>, description = "Addresses"),
         (
             status = StatusCode::INTERNAL_SERVER_ERROR,
             body = ResponseWithMessage,

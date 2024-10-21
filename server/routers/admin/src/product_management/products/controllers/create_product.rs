@@ -10,7 +10,7 @@ use crate::product_management::products::schema::CreateProductInput;
     tag = "Product",
     context_path = "/product-management/products",
     request_body = CreateProductInput,
-    responses((status = 200, description = "product created", body = String))
+    responses((status = 200, description = "product created", body = entity::product::Model))
 )]
 #[post("")]
 pub async fn create_product(

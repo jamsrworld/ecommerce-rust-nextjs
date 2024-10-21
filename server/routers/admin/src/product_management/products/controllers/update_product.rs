@@ -2,7 +2,6 @@ use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::validator::ValidatedJson;
 use utils::{ error::HttpError, AppState };
 use crate::product_management::products::schema::CreateProductInput;
-use super::get_product::GetProductResponse;
 use sea_orm::{ EntityTrait, Set, ActiveModelTrait };
 use super::ProductMessage;
 
@@ -11,7 +10,7 @@ use super::ProductMessage;
     tag = "Product",
     params(("id", description = "Product Id", min_length = 24, max_length = 24)),
     context_path = "/product-management/products",
-    responses((status = 200, description = "server information", body = GetProductResponse))
+    responses((status = 200, description = "server information", body = entity::product::Model))
 )]
 #[patch("/{id}")]
 pub async fn update_product(
@@ -34,10 +33,5 @@ pub async fn update_product(
     // update product
     product.title = Set(input.title);
     let product = product.update(db).await?;
-
-    let response: GetProductResponse = GetProductResponse {
-        data: product,
-    };
-
-    Ok(HttpResponse::Ok().json(response))
+    Ok(HttpResponse::Ok().json(product))
 }

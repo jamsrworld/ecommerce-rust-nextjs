@@ -10,7 +10,7 @@ use crate::product_management::categories::schema::CreateCategoryInput;
     tag = "Category",
     context_path = "/product-management/categories",
     request_body = CreateCategoryInput,
-    responses((status = 200, description = "category created", body = String))
+    responses((status = 200, description = "category created", body = entity::category::Model))
 )]
 #[post("")]
 pub async fn create_category(

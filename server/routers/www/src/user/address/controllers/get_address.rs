@@ -2,14 +2,7 @@ use super::messages::AddressMessage;
 use actix_web::{ get, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter };
-use serde::Serialize;
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
-use utoipa::ToSchema;
-
-#[derive(Debug, Serialize, ToSchema)]
-pub struct GetAddressResponse {
-    data: entity::address::Model,
-}
 
 /// Get An Address
 #[utoipa::path(
@@ -17,7 +10,7 @@ pub struct GetAddressResponse {
     context_path = "/user/addresses",
     params(("id", description = "Address Id", min_length = 24, max_length = 24)),
     responses(
-        (status = StatusCode::OK, body = GetAddressResponse, description = "Address"),
+        (status = StatusCode::OK, body = entity::address::Model, description = "Address"),
         (
             status = StatusCode::INTERNAL_SERVER_ERROR,
             body = ResponseWithMessage,
@@ -40,8 +33,5 @@ pub async fn get_address(
         .filter(entity::address::Column::UserId.eq(user_id))
         .one(db).await?
         .ok_or_else(|| HttpError::not_found(AddressMessage::AddressNotFound(&address_id)))?;
-
-    let response = GetAddressResponse { data: address };
-
-    Ok(HttpResponse::Ok().json(response))
+    Ok(HttpResponse::Ok().json(address))
 }

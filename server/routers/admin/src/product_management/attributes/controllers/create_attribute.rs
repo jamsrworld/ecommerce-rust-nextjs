@@ -11,7 +11,7 @@ use crate::product_management::attributes::schema::CreateAttributeInput;
     tag = "Attribute",
     context_path = "/product-management/attributes",
     request_body = CreateAttributeInput,
-    responses((status = 200, description = "attribute created", body = String))
+    responses((status = 200, description = "attribute created", body = entity::attribute::Model))
 )]
 #[post("")]
 pub async fn create_attribute(

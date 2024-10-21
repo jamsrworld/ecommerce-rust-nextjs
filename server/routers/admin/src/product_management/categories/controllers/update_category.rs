@@ -2,7 +2,6 @@ use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::validator::ValidatedJson;
 use utils::{ error::HttpError, AppState };
 use crate::product_management::categories::schema::CreateCategoryInput;
-use super::get_category::GetCategoryResponse;
 use sea_orm::{ EntityTrait, Set, ActiveModelTrait };
 use super::CategoryMessage;
 
@@ -11,7 +10,7 @@ use super::CategoryMessage;
     tag = "Category",
     params(("id", description = "Category Id", min_length = 24, max_length = 24)),
     context_path = "/product-management/categories",
-    responses((status = 200, description = "server information", body = GetCategoryResponse))
+    responses((status = 200, description = "server information", body = entity::category::Model))
 )]
 #[patch("/{id}")]
 pub async fn update_category(
@@ -34,10 +33,5 @@ pub async fn update_category(
     // update category
     category.title = Set(input.title);
     let category = category.update(db).await?;
-
-    let response: GetCategoryResponse = GetCategoryResponse {
-        data: category,
-    };
-
-    Ok(HttpResponse::Ok().json(response))
+    Ok(HttpResponse::Ok().json(category))
 }

@@ -1,21 +1,14 @@
 use actix_web::{ get, web::{ self, Path }, HttpResponse };
-use serde::Serialize;
 use utils::{ error::HttpError, AppState };
 use sea_orm::EntityTrait;
-use utoipa::ToSchema;
 use super::CategoryMessage;
-
-#[derive(ToSchema, Serialize)]
-pub struct GetCategoryResponse {
-    pub data: entity::category::Model,
-}
 
 /// Get Category
 #[utoipa::path(
     tag = "Category",
     params(("id", description = "Category Id", min_length = 24, max_length = 24)),
     context_path = "/product-management/categories",
-    responses((status = 200, description = "category", body = GetCategoryResponse))
+    responses((status = 200, description = "category", body = entity::category::Model))
 )]
 #[get("/{id}")]
 pub async fn get_category(
@@ -30,7 +23,5 @@ pub async fn get_category(
         ::find_by_id(&category_id)
         .one(db).await?
         .ok_or_else(|| HttpError::not_found(CategoryMessage::CategoryNotFound(&category_id)))?;
-
-    let response = GetCategoryResponse { data: category };
-    Ok(HttpResponse::Ok().json(response))
+    Ok(HttpResponse::Ok().json(category))
 }
