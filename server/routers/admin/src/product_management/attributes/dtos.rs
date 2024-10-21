@@ -1,6 +1,7 @@
-use serde::{Deserialize, Serialize};
+use serde::{ Deserialize, Serialize };
 use utoipa::ToSchema;
 use validator::Validate;
+use super::model::AttributeModel;
 
 #[derive(Debug, ToSchema, Validate, Deserialize, Serialize)]
 pub struct AttributeValue {
@@ -14,7 +15,7 @@ pub struct AttributeValue {
 
 #[derive(Debug, ToSchema, Validate, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct CreateAttributeInput {
+pub struct CreateAttributeInputDto {
     #[validate(
         length(min = 1, message = "Name is required"),
         length(max = 50, message = "Maximum 50 characters are allowed")
@@ -27,4 +28,16 @@ pub struct CreateAttributeInput {
     #[validate]
     /// Values of the attribute.
     pub values: Vec<AttributeValue>,
+}
+
+#[derive(Debug, ToSchema, Serialize)]
+pub struct CreateAttributeResponseDto {
+    pub message: String,
+    pub data: AttributeModel,
+}
+
+#[derive(Debug, ToSchema, Serialize)]
+pub struct UpdateAttributeResponseDto {
+    pub message: String,
+    pub data: AttributeModel,
 }

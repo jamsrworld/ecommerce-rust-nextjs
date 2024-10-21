@@ -13,24 +13,8 @@ type Props = {
   children: React.ReactNode;
 };
 
-const getToastMessageFromError = (error: DefaultError) => {
-  try {
-    const { message } = error;
-    const obj: unknown = JSON.parse(message);
-    if (
-      typeof obj === "object" &&
-      obj !== null &&
-      "message" in obj &&
-      typeof obj.message === "string"
-    ) {
-      const { message } = obj;
-      return message;
-    }
-    return null;
-  } catch {
-    return null;
-  }
-};
+const getToastMessageFromError = (error: DefaultError) => 
+ error.message;
 
 const getToastMessageFromResponse = (response: unknown) => {
   if (
@@ -48,6 +32,7 @@ const getToastMessageFromResponse = (response: unknown) => {
 const useOnError = () => {
   const onError = (error: Error) => {
     const message = getToastMessageFromError(error);
+    console.log("message:->", message)
     if (message) toast.error(message);
   };
   return { onError };

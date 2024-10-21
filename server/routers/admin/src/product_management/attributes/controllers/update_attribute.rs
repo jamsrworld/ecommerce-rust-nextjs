@@ -2,22 +2,22 @@ use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::validator::ValidatedJson;
 use serde_json::json;
 use utils::{ error::HttpError, AppState };
-use crate::product_management::attributes::schema::CreateAttributeInput;
+use crate::product_management::attributes::dtos::CreateAttributeInputDto;
 use sea_orm::{ EntityTrait, Set, ActiveModelTrait };
-use super::{ AttributeMessage, AttributeModel };
+use super::{ AttributeMessage, AttributeModel, dtos::UpdateAttributeResponseDto };
 
 /// Update Attribute
 #[utoipa::path(
     tag = "Attribute",
     params(("id", description = "Attribute Id", min_length = 24, max_length = 24)),
     context_path = "/product-management/attributes",
-    responses((status = 200, description = "server information", body = AttributeModel))
+    responses((status = 200, description = "server information", body = UpdateAttributeResponseDto))
 )]
 #[patch("/{id}")]
 pub async fn update_attribute(
     app_data: web::Data<AppState>,
     id: Path<String>,
-    input: ValidatedJson<CreateAttributeInput>
+    input: ValidatedJson<CreateAttributeInputDto>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let attribute_id = id.into_inner();
@@ -41,6 +41,12 @@ pub async fn update_attribute(
     attribute.name = Set(input.name);
     attribute.values = Set(json_values);
     let attribute = attribute.update(db).await?;
-    let attribute:AttributeModel = attribute.into();   
-    Ok(HttpResponse::Ok().json(attribute))
+    let attribute: AttributeModel = attribute.into();
+
+    let response = UpdateAttributeResponseDto {
+        message: AttributeMessage::AttributeUpdated(&attribute.name).to_string(),
+        data: attribute,
+    };
+
+    Ok(HttpResponse::Ok().json(response))
 }

@@ -18,7 +18,7 @@ async function main() {
   const lines = data.split("\n");
   const newLines = lines.map((line) => {
     if (line.includes("export const client")) {
-      return `import { client } from "../utils/client" `;
+      return `import { client } from "../utils/client";\n\nexport { client } from "../utils/client" `;
     }
     return line;
   });

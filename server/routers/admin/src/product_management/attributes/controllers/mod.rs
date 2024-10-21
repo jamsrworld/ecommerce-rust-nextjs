@@ -6,4 +6,4 @@ pub mod get_attributes;
 
 use super::messages::AttributeMessage;
 use super::model::AttributeModel;
-use super::schema;
+use super::dtos;

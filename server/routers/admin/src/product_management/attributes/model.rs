@@ -1,6 +1,6 @@
 use serde_json::from_value;
 use utoipa::ToSchema;
-use super::schema::AttributeValue;
+use super::dtos::AttributeValue;
 
 #[derive(ToSchema, Debug)]
 #[derive(serde::Serialize)]

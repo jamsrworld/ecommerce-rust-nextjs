@@ -7,7 +7,7 @@ use get_attributes::get_attributes;
 use update_attribute::update_attribute;
 
 pub mod controllers;
-pub mod schema;
+pub mod dtos;
 mod messages;
 pub mod model;
 
