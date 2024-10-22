@@ -1,11 +1,12 @@
 import { type Metadata } from "next";
+import { ProductInformation } from "./create/_lib/components/product-information";
 
 export const metadata: Metadata = {
   title: "Products",
 };
 
 const Page = () => {
-  return <div>Products</div>;
+  return <div></div>;
 };
 
 export default Page;
