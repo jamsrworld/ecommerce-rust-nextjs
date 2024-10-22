@@ -1,4 +1,4 @@
-import { type CreateAttributeInput } from "@/client";
+import { type CreateAttributeInputDto } from "@/client";
 import { useDisclosure } from "@jamsr-ui/hooks";
 import {
   Button,
@@ -6,20 +6,40 @@ import {
   DialogBody,
   DialogContent,
   DialogHeader,
+  Tooltip,
 } from "@jamsr-ui/react";
+import { EditIcon } from "@repo/icons";
+import { useRouter } from "next/navigation";
+import { startTransition } from "react";
 import { EditAttributeForm } from "./edit-attribute-form";
 
 type Props = {
   id: string;
-  formData: CreateAttributeInput;
+  formData: CreateAttributeInputDto;
 };
 
 export const EditAttribute = (props: Props) => {
+  const router = useRouter();
   const { id, formData } = props;
   const { isOpen, onClose, onOpen, onOpenChange } = useDisclosure();
+  const onSuccess = () => {
+    startTransition(() => {
+      router.refresh();
+    });
+    onClose();
+  };
   return (
     <>
-      <Button onClick={onOpen}>Edit</Button>
+      <Tooltip title="Edit">
+        <Button
+          isIconOnly
+          onClick={onOpen}
+          color="primary"
+          variant="outlined"
+        >
+          <EditIcon />
+        </Button>
+      </Tooltip>
       <Dialog
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -28,7 +48,7 @@ export const EditAttribute = (props: Props) => {
           <DialogHeader>Update Attribute</DialogHeader>
           <DialogBody>
             <EditAttributeForm
-              onSuccess={onClose}
+              onSuccess={onSuccess}
               formData={formData}
               id={id}
             />

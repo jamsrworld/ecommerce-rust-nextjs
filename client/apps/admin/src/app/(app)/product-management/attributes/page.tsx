@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 import { AttributesTable } from "./_lib/components/attributes-table";
-import { CreateAttribute } from "./_lib/components/create-attribute";
 
 export const metadata: Metadata = {
   title: "Attributes",
@@ -8,8 +7,7 @@ export const metadata: Metadata = {
 
 const Page = () => {
   return (
-    <div>
-      <CreateAttribute />
+    <div className="flex flex-col gap-4">
       <AttributesTable />
     </div>
   );

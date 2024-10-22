@@ -1,8 +1,5 @@
 import { type CreateAttributeInput } from "@/client";
-import {
-  createAttributeMutation,
-  updateAttributeMutation,
-} from "@/client/@tanstack/react-query.gen";
+import { updateAttributeMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@jamsr-ui/react";
 import { RHFInput, RHFProvider } from "@repo/components/rhf";
@@ -59,7 +56,13 @@ export const EditAttributeForm = (props: Props) => {
         label="Name"
       />
       <CreateAttributeValues />
-      <Button type="submit">Update</Button>
+      <Button
+        isLoading={mutation.isPending}
+        type="submit"
+        color="primary"
+      >
+        Update
+      </Button>
     </RHFProvider>
   );
 };

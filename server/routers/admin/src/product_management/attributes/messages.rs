@@ -8,6 +8,8 @@ pub enum AttributeMessage<'a> {
     AttributeDeleted(&'a str),
     #[error("Attribute: {0} has been updated")]
     AttributeUpdated(&'a str),
+    #[error("Attribute {0} has been {1}")]
+    AttributeStatusUpdated(&'a str, &'a str),
     #[error("Attribute: {0} has been created")]
     AttributeCreated(&'a str),
 }

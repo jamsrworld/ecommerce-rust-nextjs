@@ -9,6 +9,7 @@ pub struct AttributeModel {
     pub id: String,
     pub name: String,
     pub values: Vec<AttributeValue>,
+    pub is_active: bool,
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
 }
 
@@ -20,10 +21,11 @@ impl Into<AttributeModel> for entity::attribute::Model {
             .map(|json_value| from_value(json_value).unwrap())
             .collect();
         AttributeModel {
-            id: self.id.to_string(),
-            name: self.name.to_owned(),
+            id: self.id,
+            name: self.name,
+            is_active: self.is_active,
             values: original_values,
-            created_at: self.created_at.to_owned(),
+            created_at: self.created_at,
         }
     }
 }

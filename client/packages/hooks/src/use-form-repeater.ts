@@ -6,7 +6,9 @@ import {
   type FieldValues,
 } from "react-hook-form";
 
-type Data<T extends FieldValues> = FieldArray<T, ArrayPath<T>> | FieldArray<T, ArrayPath<T>>[];
+type Data<T extends FieldValues> =
+  | FieldArray<T, ArrayPath<T>>
+  | FieldArray<T, ArrayPath<T>>[];
 
 export const useFormRepeater = <T extends FieldValues>({
   name,
@@ -16,11 +18,14 @@ export const useFormRepeater = <T extends FieldValues>({
   append: Data<T>;
 }) => {
   const { control } = useFormContext<T>();
-  const { fields, append, remove, replace, insert } = useFieldArray<T>({
-    control,
-    name,
-  });
-  const onAddField = (data?: Data<T>) => append(data ?? appendData);
+  const { fields, append, prepend, remove, replace, insert } = useFieldArray<T>(
+    {
+      control,
+      name,
+    }
+  );
+  const onAppend = (data?: Data<T>) => append(data ?? appendData);
+  const onPrepend = (data?: Data<T>) => prepend(data ?? appendData);
   const onRemoveField = (index: number) => remove(index);
 
   return {
@@ -28,7 +33,8 @@ export const useFormRepeater = <T extends FieldValues>({
     insert,
     fields,
     replace,
-    onAddField,
+    onAppend,
+    onPrepend,
     onRemoveField,
   };
 };

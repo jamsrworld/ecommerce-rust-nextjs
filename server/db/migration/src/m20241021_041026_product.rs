@@ -1,4 +1,4 @@
-use sea_orm_migration::{prelude::*, schema::*};
+use sea_orm_migration::{ prelude::*, schema::* };
 
 use crate::utils::pg_primary_id;
 
@@ -9,24 +9,20 @@ pub struct Migration;
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         // create product table
-        manager
-            .create_table(
-                Table::create()
-                    .table(Product::Table)
-                    .if_not_exists()
-                    .col(pg_primary_id(Product::Id))
-                    .col(string(Product::Title))
-                    .col(string(Product::Product))
-                    .to_owned(),
-            )
-            .await
+        manager.create_table(
+            Table::create()
+                .table(Product::Table)
+                .if_not_exists()
+                .col(pg_primary_id(Product::Id))
+                .col(string(Product::Title))
+                .col(string(Product::Slug))
+                .to_owned()
+        ).await
     }
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         // drop product table
-        manager
-            .drop_table(Table::drop().table(Product::Table).to_owned())
-            .await
+        manager.drop_table(Table::drop().table(Product::Table).to_owned()).await
     }
 }
 
@@ -35,5 +31,21 @@ enum Product {
     Table,
     Id,
     Title,
-    Product,
+    Slug,
+    Status,
+    MinimumOrder,
+    MaximumOrder,
+    CreatedAt,
+    UpdatedAt,
+    Price,
+    Mrp,
+    Stock,
+    LowStockWarning,
+    SkuID,
+    isReturnable,
+    Tags,
+    Seo,
+    Images,
+    VideoUrl,
+    Description,
 }

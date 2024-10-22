@@ -15,6 +15,7 @@ pub struct Model {
     #[sea_orm(unique)]
     pub name: String,
     pub values: Vec<Json>,
+    pub is_active: bool,
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
 }
 

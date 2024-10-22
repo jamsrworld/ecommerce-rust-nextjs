@@ -8,13 +8,25 @@ import {
   DialogContent,
   DialogHeader,
 } from "@jamsr-ui/react";
+import { AddIcon } from "@repo/icons";
+import { useRouter } from "next/navigation";
 import { CreateAttributeForm } from "./create-attribute-form";
 
 export const CreateAttribute = () => {
+  const router = useRouter();
   const { isOpen, onClose, onOpen, onOpenChange } = useDisclosure();
+  const onSuccess = () => {
+    router.refresh();
+    onClose();
+  };
   return (
-    <div>
-      <Button onClick={onOpen}>Create new</Button>
+    <div className="flex justify-end">
+      <Button
+        onClick={onOpen}
+        startContent={<AddIcon />}
+      >
+        Create new
+      </Button>
       <Dialog
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -22,7 +34,7 @@ export const CreateAttribute = () => {
         <DialogContent>
           <DialogHeader>Create Attribute</DialogHeader>
           <DialogBody>
-            <CreateAttributeForm onSuccess={onClose} />
+            <CreateAttributeForm onSuccess={onSuccess} />
           </DialogBody>
         </DialogContent>
       </Dialog>

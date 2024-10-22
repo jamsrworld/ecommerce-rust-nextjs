@@ -52,7 +52,13 @@ export const CreateAttributeForm = (props: Props) => {
         label="Name"
       />
       <CreateAttributeValues />
-      <Button type="submit">Submit</Button>
+      <Button
+        isLoading={mutation.isPending}
+        type="submit"
+        color="primary"
+      >
+        Submit
+      </Button>
     </RHFProvider>
   );
 };

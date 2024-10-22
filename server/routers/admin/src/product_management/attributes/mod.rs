@@ -5,6 +5,7 @@ use delete_attribute::delete_attribute;
 use get_attribute::get_attribute;
 use get_attributes::get_attributes;
 use update_attribute::update_attribute;
+use update_status::update_attribute_status;
 
 pub mod controllers;
 pub mod dtos;
@@ -18,4 +19,5 @@ pub fn attributes_routes() -> Scope {
         .service(get_attribute)
         .service(get_attributes)
         .service(delete_attribute)
+        .service(update_attribute_status)
 }

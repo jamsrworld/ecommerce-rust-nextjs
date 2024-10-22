@@ -45,6 +45,7 @@ pub async fn create_attribute(
         id: Set(cuid2::create_id()),
         name: Set(input.name),
         values: Set(json_values),
+        is_active: Set(false),
         created_at: NotSet,
     };
 

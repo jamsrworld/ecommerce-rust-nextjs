@@ -13,21 +13,23 @@ export const slugify = (text: string) => {
 
 export const asyncCallWithTimeout = async <T>(
   asyncPromise: Promise<T>,
-  timeLimit: number,
+  timeLimit: number
 ): Promise<T> => {
   let timeoutHandle: NodeJS.Timeout;
 
   const timeoutPromise = new Promise<never>((_resolve, reject) => {
     timeoutHandle = setTimeout(
       () => reject(new Error("Async call timeout limit reached")),
-      timeLimit,
+      timeLimit
     );
   });
 
-  return Promise.race<T>([asyncPromise, timeoutPromise]).then(
-    (result) => {
-      clearTimeout(timeoutHandle);
-      return result;
-    },
-  );
+  return Promise.race<T>([asyncPromise, timeoutPromise]).then((result) => {
+    clearTimeout(timeoutHandle);
+    return result;
+  });
+};
+
+export const randomId = () => {
+  return Math.random().toString(36).slice(2);
 };

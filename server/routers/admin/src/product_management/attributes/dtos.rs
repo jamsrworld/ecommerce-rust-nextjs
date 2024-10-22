@@ -30,6 +30,13 @@ pub struct CreateAttributeInputDto {
     pub values: Vec<AttributeValue>,
 }
 
+#[derive(Debug, ToSchema, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct UpdateAttributeStatusInputDto {
+    /// Desired state of attribute.
+    pub is_active: bool,
+}
+
 #[derive(Debug, ToSchema, Serialize)]
 pub struct CreateAttributeResponseDto {
     pub message: String,

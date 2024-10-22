@@ -2,8 +2,8 @@
 
 import type { Options } from '@hey-api/client-fetch';
 import { queryOptions, type UseMutationOptions } from '@tanstack/react-query';
-import { client, healthCheck, login, serverInformation, getAttributes, createAttribute, getAttribute, deleteAttribute, updateAttribute, getCategories, createCategory, getCategory, deleteCategory, updateCategory, getProducts, createProduct, getProduct, deleteProduct, updateProduct } from '../services.gen';
-import type { LoginData, LoginError, LoginResponse, CreateAttributeData, CreateAttributeError, CreateAttributeResponse, GetAttributeData, DeleteAttributeData, DeleteAttributeError, DeleteAttributeResponse, UpdateAttributeData, UpdateAttributeError, UpdateAttributeResponse, CreateCategoryData, CreateCategoryError, CreateCategoryResponse, GetCategoryData, DeleteCategoryData, DeleteCategoryError, DeleteCategoryResponse, UpdateCategoryData, UpdateCategoryError, UpdateCategoryResponse, CreateProductData, CreateProductError, CreateProductResponse, GetProductData, DeleteProductData, DeleteProductError, DeleteProductResponse, UpdateProductData, UpdateProductError, UpdateProductResponse } from '../types.gen';
+import { client, healthCheck, login, serverInformation, getAttributes, createAttribute, getAttribute, deleteAttribute, updateAttribute, updateAttributeStatus, getCategories, createCategory, getCategory, deleteCategory, updateCategory, getProducts, createProduct, getProduct, deleteProduct, updateProduct } from '../services.gen';
+import type { LoginData, LoginError, LoginResponse, CreateAttributeData, CreateAttributeError, CreateAttributeResponse, GetAttributeData, DeleteAttributeData, DeleteAttributeError, DeleteAttributeResponse, UpdateAttributeData, UpdateAttributeError, UpdateAttributeResponse, UpdateAttributeStatusData, UpdateAttributeStatusError, UpdateAttributeStatusResponse, CreateCategoryData, CreateCategoryError, CreateCategoryResponse, GetCategoryData, DeleteCategoryData, DeleteCategoryError, DeleteCategoryResponse, UpdateCategoryData, UpdateCategoryError, UpdateCategoryResponse, CreateProductData, CreateProductError, CreateProductResponse, GetProductData, DeleteProductData, DeleteProductError, DeleteProductResponse, UpdateProductData, UpdateProductError, UpdateProductResponse } from '../types.gen';
 
 type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -164,6 +164,17 @@ export const deleteAttributeMutation = (options?: Partial<Options<DeleteAttribut
 export const updateAttributeMutation = (options?: Partial<Options<UpdateAttributeData>>) => { const mutationOptions: UseMutationOptions<UpdateAttributeResponse, UpdateAttributeError, Options<UpdateAttributeData>> = {
     mutationFn: async (localOptions) => {
         const { data } = await updateAttribute({
+            ...options,
+            ...localOptions,
+            throwOnError: true
+        });
+        return data;
+    }
+}; return mutationOptions; };
+
+export const updateAttributeStatusMutation = (options?: Partial<Options<UpdateAttributeStatusData>>) => { const mutationOptions: UseMutationOptions<UpdateAttributeStatusResponse, UpdateAttributeStatusError, Options<UpdateAttributeStatusData>> = {
+    mutationFn: async (localOptions) => {
+        const { data } = await updateAttributeStatus({
             ...options,
             ...localOptions,
             throwOnError: true

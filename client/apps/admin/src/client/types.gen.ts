@@ -15,6 +15,7 @@ export type AdminLoginResponse = {
 export type AttributeModel = {
     createdAt: Date;
     id: string;
+    isActive: boolean;
     name: string;
     values: Array<AttributeValue>;
 };
@@ -29,7 +30,7 @@ export type Category = {
     title: string;
 };
 
-export type CreateAttributeInput = {
+export type CreateAttributeInputDto = {
     /**
      * Name of the attribute.
      *
@@ -39,6 +40,11 @@ export type CreateAttributeInput = {
      * Values of the attribute.
      */
     values: Array<AttributeValue>;
+};
+
+export type CreateAttributeResponseDto = {
+    data: AttributeModel;
+    message: string;
 };
 
 export type CreateCategoryInput = {
@@ -79,6 +85,18 @@ export type SystemInfo = {
     upTime: number;
 };
 
+export type UpdateAttributeResponseDto = {
+    data: AttributeModel;
+    message: string;
+};
+
+export type UpdateAttributeStatusInputDto = {
+    /**
+     * Desired state of attribute.
+     */
+    isActive: boolean;
+};
+
 export type HealthCheckResponse = (string);
 
 export type HealthCheckError = unknown;
@@ -100,10 +118,10 @@ export type GetAttributesResponse = (Array<AttributeModel>);
 export type GetAttributesError = unknown;
 
 export type CreateAttributeData = {
-    body: CreateAttributeInput;
+    body: CreateAttributeInputDto;
 };
 
-export type CreateAttributeResponse = (AttributeModel);
+export type CreateAttributeResponse = (CreateAttributeResponseDto);
 
 export type CreateAttributeError = unknown;
 
@@ -142,9 +160,23 @@ export type UpdateAttributeData = {
     };
 };
 
-export type UpdateAttributeResponse = (AttributeModel);
+export type UpdateAttributeResponse = (UpdateAttributeResponseDto);
 
 export type UpdateAttributeError = unknown;
+
+export type UpdateAttributeStatusData = {
+    body: UpdateAttributeStatusInputDto;
+    path: {
+        /**
+         * Attribute Id
+         */
+        id: string;
+    };
+};
+
+export type UpdateAttributeStatusResponse = (UpdateAttributeResponseDto);
+
+export type UpdateAttributeStatusError = unknown;
 
 export type GetCategoriesResponse = (Array<Category>);
 
