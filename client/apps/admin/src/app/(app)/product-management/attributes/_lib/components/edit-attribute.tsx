@@ -21,7 +21,7 @@ type Props = {
 export const EditAttribute = (props: Props) => {
   const router = useRouter();
   const { id, formData } = props;
-  const { isOpen, onClose, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onClose, onOpen, setIsOpen } = useDisclosure();
   const onSuccess = () => {
     startTransition(() => {
       router.refresh();
@@ -42,7 +42,7 @@ export const EditAttribute = (props: Props) => {
       </Tooltip>
       <Dialog
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        onOpenChange={setIsOpen}
       >
         <DialogContent>
           <DialogHeader>Update Attribute</DialogHeader>

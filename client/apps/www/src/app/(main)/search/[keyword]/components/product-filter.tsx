@@ -61,7 +61,7 @@ export const ProductFilter = () => {
           </Select>
         </li>
         <li>
-          <Button rounded>All Filters</Button>
+          <Button isRounded>All Filters</Button>
         </li>
       </ul>
     </div>

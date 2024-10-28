@@ -14,7 +14,7 @@ import { CreateAttributeForm } from "./create-attribute-form";
 
 export const CreateAttribute = () => {
   const router = useRouter();
-  const { isOpen, onClose, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onClose, onOpen, setIsOpen } = useDisclosure();
   const onSuccess = () => {
     router.refresh();
     onClose();
@@ -29,7 +29,7 @@ export const CreateAttribute = () => {
       </Button>
       <Dialog
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        onOpenChange={setIsOpen}
       >
         <DialogContent>
           <DialogHeader>Create Attribute</DialogHeader>

@@ -7,7 +7,7 @@ import { imagesItems } from "./image";
 import { ProductImagesSlider } from "./product-images-slider";
 
 export const ProductImages = () => {
-  const { isOpen, onClose, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onClose, onOpen, setIsOpen } = useDisclosure();
   const [activeIndex, setActiveIndex] = useState(-1);
   const handleOnClick = (idx: number) => {
     onOpen();
@@ -17,7 +17,7 @@ export const ProductImages = () => {
     <div>
       <ProductImagesSlider
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        onOpenChange={setIsOpen}
         onClose={onClose}
         activeIndex={activeIndex}
       />

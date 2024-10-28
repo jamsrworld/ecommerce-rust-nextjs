@@ -14,16 +14,16 @@ type Props = {
 export const EditAddress = (props: Props) => {
   const { id, formData } = props;
   const router = useRouter();
-  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onClose, setIsOpen } = useDisclosure();
   const onSuccess = () => {
-    router.refresh()
+    router.refresh();
     onClose();
   };
-  if(formData.landmark === null) formData.landmark = "";
+  if (formData.landmark === null) formData.landmark = "";
   return (
     <div>
       <Button
-        variant="link"
+        variant="text"
         onClick={onOpen}
         className="p-0"
         disableRipple
@@ -32,7 +32,7 @@ export const EditAddress = (props: Props) => {
       </Button>
       <Drawer
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        onOpenChange={setIsOpen}
         size="2xl"
         className="flex w-full flex-col justify-center gap-4 overflow-auto p-4"
       >
@@ -43,7 +43,7 @@ export const EditAddress = (props: Props) => {
         />
         <Button
           color="primary"
-          variant="link"
+          variant="text"
           disableRipple
           className="underline"
           onClick={onClose}

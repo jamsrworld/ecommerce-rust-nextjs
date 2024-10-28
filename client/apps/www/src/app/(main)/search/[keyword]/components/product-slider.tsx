@@ -104,7 +104,7 @@ export const ProductSlider = (props: Props) => {
           onClick={handleOnClickPrev}
           aria-label="Previous"
           isIconOnly
-          rounded
+          isRounded
           size="sm"
         >
           <ChevronLeftIcon />
@@ -114,7 +114,7 @@ export const ProductSlider = (props: Props) => {
           onClick={handleOnClickNext}
           aria-label="Next"
           isIconOnly
-          rounded
+          isRounded
           size="sm"
         >
           <ChevronRightIcon />

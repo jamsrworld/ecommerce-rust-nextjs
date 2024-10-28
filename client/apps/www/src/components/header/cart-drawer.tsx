@@ -8,7 +8,7 @@ import { m } from "framer-motion";
 import { CartItems } from "./cart-items";
 
 export const CartDrawer = () => {
-  const { isOpen, onOpenChange, onOpen, onClose } = useDisclosure();
+  const { isOpen, setIsOpen, onOpen, onClose } = useDisclosure();
 
   // useEffect(() => {
   //   if (isOpen) onClose();
@@ -25,7 +25,7 @@ export const CartDrawer = () => {
       </Button>
       <Drawer
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        onOpenChange={setIsOpen}
         className="flex w-full flex-col md:min-w-[500px]"
       >
         <div className="flex items-center justify-between p-4">
@@ -50,7 +50,7 @@ export const CartDrawer = () => {
               isIconOnly
               onClick={onClose}
               variant="light"
-              rounded
+              isRounded
             >
               <CloseIcon className="[&>path]:stroke-[3]" />
             </Button>

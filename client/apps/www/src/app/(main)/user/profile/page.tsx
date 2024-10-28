@@ -95,7 +95,12 @@ const Page = async () => {
             label="Phone Number (Optional)"
             size="lg"
           />
-          <Button color="primary">Update Information</Button>
+          <Button
+            size="lg"
+            color="primary"
+          >
+            Update Information
+          </Button>
         </div>
       </section>
     </div>

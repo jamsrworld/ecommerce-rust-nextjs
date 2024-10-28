@@ -29,7 +29,7 @@ export const CloseBtn = (props: Props) => {
         isIconOnly
         onClick={onClose}
         variant="light"
-        rounded
+        isRounded
         size="lg"
       >
         <CloseIcon className="[&>path]:stroke-[2]" />

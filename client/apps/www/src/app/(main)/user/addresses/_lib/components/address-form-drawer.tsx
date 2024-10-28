@@ -7,7 +7,7 @@ import { CreateAddressForm } from "./create-address-form";
 
 export const AddressFormDrawer = () => {
   const router = useRouter();
-  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onClose, setIsOpen } = useDisclosure();
   const onSuccess = () => {
     onClose();
     router.refresh();
@@ -25,14 +25,13 @@ export const AddressFormDrawer = () => {
       </Button>
       <Drawer
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        onOpenChange={setIsOpen}
         className="flex w-full flex-col"
       >
         <div className="my-auto flex flex-col gap-4 p-4">
           <CreateAddressForm onSuccess={onSuccess} />
           <Button
-            color="primary"
-            variant="link"
+            variant="light"
             disableRipple
             className="underline"
             onClick={onClose}

@@ -2,7 +2,7 @@
 
 import {
   Confirmation,
-  Toast,
+  ToastProvider,
   UIProvider,
   UIStyleProvider,
 } from "@jamsr-ui/react";
@@ -16,7 +16,7 @@ export const AppProvider = (props: Props) => {
   const { children } = props;
   return (
     <UIProvider>
-      <Toast />
+      <ToastProvider />
       <Confirmation />
       <QueryProvider>
         <UIStyleProvider>{children}</UIStyleProvider>

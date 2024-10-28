@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rust-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rust-backend
+  template:
+    metadata:
+      labels:
+        app: rust-backend
+    spec:
+      containers:
+        - name: rust-backend
+          image: your-docker-repo/rust-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATABASE_URL
+              value: "postgres://user:password@db:5432/mydb"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rust-backend
+spec:
+  selector:
+    app: rust-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

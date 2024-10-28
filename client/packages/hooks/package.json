@@ -13,12 +13,12 @@
     "@repo/icons": "workspace:^",
     "@repo/utils": "workspace:^",
     "next": "15.0.0-canary.162",
-    "react": "19.0.0-rc-b8ae38f8-20241018",
+    "react": "19.0.0-rc-1631855f-20241023",
     "react-hook-form": "^7.53.0"
   },
   "peerDependencies": {
     "next": "15.0.0-canary.162",
-    "react": "19.0.0-rc-b8ae38f8-20241018",
+    "react": "19.0.0-rc-1631855f-20241023",
     "react-hook-form": "^7.53.0"
   }
 }

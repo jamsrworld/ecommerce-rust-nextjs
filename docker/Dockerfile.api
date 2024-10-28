@@ -1,0 +1,25 @@
+# Stage 1: Build
+FROM rust:1.72 as builder
+
+WORKDIR /app
+
+# Cache dependencies
+COPY ./backend/Cargo.toml ./backend/Cargo.lock ./
+RUN mkdir src && echo "fn main() {}" > src/main.rs
+RUN cargo build --release
+
+# Build the actual application
+COPY ./backend .
+RUN cargo build --release
+
+# Stage 2: Run
+FROM debian:buster-slim
+
+WORKDIR /app
+
+COPY --from=builder /app/target/release/backend .
+
+# Expose backend port
+EXPOSE 8080
+
+CMD ["./backend"]

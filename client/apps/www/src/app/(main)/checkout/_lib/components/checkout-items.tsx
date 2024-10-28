@@ -111,9 +111,9 @@ const items: {
 export const CheckoutItems = () => {
   return (
     <div className="flex grow flex-col gap-4 overflow-y-auto overflow-x-hidden py-4">
-      {items.map((item) => (
+      {items.map((item, idx) => (
         <div
-          key={item.title}
+          key={idx}
           className="flex gap-2"
         >
           <div className="relative w-44">
@@ -130,12 +130,14 @@ export const CheckoutItems = () => {
             <Typography
               as="h3"
               className="line-clamp-2"
+              variant="paragraph2"
             >
               {item.title}
             </Typography>
             <Typography
               as="p"
               className="text-foreground-secondary"
+              variant="paragraph2"
             >
               {item.info}
             </Typography>

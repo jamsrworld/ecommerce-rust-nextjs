@@ -3,6 +3,7 @@ import { getAddresses } from "@/client";
 import { authedClient } from "@/utils/authed-client";
 import { Divider, Typography } from "@jamsr-ui/react";
 import { FetchError } from "@repo/components/fetch-error";
+import React from "react";
 import { DefaultAddress } from "./default-address";
 import { DeleteAddress } from "./delete-address";
 import { EditAddress } from "./edit-address";
@@ -13,7 +14,7 @@ export const AddressList = async () => {
   const response = await getAddresses({
     client: fetchClient,
   });
-  if (response.error) return <FetchError />;
+  if (response.error) return <FetchError error={response.error} />;
   const { data } = response;
   return (
     <ul className="flex flex-col">
@@ -31,11 +32,8 @@ export const AddressList = async () => {
           id,
         } = item;
         return (
-          <>
-            <li
-              className="py-4"
-              key={id}
-            >
+          <React.Fragment key={id}>
+            <li className="py-4">
               <div className="flex items-center justify-between">
                 <div>{isDefault && <DefaultAddress />}</div>
                 <div className="flex gap-4">
@@ -92,7 +90,7 @@ export const AddressList = async () => {
               </div>
             </li>
             <Divider />
-          </>
+          </React.Fragment>
         );
       })}
     </ul>
