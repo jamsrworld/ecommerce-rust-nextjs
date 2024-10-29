@@ -1,0 +1,10 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "5003:5003"
+    env_file:
+      - .env
+    restart: unless-stopped

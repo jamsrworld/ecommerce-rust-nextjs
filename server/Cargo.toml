@@ -24,7 +24,7 @@ www = { path = "./routers/www" }
 admin = { path = "./routers/admin" }
 config = { path = "./packages/config" }
 utils = { path = "./packages/utils" }
-actix-extensible-rate-limit = { version = "0.4.0", features = ["redis"] }
+# actix-extensible-rate-limit = { version = "0.4.0", features = ["redis"] }
 actix-web = "4.9.0"
 async-trait = "0.1.83"
 chrono = { version = "0.4.38", features = ["serde"] }

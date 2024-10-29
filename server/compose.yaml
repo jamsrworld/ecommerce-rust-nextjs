@@ -1,8 +1,16 @@
 services:
   server:
+    image: e14d9a1f4d39261c/6d636172742d736572766572
+    # image: e14d9a1f4d39261c/mcart-server
+    platform: linux/amd64
     build:
       context: .
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://postgres:pZHlrTUDIapJXMJtqh9sUg@89.116.122.186:5432/mcart
+      - PORT=5003
+      - JWT_SECRET=JKPcMSi8aDz+P2evuMMUrN3Tx+aBoQrBcERjNeTTqwo7yfKGjuFJT0L+zmqTywdsBeYdPw9VDGb9s4Jd98+Xrw==
     ports:
-      - "5003:5003"
-    restart: unless-stopped
+      - 5003:5003

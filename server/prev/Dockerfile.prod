@@ -1,0 +1,41 @@
+FROM rust:latest AS builder
+WORKDIR /app
+COPY Cargo.toml Cargo.lock ./
+
+# First, copy only the Cargo.toml files for caching
+COPY Cargo.toml Cargo.lock ./
+RUN mkdir src && echo "fn main() {}" > src/main.rs
+
+COPY db/migration/Cargo.toml db/migration/Cargo.toml
+COPY db/entity/Cargo.toml db/entity/Cargo.toml
+COPY routers/www/Cargo.toml routers/www/Cargo.toml
+COPY routers/admin/Cargo.toml routers/admin/Cargo.toml
+COPY packages/config/Cargo.toml packages/config/Cargo.toml
+COPY packages/extractors/Cargo.toml packages/extractors/Cargo.toml
+COPY packages/middlewares/Cargo.toml packages/middlewares/Cargo.toml
+COPY packages/services/Cargo.toml packages/services/Cargo.toml
+COPY packages/utils/Cargo.toml packages/utils/Cargo.toml
+
+# Create empty lib.rs files in each workspace
+RUN mkdir -p db/migration/src && touch db/migration/src/lib.rs
+RUN mkdir -p db/entity/src && touch db/entity/src/lib.rs
+RUN mkdir -p routers/www/src && touch routers/www/src/lib.rs
+RUN mkdir -p routers/admin/src && touch routers/admin/src/lib.rs
+RUN mkdir -p packages/config/src && touch packages/config/src/lib.rs
+RUN mkdir -p packages/extractors/src && touch packages/extractors/src/lib.rs
+RUN mkdir -p packages/middlewares/src && touch packages/middlewares/src/lib.rs
+RUN mkdir -p packages/services/src && touch packages/services/src/lib.rs
+RUN mkdir -p packages/utils/src && touch packages/utils/src/lib.rs
+
+RUN cargo build --release
+COPY . .
+
+CMD ["sleep", "infinity"]
+
+# RUN cargo build --release
+
+# FROM rust:latest
+# WORKDIR /app
+# COPY --from=builder /app/target/release/mcart .
+# CMD ["sleep", "infinity"]
+# CMD ["./mcart"]

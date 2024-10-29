@@ -4,9 +4,6 @@ version = "0.1.0"
 edition = "2021"
 publish = false
 
-[lib]
-name = "entity"
-path = "src/mod.rs"
 
 [dependencies]
 chrono = { version = "0.4.38", features = ["serde"] }
