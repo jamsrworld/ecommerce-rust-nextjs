@@ -24,7 +24,7 @@ pub async fn create_product(
     let product_model = entity::product::ActiveModel {
         id: Set(cuid2::create_id()),
         title: Set(input.title),
-        product: Set("product".to_string()),
+        slug: Set("product".to_string()),
     };
     let product = entity::product::Entity::insert(product_model).exec_with_returning(db).await?;
     Ok(HttpResponse::Ok().json(product))
