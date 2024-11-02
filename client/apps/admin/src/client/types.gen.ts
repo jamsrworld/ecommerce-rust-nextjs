@@ -65,7 +65,7 @@ export type CreateProductInput = {
 
 export type Product = {
     id: string;
-    product: string;
+    slug: string;
     title: string;
 };
 

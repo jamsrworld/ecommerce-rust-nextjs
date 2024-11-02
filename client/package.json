@@ -9,10 +9,11 @@
     "www:dev": "cd apps/www && pnpm dev",
     "admin:dev": "cd apps/admin && pnpm dev",
     "typegen:www": "openapi-ts -f openapi/www.config.ts && tsx openapi/fix.ts www",
-    "typegen:admin": "openapi-ts -f openapi/admin.config.ts && tsx openapi/fix.ts admin"
+    "typegen:admin": "openapi-ts -f openapi/admin.config.ts && tsx openapi/fix.ts admin",
+    "clean": "rm -rf node_modules && pnpm -r exec rm -rf node_modules"
   },
   "devDependencies": {
-    "@hey-api/openapi-ts": "^0.53.11",
+    "@hey-api/openapi-ts": "0.54.2",
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "turbo": "^2.1.2",

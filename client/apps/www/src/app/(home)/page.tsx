@@ -1,4 +1,4 @@
-import { Link } from "@jamsr-ui/react";
+import { Card, CardContent, CardHeader, Link } from "@jamsr-ui/react";
 import NextLink from "next/link";
 import { UserData } from "./user-data";
 
@@ -9,6 +9,10 @@ export default function Home() {
         Hii 👋 there, this is a modern cart(mcart) built with next.js and rust
       </p>
       <UserData />
+      <Card>
+        <CardHeader heading="Login" />
+        <CardContent>HIi there</CardContent>
+      </Card>
       <Link
         as={NextLink}
         href="/login"
