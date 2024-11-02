@@ -39,3 +39,5 @@ export const DEFAULT_LOGIN_DETAILS = {
 
 export const MINI_SIDEBAR_WIDTH = 80;
 export const SIDEBAR_WIDTH = 280;
+
+export const CURRENCY = "$";
