@@ -1,5 +1,6 @@
 "use client";
 
+import { APP_ROUTES } from "@/config/routes";
 import { useDisclosure } from "@jamsr-ui/hooks";
 import { Button, Divider, Drawer, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
@@ -93,7 +94,7 @@ export const CartDrawer = () => {
               size="lg"
               fullWidth
               as={NextLink}
-              href="/checkout"
+              href={APP_ROUTES.checkout}
               color="primary"
             >
               Place Order

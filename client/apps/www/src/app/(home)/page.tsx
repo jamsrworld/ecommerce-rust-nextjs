@@ -1,3 +1,4 @@
+import { APP_ROUTES } from "@/config/routes";
 import { Card, CardContent, CardHeader, Link } from "@jamsr-ui/react";
 import NextLink from "next/link";
 import { UserData } from "./user-data";
@@ -15,25 +16,25 @@ export default function Home() {
       </Card>
       <Link
         as={NextLink}
-        href="/login"
+        href={APP_ROUTES.login}
       >
         Go to login
       </Link>
       <Link
         as={NextLink}
-        href="/search/t-shirts"
+        href={APP_ROUTES.search("text")}
       >
         Search Product
       </Link>
       <Link
         as={NextLink}
-        href="/checkout"
+        href={APP_ROUTES.checkout}
       >
         Checkout
       </Link>
       <Link
         as={NextLink}
-        href="/products/id"
+        href={APP_ROUTES.products.view("id")}
       >
         View Product
       </Link>

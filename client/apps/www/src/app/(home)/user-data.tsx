@@ -1,4 +1,5 @@
 import { getProfile } from "@/client";
+import { APP_ROUTES } from "@/config/routes";
 import { authedClient } from "@/utils/authed-client";
 import { Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
@@ -24,14 +25,14 @@ export const UserData = async () => {
       </Typography>
       <Link
         as={NextLink}
-        href="/user/profile"
+        href={APP_ROUTES.profile}
         className="block"
       >
         Profile
       </Link>
       <Link
         as={NextLink}
-        href="/logout"
+        href={APP_ROUTES.logout}
       >
         Logout
       </Link>

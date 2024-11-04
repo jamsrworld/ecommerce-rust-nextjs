@@ -2,6 +2,7 @@
 
 import { type AuthLoginInput } from "@/client";
 import { loginMutation } from "@/client/@tanstack/react-query.gen";
+import { APP_ROUTES } from "@/config/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Divider, Link } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
@@ -63,7 +64,7 @@ export const LoginForm = () => {
       <div className="text-right">
         <Link
           as={NextLink}
-          href="/forgot-password"
+          href={APP_ROUTES.forgotPassword}
         >
           Forgot Password?
         </Link>

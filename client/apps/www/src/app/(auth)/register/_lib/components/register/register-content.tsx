@@ -1,6 +1,7 @@
-import { type AuthRegisterInput } from "@/client";
 import { LeftSection } from "@/app/(auth)/components/left-section";
+import { type AuthRegisterInput } from "@/client";
 import { AppLogo } from "@/components/app-logo";
+import { APP_ROUTES } from "@/config/routes";
 import { Button, Divider, Link, Typography } from "@jamsr-ui/react";
 import NextLink from "next/link";
 import { RegisterForm } from "./register-form";
@@ -48,7 +49,7 @@ export const RegisterContent = (props: Props) => {
         >
           Already have an account?{" "}
           <Link
-            href="/login"
+            href={APP_ROUTES.login}
             as={NextLink}
           >
             Login

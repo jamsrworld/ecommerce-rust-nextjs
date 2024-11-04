@@ -1,12 +1,13 @@
+import { APP_ROUTES } from "@/config/routes";
 import { Button, Divider, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { cn } from "@repo/utils/class-name";
 import Image, { type StaticImageData } from "next/image";
 import React from "react";
-import Img1 from "./1.webp";
-import Img2 from "./2.webp";
-import Img3 from "./3.webp";
-import Img4 from "./4.webp";
+import Img1 from "./assets/1.webp";
+import Img2 from "./assets/2.webp";
+import Img3 from "./assets/3.webp";
+import Img4 from "./assets/4.webp";
 
 const items: {
   thumbnail: StaticImageData;
@@ -70,11 +71,11 @@ export const OrdersList = () => {
   return (
     <div className="mt-8 flex flex-col gap-8">
       {items.map((item, idx) => {
-        const { size, status, style, subtitle, thumbnail, title } = item;
+        const { size, status, style, thumbnail, title } = item;
         return (
           <React.Fragment key={idx}>
             <div className="flex gap-4">
-              <NextLink href="/products/id">
+              <NextLink href={APP_ROUTES.products.view("id")}>
                 <Image
                   src={thumbnail}
                   alt={title}
@@ -93,14 +94,21 @@ export const OrdersList = () => {
                   {status}
                 </Typography>
                 <Typography
-                  as="p"
+                  as={NextLink}
                   className="font-medium text-foreground"
+                  href={APP_ROUTES.products.view("id")}
                 >
                   {title}
                 </Typography>
                 <Typography as="p">{size}</Typography>
                 <Typography as="p">{style}</Typography>
-                <Typography as="p">{subtitle}</Typography>
+                <Typography
+                  as="p"
+                  variant="paragraph2"
+                  className="text-foreground-tertiary"
+                >
+                  Ordered On: 27 October 2024
+                </Typography>
               </div>
               <div className="flex flex-col gap-2 max-md:hidden">
                 <Button
@@ -113,8 +121,10 @@ export const OrdersList = () => {
                   isRounded
                   variant="outlined"
                   color="primary"
+                  href={APP_ROUTES.orders.view("id")}
+                  as={NextLink}
                 >
-                  View Or Manage
+                  View details
                 </Button>
                 <Button
                   isRounded
