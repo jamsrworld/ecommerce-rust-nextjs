@@ -71,7 +71,7 @@ export const ProductInfo = () => {
           return (
             <React.Fragment key={index}>
               <AccordionItem
-                title={item.heading}
+                heading={item.heading}
                 className="bg-transparent [&_svg_path]:stroke-2"
                 indicator={AccordionIndicator}
               >

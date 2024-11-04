@@ -19,7 +19,7 @@ export const ProfileLinkItem = (props: Props) => {
     <Link
       as={NextLink}
       href={href}
-      className={cn("text-foreground-secondary text-base", {
+      className={cn("text-base text-foreground-secondary", {
         "text-primary underline": isActive,
       })}
     >

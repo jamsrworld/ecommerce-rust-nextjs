@@ -31,7 +31,7 @@ export const AppHeader = () => {
   return (
     <Header className="shrink-0 justify-between pr-3">
       <AppLogo />
-      <nav>
+      <nav className="max-md:hidden">
         <ul className="flex items-center gap-4">
           {navItems.map((item) => (
             <li key={item.name}>
@@ -52,6 +52,7 @@ export const AppHeader = () => {
           variant="outlined"
           as={NextLink}
           href="/user/profile"
+          color="primary"
         >
           <UserIcon />
         </Button>

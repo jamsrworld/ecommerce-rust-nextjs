@@ -1,5 +1,6 @@
 import { Divider, Typography } from "@jamsr-ui/react";
 import { type Metadata } from "next";
+import { OrdersList } from "./orders-list";
 
 export const metadata: Metadata = {
   title: "Orders",
@@ -17,6 +18,7 @@ const Page = () => {
           Orders
         </Typography>
         <Divider />
+        <OrdersList />
       </section>
     </div>
   );

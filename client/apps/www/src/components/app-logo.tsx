@@ -16,7 +16,7 @@ export const AppLogo = (props: Props) => {
   const {
     href = "/",
     width = 200,
-    height = 40,
+    height = 30,
     color = "#000000",
     isMini,
     className,

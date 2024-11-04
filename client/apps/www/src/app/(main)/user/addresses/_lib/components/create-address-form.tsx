@@ -29,6 +29,7 @@ export const CreateAddressForm = (props: Props) => {
   const methods = useForm({
     defaultValues,
     resolver: zodResolver(createAddressSchema),
+    mode: "all",
   });
   const { handleSubmit } = methods;
   const mutation = useMutation({
@@ -61,7 +62,7 @@ export const CreateAddressForm = (props: Props) => {
         isPending={mutation.isPending}
         onSubmit={onSubmit}
       >
-        <AddressForm submitText="Create Address" />
+        <AddressForm submitText="Add Address" />
       </RHFProvider>
     </div>
   );

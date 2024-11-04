@@ -13,7 +13,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "*.config.*",
-    ".eslintrc.cjs"
-, "../../packages/components/src/client.tsx"  ],
+    ".eslintrc.cjs",
+    "../../node_modules/@jamsr-ui/*/dist/**/*.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
