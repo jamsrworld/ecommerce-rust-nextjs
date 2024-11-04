@@ -5,13 +5,20 @@ import { Button, Drawer } from "@jamsr-ui/react";
 import { useRouter } from "next/navigation";
 import { CreateAddressForm } from "./create-address-form";
 
-export const AddressFormDrawer = () => {
+type Props = {
+  addresses: number;
+  maximumAddresses: number;
+};
+
+export const AddAddressBtn = (props: Props) => {
+  const { addresses, maximumAddresses } = props;
   const router = useRouter();
   const { isOpen, onOpen, onClose, setIsOpen } = useDisclosure();
   const onSuccess = () => {
     onClose();
     router.refresh();
   };
+  const isDisabled = addresses >= maximumAddresses;
   return (
     <>
       <Button
@@ -20,8 +27,9 @@ export const AddressFormDrawer = () => {
         size="lg"
         className="rounded-none"
         onClick={onOpen}
+        isDisabled={isDisabled}
       >
-        Add a new address
+        Add an Address
       </Button>
       <Drawer
         isOpen={isOpen}

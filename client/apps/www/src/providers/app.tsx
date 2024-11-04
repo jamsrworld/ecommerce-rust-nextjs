@@ -1,22 +1,12 @@
 "use client";
 
-import {
-  Confirmation,
-  ToastProvider,
-  UIProvider,
-  UIStyleProvider,
-} from "@jamsr-ui/react";
-import type { UIStyleType } from "@jamsr-ui/types";
+import { Confirmation, ToastProvider, UIProvider } from "@jamsr-ui/react";
+import { UIStylesProvider } from "@jamsr-ui/styles";
 import { QueryProvider } from "@repo/components/query-client";
 
 type Props = {
   children: React.ReactNode;
 };
-
-declare module "@jamsr-ui/core" {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  export interface UIStyleContextType extends UIStyleType {}
-}
 
 export const AppProvider = (props: Props) => {
   const { children } = props;
@@ -25,21 +15,15 @@ export const AppProvider = (props: Props) => {
       <ToastProvider />
       <Confirmation />
       <QueryProvider>
-        <UIStyleProvider
-          input={{
-            classNames: {
-              innerWrapper: "bg-gray-100",
-            },
-          }}
-          card={{
-            className: "bg-gray-100",
-          }}
-          cardContent={{
-            className: "bg-red-100",
-          }}
+        <UIStylesProvider
+        // input={{
+        //   classNames: {
+        //     innerWrapper: "bg-gray-100/20",
+        //   },
+        // }}
         >
           {children}
-        </UIStyleProvider>
+        </UIStylesProvider>
       </QueryProvider>
     </UIProvider>
   );

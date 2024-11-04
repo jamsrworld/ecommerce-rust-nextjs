@@ -25,10 +25,10 @@ const items: { title: string; href: LinkProps<never>["href"] }[] = [
 const Layout = (props: Props) => {
   const { children } = props;
   return (
-    <div className="container flex h-[95vh] max-w-screen-2xl py-24">
-      <div className="w-full max-w-sm">
+    <div className="container flex max-w-screen-2xl flex-col gap-8 p-2 md:flex-row md:py-24">
+      <aside className="w-full max-w-sm">
         <UserGreeting />
-        <ul className="flex flex-col gap-2">
+        <ul className="flex gap-2 md:flex-col">
           {items.map((item, index) => {
             return (
               <li key={index}>
@@ -40,7 +40,7 @@ const Layout = (props: Props) => {
             );
           })}
         </ul>
-      </div>
+      </aside>
       <div className="max-w-screen-md grow">{children}</div>
     </div>
   );

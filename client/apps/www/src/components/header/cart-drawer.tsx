@@ -9,6 +9,7 @@ import { CartItems } from "./cart-items";
 
 export const CartDrawer = () => {
   const { isOpen, setIsOpen, onOpen, onClose } = useDisclosure();
+  // const pathname = usePathname();
 
   // useEffect(() => {
   //   if (isOpen) onClose();
@@ -20,6 +21,7 @@ export const CartDrawer = () => {
         onClick={onOpen}
         variant="outlined"
         isIconOnly
+        color="primary"
       >
         <CartIcon />
       </Button>

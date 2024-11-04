@@ -29,10 +29,11 @@ export const SetAsDefaultAddress = (props: Props) => {
 
   return (
     <Button
-      variant="link"
+      variant="text"
       onClick={handleClick}
       className="p-0"
       disableRipple
+      isDisabled={mutation.isPending}
     >
       Set as default
     </Button>
