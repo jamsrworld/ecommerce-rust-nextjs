@@ -1,3 +1,4 @@
+import { APP_ROUTES } from "@/config/routes";
 import { Button, Header } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { UserIcon } from "@repo/icons";
@@ -51,7 +52,7 @@ export const AppHeader = () => {
           isIconOnly
           variant="outlined"
           as={NextLink}
-          href="/user/profile"
+          href={APP_ROUTES.profile}
           color="primary"
         >
           <UserIcon />

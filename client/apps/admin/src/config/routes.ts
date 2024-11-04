@@ -6,8 +6,9 @@ const settings = <T extends string>(path: T) => `/settings${path}` as const;
 const frontend = <T extends string>(path: T) => `/frontend${path}` as const;
 const extra = <T extends string>(path: T) => `/extra${path}` as const;
 
-type LinkRouteItem = Record<string, Route | Record<string, Route>>;
-type LinkRouteGroup = Record<string, LinkRouteItem>;
+export type RoutesRecords = {
+  [k: string]: Route | ((...args: string[]) => Route) | RoutesRecords;
+};
 
 export const APP_ROUTES = {
   settings: {
@@ -54,4 +55,4 @@ export const APP_ROUTES = {
     loginSessions: extra("/login-sessions"),
     serverInformation: extra("/server-information"),
   },
-} satisfies LinkRouteGroup;
+} satisfies RoutesRecords;

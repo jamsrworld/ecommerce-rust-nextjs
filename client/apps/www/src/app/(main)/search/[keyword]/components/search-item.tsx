@@ -1,5 +1,6 @@
 "use client";
 
+import { APP_ROUTES } from "@/config/routes";
 import { useHover } from "@/hooks/use-hover";
 import { Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
@@ -20,7 +21,7 @@ export const SearchItem = (props: Props) => {
     <li className="relative cursor-pointer transition-all duration-300">
       <Link
         as={NextLink}
-        href="/"
+        href={APP_ROUTES.products.view("id")}
         className="group/top relative block overflow-hidden"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -38,7 +39,7 @@ export const SearchItem = (props: Props) => {
         <Link
           className="font-medium text-foreground"
           as={NextLink}
-          href="/"
+          href={APP_ROUTES.products.view("id")}
         >
           {title}
         </Link>

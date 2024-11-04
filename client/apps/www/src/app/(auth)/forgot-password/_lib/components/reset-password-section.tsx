@@ -1,3 +1,4 @@
+import { APP_ROUTES } from "@/config/routes";
 import { Card, CardContent, Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 
@@ -20,7 +21,7 @@ export const ResetPasswordSection = (props: Props) => {
         {children}
         <Link
           as={NextLink}
-          href="/login"
+          href={APP_ROUTES.login}
           className="text-center"
         >
           Back to Login

@@ -1,4 +1,5 @@
 import { AppLogo } from "@/components/app-logo";
+import { APP_ROUTES } from "@/config/routes";
 import { Card, CardContent, Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 
@@ -34,7 +35,7 @@ export const ForgotPasswordSection = (props: Props) => {
             Remembered Password?{" "}
             <Link
               as={NextLink}
-              href="/login"
+              href={APP_ROUTES.login}
             >
               Login
             </Link>

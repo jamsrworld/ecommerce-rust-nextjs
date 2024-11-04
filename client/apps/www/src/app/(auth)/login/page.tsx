@@ -1,4 +1,5 @@
 import { AppLogo } from "@/components/app-logo";
+import { APP_ROUTES } from "@/config/routes";
 import { Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { type Metadata } from "next";
@@ -39,7 +40,7 @@ const Login = () => {
         >
           Don't have an account?{" "}
           <Link
-            href="/register"
+            href={APP_ROUTES.register}
             as={NextLink}
           >
             Register
