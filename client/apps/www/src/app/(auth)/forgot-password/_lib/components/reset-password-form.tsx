@@ -4,13 +4,8 @@ import {
 } from "@/client";
 import { resetPasswordMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@jamsr-ui/react";
-import {
-  onRHFInvalid,
-  RHFInput,
-  RHFOtpInput,
-  RHFProvider,
-} from "@repo/components/rhf";
+import { Button, RHFInput, RHFOtpInput, RHFProvider } from "@jamsr-ui/react";
+import { onRHFInvalid } from "@repo/components/rhf";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

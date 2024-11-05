@@ -7,7 +7,7 @@ export default function Home() {
       <p className="text-4xl">Hii 👋 there, this is a mcart admin panel</p>
       <Link
         as={NextLink}
-        href="/dashboard"
+        href="/general/dashboard"
       >
         Go to dashboard
       </Link>

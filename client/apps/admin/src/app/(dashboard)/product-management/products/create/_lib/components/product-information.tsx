@@ -2,58 +2,80 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Input,
-  Select,
+  RHFInput,
+  RHFSelect,
+  RHFSwitch,
   SelectItem,
-  Switch,
 } from "@jamsr-ui/react";
+import { CURRENCY } from "@repo/config/app";
+import { type ProductCreateSchema } from "../types";
+
+type FormValues = ProductCreateSchema;
 
 export const ProductInformation = () => {
   return (
     <Card>
       <CardHeader heading="Product Information" />
       <CardContent className="grid grid-cols-2 gap-4">
-        <Input
+        <RHFInput<FormValues>
+          name="title"
           label="Product Title"
           classNames={{
             base: "col-span-2",
           }}
         />
-        <Input label="SKU ID" />
-        <Input
-          label="Minimum Order"
-          mask="number"
-          precision={0}
+        <RHFInput<FormValues>
+          name="skuID"
+          label="SKU ID"
         />
-        <Input
-          label="Maximum Order"
-          mask="number"
-          precision={0}
-        />
-        <Input
+        <RHFInput<FormValues>
+          name="stock"
           label="Stock"
-          mask="number"
-          precision={0}
+          isNumberInput
+          decimalPrecision={0}
         />
-        <Input
-          label="Mrp"
-          mask="currency"
+        <RHFInput<FormValues>
+          name="minimumOrder"
+          label="Minimum Order"
+          isNumberInput
+          decimalPrecision={0}
         />
-        <Input
+        <RHFInput<FormValues>
+          name="maximumOrder"
+          label="Maximum Order"
+          isNumberInput
+          decimalPrecision={0}
+        />
+        <RHFInput<FormValues>
+          name="sellingPrice"
           label="Selling Price"
-          mask="currency"
+          isNumberInput
+          startContent={CURRENCY}
         />
-        <Input
+        <RHFInput<FormValues>
+          name="mrp"
+          label="Mrp"
+          isNumberInput
+          startContent={CURRENCY}
+        />
+        <RHFInput<FormValues>
+          name="lowStockWarning"
           label="Low Stock Warning"
-          mask="number"
-          precision={0}
+          isNumberInput
+          decimalPrecision={0}
         />
-        <Select label="Visibility">
+        <RHFSelect<FormValues>
+          name="visibility"
+          label="Visibility"
+        >
           <SelectItem value="public">Public</SelectItem>
           <SelectItem value="private">Private</SelectItem>
           <SelectItem value="unlisted">Unlisted</SelectItem>
-        </Select>
-        <Switch label="Is Refundable" />
+        </RHFSelect>
+        <RHFSwitch<FormValues>
+          name="isRefundable"
+          label="Is Refundable"
+        />
       </CardContent>
     </Card>
   );

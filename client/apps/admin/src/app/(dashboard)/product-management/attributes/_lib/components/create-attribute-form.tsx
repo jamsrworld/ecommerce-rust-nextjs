@@ -1,8 +1,7 @@
 import { type CreateAttributeInputDto } from "@/client";
 import { createAttributeMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@jamsr-ui/react";
-import { RHFInput, RHFProvider } from "@repo/components/rhf";
+import { Button, RHFInput, RHFProvider } from "@jamsr-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { createAttributeSchema } from "../schema";

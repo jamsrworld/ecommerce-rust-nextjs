@@ -1,8 +1,8 @@
 import { type AuthForgotPasswordInput } from "@/client";
 import { forgotPasswordMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@jamsr-ui/react";
-import { onRHFInvalid, RHFInput, RHFProvider } from "@repo/components/rhf";
+import { Button, RHFInput, RHFProvider } from "@jamsr-ui/react";
+import { onRHFInvalid } from "@repo/components/rhf";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { forgotPasswordSchema } from "../schema";

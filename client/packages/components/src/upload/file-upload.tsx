@@ -24,7 +24,7 @@ export type SingleFileUploadProps = Pick<
 
 export const SingleFileUpload = (props: SingleFileUploadProps) => {
   const { label, onChange, value, className, ...restProps } = props;
-  const [file, setFile] = useState(getFileSrc(value.url));
+  const [file, setFile] = useState<string|null>(getFileSrc(value.url));
   const [progress, setProgress] = useState(0);
 
   const onFileSelect = async (file: File) => {
@@ -67,7 +67,6 @@ export const SingleFileUpload = (props: SingleFileUploadProps) => {
         className={cn("aspect-video w-80 max-w-full", className)}
         onError={handleOnError}
         showDeleteBtn
-        progress={progress}
         fileName={value.name}
         fileSize={value.size}
         onDelete={handleDelete}

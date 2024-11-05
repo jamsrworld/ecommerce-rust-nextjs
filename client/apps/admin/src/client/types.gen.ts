@@ -13,7 +13,7 @@ export type AdminLoginResponse = {
 };
 
 export type AttributeModel = {
-    createdAt: Date;
+    createdAt: string;
     id: string;
     isActive: boolean;
     name: string;
@@ -76,8 +76,8 @@ export type ResponseWithMessage = {
 export type SystemInfo = {
     cpuUsage: number;
     freeMemory: number;
-    lastCron: Date;
-    lastSuccessCron: Date;
+    lastCron: string;
+    lastSuccessCron: string;
     osHostname: string;
     osPlatform: string;
     osVersion: string;
