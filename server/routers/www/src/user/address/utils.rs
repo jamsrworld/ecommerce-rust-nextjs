@@ -2,7 +2,8 @@ use super::messages::AddressMessage;
 use sea_orm::{ ColumnTrait, DatabaseConnection, EntityTrait, PaginatorTrait, QueryFilter };
 use utils::error::HttpError;
 
-const ADDRESS_LIMIT: u64 = 3;
+const ADDRESS_LIMIT: u64 = 5;
+
 pub async fn check_address_limit(
     db: &DatabaseConnection,
     user_id: String

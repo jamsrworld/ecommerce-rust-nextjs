@@ -39,8 +39,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let cors = Cors::default()
             // .allowed_origin("https://mcart.dev")
             // .allowed_origin(domain)
-            .allowed_origin("http://localhost:5000")
-            // .allow_any_origin()
+            // .allowed_origin("http://localhost:5000")
+            .allow_any_origin()
             .supports_credentials()
             .allowed_methods(vec!["GET", "POST", "PUT", "DELETE", "OPTION", "PATCH"])
             .allowed_headers(

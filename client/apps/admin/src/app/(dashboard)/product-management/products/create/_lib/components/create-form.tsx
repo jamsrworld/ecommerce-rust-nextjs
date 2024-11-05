@@ -2,6 +2,7 @@
 
 import { RHFProvider } from "@jamsr-ui/react";
 import { useForm } from "react-hook-form";
+import { ProductBrand } from "./product-brand";
 import { ProductCategory } from "./product-category";
 import { ProductDescription } from "./product-description";
 import { ProductDetails } from "./product-details";
@@ -10,6 +11,7 @@ import { ProductImages } from "./product-images";
 import { ProductInformation } from "./product-information";
 import { ProductSave } from "./product-save";
 import { ProductSeo } from "./product-seo";
+import { ProductStatus } from "./product-status";
 import { ProductTags } from "./product-tags";
 import { ProductVideo } from "./product-videos";
 
@@ -38,8 +40,9 @@ export const ProductCreateForm = () => {
           <ProductSeo />
         </div>
         <div className="col-span-4 flex flex-col gap-4">
-          <ProductTags />
+          <ProductStatus />
           <ProductCategory />
+          <ProductBrand />
         </div>
       </div>
       <ProductSave />

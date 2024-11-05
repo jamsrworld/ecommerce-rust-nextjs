@@ -34,6 +34,26 @@ pub enum OtpPurpose {
     Deserialize,
     utoipa :: ToSchema,
 )]
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "product_status")]
+pub enum ProductStatus {
+    #[sea_orm(string_value = "Private")]
+    Private,
+    #[sea_orm(string_value = "Public")]
+    Public,
+    #[sea_orm(string_value = "Unlisted")]
+    Unlisted,
+}
+#[derive(
+    Debug,
+    Clone,
+    PartialEq,
+    Eq,
+    EnumIter,
+    DeriveActiveEnum,
+    Serialize,
+    Deserialize,
+    utoipa :: ToSchema,
+)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_role")]
 pub enum UserRole {
     #[sea_orm(string_value = "Admin")]
