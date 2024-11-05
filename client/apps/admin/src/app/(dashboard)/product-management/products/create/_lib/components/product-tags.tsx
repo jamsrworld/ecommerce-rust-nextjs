@@ -1,11 +1,15 @@
-import { Card, CardContent, CardHeader, Textarea } from "@jamsr-ui/react";
+import { Card, CardContent, CardHeader, RHFTagsInput } from "@jamsr-ui/react";
+import { type ProductCreateSchema } from "../types";
 
 export const ProductTags = () => {
   return (
     <Card>
       <CardHeader heading="Product Tags" />
       <CardContent>
-        <Textarea placeholder="Enter your tags" />
+        <RHFTagsInput<ProductCreateSchema>
+          name="tags"
+          placeholder="Enter your tags"
+        />
       </CardContent>
     </Card>
   );

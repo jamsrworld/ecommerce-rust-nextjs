@@ -1,8 +1,7 @@
 import { type CreateAddressInput } from "@/client";
 import { updateAddressMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Typography } from "@jamsr-ui/react";
-import { RHFProvider } from "@repo/components/rhf";
+import { RHFProvider, Typography } from "@jamsr-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { createAddressSchema } from "../schema";

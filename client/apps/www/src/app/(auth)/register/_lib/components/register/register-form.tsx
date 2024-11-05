@@ -3,8 +3,8 @@
 import { type AuthRegisterInput } from "@/client";
 import { registerMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@jamsr-ui/react";
-import { onRHFInvalid, RHFInput, RHFProvider } from "@repo/components/rhf";
+import { Button, RHFInput, RHFProvider } from "@jamsr-ui/react";
+import { onRHFInvalid } from "@repo/components/rhf";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

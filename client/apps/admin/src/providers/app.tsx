@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  Confirmation,
-  ToastProvider,
-  UIProvider,
-  UIStyleProvider,
-} from "@jamsr-ui/react";
+import { Confirmation, ToastProvider, UIProvider } from "@jamsr-ui/react";
+import { UIStylesProvider } from "@jamsr-ui/styles";
 import { QueryProvider } from "@repo/components/query-client";
 
 type Props = {
@@ -16,10 +12,10 @@ export const AppProvider = (props: Props) => {
   const { children } = props;
   return (
     <UIProvider>
-      <ToastProvider />
+      <ToastProvider toastOptions={{  }} />
       <Confirmation />
       <QueryProvider>
-        <UIStyleProvider>{children}</UIStyleProvider>
+        <UIStylesProvider>{children}</UIStylesProvider>
       </QueryProvider>
     </UIProvider>
   );

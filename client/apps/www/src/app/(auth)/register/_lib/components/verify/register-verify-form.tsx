@@ -1,8 +1,8 @@
 import { type AuthRegisterInput, type AuthRegisterVerifyInput } from "@/client";
 import { registerVerifyMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@jamsr-ui/react";
-import { onRHFInvalid, RHFOtpInput, RHFProvider } from "@repo/components/rhf";
+import { Button, RHFOtpInput, RHFProvider } from "@jamsr-ui/react";
+import { onRHFInvalid } from "@repo/components/rhf";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -56,7 +56,6 @@ export const RegisterVerifyForm = (props: Props) => {
     >
       <RHFOtpInput<FormValues>
         name="code"
-        size="lg"
         placeholder="Enter the OTP"
       />
       <Button

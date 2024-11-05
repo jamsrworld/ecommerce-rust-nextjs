@@ -1,6 +1,5 @@
 import { type AttributeValue, type CreateAttributeInputDto } from "@/client";
-import { Button } from "@jamsr-ui/react";
-import { RHFInput } from "@repo/components/rhf";
+import { Button, RHFInput } from "@jamsr-ui/react";
 import { useFormRepeater } from "@repo/hooks/use-form-repeater";
 import { AddIcon, DeleteIcon } from "@repo/icons";
 import { randomId } from "@repo/utils";
