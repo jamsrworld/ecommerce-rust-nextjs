@@ -3,9 +3,7 @@ import {
   CardContent,
   CardHeader,
   RHFInput,
-  RHFSelect,
   RHFSwitch,
-  SelectItem,
 } from "@jamsr-ui/react";
 import { CURRENCY } from "@repo/config/app";
 import { type ProductCreateSchema } from "../types";
@@ -58,20 +56,6 @@ export const ProductInformation = () => {
           isNumberInput
           startContent={CURRENCY}
         />
-        <RHFInput<FormValues>
-          name="lowStockWarning"
-          label="Low Stock Warning"
-          isNumberInput
-          decimalPrecision={0}
-        />
-        <RHFSelect<FormValues>
-          name="visibility"
-          label="Visibility"
-        >
-          <SelectItem value="public">Public</SelectItem>
-          <SelectItem value="private">Private</SelectItem>
-          <SelectItem value="unlisted">Unlisted</SelectItem>
-        </RHFSelect>
         <RHFSwitch<FormValues>
           name="isRefundable"
           label="Is Refundable"

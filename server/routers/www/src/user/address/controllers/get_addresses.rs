@@ -27,6 +27,7 @@ pub async fn get_addresses(
     let addresses = entity::address::Entity
         ::find()
         .filter(entity::address::Column::UserId.eq(user_id))
+        .order_by(entity::address::Column::IsDefault, Order::Desc)
         .order_by(entity::address::Column::CreatedAt, Order::Desc)
         .all(db).await?;
 

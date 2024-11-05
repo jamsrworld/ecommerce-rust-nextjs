@@ -14,7 +14,7 @@ pub struct CreateAddressInput {
     pub first_name: String,
 
     #[validate(
-        length(min = 1, message = "First name is required"),
+        length(min = 1, message = "Last name is required"),
         length(max = 20, message = "Maximum 20 characters are allowed")
     )]
     #[schema(example = "Doe", min_length = 1, max_length = 20)]
