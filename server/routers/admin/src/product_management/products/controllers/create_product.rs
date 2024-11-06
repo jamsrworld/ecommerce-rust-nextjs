@@ -2,7 +2,7 @@ use actix_web::{ post, web, HttpResponse };
 use extractors::validator::ValidatedJson;
 use sea_orm::{ ActiveValue::NotSet, EntityTrait, Set };
 use utils::{ error::HttpError, AppState };
-use super::dtos::{ ProductWithMessage, CreateProductInput };
+use super::schema::{ ProductWithMessage, CreateProductInput };
 use super::messages::ProductMessage;
 
 /// Create Product

@@ -4,15 +4,8 @@ use super::utils::check_address_limit;
 use actix_web::{ post, web, HttpResponse };
 use extractors::{ auth::Authenticated, validator::ValidatedJson };
 use sea_orm::{ ActiveValue::NotSet, EntityTrait, Set };
-use serde::Serialize;
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
-use utoipa::ToSchema;
-
-#[derive(Serialize, ToSchema)]
-pub struct CreateAddressResponse {
-    pub message: String,
-    pub data: entity::address::Model,
-}
+use super::schema::AddressWithMessage;
 
 /// Create An Address
 #[utoipa::path(
@@ -20,11 +13,7 @@ pub struct CreateAddressResponse {
     context_path = "/user/addresses",
     request_body = CreateAddressInput,
     responses(
-        (
-            status = StatusCode::CREATED,
-            body = CreateAddressResponse,
-            description = "Address Created",
-        ),
+        (status = StatusCode::CREATED, body = AddressWithMessage, description = "Address Created"),
         (
             status = StatusCode::TOO_MANY_REQUESTS,
             body = ResponseWithMessage,
@@ -79,7 +68,7 @@ pub async fn create_address(
         ::insert(new_address_model)
         .exec_with_returning(db).await?;
 
-    let response = CreateAddressResponse {
+    let response = AddressWithMessage {
         message: AddressMessage::AddressCreated.to_string(),
         data: new_address,
     };

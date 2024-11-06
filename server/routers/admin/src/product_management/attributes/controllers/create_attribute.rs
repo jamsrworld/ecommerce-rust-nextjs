@@ -5,19 +5,19 @@ use serde_json::json;
 use utils::{ error::HttpError, AppState };
 use super::AttributeMessage;
 use super::AttributeModel;
-use super::dtos::{ CreateAttributeInputDto, CreateAttributeResponseDto };
+use super::schema::{ CreateAttributeInput, AttributeWithMessage };
 
 /// Create Attribute
 #[utoipa::path(
     tag = "Attribute",
     context_path = "/product-management/attributes",
-    request_body = CreateAttributeInputDto,
-    responses((status = 200, description = "attribute created", body = CreateAttributeResponseDto))
+    request_body = CreateAttributeInput,
+    responses((status = 200, description = "attribute created", body = AttributeWithMessage))
 )]
 #[post("")]
 pub async fn create_attribute(
     app_data: web::Data<AppState>,
-    input: ValidatedJson<CreateAttributeInputDto>
+    input: ValidatedJson<CreateAttributeInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let input = input.into_inner();
@@ -54,7 +54,7 @@ pub async fn create_attribute(
         .exec_with_returning(db).await?;
     let attribute: AttributeModel = attribute.into();
 
-    let response = CreateAttributeResponseDto {
+    let response = AttributeWithMessage {
         message: AttributeMessage::AttributeCreated(&attribute.name).to_string(),
         data: attribute,
     };

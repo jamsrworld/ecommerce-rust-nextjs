@@ -1,6 +1,5 @@
-use super::create_address::CreateAddressResponse;
 use super::messages::AddressMessage;
-use super::schema::CreateAddressInput;
+use super::schema::{ CreateAddressInput, AddressWithMessage };
 use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::{ auth::Authenticated, validator::ValidatedJson };
 use sea_orm::{ ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set };
@@ -13,7 +12,7 @@ use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
     params(("id", description = "Address Id", min_length = 24, max_length = 24)),
     request_body(content = CreateAddressInput),
     responses(
-        (status = StatusCode::OK, body = CreateAddressResponse, description = "Address Updated"),
+        (status = StatusCode::OK, body = AddressWithMessage, description = "Address Updated"),
         (
             status = StatusCode::NOT_FOUND,
             body = ResponseWithMessage,
@@ -67,7 +66,7 @@ pub async fn update_address(
     let address = address.update(db).await?;
     let message = AddressMessage::AddressUpdated.to_string();
 
-    let response: CreateAddressResponse = CreateAddressResponse {
+    let response = AddressWithMessage {
         message,
         data: address,
     };

@@ -67,3 +67,9 @@ pub struct CreateAddressInput {
     /// Landmark of the user.
     pub landmark: Option<String>,
 }
+
+#[derive(Serialize, ToSchema)]
+pub struct AddressWithMessage {
+    pub message: String,
+    pub data: entity::address::Model,
+}

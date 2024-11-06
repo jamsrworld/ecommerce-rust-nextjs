@@ -1,10 +1,10 @@
 use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::validator::ValidatedJson;
 use utils::{ error::HttpError, AppState };
-use crate::product_management::products::dtos::CreateProductInput;
+use crate::product_management::products::schema::CreateProductInput;
 use sea_orm::{ EntityTrait, Set, ActiveModelTrait };
 use super::messages::ProductMessage;
-use super::dtos::ProductWithMessage;
+use super::schema::ProductWithMessage;
 
 /// Update Product
 #[utoipa::path(

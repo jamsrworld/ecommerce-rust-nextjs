@@ -1,21 +1,22 @@
 use actix_web::{ patch, web::{ self, Json, Path }, HttpResponse };
 use utils::{ error::HttpError, AppState };
 use sea_orm::{ EntityTrait, Set, ActiveModelTrait };
-use super::{ AttributeMessage, AttributeModel, dtos::UpdateAttributeResponseDto };
-use super::dtos::UpdateAttributeStatusInputDto;
+use super::{ AttributeMessage, AttributeModel, schema::AttributeWithMessage };
+use super::schema::UpdateAttributeStatusInput;
 
 /// Update Attribute Status
 #[utoipa::path(
     tag = "Attribute",
     params(("id", description = "Attribute Id", min_length = 24, max_length = 24)),
     context_path = "/product-management/attributes",
-    responses((status = 200, description = "status updated", body = UpdateAttributeResponseDto))
+    request_body = UpdateAttributeStatusInput,
+    responses((status = 200, description = "status updated", body = AttributeWithMessage))
 )]
 #[patch("/{id}/status")]
 pub async fn update_attribute_status(
     app_data: web::Data<AppState>,
     id: Path<String>,
-    input: Json<UpdateAttributeStatusInputDto>
+    input: Json<UpdateAttributeStatusInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let attribute_id = id.into_inner();
@@ -34,7 +35,7 @@ pub async fn update_attribute_status(
     let attribute: AttributeModel = attribute.into();
 
     let status = if attribute.is_active { "enabled" } else { "disabled" };
-    let response = UpdateAttributeResponseDto {
+    let response = AttributeWithMessage {
         message: AttributeMessage::AttributeStatusUpdated(&attribute.name, status).to_string(),
         data: attribute,
     };

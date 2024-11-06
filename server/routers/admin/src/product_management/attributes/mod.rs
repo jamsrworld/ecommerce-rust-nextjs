@@ -8,7 +8,7 @@ use update_attribute::update_attribute;
 use update_status::update_attribute_status;
 
 pub mod controllers;
-pub mod dtos;
+pub mod schema;
 mod messages;
 pub mod model;
 
