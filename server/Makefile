@@ -19,7 +19,7 @@ fix_entity: # It is used to fix the chrono date time issue with utoipa ToSchema
 	tsx scripts/fix_entity.ts
 
 generate_entity:
-	sea-orm-cli generate entity -o db/entity/src --with-serde both --model-extra-derives "utoipa::ToSchema" --model-extra-attributes "serde(rename_all=\"camelCase\")" --enum-extra-derives "utoipa::ToSchema"
+	sea-orm-cli generate entity -o db/live_entity/src --with-serde both --model-extra-derives "utoipa::ToSchema" --model-extra-attributes "serde(rename_all=\"camelCase\")" --enum-extra-derives "utoipa::ToSchema"
 	@$(MAKE) fix_entity
 
 generate_migration:

@@ -4,4 +4,5 @@ pub mod delete_product;
 pub mod get_product;
 pub mod get_products;
 
-use super::messages::ProductMessage;
+use super::messages;
+use super::dtos;

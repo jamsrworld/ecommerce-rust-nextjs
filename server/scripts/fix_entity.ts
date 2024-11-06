@@ -4,7 +4,7 @@ import path from "path";
 async function main() {
   console.log("fixing all files in folder..");
 
-  const targetFolder = path.resolve(__dirname, "../db/entity/src"); // Adjust the folder path as needed
+  const targetFolder = path.resolve(__dirname, "../db/live_entity/src"); // Adjust the folder path as needed
   const files = getAllFiles(targetFolder, ".rs"); // Collect all .ts files
   console.log(`Fixing... ${files.length} files found`);
   files.forEach((file) => {

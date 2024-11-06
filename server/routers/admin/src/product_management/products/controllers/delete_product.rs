@@ -1,7 +1,7 @@
 use actix_web::{ delete, web::{ self, Path }, HttpResponse };
 use sea_orm::{ EntityTrait, ModelTrait };
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
-use super::ProductMessage;
+use super::messages::ProductMessage;
 
 /// Delete Product
 #[utoipa::path(
