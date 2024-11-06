@@ -15,7 +15,7 @@ pub struct AttributeValue {
 
 #[derive(Debug, ToSchema, Validate, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct CreateAttributeInputDto {
+pub struct CreateAttributeInput {
     #[validate(
         length(min = 1, message = "Name is required"),
         length(max = 50, message = "Maximum 50 characters are allowed")
@@ -32,19 +32,13 @@ pub struct CreateAttributeInputDto {
 
 #[derive(Debug, ToSchema, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct UpdateAttributeStatusInputDto {
+pub struct UpdateAttributeStatusInput {
     /// Desired state of attribute.
     pub is_active: bool,
 }
 
 #[derive(Debug, ToSchema, Serialize)]
-pub struct CreateAttributeResponseDto {
-    pub message: String,
-    pub data: AttributeModel,
-}
-
-#[derive(Debug, ToSchema, Serialize)]
-pub struct UpdateAttributeResponseDto {
+pub struct AttributeWithMessage {
     pub message: String,
     pub data: AttributeModel,
 }

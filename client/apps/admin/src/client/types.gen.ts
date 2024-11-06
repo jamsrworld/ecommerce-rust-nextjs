@@ -13,7 +13,7 @@ export type AdminLoginResponse = {
 };
 
 export type AttributeModel = {
-    createdAt: string;
+    createdAt: Date;
     id: string;
     isActive: boolean;
     name: string;
@@ -24,13 +24,18 @@ export type AttributeValue = {
     value: string;
 };
 
+export type AttributeWithMessage = {
+    data: AttributeModel;
+    message: string;
+};
+
 export type Category = {
     category: string;
     id: string;
     title: string;
 };
 
-export type CreateAttributeInputDto = {
+export type CreateAttributeInput = {
     /**
      * Name of the attribute.
      *
@@ -42,11 +47,6 @@ export type CreateAttributeInputDto = {
     values: Array<AttributeValue>;
 };
 
-export type CreateAttributeResponseDto = {
-    data: AttributeModel;
-    message: string;
-};
-
 export type CreateCategoryInput = {
     /**
      * Title of the category.
@@ -56,17 +56,96 @@ export type CreateCategoryInput = {
 };
 
 export type CreateProductInput = {
+    brand: string;
+    category: string;
+    color: string;
+    description: unknown;
+    highlights: ProductHighlights;
+    images: ProductImages;
+    isReturnable: boolean;
+    maximumOrder: number;
+    minimumOrder: number;
+    mrp: number;
+    price: number;
+    seo: ProductSeo;
+    size: string;
+    skuId: string;
+    status: ProductStatus;
+    stock: number;
+    style: string;
+    tags: Array<(string)>;
     /**
      * Title of the product.
      *
      */
     title: string;
+    video: ProductVideo;
+};
+
+export type Image = {
+    height: number;
+    name: string;
+    placeholder: string;
+    url: string;
+    width: number;
 };
 
 export type Product = {
+    brand: string;
+    category: string;
+    color: string;
+    createdAt: Date;
+    description: Value;
+    highlights: ProductHighlights;
     id: string;
+    images: ProductImages;
+    isReturnable: boolean;
+    maximumOrder: number;
+    minimumOrder: number;
+    mrp: number;
+    price: number;
+    seo: ProductSeo;
+    size: string;
+    skuId: string;
     slug: string;
+    status: ProductStatus;
+    stock: number;
+    style: string;
+    tags: Array<(string)>;
     title: string;
+    updatedAt: Date;
+    video: ProductVideo;
+};
+
+export type ProductHighlight = {
+    description: string;
+    highlight: string;
+};
+
+export type ProductHighlights = Array<ProductHighlight>;
+
+export type ProductImages = Array<Image>;
+
+export type ProductSeo = {
+    description: string;
+    keywords: Array<(string)>;
+    title: string;
+};
+
+export enum ProductStatus {
+    PRIVATE = 'Private',
+    PUBLIC = 'Public',
+    UNLISTED = 'Unlisted'
+}
+
+export type ProductVideo = {
+    thumbnail: Image;
+    url: string;
+};
+
+export type ProductWithMessage = {
+    data: Product;
+    message: string;
 };
 
 export type ResponseWithMessage = {
@@ -76,8 +155,8 @@ export type ResponseWithMessage = {
 export type SystemInfo = {
     cpuUsage: number;
     freeMemory: number;
-    lastCron: string;
-    lastSuccessCron: string;
+    lastCron: Date;
+    lastSuccessCron: Date;
     osHostname: string;
     osPlatform: string;
     osVersion: string;
@@ -85,17 +164,14 @@ export type SystemInfo = {
     upTime: number;
 };
 
-export type UpdateAttributeResponseDto = {
-    data: AttributeModel;
-    message: string;
-};
-
-export type UpdateAttributeStatusInputDto = {
+export type UpdateAttributeStatusInput = {
     /**
      * Desired state of attribute.
      */
     isActive: boolean;
 };
+
+export type Value = unknown;
 
 export type HealthCheckResponse = (string);
 
@@ -118,10 +194,10 @@ export type GetAttributesResponse = (Array<AttributeModel>);
 export type GetAttributesError = unknown;
 
 export type CreateAttributeData = {
-    body: CreateAttributeInputDto;
+    body: CreateAttributeInput;
 };
 
-export type CreateAttributeResponse = (CreateAttributeResponseDto);
+export type CreateAttributeResponse = (AttributeWithMessage);
 
 export type CreateAttributeError = unknown;
 
@@ -152,6 +228,7 @@ export type DeleteAttributeResponse = (ResponseWithMessage);
 export type DeleteAttributeError = unknown;
 
 export type UpdateAttributeData = {
+    body: CreateAttributeInput;
     path: {
         /**
          * Attribute Id
@@ -160,12 +237,12 @@ export type UpdateAttributeData = {
     };
 };
 
-export type UpdateAttributeResponse = (UpdateAttributeResponseDto);
+export type UpdateAttributeResponse = (AttributeWithMessage);
 
 export type UpdateAttributeError = unknown;
 
 export type UpdateAttributeStatusData = {
-    body: UpdateAttributeStatusInputDto;
+    body: UpdateAttributeStatusInput;
     path: {
         /**
          * Attribute Id
@@ -174,7 +251,7 @@ export type UpdateAttributeStatusData = {
     };
 };
 
-export type UpdateAttributeStatusResponse = (UpdateAttributeResponseDto);
+export type UpdateAttributeStatusResponse = (AttributeWithMessage);
 
 export type UpdateAttributeStatusError = unknown;
 
@@ -237,7 +314,7 @@ export type CreateProductData = {
     body: CreateProductInput;
 };
 
-export type CreateProductResponse = (Product);
+export type CreateProductResponse = (ProductWithMessage);
 
 export type CreateProductError = unknown;
 
@@ -268,6 +345,7 @@ export type DeleteProductResponse = (ResponseWithMessage);
 export type DeleteProductError = unknown;
 
 export type UpdateProductData = {
+    body: CreateProductInput;
     path: {
         /**
          * Product Id
@@ -276,6 +354,129 @@ export type UpdateProductData = {
     };
 };
 
-export type UpdateProductResponse = (Product);
+export type UpdateProductResponse = (ProductWithMessage);
 
 export type UpdateProductError = unknown;
+
+export type ServerInformationResponseTransformer = (data: any) => Promise<ServerInformationResponse>;
+
+export type SystemInfoModelResponseTransformer = (data: any) => SystemInfo;
+
+export const SystemInfoModelResponseTransformer: SystemInfoModelResponseTransformer = data => {
+    if (data?.lastCron) {
+        data.lastCron = new Date(data.lastCron);
+    }
+    if (data?.lastSuccessCron) {
+        data.lastSuccessCron = new Date(data.lastSuccessCron);
+    }
+    return data;
+};
+
+export const ServerInformationResponseTransformer: ServerInformationResponseTransformer = async (data) => {
+    SystemInfoModelResponseTransformer(data);
+    return data;
+};
+
+export type GetAttributesResponseTransformer = (data: any) => Promise<GetAttributesResponse>;
+
+export type AttributeModelModelResponseTransformer = (data: any) => AttributeModel;
+
+export const AttributeModelModelResponseTransformer: AttributeModelModelResponseTransformer = data => {
+    if (data?.createdAt) {
+        data.createdAt = new Date(data.createdAt);
+    }
+    return data;
+};
+
+export const GetAttributesResponseTransformer: GetAttributesResponseTransformer = async (data) => {
+    if (Array.isArray(data)) {
+        data.forEach(AttributeModelModelResponseTransformer);
+    }
+    return data;
+};
+
+export type CreateAttributeResponseTransformer = (data: any) => Promise<CreateAttributeResponse>;
+
+export type AttributeWithMessageModelResponseTransformer = (data: any) => AttributeWithMessage;
+
+export const AttributeWithMessageModelResponseTransformer: AttributeWithMessageModelResponseTransformer = data => {
+    if (data?.data) {
+        AttributeModelModelResponseTransformer(data.data);
+    }
+    return data;
+};
+
+export const CreateAttributeResponseTransformer: CreateAttributeResponseTransformer = async (data) => {
+    AttributeWithMessageModelResponseTransformer(data);
+    return data;
+};
+
+export type GetAttributeResponseTransformer = (data: any) => Promise<GetAttributeResponse>;
+
+export const GetAttributeResponseTransformer: GetAttributeResponseTransformer = async (data) => {
+    AttributeModelModelResponseTransformer(data);
+    return data;
+};
+
+export type UpdateAttributeResponseTransformer = (data: any) => Promise<UpdateAttributeResponse>;
+
+export const UpdateAttributeResponseTransformer: UpdateAttributeResponseTransformer = async (data) => {
+    AttributeWithMessageModelResponseTransformer(data);
+    return data;
+};
+
+export type UpdateAttributeStatusResponseTransformer = (data: any) => Promise<UpdateAttributeStatusResponse>;
+
+export const UpdateAttributeStatusResponseTransformer: UpdateAttributeStatusResponseTransformer = async (data) => {
+    AttributeWithMessageModelResponseTransformer(data);
+    return data;
+};
+
+export type GetProductsResponseTransformer = (data: any) => Promise<GetProductsResponse>;
+
+export type ProductModelResponseTransformer = (data: any) => Product;
+
+export const ProductModelResponseTransformer: ProductModelResponseTransformer = data => {
+    if (data?.createdAt) {
+        data.createdAt = new Date(data.createdAt);
+    }
+    if (data?.updatedAt) {
+        data.updatedAt = new Date(data.updatedAt);
+    }
+    return data;
+};
+
+export const GetProductsResponseTransformer: GetProductsResponseTransformer = async (data) => {
+    ProductModelResponseTransformer(data);
+    return data;
+};
+
+export type CreateProductResponseTransformer = (data: any) => Promise<CreateProductResponse>;
+
+export type ProductWithMessageModelResponseTransformer = (data: any) => ProductWithMessage;
+
+export const ProductWithMessageModelResponseTransformer: ProductWithMessageModelResponseTransformer = data => {
+    if (data?.data) {
+        ProductModelResponseTransformer(data.data);
+    }
+    return data;
+};
+
+export const CreateProductResponseTransformer: CreateProductResponseTransformer = async (data) => {
+    ProductWithMessageModelResponseTransformer(data);
+    return data;
+};
+
+export type GetProductResponseTransformer = (data: any) => Promise<GetProductResponse>;
+
+export const GetProductResponseTransformer: GetProductResponseTransformer = async (data) => {
+    ProductModelResponseTransformer(data);
+    return data;
+};
+
+export type UpdateProductResponseTransformer = (data: any) => Promise<UpdateProductResponse>;
+
+export const UpdateProductResponseTransformer: UpdateProductResponseTransformer = async (data) => {
+    ProductWithMessageModelResponseTransformer(data);
+    return data;
+};

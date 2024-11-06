@@ -11,7 +11,7 @@ export const RegisterResendOtp = () => {
           Didn't receive the code?
         </Typography>
         <Button
-          variant="link"
+          variant="text"
           className="p-0 uppercase"
           disableRipple
         >

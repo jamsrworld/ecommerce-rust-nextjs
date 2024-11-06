@@ -1,4 +1,4 @@
-use super::create_address::CreateAddressResponse;
+use super::schema::AddressWithMessage;
 use super::messages::AddressMessage;
 use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
@@ -14,7 +14,7 @@ use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
     responses(
         (
             status = StatusCode::OK,
-            body = CreateAddressResponse,
+            body = AddressWithMessage,
             description = "Address Marked as Default",
         ),
         (
@@ -60,7 +60,7 @@ pub async fn mark_default_address(
     address.is_default = Set(true);
     let address = address.update(db).await?;
 
-    let response = CreateAddressResponse {
+    let response = AddressWithMessage {
         message: AddressMessage::AddressMarkedAsDefault.to_string(),
         data: address,
     };

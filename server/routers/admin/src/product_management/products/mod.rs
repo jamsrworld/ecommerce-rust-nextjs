@@ -7,7 +7,7 @@ use get_products::get_products;
 use update_product::update_product;
 
 pub mod controllers;
-pub mod dtos;
+pub mod schema;
 mod messages;
 
 pub fn product_routes() -> Scope {

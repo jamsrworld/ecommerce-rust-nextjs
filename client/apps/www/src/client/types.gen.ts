@@ -15,6 +15,11 @@ export type Address = {
     userId: string;
 };
 
+export type AddressWithMessage = {
+    data: Address;
+    message: string;
+};
+
 export type AuthForgotPasswordInput = {
     /**
      * Email address of the user.
@@ -117,11 +122,6 @@ export type CreateAddressInput = {
     state: string;
 };
 
-export type CreateAddressResponse = {
-    data: Address;
-    message: string;
-};
-
 export type ResponseWithMessage = {
     message: string;
 };
@@ -198,7 +198,7 @@ export type CreateAddressData = {
     body: CreateAddressInput;
 };
 
-export type CreateAddressResponse2 = (CreateAddressResponse);
+export type CreateAddressResponse = (AddressWithMessage);
 
 export type CreateAddressError = (ResponseWithMessage);
 
@@ -238,7 +238,7 @@ export type UpdateAddressData = {
     };
 };
 
-export type UpdateAddressResponse = (CreateAddressResponse);
+export type UpdateAddressResponse = (AddressWithMessage);
 
 export type UpdateAddressError = (ResponseWithMessage);
 
@@ -251,7 +251,7 @@ export type MarkDefaultAddressData = {
     };
 };
 
-export type MarkDefaultAddressResponse = (CreateAddressResponse);
+export type MarkDefaultAddressResponse = (AddressWithMessage);
 
 export type MarkDefaultAddressError = (ResponseWithMessage);
 
@@ -266,3 +266,58 @@ export type UpdateProfileData = {
 export type UpdateProfileResponse = (string);
 
 export type UpdateProfileError = unknown;
+
+export type GetAddressesResponseTransformer = (data: any) => Promise<GetAddressesResponse>;
+
+export type AddressModelResponseTransformer = (data: any) => Address;
+
+export const AddressModelResponseTransformer: AddressModelResponseTransformer = data => {
+    if (data?.createdAt) {
+        data.createdAt = new Date(data.createdAt);
+    }
+    return data;
+};
+
+export const GetAddressesResponseTransformer: GetAddressesResponseTransformer = async (data) => {
+    if (Array.isArray(data)) {
+        data.forEach(AddressModelResponseTransformer);
+    }
+    return data;
+};
+
+export type CreateAddressResponseTransformer = (data: any) => Promise<CreateAddressResponse>;
+
+export type AddressWithMessageModelResponseTransformer = (data: any) => AddressWithMessage;
+
+export const AddressWithMessageModelResponseTransformer: AddressWithMessageModelResponseTransformer = data => {
+    if (data?.data) {
+        AddressModelResponseTransformer(data.data);
+    }
+    return data;
+};
+
+export const CreateAddressResponseTransformer: CreateAddressResponseTransformer = async (data) => {
+    AddressWithMessageModelResponseTransformer(data);
+    return data;
+};
+
+export type GetAddressResponseTransformer = (data: any) => Promise<GetAddressResponse>;
+
+export const GetAddressResponseTransformer: GetAddressResponseTransformer = async (data) => {
+    AddressModelResponseTransformer(data);
+    return data;
+};
+
+export type UpdateAddressResponseTransformer = (data: any) => Promise<UpdateAddressResponse>;
+
+export const UpdateAddressResponseTransformer: UpdateAddressResponseTransformer = async (data) => {
+    AddressWithMessageModelResponseTransformer(data);
+    return data;
+};
+
+export type MarkDefaultAddressResponseTransformer = (data: any) => Promise<MarkDefaultAddressResponse>;
+
+export const MarkDefaultAddressResponseTransformer: MarkDefaultAddressResponseTransformer = async (data) => {
+    AddressWithMessageModelResponseTransformer(data);
+    return data;
+};

@@ -23,6 +23,6 @@ pub async fn get_attribute(
         ::find_by_id(&attribute_id)
         .one(db).await?
         .ok_or_else(|| HttpError::not_found(AttributeMessage::AttributeNotFound(&attribute_id)))?;
-    let attribute:AttributeModel = attribute.into();
+    let attribute: AttributeModel = attribute.into();
     Ok(HttpResponse::Ok().json(attribute))
 }

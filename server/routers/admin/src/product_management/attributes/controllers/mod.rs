@@ -7,4 +7,4 @@ pub mod update_status;
 
 use super::messages::AttributeMessage;
 use super::model::AttributeModel;
-use super::dtos;
+use super::schema;
