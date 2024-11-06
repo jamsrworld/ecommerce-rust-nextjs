@@ -1,7 +1,7 @@
 use actix_web::{ get, web::{ self, Path }, HttpResponse };
 use utils::{ error::HttpError, AppState };
 use sea_orm::EntityTrait;
-use super::ProductMessage;
+use super::messages::ProductMessage;
 
 /// Get Product
 #[utoipa::path(
