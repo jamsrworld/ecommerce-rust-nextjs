@@ -227,6 +227,183 @@ export const CreateAddressInputSchema = {
     }
 } as const;
 
+export const ImageSchema = {
+    type: 'object',
+    required: ['name', 'url', 'placeholder', 'width', 'height'],
+    properties: {
+        height: {
+            type: 'integer',
+            format: 'int32'
+        },
+        name: {
+            type: 'string'
+        },
+        placeholder: {
+            type: 'string'
+        },
+        url: {
+            type: 'string'
+        },
+        width: {
+            type: 'integer',
+            format: 'int32'
+        }
+    }
+} as const;
+
+export const ProductSchema = {
+    type: 'object',
+    required: ['id', 'title', 'slug', 'description', 'category', 'brand', 'color', 'size', 'style', 'highlights', 'images', 'isReturnable', 'maximumOrder', 'minimumOrder', 'mrp', 'price', 'seo', 'skuId', 'status', 'stock', 'tags', 'video', 'createdAt', 'updatedAt'],
+    properties: {
+        brand: {
+            type: 'string'
+        },
+        category: {
+            type: 'string'
+        },
+        color: {
+            type: 'string'
+        },
+        createdAt: {
+            type: 'string',
+            format: 'date-time'
+        },
+        description: {
+            '$ref': '#/components/schemas/Value'
+        },
+        highlights: {
+            '$ref': '#/components/schemas/ProductHighlights'
+        },
+        id: {
+            type: 'string'
+        },
+        images: {
+            '$ref': '#/components/schemas/ProductImages'
+        },
+        isReturnable: {
+            type: 'boolean'
+        },
+        maximumOrder: {
+            type: 'integer',
+            format: 'int32'
+        },
+        minimumOrder: {
+            type: 'integer',
+            format: 'int32'
+        },
+        mrp: {
+            type: 'number',
+            format: 'double'
+        },
+        price: {
+            type: 'number',
+            format: 'double'
+        },
+        seo: {
+            '$ref': '#/components/schemas/ProductSeo'
+        },
+        size: {
+            type: 'string'
+        },
+        skuId: {
+            type: 'string'
+        },
+        slug: {
+            type: 'string'
+        },
+        status: {
+            '$ref': '#/components/schemas/ProductStatus'
+        },
+        stock: {
+            type: 'integer',
+            format: 'int32'
+        },
+        style: {
+            type: 'string'
+        },
+        tags: {
+            type: 'array',
+            items: {
+                type: 'string'
+            }
+        },
+        title: {
+            type: 'string'
+        },
+        updatedAt: {
+            type: 'string',
+            format: 'date-time'
+        },
+        video: {
+            '$ref': '#/components/schemas/ProductVideo'
+        }
+    }
+} as const;
+
+export const ProductHighlightSchema = {
+    type: 'object',
+    required: ['highlight', 'description'],
+    properties: {
+        description: {
+            type: 'string'
+        },
+        highlight: {
+            type: 'string'
+        }
+    }
+} as const;
+
+export const ProductHighlightsSchema = {
+    type: 'array',
+    items: {
+        '$ref': '#/components/schemas/ProductHighlight'
+    }
+} as const;
+
+export const ProductImagesSchema = {
+    type: 'array',
+    items: {
+        '$ref': '#/components/schemas/Image'
+    }
+} as const;
+
+export const ProductSeoSchema = {
+    type: 'object',
+    required: ['title', 'description', 'keywords'],
+    properties: {
+        description: {
+            type: 'string'
+        },
+        keywords: {
+            type: 'array',
+            items: {
+                type: 'string'
+            }
+        },
+        title: {
+            type: 'string'
+        }
+    }
+} as const;
+
+export const ProductStatusSchema = {
+    type: 'string',
+    enum: ['Private', 'Public', 'Unlisted']
+} as const;
+
+export const ProductVideoSchema = {
+    type: 'object',
+    required: ['url', 'thumbnail'],
+    properties: {
+        thumbnail: {
+            '$ref': '#/components/schemas/Image'
+        },
+        url: {
+            type: 'string'
+        }
+    }
+} as const;
+
 export const ResponseWithMessageSchema = {
     type: 'object',
     required: ['message'],
@@ -270,3 +447,5 @@ export const UserRoleSchema = {
     type: 'string',
     enum: ['Admin', 'User']
 } as const;
+
+export const ValueSchema = {} as const;

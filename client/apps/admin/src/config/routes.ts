@@ -34,6 +34,7 @@ export const APP_ROUTES = {
     products: {
       root: products("/products"),
       create: products("/products/create"),
+      edit: (id: string) => products(`/products/edit/${id}`) as Route,
     },
     categories: {
       root: products("/categories"),

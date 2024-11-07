@@ -1,4 +1,4 @@
-import { type AttributeValue, type CreateAttributeInputDto } from "@/client";
+import { type AttributeValue, type CreateAttributeInput } from "@/client";
 import { Button, RHFInput } from "@jamsr-ui/react";
 import { useFormRepeater } from "@repo/hooks/use-form-repeater";
 import { AddIcon, DeleteIcon } from "@repo/icons";
@@ -7,7 +7,7 @@ import { AnimatePresence, m } from "framer-motion";
 
 type AttributeValueWithId = AttributeValue & { id: string };
 
-type FormValues = Omit<CreateAttributeInputDto, "values"> & {
+type FormValues = Omit<CreateAttributeInput, "values"> & {
   values: AttributeValueWithId[];
 };
 

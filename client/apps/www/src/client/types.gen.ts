@@ -122,6 +122,67 @@ export type CreateAddressInput = {
     state: string;
 };
 
+export type Image = {
+    height: number;
+    name: string;
+    placeholder: string;
+    url: string;
+    width: number;
+};
+
+export type Product = {
+    brand: string;
+    category: string;
+    color: string;
+    createdAt: Date;
+    description: Value;
+    highlights: ProductHighlights;
+    id: string;
+    images: ProductImages;
+    isReturnable: boolean;
+    maximumOrder: number;
+    minimumOrder: number;
+    mrp: number;
+    price: number;
+    seo: ProductSeo;
+    size: string;
+    skuId: string;
+    slug: string;
+    status: ProductStatus;
+    stock: number;
+    style: string;
+    tags: Array<(string)>;
+    title: string;
+    updatedAt: Date;
+    video: ProductVideo;
+};
+
+export type ProductHighlight = {
+    description: string;
+    highlight: string;
+};
+
+export type ProductHighlights = Array<ProductHighlight>;
+
+export type ProductImages = Array<Image>;
+
+export type ProductSeo = {
+    description: string;
+    keywords: Array<(string)>;
+    title: string;
+};
+
+export enum ProductStatus {
+    PRIVATE = 'Private',
+    PUBLIC = 'Public',
+    UNLISTED = 'Unlisted'
+}
+
+export type ProductVideo = {
+    thumbnail: Image;
+    url: string;
+};
+
 export type ResponseWithMessage = {
     message: string;
 };
@@ -141,6 +202,8 @@ export enum UserRole {
     ADMIN = 'Admin',
     USER = 'User'
 }
+
+export type Value = unknown;
 
 export type HealthCheckResponse = (string);
 
@@ -189,6 +252,23 @@ export type ResetPasswordData = {
 export type ResetPasswordResponse = (ResponseWithMessage);
 
 export type ResetPasswordError = (ResponseWithMessage);
+
+export type GetProductsResponse = (Array<Product>);
+
+export type GetProductsError = (ResponseWithMessage);
+
+export type GetProductData = {
+    path: {
+        /**
+         * Product Id
+         */
+        id: string;
+    };
+};
+
+export type GetProductResponse = (Product);
+
+export type GetProductError = (ResponseWithMessage);
 
 export type GetAddressesResponse = (Array<Address>);
 
@@ -266,6 +346,34 @@ export type UpdateProfileData = {
 export type UpdateProfileResponse = (ResponseWithMessage);
 
 export type UpdateProfileError = unknown;
+
+export type GetProductsResponseTransformer = (data: any) => Promise<GetProductsResponse>;
+
+export type ProductModelResponseTransformer = (data: any) => Product;
+
+export const ProductModelResponseTransformer: ProductModelResponseTransformer = data => {
+    if (data?.createdAt) {
+        data.createdAt = new Date(data.createdAt);
+    }
+    if (data?.updatedAt) {
+        data.updatedAt = new Date(data.updatedAt);
+    }
+    return data;
+};
+
+export const GetProductsResponseTransformer: GetProductsResponseTransformer = async (data) => {
+    if (Array.isArray(data)) {
+        data.forEach(ProductModelResponseTransformer);
+    }
+    return data;
+};
+
+export type GetProductResponseTransformer = (data: any) => Promise<GetProductResponse>;
+
+export const GetProductResponseTransformer: GetProductResponseTransformer = async (data) => {
+    ProductModelResponseTransformer(data);
+    return data;
+};
 
 export type GetAddressesResponseTransformer = (data: any) => Promise<GetAddressesResponse>;
 

@@ -16,7 +16,7 @@ const highlights = withSchema<CreateProductInput["highlights"][number]>()({
 
 const video = withSchema<CreateProductInput["video"]>()({
   url: withEmptyString(string().min(1, "Url is required")),
-  thumbnail: zodImage("Thumbnail is required"),
+  thumbnail: zodImage("Thumbnail is required", true),
 });
 
 const seo = withSchema<CreateProductInput["seo"]>()({
@@ -31,10 +31,9 @@ export const productCreateSchema = withSchema<CreateProductInput>()({
   color: string().min(1, "Color is required"),
   description: record(any()),
   highlights: array(highlights),
-  images: array(zodImage("Images are required")).min(
-    4,
-    "Minimum 4 images are required",
-  ),
+  images: array(zodImage("Images are required"))
+    .min(2, "Minimum 2 images are required")
+    .max(8, "Maximum 8 images are allowed"),
   isReturnable: boolean(),
   maximumOrder: coerceNumber(number().positive(), "Maximum order is required"),
   minimumOrder: coerceNumber(number().positive(), "Maximum order is required"),
@@ -45,7 +44,9 @@ export const productCreateSchema = withSchema<CreateProductInput>()({
   style: string().min(1, "Style is required"),
   title: string().min(1, "Title is required"),
   status: nativeEnum(ProductStatus, "Status is required"),
-  tags: set(string().min(1, "Tag is required")).transform((val) => [...val]),
+  tags: set(string().min(1, "Tag is required"))
+    .transform((val) => [...val])
+    .or(array(string().min(1, "Tag is required"))),
   skuId: string().min(1, "Sku id is required"),
   video,
   seo,
