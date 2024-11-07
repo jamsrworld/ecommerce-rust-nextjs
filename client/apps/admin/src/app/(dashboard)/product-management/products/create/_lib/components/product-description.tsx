@@ -1,11 +1,20 @@
-import { Card, CardContent, CardHeader, Editor } from "@jamsr-ui/react";
+import { type CreateProductInput } from "@/client";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  RHFEditor
+} from "@jamsr-ui/react";
 
 export const ProductDescription = () => {
   return (
     <Card>
       <CardHeader heading="Product Description" />
       <CardContent>
-        <Editor placeholder="Enter product description" />
+        <RHFEditor<CreateProductInput>
+          name="description"
+          placeholder="Enter product description"
+        />
       </CardContent>
     </Card>
   );

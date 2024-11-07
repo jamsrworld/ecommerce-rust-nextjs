@@ -1,6 +1,9 @@
 import { Button } from "@jamsr-ui/react";
 
-export const ProductSave = () => {
+type Props = { isMutating: boolean };
+
+export const ProductSave = (props: Props) => {
+  const { isMutating } = props;
   return (
     <div className="sticky bottom-1 z-1 flex justify-end gap-2 rounded bg-background/50 p-2 shadow-lg backdrop-blur backdrop-saturate-150">
       <Button
@@ -13,6 +16,7 @@ export const ProductSave = () => {
       <Button
         type="submit"
         color="primary"
+        isLoading={isMutating}
       >
         Save Product
       </Button>

@@ -1,3 +1,4 @@
+import { type CreateProductInput } from "@/client";
 import {
   Button,
   Card,
@@ -9,9 +10,7 @@ import { useFormRepeater } from "@repo/hooks/use-form-repeater";
 import { AddIcon, DeleteIcon } from "@repo/icons";
 import { randomId } from "@repo/utils";
 
-type FormValues = {
-  highlights: { highlight: string; description: string; id: string }[];
-};
+type FormValues = CreateProductInput;
 
 export const ProductHighlights = () => {
   const { fields, onAppend, onRemoveField } = useFormRepeater<FormValues>({

@@ -1,31 +1,54 @@
-import { type CreateProductInput } from "@/client";
-import { coerceNumber, string, withSchema } from "@repo/utils/zod";
-import { any, array, boolean, number, record } from "zod";
+import { ProductStatus, type CreateProductInput } from "@/client";
+import {
+  coerceNumber,
+  nativeEnum,
+  string,
+  withEmptyString,
+  withSchema,
+  zodImage,
+} from "@repo/utils/zod";
+import { any, array, boolean, number, record, set } from "zod";
+
+const highlights = withSchema<CreateProductInput["highlights"][number]>()({
+  description: withEmptyString(string().min(1, "Description is required")),
+  highlight: string().min(1, "Highlight is required"),
+});
+
+const video = withSchema<CreateProductInput["video"]>()({
+  url: withEmptyString(string().min(1, "Url is required")),
+  thumbnail: zodImage("Thumbnail is required"),
+});
+
+const seo = withSchema<CreateProductInput["seo"]>()({
+  title: withEmptyString(string().min(1, "Title is required")),
+  description: withEmptyString(string().min(1, "Description is required")),
+  keywords: array(string().min(1, "Keyword is required")),
+});
 
 export const productCreateSchema = withSchema<CreateProductInput>()({
   brand: string().min(1, "Brand is required"),
   category: string().min(1, "Category is required"),
   color: string().min(1, "Color is required"),
   description: record(any()),
-  highlights: array(
-    withSchema<CreateProductInput["highlights"][number]>()({
-      description: string().min(1, "Description is required"),
-      highlight: string().min(1, "Highlight is required"),
-    }),
+  highlights: array(highlights),
+  images: array(zodImage("Images are required")).min(
+    4,
+    "Minimum 4 images are required",
   ),
-  images: string().min(1, "Images is required"),
   isReturnable: boolean(),
   maximumOrder: coerceNumber(number().positive(), "Maximum order is required"),
   minimumOrder: coerceNumber(number().positive(), "Maximum order is required"),
   mrp: coerceNumber(number().positive(), "MRP is required"),
   price: coerceNumber(number().positive(), "Price is required"),
+  stock: coerceNumber(number().positive(), "Stock is required"),
   size: string().min(1, "Size is required"),
   style: string().min(1, "Style is required"),
   title: string().min(1, "Title is required"),
-  status: string().min(1, "Status is required"),
-  tags: string().min(1, "Tags is required"),
-  seo: string().min(1, "Seo is required"),
+  status: nativeEnum(ProductStatus, "Status is required"),
+  tags: set(string().min(1, "Tag is required")).transform((val) => [...val]),
   skuId: string().min(1, "Sku id is required"),
-  stock: string().min(1, "Stock is required"),
-  video: string().min(1, "Video is required"),
+  video,
+  seo,
 });
+
+productCreateSchema._type satisfies CreateProductInput;

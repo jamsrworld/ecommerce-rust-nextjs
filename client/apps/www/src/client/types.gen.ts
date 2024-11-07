@@ -126,8 +126,8 @@ export type ResponseWithMessage = {
     message: string;
 };
 
-export type UpdateProfile = {
-    full_name: string;
+export type UpdateProfileInput = {
+    fullName: string;
 };
 
 export type UserProfile = {
@@ -260,10 +260,10 @@ export type GetProfileResponse = (UserProfile);
 export type GetProfileError = unknown;
 
 export type UpdateProfileData = {
-    body: UpdateProfile;
+    body: UpdateProfileInput;
 };
 
-export type UpdateProfileResponse = (string);
+export type UpdateProfileResponse = (ResponseWithMessage);
 
 export type UpdateProfileError = unknown;
 

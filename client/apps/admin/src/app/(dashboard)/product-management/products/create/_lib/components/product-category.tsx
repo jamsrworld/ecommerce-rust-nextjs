@@ -1,18 +1,18 @@
+import { type CreateProductInput } from "@/client";
 import {
   Card,
   CardContent,
   CardHeader,
-  Select,
+  RHFSelect,
   SelectItem,
 } from "@jamsr-ui/react";
-import React from "react";
 
 export const ProductCategory = () => {
   return (
     <Card>
       <CardHeader heading="Product Category" />
       <CardContent>
-        <Select>
+        <RHFSelect<CreateProductInput> name="category">
           <SelectItem value="t-shirt">T-shirt</SelectItem>
           <SelectItem value="pants">Pants</SelectItem>
           <SelectItem value="shoes">Shoes</SelectItem>
@@ -28,7 +28,7 @@ export const ProductCategory = () => {
           <SelectItem value="handbag">Handbag</SelectItem>
           <SelectItem value="other">Other</SelectItem>
           <SelectItem value="all">All</SelectItem>
-        </Select>
+        </RHFSelect>
       </CardContent>
     </Card>
   );

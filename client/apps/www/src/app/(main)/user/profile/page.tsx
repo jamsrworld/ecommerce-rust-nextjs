@@ -1,7 +1,8 @@
 import { getProfile } from "@/client";
-import { Button, Divider, Input, Skeleton, Typography } from "@jamsr-ui/react";
+import { Divider, Skeleton, Typography } from "@jamsr-ui/react";
 import { type Metadata } from "next";
 import { cookies } from "next/headers";
+import { ProfileUpdateForm } from "./_lib/components/profile-form";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -84,23 +85,7 @@ const Page = async () => {
           </Typography>
         </div>
         <div className="flex flex-col gap-2">
-          <Input
-            variant="outlined"
-            label="Full Name"
-            size="lg"
-            defaultValue={fullName}
-          />
-          <Input
-            variant="outlined"
-            label="Phone Number (Optional)"
-            size="lg"
-          />
-          <Button
-            size="lg"
-            color="primary"
-          >
-            Update Information
-          </Button>
+          <ProfileUpdateForm fullName={fullName} />
         </div>
       </section>
     </div>
