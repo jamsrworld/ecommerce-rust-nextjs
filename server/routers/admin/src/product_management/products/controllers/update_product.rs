@@ -1,6 +1,6 @@
 use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::validator::ValidatedJson;
-use utils::{ error::HttpError, AppState };
+use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 use crate::product_management::products::schema::CreateProductInput;
 use sea_orm::{ EntityTrait, Set, ActiveModelTrait };
 use super::messages::ProductMessage;
@@ -12,7 +12,14 @@ use super::schema::ProductWithMessage;
     params(("id", description = "Product Id", min_length = 24, max_length = 24)),
     context_path = "/product-management/products",
     request_body = CreateProductInput,
-    responses((status = 200, description = "server information", body = ProductWithMessage))
+    responses(
+        (status = 200, description = "product with success message", body = ProductWithMessage),
+        (
+            status = StatusCode::INTERNAL_SERVER_ERROR,
+            body = ResponseWithMessage,
+            description = "Internal Server Error",
+        )
+    )
 )]
 #[patch("/{id}")]
 pub async fn update_product(

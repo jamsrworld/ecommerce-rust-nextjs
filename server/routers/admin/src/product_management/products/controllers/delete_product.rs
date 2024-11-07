@@ -8,7 +8,14 @@ use super::messages::ProductMessage;
     tag = "Product",
     params(("id", description = "Product Id", min_length = 24, max_length = 24)),
     context_path = "/product-management/products",
-    responses((status = 200, description = "product deleted", body = ResponseWithMessage))
+    responses(
+        (status = 200, description = "product deleted message", body = ResponseWithMessage),
+        (
+            status = StatusCode::INTERNAL_SERVER_ERROR,
+            body = ResponseWithMessage,
+            description = "Internal Server Error",
+        )
+    )
 )]
 #[delete("/{id}")]
 pub async fn delete_product(

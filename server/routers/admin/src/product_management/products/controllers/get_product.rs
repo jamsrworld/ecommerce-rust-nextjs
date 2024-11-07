@@ -1,5 +1,5 @@
 use actix_web::{ get, web::{ self, Path }, HttpResponse };
-use utils::{ error::HttpError, AppState };
+use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::EntityTrait;
 use super::messages::ProductMessage;
 
@@ -8,7 +8,14 @@ use super::messages::ProductMessage;
     tag = "Product",
     params(("id", description = "Product Id", min_length = 24, max_length = 24)),
     context_path = "/product-management/products",
-    responses((status = 200, description = "product", body = entity::product::Model))
+    responses(
+        (status = 200, description = "product", body = entity::product::Model),
+        (
+            status = StatusCode::INTERNAL_SERVER_ERROR,
+            body = ResponseWithMessage,
+            description = "Internal Server Error",
+        )
+    )
 )]
 #[get("/{id}")]
 pub async fn get_product(

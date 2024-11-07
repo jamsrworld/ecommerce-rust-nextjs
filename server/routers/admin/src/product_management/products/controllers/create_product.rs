@@ -1,6 +1,7 @@
 use actix_web::{ post, web, HttpResponse };
 use extractors::validator::ValidatedJson;
 use sea_orm::{ ActiveValue::NotSet, EntityTrait, Set };
+use utils::error::ResponseWithMessage;
 use utils::{ error::HttpError, AppState };
 use super::schema::{ ProductWithMessage, CreateProductInput };
 use super::messages::ProductMessage;
@@ -10,7 +11,14 @@ use super::messages::ProductMessage;
     tag = "Product",
     context_path = "/product-management/products",
     request_body = CreateProductInput,
-    responses((status = 200, description = "product created", body = ProductWithMessage))
+    responses(
+        (status = 200, description = "product created", body = ProductWithMessage),
+        (
+            status = StatusCode::INTERNAL_SERVER_ERROR,
+            body = ResponseWithMessage,
+            description = "Internal Server Error",
+        )
+    )
 )]
 #[post("")]
 pub async fn create_product(
