@@ -9,7 +9,7 @@ use super::ProfileMessage;
 
 #[derive(Debug, Validate, Deserialize, ToSchema, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct UpdateProfile {
+pub struct UpdateProfileInput {
     full_name: String,
 }
 
@@ -17,14 +17,14 @@ pub struct UpdateProfile {
 #[utoipa::path(
     tag = "Profile",
     context_path = "/user/profile",
-    request_body(content = UpdateProfile),
-    responses((status = 200, body = String))
+    request_body(content = UpdateProfileInput),
+    responses((status = 200, body = ResponseWithMessage))
 )]
 #[patch("")]
 pub async fn update_profile(
     app_data: web::Data<AppState>,
     user: Authenticated,
-    input: ValidatedJson<UpdateProfile>
+    input: ValidatedJson<UpdateProfileInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let user_id = user.id.clone();
