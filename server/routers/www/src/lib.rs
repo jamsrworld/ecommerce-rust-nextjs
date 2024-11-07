@@ -1,10 +1,12 @@
 use actix_web::web;
 use auth::auth_routes;
 use hello::health_check;
+use product::product_routes;
 use utoipa::OpenApi;
 mod auth;
 mod hello;
 mod user;
+mod product;
 
 use user::user_routes;
 
@@ -15,6 +17,11 @@ pub struct WwwApiDoc;
 
 pub fn www_routes(config: &mut web::ServiceConfig) {
     config.service(
-        web::scope("").service(health_check).service(auth_routes()).configure(user_routes)
+        web
+            ::scope("")
+            .service(health_check)
+            .service(auth_routes())
+            .configure(user_routes)
+            .configure(product_routes)
     );
 }

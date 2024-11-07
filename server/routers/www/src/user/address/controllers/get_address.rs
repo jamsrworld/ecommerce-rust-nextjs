@@ -4,7 +4,7 @@ use extractors::auth::Authenticated;
 use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter };
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 
-/// Get An Address
+/// Get an Address
 #[utoipa::path(
     tag = "Address",
     context_path = "/user/addresses",
