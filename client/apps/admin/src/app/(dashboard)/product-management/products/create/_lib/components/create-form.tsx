@@ -1,10 +1,14 @@
 "use client";
 
-import { type CreateProductInput } from "@/client";
+import { ProductStatus, type CreateProductInput } from "@/client";
 import { createProductMutation } from "@/client/@tanstack/react-query.gen";
+import { APP_ROUTES } from "@/config/routes";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { RHFProvider } from "@jamsr-ui/react";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { productCreateSchema } from "../schema";
 import { ProductBrand } from "./product-brand";
 import { ProductCategory } from "./product-category";
 import { ProductDescription } from "./product-description";
@@ -14,16 +18,17 @@ import { ProductImages } from "./product-images";
 import { ProductInformation } from "./product-information";
 import { ProductSave } from "./product-save";
 import { ProductSeo } from "./product-seo";
-import { ProductStatus } from "./product-status";
+import { ProductStatusCard } from "./product-status";
 import { ProductTags } from "./product-tags";
 import { ProductVideo } from "./product-videos";
 
 export const ProductCreateForm = () => {
+  const router = useRouter();
   const defaultValues: CreateProductInput = {
     brand: "",
     category: "",
     color: "",
-    description: "",
+    description: {},
     highlights: [],
     images: [],
     isReturnable: false,
@@ -38,18 +43,25 @@ export const ProductCreateForm = () => {
     },
     size: "",
     skuId: "",
-    status: "Public",
+    status: ProductStatus.UNLISTED,
     stock: 0,
     style: "",
     tags: [],
     title: "",
     video: {
-      thumbnail: "",
+      thumbnail: {
+        height: 0,
+        name: "",
+        placeholder: "",
+        url: "",
+        width: 0,
+      },
       url: "",
     },
   };
   const methods = useForm({
     defaultValues,
+    resolver: zodResolver(productCreateSchema),
   });
 
   const { handleSubmit } = methods;
@@ -58,11 +70,23 @@ export const ProductCreateForm = () => {
     ...createProductMutation({}),
   });
 
-  const onSubmit = handleSubmit((data) => {
-    mutation.mutate({
-      body: data,
-    });
-  });
+  const onSubmit = handleSubmit(
+    (data) => {
+      mutation.mutate(
+        {
+          body: data,
+        },
+        {
+          onSuccess() {
+            router.push(APP_ROUTES.productManagement.products.root);
+          },
+        },
+      );
+    },
+    (e) => {
+      console.log("e:->", e);
+    },
+  );
 
   return (
     <RHFProvider
@@ -82,12 +106,12 @@ export const ProductCreateForm = () => {
           <ProductSeo />
         </div>
         <div className="col-span-4 flex flex-col gap-4">
-          <ProductStatus />
+          <ProductStatusCard />
           <ProductCategory />
           <ProductBrand />
         </div>
       </div>
-      <ProductSave />
+      <ProductSave isMutating={mutation.isPending} />
     </RHFProvider>
   );
 };

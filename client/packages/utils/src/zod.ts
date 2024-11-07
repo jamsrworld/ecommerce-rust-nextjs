@@ -1,6 +1,22 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { string as _string, object, type z, type ZodNumber } from "zod";
+import {
+  string as _string,
+  type EnumLike,
+  literal,
+  number,
+  object,
+  type RawCreateParams,
+  type z,
+  nativeEnum as zodNativeEnum,
+  type ZodNumber,
+  type ZodSchema,
+} from "zod";
 
+const MIN_PASSWORD_LENGTH = 8;
+const OTP_LENGTH = 4;
+
+export const withEmptyString = <T extends ZodSchema>(schema: T) =>
+  schema.or(literal(""));
 export const string = () => _string().trim();
 export const cuid = () => string().min(24);
 export const email = () =>
@@ -20,9 +36,6 @@ export function withSchema<Model>() {
   };
 }
 
-const MIN_PASSWORD_LENGTH = 8;
-const OTP_LENGTH = 4;
-
 export const password = (name: string) =>
   string()
     .min(1, `${name} is required`)
@@ -39,3 +52,42 @@ export const otpCode = (name?: string) =>
       `${name ?? "OTP"} must be ${OTP_LENGTH} characters long`
     )
     .transform(Number);
+
+export const createZodError = (message: string): RawCreateParams => ({
+  errorMap: (issue) => {
+    switch (issue.code) {
+      case "invalid_enum_value":
+        return {
+          message,
+        };
+      default:
+        return {
+          message,
+        };
+    }
+  },
+});
+
+export const nativeEnum = <T extends EnumLike>(params: T, message: string) => {
+  return zodNativeEnum(params, createZodError(message));
+};
+
+export const zodImage = (message: string) =>
+  object({
+    name: string().default(""),
+    width: number().default(0),
+    height: number().default(0),
+    placeholder: string().default(""),
+    url: string().default(""),
+  }).refine((item) => item.url.length > 1, {
+    message,
+  });
+
+export const zodFile = (message: string) =>
+  object({
+    name: string().default(""),
+    size: number().default(0),
+    url: string().default(""),
+  }).refine((item) => item.url.length > 1, {
+    message,
+  });

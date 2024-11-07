@@ -1,3 +1,4 @@
+import { type CreateProductInput } from "@/client";
 import {
   Card,
   CardContent,
@@ -6,9 +7,8 @@ import {
   RHFSwitch,
 } from "@jamsr-ui/react";
 import { CURRENCY } from "@repo/config/app";
-import { type ProductCreateSchema } from "../types";
 
-type FormValues = ProductCreateSchema;
+type FormValues = CreateProductInput;
 
 export const ProductInformation = () => {
   return (
@@ -23,7 +23,7 @@ export const ProductInformation = () => {
           }}
         />
         <RHFInput<FormValues>
-          name="skuID"
+          name="skuId"
           label="SKU ID"
         />
         <RHFInput<FormValues>
@@ -45,7 +45,7 @@ export const ProductInformation = () => {
           decimalPrecision={0}
         />
         <RHFInput<FormValues>
-          name="sellingPrice"
+          name="price"
           label="Selling Price"
           isNumberInput
           startContent={CURRENCY}
@@ -57,8 +57,8 @@ export const ProductInformation = () => {
           startContent={CURRENCY}
         />
         <RHFSwitch<FormValues>
-          name="isRefundable"
-          label="Is Refundable"
+          name="isReturnable"
+          label="Is Returnable"
         />
       </CardContent>
     </Card>

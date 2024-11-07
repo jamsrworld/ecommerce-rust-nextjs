@@ -237,11 +237,11 @@ export const ResponseWithMessageSchema = {
     }
 } as const;
 
-export const UpdateProfileSchema = {
+export const UpdateProfileInputSchema = {
     type: 'object',
-    required: ['full_name'],
+    required: ['fullName'],
     properties: {
-        full_name: {
+        fullName: {
             type: 'string'
         }
     }

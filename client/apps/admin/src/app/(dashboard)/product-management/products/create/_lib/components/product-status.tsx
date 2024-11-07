@@ -1,3 +1,4 @@
+import { type CreateProductInput, ProductStatus } from "@/client";
 import {
   Card,
   CardContent,
@@ -5,17 +6,21 @@ import {
   RHFSelect,
   SelectItem,
 } from "@jamsr-ui/react";
-import { type ProductCreateSchema } from "../types";
 
-export const ProductStatus = () => {
+export const ProductStatusCard = () => {
   return (
     <Card>
       <CardHeader heading="Product Status" />
       <CardContent>
-        <RHFSelect<ProductCreateSchema> name="visibility">
-          <SelectItem value="public">Public</SelectItem>
-          <SelectItem value="private">Private</SelectItem>
-          <SelectItem value="unlisted">Unlisted</SelectItem>
+        <RHFSelect<CreateProductInput> name="status">
+          {Object.values(ProductStatus).map((item) => (
+            <SelectItem
+              key={item}
+              value={item}
+            >
+              {item}
+            </SelectItem>
+          ))}
         </RHFSelect>
       </CardContent>
     </Card>

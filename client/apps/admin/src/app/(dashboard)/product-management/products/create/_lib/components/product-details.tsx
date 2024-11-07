@@ -1,21 +1,23 @@
+import { type CreateProductInput } from "@/client";
 import { Card, CardContent, CardHeader, RHFInput } from "@jamsr-ui/react";
-import { type ProductCreateSchema } from "../types";
 
+type FormValues = CreateProductInput;
 export const ProductDetails = () => {
   return (
     <Card>
       <CardHeader heading="Product Details" />
       <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <RHFInput<ProductCreateSchema>
-          name="details.color"
+        <RHFInput<FormValues>
+          name="color"
           label="Color"
         />
-        <RHFInput<ProductCreateSchema>
-          name="details.color"
+
+        <RHFInput<FormValues>
+          name="size"
           label="Size"
         />
-        <RHFInput<ProductCreateSchema>
-          name="details.color"
+        <RHFInput<FormValues>
+          name="style"
           label="Style"
         />
       </CardContent>

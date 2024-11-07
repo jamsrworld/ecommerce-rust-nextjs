@@ -1,14 +1,14 @@
+import { type CreateProductInput } from "@/client";
 import {
   Card,
   CardContent,
   CardHeader,
   RHFInput,
   RHFTagsInput,
-  RHFTextarea
+  RHFTextarea,
 } from "@jamsr-ui/react";
-import { type ProductCreateSchema } from "../types";
 
-type FormValues = ProductCreateSchema;
+type FormValues = CreateProductInput;
 
 export const ProductSeo = () => {
   return (
