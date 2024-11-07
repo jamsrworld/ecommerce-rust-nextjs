@@ -12,7 +12,7 @@ use validator::Validate;
 pub struct CreateProductInput {
     #[validate(
         length(min = 1, message = "Title is required"),
-        length(max = 50, message = "Maximum 50 characters are allowed")
+        length(max = 200, message = "Maximum 200 characters are allowed")
     )]
     #[schema(example = "Color", min_length = 1, max_length = 50)]
     /// Title of the product.
