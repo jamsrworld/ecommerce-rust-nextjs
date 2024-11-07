@@ -72,14 +72,14 @@ export const nativeEnum = <T extends EnumLike>(params: T, message: string) => {
   return zodNativeEnum(params, createZodError(message));
 };
 
-export const zodImage = (message: string) =>
+export const zodImage = (message: string, isOptional = false) =>
   object({
     name: string().default(""),
     width: number().default(0),
     height: number().default(0),
     placeholder: string().default(""),
     url: string().default(""),
-  }).refine((item) => item.url.length > 1, {
+  }).refine((item) => (isOptional ? true : item.url.length > 1), {
     message,
   });
 

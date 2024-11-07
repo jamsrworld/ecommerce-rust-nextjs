@@ -1,6 +1,7 @@
 import { Button } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { type Metadata } from "next";
+import { ProductsTable } from "./components";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -15,6 +16,7 @@ const Page = () => {
       >
         Add Product
       </Button>
+      <ProductsTable />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { type CreateAttributeInputDto } from "@/client";
+import { type CreateAttributeInput } from "@/client";
 import { useDisclosure } from "@jamsr-ui/hooks";
 import {
   Button,
@@ -15,7 +15,7 @@ import { EditAttributeForm } from "./edit-attribute-form";
 
 type Props = {
   id: string;
-  formData: CreateAttributeInputDto;
+  formData: CreateAttributeInput;
 };
 
 export const EditAttribute = (props: Props) => {

@@ -306,9 +306,9 @@ export type UpdateCategoryResponse = (Category);
 
 export type UpdateCategoryError = unknown;
 
-export type GetProductsResponse = (Product);
+export type GetProductsResponse = (Array<Product>);
 
-export type GetProductsError = unknown;
+export type GetProductsError = (ResponseWithMessage);
 
 export type CreateProductData = {
     body: CreateProductInput;
@@ -316,7 +316,7 @@ export type CreateProductData = {
 
 export type CreateProductResponse = (ProductWithMessage);
 
-export type CreateProductError = unknown;
+export type CreateProductError = (ResponseWithMessage);
 
 export type GetProductData = {
     path: {
@@ -329,7 +329,7 @@ export type GetProductData = {
 
 export type GetProductResponse = (Product);
 
-export type GetProductError = unknown;
+export type GetProductError = (ResponseWithMessage);
 
 export type DeleteProductData = {
     path: {
@@ -342,7 +342,7 @@ export type DeleteProductData = {
 
 export type DeleteProductResponse = (ResponseWithMessage);
 
-export type DeleteProductError = unknown;
+export type DeleteProductError = (ResponseWithMessage);
 
 export type UpdateProductData = {
     body: CreateProductInput;
@@ -356,7 +356,7 @@ export type UpdateProductData = {
 
 export type UpdateProductResponse = (ProductWithMessage);
 
-export type UpdateProductError = unknown;
+export type UpdateProductError = (ResponseWithMessage);
 
 export type ServerInformationResponseTransformer = (data: any) => Promise<ServerInformationResponse>;
 
@@ -447,7 +447,9 @@ export const ProductModelResponseTransformer: ProductModelResponseTransformer = 
 };
 
 export const GetProductsResponseTransformer: GetProductsResponseTransformer = async (data) => {
-    ProductModelResponseTransformer(data);
+    if (Array.isArray(data)) {
+        data.forEach(ProductModelResponseTransformer);
+    }
     return data;
 };
 

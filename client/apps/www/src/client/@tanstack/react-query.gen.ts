@@ -2,8 +2,8 @@
 
 import type { Options } from '@hey-api/client-fetch';
 import { queryOptions, type UseMutationOptions, type DefaultError } from '@tanstack/react-query';
-import { client, healthCheck, forgotPassword, login, logout, register, registerVerify, resetPassword, getAddresses, createAddress, getAddress, deleteAddress, updateAddress, markDefaultAddress, getOrders, getOrder, getProfile, updateProfile, logoutAll, changePassword } from '../services.gen';
-import type { ForgotPasswordData, ForgotPasswordError, ForgotPasswordResponse, LoginData, LoginError, LoginResponse, LogoutError, LogoutResponse, RegisterData, RegisterError, RegisterResponse, RegisterVerifyData, RegisterVerifyError, RegisterVerifyResponse, ResetPasswordData, ResetPasswordError, ResetPasswordResponse, CreateAddressData, CreateAddressError, CreateAddressResponse, GetAddressData, DeleteAddressData, DeleteAddressError, DeleteAddressResponse, UpdateAddressData, UpdateAddressError, UpdateAddressResponse, MarkDefaultAddressData, MarkDefaultAddressError, MarkDefaultAddressResponse, UpdateProfileData, UpdateProfileError, UpdateProfileResponse } from '../types.gen';
+import { client, healthCheck, forgotPassword, login, logout, register, registerVerify, resetPassword, getProducts, getProduct, getAddresses, createAddress, getAddress, deleteAddress, updateAddress, markDefaultAddress, getOrders, getOrder, getProfile, updateProfile, logoutAll, changePassword } from '../services.gen';
+import type { ForgotPasswordData, ForgotPasswordError, ForgotPasswordResponse, LoginData, LoginError, LoginResponse, LogoutError, LogoutResponse, RegisterData, RegisterError, RegisterResponse, RegisterVerifyData, RegisterVerifyError, RegisterVerifyResponse, ResetPasswordData, ResetPasswordError, ResetPasswordResponse, GetProductData, CreateAddressData, CreateAddressError, CreateAddressResponse, GetAddressData, DeleteAddressData, DeleteAddressError, DeleteAddressResponse, UpdateAddressData, UpdateAddressError, UpdateAddressResponse, MarkDefaultAddressData, MarkDefaultAddressError, MarkDefaultAddressResponse, UpdateProfileData, UpdateProfileError, UpdateProfileResponse } from '../types.gen';
 
 type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -228,6 +228,44 @@ export const resetPasswordMutation = (options?: Partial<Options<ResetPasswordDat
         }
     };
     return mutationOptions;
+};
+
+export const getProductsQueryKey = (options?: Options) => [
+    createQueryKey('getProducts', options)
+];
+
+export const getProductsOptions = (options?: Options) => {
+    return queryOptions({
+        queryFn: async ({ queryKey, signal }) => {
+            const { data } = await getProducts({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: getProductsQueryKey(options)
+    });
+};
+
+export const getProductQueryKey = (options: Options<GetProductData>) => [
+    createQueryKey('getProduct', options)
+];
+
+export const getProductOptions = (options: Options<GetProductData>) => {
+    return queryOptions({
+        queryFn: async ({ queryKey, signal }) => {
+            const { data } = await getProduct({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: getProductQueryKey(options)
+    });
 };
 
 export const getAddressesQueryKey = (options?: Options) => [

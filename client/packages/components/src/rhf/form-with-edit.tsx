@@ -6,13 +6,13 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
+  RHFProvider,
   type CardProps,
 } from "@jamsr-ui/react";
 import { useFormEdit } from "@repo/hooks/use-form-edit";
 import { AnimatePresence, m } from "framer-motion";
-import { type FieldValues,type UseFormReturn } from "react-hook-form";
+import { type FieldValues, type UseFormReturn } from "react-hook-form";
 import { onRHFInvalid } from "./rhf-error";
-import { RHFProvider } from "./rhf-provider";
 
 type Props<T extends FieldValues> = Omit<CardProps, "children"> & {
   heading?: React.ReactNode;
