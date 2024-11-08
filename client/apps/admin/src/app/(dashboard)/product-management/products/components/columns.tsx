@@ -10,7 +10,7 @@ import {
   Typography,
   type ColumnDef,
 } from "@jamsr-ui/react";
-import { NextImage, NextLink } from "@repo/components/next";
+import { NextLink } from "@repo/components/next";
 import { EyeIcon } from "@repo/icons";
 import { fPrice } from "@repo/utils/number";
 import { fDateTime } from "@repo/utils/time";
@@ -33,7 +33,6 @@ export const columns: ColumnDef<Column>[] = [
       return (
         <div className="flex items-center gap-2">
           <Avatar
-            as={NextImage}
             alt={title}
             placeholder="blur"
             blurDataURL={thumbnail.placeholder}

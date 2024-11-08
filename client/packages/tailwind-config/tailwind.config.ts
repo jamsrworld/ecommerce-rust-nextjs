@@ -16,6 +16,7 @@ const config: Omit<Config, "content"> = withJamsrUI(
         },
       },
     },
+    darkMode: "class",
   },
   {
     colors: {

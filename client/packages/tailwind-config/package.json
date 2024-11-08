@@ -6,7 +6,7 @@
     ".": "./tailwind.config.ts"
   },
   "devDependencies": {
-    "@jamsr-ui/theme": "0.0.59",
+    "@jamsr-ui/theme": "0.0.63",
     "tailwindcss": "^3.4.12"
   }
 }
