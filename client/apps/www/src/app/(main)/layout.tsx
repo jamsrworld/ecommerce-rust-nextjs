@@ -1,18 +1,22 @@
+"use client";
+
 import { AppHeader } from "@/components/header";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { usePathname } from "next/navigation";
 
 type Props = {
   children: React.ReactNode;
 };
 
-const layout = (props: Props) => {
+const Layout = (props: Props) => {
   const { children } = props;
+  const pathname = usePathname();
   return (
     <>
       <AppHeader />
-      <SmoothScroll>{children}</SmoothScroll>
+      <SmoothScroll key={pathname}>{children}</SmoothScroll>
     </>
   );
 };
 
-export default layout;
+export default Layout;

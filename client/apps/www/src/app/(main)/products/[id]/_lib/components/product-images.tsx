@@ -25,6 +25,7 @@ export const ProductImages = (props: Props) => {
         onOpenChange={setIsOpen}
         onClose={onClose}
         activeIndex={activeIndex}
+        images={images}
       />
       <ul className="grid grid-cols-2 gap-2">
         {images.map((item, idx) => {

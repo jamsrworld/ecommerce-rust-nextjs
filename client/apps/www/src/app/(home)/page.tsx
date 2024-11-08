@@ -40,7 +40,7 @@ export default function Home() {
       </Link>
       <Link
         as={NextLink}
-        href={APP_ROUTES.products.view("id")}
+        href="/demo"
       >
         View Product
       </Link>

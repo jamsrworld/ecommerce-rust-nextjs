@@ -12,6 +12,7 @@ type Props = {
 export const ProductDetails = (props: Props) => {
   const { product } = props;
   const { title, brand, price, mrp } = product;
+  console.log("i get rendered")
   return (
     <div className="flex flex-col gap-4">
       <section className="flex flex-col">
