@@ -16,6 +16,12 @@ export default function Home() {
       </Card>
       <Link
         as={NextLink}
+        href={APP_ROUTES.products.root}
+      >
+        View Products
+      </Link>
+      <Link
+        as={NextLink}
         href={APP_ROUTES.login}
       >
         Go to login

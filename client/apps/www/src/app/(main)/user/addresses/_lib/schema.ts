@@ -1,6 +1,6 @@
 import { type CreateAddressInput } from "@/client";
 import { coerceNumber, string, withSchema } from "@repo/utils/zod";
-import { literal, number } from "zod";
+import { type input, literal, number } from "zod";
 
 export const createAddressSchema = withSchema<CreateAddressInput>()({
   firstName: string()
@@ -25,5 +25,6 @@ export const createAddressSchema = withSchema<CreateAddressInput>()({
     .min(1, "State is required")
     .max(50, "Maximum 50 characters are allowed"),
 });
-
 createAddressSchema._type satisfies CreateAddressInput;
+
+export type ZodCreateAddressInput = input<typeof createAddressSchema>;

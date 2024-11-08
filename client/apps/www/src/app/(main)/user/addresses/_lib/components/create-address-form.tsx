@@ -4,10 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RHFProvider, Typography } from "@jamsr-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { createAddressSchema } from "../schema";
+import { createAddressSchema, type ZodCreateAddressInput } from "../schema";
 import { AddressForm } from "./address-form";
 
-type FormValues = CreateAddressInput;
+type FormValues = ZodCreateAddressInput;
 
 type Props = {
   onSuccess?: () => void;
@@ -25,7 +25,8 @@ export const CreateAddressForm = (props: Props) => {
     postalCode: "",
     state: "",
   };
-  const methods = useForm({
+
+  const methods = useForm<FormValues, object, CreateAddressInput>({
     defaultValues,
     resolver: zodResolver(createAddressSchema),
     mode: "all",
@@ -61,7 +62,10 @@ export const CreateAddressForm = (props: Props) => {
         isPending={mutation.isPending}
         onSubmit={onSubmit}
       >
-        <AddressForm submitText="Add Address" />
+        <AddressForm
+          submitText="Add Address"
+          isMutating={mutation.isPending}
+        />
       </RHFProvider>
     </div>
   );

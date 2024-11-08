@@ -4,15 +4,13 @@ import { type Product } from "@/client";
 import { APP_ROUTES } from "@/config/routes";
 import { useHover } from "@/hooks/use-hover";
 import { Link, Typography } from "@jamsr-ui/react";
-import { NextLink } from "@repo/components/next";
-import { getFileSrc } from "@repo/utils/url";
-import Image from "next/image";
+import { NextImage, NextLink } from "@repo/components/next";
 import { ProductSlider } from "./product-slider";
 
 type Props = Product;
 
 export const SearchItem = (props: Props) => {
-  const { images, title } = props;
+  const { images, title, id } = props;
   const price = 293;
   const mrp = 500;
   const { handleMouseEnter, handleMouseLeave, isHovered } = useHover(500);
@@ -21,16 +19,15 @@ export const SearchItem = (props: Props) => {
     <li className="relative cursor-pointer transition-all duration-300">
       <Link
         as={NextLink}
-        href={APP_ROUTES.products.view("id")}
+        href={APP_ROUTES.products.view(id)}
         className="group/top relative block overflow-hidden"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <Image
-          src={getFileSrc(thumbnail.url)}
+        <NextImage
           alt={title}
-          width={400}
-          height={600}
+          image={thumbnail}
+          src={thumbnail.url}
           className="aspect-[9/12]"
         />
         <ProductSlider
@@ -42,7 +39,7 @@ export const SearchItem = (props: Props) => {
         <Link
           className="font-medium text-foreground"
           as={NextLink}
-          href={APP_ROUTES.products.view("id")}
+          href={APP_ROUTES.products.view(id)}
         >
           {title}
         </Link>

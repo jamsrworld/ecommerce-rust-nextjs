@@ -17,6 +17,7 @@ export const APP_ROUTES = {
   addresses: "/user/addresses",
   profile: "/user/profile",
   products: {
+    root: "/products",
     view: (id: string) => `/products/${id}` as Route,
   },
   checkout: "/checkout",
