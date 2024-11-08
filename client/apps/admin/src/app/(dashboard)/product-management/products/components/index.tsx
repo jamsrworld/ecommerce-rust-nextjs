@@ -17,6 +17,11 @@ export const ProductsTable = async () => {
       columns={columns}
       data={data}
       sorting={{ desc: true, id: "createdAt" }}
+      variant="bordered"
+      classNames={{
+        td: "border-dashed",
+        th: "border-dashed",
+      }}
     />
   );
 };

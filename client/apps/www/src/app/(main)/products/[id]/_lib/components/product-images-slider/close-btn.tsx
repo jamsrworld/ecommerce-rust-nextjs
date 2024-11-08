@@ -28,7 +28,7 @@ export const CloseBtn = (props: Props) => {
       <Button
         isIconOnly
         onClick={onClose}
-        variant="light"
+        variant="text"
         isRounded
         size="lg"
       >

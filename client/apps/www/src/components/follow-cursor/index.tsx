@@ -2,7 +2,7 @@
 
 import { cn } from "@repo/utils/class-name";
 import { m, useSpring } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useFollowCursor } from "./provider";
 
 type Props = {
@@ -22,9 +22,19 @@ export const FollowCursor = (props: Props) => {
   const cursorScale = useSpring(1, physics);
   const { showCursor } = useFollowCursor();
 
+  const setCursorCoords = useCallback(
+    (x: number, y: number, size: number) => {
+      const translateX = x - size / 2;
+      const translateY = y - size / 2;
+      cursorSize.set(size);
+      mouseX.set(translateX);
+      mouseY.set(translateY);
+    },
+    [cursorSize, mouseX, mouseY],
+  );
+
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
-      const currentCursorSize = cursorSize.get();
       let x = e.clientX;
       let y = e.clientY;
       if (parentDom) {
@@ -32,10 +42,12 @@ export const FollowCursor = (props: Props) => {
         x = e.clientX + scrollLeft;
         y = e.clientY + scrollTop;
       }
-      const translateX = x - currentCursorSize / 2;
-      const translateY = y - currentCursorSize / 2;
-      mouseX.set(translateX);
-      mouseY.set(translateY);
+      setCursorCoords(
+        x,
+        y,
+        isGrabbing ? MINI_CURSOR_SIZE : INITIAL_CURSOR_SIZE,
+      );
+
       // console.log({
       //   clientX: e.clientX,
       //   clientY: e.clientY,
@@ -46,25 +58,27 @@ export const FollowCursor = (props: Props) => {
       //   currentCursorSize,
       // });
     },
-    [cursorSize, parentDom, mouseX, mouseY],
+    [isGrabbing, parentDom, setCursorCoords],
   );
 
   const handleMouseDown = useCallback(
     (e: MouseEvent) => {
       setIsGrabbing(true);
-      cursorSize.set(MINI_CURSOR_SIZE);
-      handleMouseMove(e);
+      setCursorCoords(e.clientX, e.clientY, MINI_CURSOR_SIZE);
     },
-    [cursorSize, handleMouseMove],
+    [setCursorCoords],
   );
 
-  const handleMouseUp = useCallback(() => {
-    setIsGrabbing(false);
-    cursorSize.set(INITIAL_CURSOR_SIZE);
-  }, [cursorSize]);
+  const handleMouseUp = useCallback(
+    (e: MouseEvent) => {
+      setIsGrabbing(false);
+      setCursorCoords(e.clientX, e.clientY, INITIAL_CURSOR_SIZE);
+    },
+    [setCursorCoords],
+  );
 
   useEffect(() => {
-    const container = parentDom;
+    const container = window;
     if (!container) return () => {};
     container.addEventListener("mousemove", handleMouseMove);
     container.addEventListener("mousedown", handleMouseDown);

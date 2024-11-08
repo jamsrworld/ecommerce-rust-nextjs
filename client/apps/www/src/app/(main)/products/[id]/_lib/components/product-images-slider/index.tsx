@@ -1,5 +1,6 @@
 "use client";
 
+import { type Product } from "@/client";
 import { FollowCursor } from "@/components/follow-cursor";
 import { FollowCursorProvider } from "@/components/follow-cursor/provider";
 import {
@@ -7,9 +8,8 @@ import {
   type ScrollHandle,
 } from "@/components/horizontal-scroll";
 import { Drawer } from "@jamsr-ui/react";
-import Image from "next/image";
+import { NextImage } from "@repo/components/next";
 import { useCallback, useState } from "react";
-import { imagesItems } from "../image";
 import { CloseBtn } from "./close-btn";
 import { NavigationNextBtn, NavigationPrevBtn } from "./navigation-btn";
 
@@ -18,10 +18,10 @@ type Props = {
   onOpenChange: (isOpen: boolean) => void;
   onClose: () => void;
   activeIndex: number;
-};
+} & Pick<Product, "images">;
 
 export const ProductImagesSlider = (props: Props) => {
-  const { isOpen, onOpenChange, onClose, activeIndex } = props;
+  const { isOpen, onOpenChange, onClose, activeIndex, images } = props;
   const [scrollRef, setScrollRef] = useState<ScrollHandle | null>(null);
   const handleNext = () => {
     scrollRef?.slideRight();
@@ -41,6 +41,7 @@ export const ProductImagesSlider = (props: Props) => {
       });
     }, 1000);
   }, []);
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -63,16 +64,16 @@ export const ProductImagesSlider = (props: Props) => {
       </FollowCursorProvider>
       <HorizontalScroll ref={setScrollRef}>
         <ul className="flex">
-          {imagesItems.map((item, idx) => {
+          {images.map((item, idx) => {
             return (
               <li
                 key={idx}
                 className="shrink-0"
                 ref={activeIndex === idx ? targetRef : null}
               >
-                <Image
+                <NextImage
                   alt="product image"
-                  src={item.item}
+                  image={item}
                   className="pointer-events-none h-dvh w-auto shrink-0"
                 />
               </li>

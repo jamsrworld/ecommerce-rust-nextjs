@@ -30,6 +30,21 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
     restSpeed: 0.001, // Reduce resting speed threshold
   });
 
+  // console.log({
+  //   contentHeight,
+  //   scrollYProgress,
+  //   contentRef,
+  //   windowHeight,
+  //   customScrollBarRef,
+  //   isDragging,
+  //   isScrolling,
+  //   startY,
+  //   startScrollY,
+  //   isHovered,
+  //   hideTimeoutRef,
+  //   smoothProgress: smoothProgress.get(),
+  // });
+
   const y = useTransform(
     smoothProgress,
     (v) => v * -(contentHeight - windowHeight),
@@ -37,10 +52,10 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
 
   const handleResize = useCallback(() => {
     if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
+      setContentHeight(Math.max(windowHeight, contentRef.current.scrollHeight));
     }
-  }, []);
-  const debouncedResize = useDebounce(handleResize, 100);
+  }, [windowHeight]);
+  const debouncedResize = useDebounce(handleResize, 500);
 
   useEffect(() => {
     setWindowHeight(window.innerHeight);
@@ -86,7 +101,7 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       if (customScrollBarRef.current) {
         const scrollHeight = (windowHeight / contentHeight) * windowHeight;
         const targetY = v * (windowHeight - scrollHeight);
-        customScrollBarRef.current.style.height = `${scrollHeight}px`;
+        customScrollBarRef.current.style.height = `${(scrollHeight)}px`;
         customScrollBarRef.current.style.transform = `translateY(${targetY}px)`;
       }
     });
@@ -147,10 +162,12 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  const canScroll = contentHeight > windowHeight;
   return (
     <>
       <div style={{ height: contentHeight }} />
       <m.div
+        id="smooth-scroll-container"
         className="fixed top-0 flex w-screen flex-col pt-16"
         style={{ y, width: "calc(100% - 6px)" }}
         ref={contentRef}
@@ -159,26 +176,28 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
       </m.div>
 
       {/* Custom Scrollbar */}
-      <div
-        className={cn(
-          "fixed right-0.5 top-0 z-50 h-screen w-1.5 bg-transparent opacity-0 transition-[width,opacity] duration-300",
-          {
-            "opacity-100": isDragging || isScrolling || isHovered,
-            "w-3": isDragging || isHovered,
-          },
-        )}
-        onMouseDown={handleMouseDown}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      {canScroll && (
         <div
-          className="absolute top-0 w-full rounded-full bg-[#757575] transition-[width] duration-300"
-          ref={customScrollBarRef}
-          style={{
-            cursor: isDragging ? "grabbing" : "grab",
-          }}
-        />
-      </div>
+          className={cn(
+            "fixed right-0.5 top-0 z-50 h-screen w-1.5 bg-transparent opacity-0 transition-[width,opacity] duration-300",
+            {
+              "opacity-100": isDragging || isScrolling || isHovered,
+              "w-3": isDragging || isHovered,
+            },
+          )}
+          onMouseDown={handleMouseDown}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div
+            className="absolute top-0 w-full rounded-full bg-[#757575] transition-[width] duration-300"
+            ref={customScrollBarRef}
+            style={{
+              cursor: isDragging ? "grabbing" : "grab",
+            }}
+          />
+        </div>
+      )}
     </>
   );
 };
