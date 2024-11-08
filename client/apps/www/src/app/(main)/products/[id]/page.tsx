@@ -16,22 +16,26 @@ type Props = {
 
 const page = async (props: Props) => {
   const { id } = await props.params;
-  const { data, error } = await getProduct({
+  const { data: product, error } = await getProduct({
     path: {
       id,
     },
   });
   if (error) return <FetchError error={error} />;
+  const { images, highlights, video } = product;
   return (
     <div className="flex flex-col gap-8 p-2 pr-3 md:gap-24">
       <section className="grid gap-12 md:grid-cols-12">
         <div className="md:col-span-7">
-          <ProductImages images={data.images} />
+          <ProductImages
+            images={images}
+            video={video}
+          />
         </div>
         <div className="flex flex-col gap-2 md:col-span-5">
           <ProductBreadcrumb />
-          <ProductDetails />
-          <ProductFeatures />
+          <ProductDetails product={product} />
+          <ProductFeatures highlights={highlights} />
           <ProductInfo />
         </div>
       </section>

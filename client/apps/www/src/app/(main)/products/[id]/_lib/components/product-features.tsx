@@ -1,29 +1,10 @@
+import { type Product } from "@/client";
 import { Typography } from "@jamsr-ui/react";
 
-const items = [
-  {
-    heading: "R-LENO - Recycled wool",
-    description: "Soft, comfortable and light",
-  },
-  {
-    heading: "Designed to last a long time",
-    description: "Resistant and easily washable materials",
-  },
-  {
-    heading: "Waterproof",
-    description: "To accompany you everywhere even in case of small showers",
-  },
-  {
-    heading: "Outsole - Green EVA",
-    description: "Flexible, lightweight and cushioning",
-  },
-  {
-    heading: "Insole - Ortholite",
-    description: "Removable and ergonomic",
-  },
-];
+type Props = Pick<Product, "highlights">;
 
-export const ProductFeatures = () => {
+export const ProductFeatures = (props: Props) => {
+  const { highlights } = props;
   return (
     <div className="flex flex-col gap-4">
       <div className="contents">
@@ -31,10 +12,10 @@ export const ProductFeatures = () => {
           as="h3"
           variant="h5"
         >
-          NATURAL AND RECYCLED MATERIALS
+          HIGHLIGHTS
         </Typography>
         <ul className="flex list-disc flex-col gap-4">
-          {items.map((item, index) => {
+          {highlights.map((item, index) => {
             return (
               <li
                 key={index}
@@ -46,7 +27,7 @@ export const ProductFeatures = () => {
                     variant="paragraph"
                     className="font-medium"
                   >
-                    {item.heading}
+                    {item.highlight}
                   </Typography>
                   <Typography
                     as="p"

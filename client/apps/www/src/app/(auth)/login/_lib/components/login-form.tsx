@@ -2,6 +2,7 @@
 
 import { type AuthLoginInput } from "@/client";
 import { loginMutation } from "@/client/@tanstack/react-query.gen";
+import { REDIRECT_AFTER_LOGIN } from "@/config/app";
 import { APP_ROUTES } from "@/config/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Divider, Link, RHFInput, RHFProvider } from "@jamsr-ui/react";
@@ -37,7 +38,7 @@ export const LoginForm = () => {
         body: data,
       },
       {
-        onSuccess: () => router.replace("/"),
+        onSuccess: () => router.replace(REDIRECT_AFTER_LOGIN),
       },
     );
   }, onRHFInvalid);

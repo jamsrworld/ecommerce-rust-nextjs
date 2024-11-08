@@ -2,12 +2,11 @@
 
 import { type Product } from "@/client";
 import { Button, Repeater } from "@jamsr-ui/react";
+import { NextImage } from "@repo/components/next";
 import { ChevronLeftIcon, ChevronRightIcon } from "@repo/icons/chevron";
 import { cn } from "@repo/utils/class-name";
 import { AnimatePresence, m } from "framer-motion";
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { getFileSrc } from "@repo/utils/url";
 
 type Props = {
   isHovered: boolean;
@@ -84,8 +83,8 @@ export const ProductSlider = (props: Props) => {
           transition={{ type: "spring", duration: 1 }}
           className="absolute inset-0"
         >
-          <Image
-            src={getFileSrc(images[currentImage]!.url)}
+          <NextImage
+            image={images[currentImage]!}
             alt={`Image ${currentImage + 1}`}
             className="aspect-[9/12]"
             width={400}

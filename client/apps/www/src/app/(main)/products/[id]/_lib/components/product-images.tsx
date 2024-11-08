@@ -3,10 +3,11 @@
 import { type Product } from "@/client";
 import { useDisclosure } from "@jamsr-ui/hooks";
 import { NextImage } from "@repo/components/next";
+import { YoutubeEmbed } from "@repo/components/youtube-embed";
 import { useState } from "react";
 import { ProductImagesSlider } from "./product-images-slider";
 
-type Props = Pick<Product, "images">;
+type Props = Pick<Product, "images" | "video">;
 
 export const ProductImages = (props: Props) => {
   const { isOpen, onClose, onOpen, setIsOpen } = useDisclosure();
@@ -15,7 +16,8 @@ export const ProductImages = (props: Props) => {
     onOpen();
     setActiveIndex(idx);
   };
-  const { images } = props;
+  const { images, video } = props;
+  const { thumbnail, url } = video;
   return (
     <div>
       <ProductImagesSlider
@@ -26,7 +28,6 @@ export const ProductImages = (props: Props) => {
       />
       <ul className="grid grid-cols-2 gap-2">
         {images.map((item, idx) => {
-          const { height, placeholder, url, width } = item;
           return (
             <li key={idx}>
               <button
@@ -36,15 +37,17 @@ export const ProductImages = (props: Props) => {
                 <NextImage
                   alt="product image"
                   placeholder="blur"
-                  blurDataURL={placeholder}
-                  src={url}
-                  height={height}
-                  width={width}
+                  image={item}
                 />
               </button>
             </li>
           );
         })}
+        {url && (
+          <li>
+            <YoutubeEmbed src={url} />
+          </li>
+        )}
       </ul>
     </div>
   );

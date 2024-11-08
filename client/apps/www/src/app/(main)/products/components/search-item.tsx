@@ -27,7 +27,6 @@ export const SearchItem = (props: Props) => {
         <NextImage
           alt={title}
           image={thumbnail}
-          src={thumbnail.url}
           className="aspect-[9/12]"
         />
         <ProductSlider

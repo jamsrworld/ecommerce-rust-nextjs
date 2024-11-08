@@ -1,9 +1,17 @@
+import { type Product } from "@/client";
 import { Button, Rating, Typography } from "@jamsr-ui/react";
 import { CartIcon, CheckoutIcon } from "@repo/icons";
+import { fPrice } from "@repo/utils/number";
 import { SelectColors } from "./select-colors";
 import { SelectSize } from "./select-size";
 
-export const ProductDetails = () => {
+type Props = {
+  product: Product;
+};
+
+export const ProductDetails = (props: Props) => {
+  const { product } = props;
+  const { title, brand, price, mrp } = product;
   return (
     <div className="flex flex-col gap-4">
       <section className="flex flex-col">
@@ -12,14 +20,14 @@ export const ProductDetails = () => {
           variant="h3"
           className="font-bold uppercase"
         >
-          Loreta Wool-Blend Coat
+          {title}
         </Typography>
         <Typography
           as="h3"
           variant="body1"
           className="text-foreground-secondary"
         >
-          Mineral Grey
+          {brand}
         </Typography>
         <div className="flex items-center gap-2">
           <Rating
@@ -32,26 +40,25 @@ export const ProductDetails = () => {
             as="p"
             variant="body1"
           >
-            711 Reviews
+            0 Reviews
           </Typography>
         </div>
         <Typography
           as="p"
           className="text-foreground-secondary line-through"
         >
-          $129.00
+          {fPrice(mrp)}
         </Typography>
         <Typography
           as="p"
           variant="h6"
         >
-          $99.00
+          {fPrice(price)}
         </Typography>
       </section>
 
       <SelectColors />
       <SelectSize />
-
       <section className="flex flex-col gap-2">
         <Button
           fullWidth

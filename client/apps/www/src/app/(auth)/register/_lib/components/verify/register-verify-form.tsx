@@ -1,5 +1,6 @@
 import { type AuthRegisterInput, type AuthRegisterVerifyInput } from "@/client";
 import { registerVerifyMutation } from "@/client/@tanstack/react-query.gen";
+import { REDIRECT_AFTER_LOGIN } from "@/config/app";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, RHFOtpInput, RHFProvider } from "@jamsr-ui/react";
 import { onRHFInvalid } from "@repo/components/rhf";
@@ -42,7 +43,7 @@ export const RegisterVerifyForm = (props: Props) => {
       {
         onSuccess: () => {
           onSuccess();
-          router.push("/");
+          router.push(REDIRECT_AFTER_LOGIN);
         },
       },
     );

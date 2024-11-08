@@ -1,5 +1,5 @@
 import { APP_ROUTES } from "@/config/routes";
-import { Button } from "@jamsr-ui/react";
+import { Button, Tooltip } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { EditIcon } from "@repo/icons";
 
@@ -10,13 +10,15 @@ type Props = {
 export const EditProductBtn = (props: Props) => {
   const { id } = props;
   return (
-    <Button
-      isIconOnly
-      aria-label="Edit"
-      as={NextLink}
-      href={APP_ROUTES.productManagement.products.edit(id)}
-    >
-      <EditIcon />
-    </Button>
+    <Tooltip title="Edit Product">
+      <Button
+        isIconOnly
+        aria-label="Edit Product"
+        as={NextLink}
+        href={APP_ROUTES.productManagement.products.edit(id)}
+      >
+        <EditIcon />
+      </Button>
+    </Tooltip>
   );
 };
