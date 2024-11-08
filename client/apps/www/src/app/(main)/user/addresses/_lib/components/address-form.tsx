@@ -5,10 +5,11 @@ type FormValues = CreateAddressInput;
 
 type Props = {
   submitText: string;
+  isMutating: boolean;
 };
 
 export const AddressForm = (props: Props) => {
-  const { submitText } = props;
+  const { submitText, isMutating } = props;
   return (
     <>
       <RHFInput<FormValues>
@@ -28,8 +29,8 @@ export const AddressForm = (props: Props) => {
         name="postalCode"
         size="lg"
         variant="outlined"
-        mask="number"
-        precision={0}
+        isNumberInput
+        decimalPrecision={0}
         inputMode="numeric"
         maxLength={6}
         minLength={6}
@@ -63,8 +64,8 @@ export const AddressForm = (props: Props) => {
         name="phoneNumber"
         size="lg"
         variant="outlined"
-        mask="number"
-        precision={0}
+        isNumberInput
+        decimalPrecision={0}
         inputMode="numeric"
         maxLength={10}
         minLength={10}
@@ -74,6 +75,7 @@ export const AddressForm = (props: Props) => {
         fullWidth
         size="lg"
         type="submit"
+        isLoading={isMutating}
       >
         {submitText}
       </Button>

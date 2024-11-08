@@ -55,7 +55,10 @@ export const UpdateAddressForm = (props: Props) => {
         isPending={mutation.isPending}
         onSubmit={onSubmit}
       >
-        <AddressForm submitText="Update Address" />
+        <AddressForm
+          submitText="Update Address"
+          isMutating={mutation.isPending}
+        />
       </RHFProvider>
     </div>
   );

@@ -35,6 +35,8 @@ export const APP_ROUTES = {
       root: products("/products"),
       create: products("/products/create"),
       edit: (id: string) => products(`/products/edit/${id}`) as Route,
+      view: (id: string) =>
+        `${process.env.NEXT_PUBLIC_USER_APP_URL}/products/${id}` as Route,
     },
     categories: {
       root: products("/categories"),
