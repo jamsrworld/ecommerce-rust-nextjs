@@ -8,10 +8,18 @@ import {
   type CredentialResponse,
 } from "@react-oauth/google";
 import { GoogleIcon } from "@repo/icons/social";
-import { useMutation } from "@tanstack/react-query";
+import { useIsMutating, useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const ContinueWithGoogleBase = () => {
+  const mutationCountLogin = useIsMutating({
+    mutationKey: ["login"],
+  });
+  const mutationCountRegister = useIsMutating({
+    mutationKey: ["register"],
+  });
+  const isMutating = mutationCountLogin > 0 || mutationCountRegister > 0;
+
   const router = useRouter();
   const mutation = useMutation({
     ...continueWithGoogleMutation(),
@@ -32,7 +40,7 @@ const ContinueWithGoogleBase = () => {
   };
 
   useGoogleOneTapLogin({
-    cancel_on_tap_outside: false,
+    // cancel_on_tap_outside: false,
     // auto_select: true,
     onSuccess(credentialResponse) {
       handleOneTapResponse(credentialResponse);
@@ -59,6 +67,7 @@ const ContinueWithGoogleBase = () => {
       size="lg"
       startContent={<GoogleIcon />}
       onClick={() => handleClick()}
+      isDisabled={isMutating}
     >
       Continue with Google
     </Button>
