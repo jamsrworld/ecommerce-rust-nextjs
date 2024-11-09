@@ -22,6 +22,13 @@ pub struct AuthLoginInput {
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
 #[serde(rename_all = "camelCase")]
+pub struct ContinueWithGoogleInput {
+    #[validate(length(min = 1, message = "Authorization Code is required"))]
+    pub authorization_code: String,
+}
+
+#[derive(Debug, Deserialize, Validate, ToSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct AuthRegisterInput {
     #[validate(length(min = 1, message = "Full name is required"))]
     #[schema(example = "Jamsr World")]

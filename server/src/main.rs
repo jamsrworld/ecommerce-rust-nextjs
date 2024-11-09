@@ -21,7 +21,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = config::Config::new();
     let host = "0.0.0.0".to_string();
     let port = config.port;
-    let database_url = config.database_url;
+    let database_url = &config.database_url;
 
     // setup connection
     let mut opt = ConnectOptions::new(database_url);
@@ -32,7 +32,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Starting server at http://localhost:{}", port);
     println!("Hello, world!");
 
-    let app_data = actix_web::web::Data::new(AppState { db });
+    let app_data = actix_web::web::Data::new(AppState { db, env: config });
     let domain = "https://mcart.jamsrworld.com";
 
     HttpServer::new(move || {

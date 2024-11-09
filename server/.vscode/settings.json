@@ -18,6 +18,7 @@
     "Mcart",
     "openapi",
     "otps",
+    "reqwest",
     "sqlx",
     "sysinfo",
     "thiserror",
