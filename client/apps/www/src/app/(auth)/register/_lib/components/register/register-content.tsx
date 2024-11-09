@@ -1,8 +1,9 @@
+import { ContinueWithGoogle } from "@/app/(auth)/components/continue-with-google";
 import { LeftSection } from "@/app/(auth)/components/left-section";
 import { type AuthRegisterInput } from "@/client";
 import { AppLogo } from "@/components/app-logo";
 import { APP_ROUTES } from "@/config/routes";
-import { Button, Divider, Link, Typography } from "@jamsr-ui/react";
+import { Divider, Link, Typography } from "@jamsr-ui/react";
 import NextLink from "next/link";
 import { RegisterForm } from "./register-form";
 
@@ -36,13 +37,7 @@ export const RegisterContent = (props: Props) => {
         </div>
         <RegisterForm onSuccess={onSuccess} />
         <Divider variant="gradient">OR</Divider>
-        <Button
-          color="danger"
-          variant="outlined"
-          size="lg"
-        >
-          Continue with Google
-        </Button>
+        <ContinueWithGoogle isMutating={false} />
         <Typography
           as="p"
           className="text-center"
