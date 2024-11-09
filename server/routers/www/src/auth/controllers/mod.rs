@@ -4,6 +4,7 @@ pub mod logout;
 pub mod register;
 pub mod register_verify;
 pub mod reset_password;
+pub mod continue_with_google;
 
 use super::messages::AuthMessage;
 use super::schema;

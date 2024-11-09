@@ -15,4 +15,5 @@ pub fn auth_routes() -> Scope {
         .service(forgot_password::forgot_password)
         .service(reset_password::reset_password)
         .service(logout::logout)
+        .service(continue_with_google::continue_with_google)
 }
