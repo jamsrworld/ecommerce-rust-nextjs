@@ -1,4 +1,4 @@
-use serde::Deserialize;
+use serde::{ Deserialize, Serialize };
 use utoipa::ToSchema;
 use validator::Validate;
 
@@ -19,12 +19,24 @@ pub struct AuthLoginInput {
     /// Password of the user.
     pub password: String,
 }
+#[derive(Serialize, Deserialize, Debug, Validate, ToSchema)]
+pub struct GoogleLoginWithCredential {
+    #[validate(length(min = 1, message = "Credential is required"))]
+    pub credential: String,
+}
 
-#[derive(Debug, Deserialize, Validate, ToSchema)]
+#[derive(Serialize, Deserialize, Debug, Validate, ToSchema)]
 #[serde(rename_all = "camelCase")]
-pub struct ContinueWithGoogleInput {
+pub struct GoogleLoginWithCode {
     #[validate(length(min = 1, message = "Authorization Code is required"))]
     pub authorization_code: String,
+}
+
+#[derive(Debug, Deserialize, Serialize, ToSchema)]
+#[serde(untagged)]
+pub enum ContinueWithGoogleInput {
+    Credential(GoogleLoginWithCredential),
+    Code(GoogleLoginWithCode),
 }
 
 #[derive(Debug, Deserialize, Validate, ToSchema)]
