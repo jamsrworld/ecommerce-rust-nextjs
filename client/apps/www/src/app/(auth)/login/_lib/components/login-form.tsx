@@ -1,5 +1,6 @@
 "use client";
 
+import { ContinueWithGoogle } from "@/app/(auth)/components/continue-with-google";
 import { type AuthLoginInput } from "@/client";
 import { loginMutation } from "@/client/@tanstack/react-query.gen";
 import { REDIRECT_AFTER_LOGIN } from "@/config/app";
@@ -8,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Divider, Link, RHFInput, RHFProvider } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { onRHFInvalid } from "@repo/components/rhf";
-import { GoogleIcon } from "@repo/icons/social";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -89,15 +89,7 @@ export const LoginForm = () => {
       >
         OR
       </Divider>
-      <Button
-        color="danger"
-        variant="outlined"
-        size="lg"
-        startContent={<GoogleIcon />}
-        disabled={mutation.isPending}
-      >
-        Continue with Google
-      </Button>
+      <ContinueWithGoogle isMutating={mutation.isPending} />
     </RHFProvider>
   );
 };
