@@ -6,6 +6,7 @@ import {
   Skeleton,
   Typography,
 } from "@jamsr-ui/react";
+import { fDateTime } from "@repo/utils/time";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,8 +18,8 @@ const Page = async () => {
   if (!data) return <Skeleton className="h-12" />;
 
   const items = {
-    "Last Cron": data.lastCron,
-    "Last Success Cron": data.lastSuccessCron,
+    "Last Cron": fDateTime(data.lastCron),
+    "Last Success Cron": fDateTime(data.lastSuccessCron),
     "Free Memory": `${data.freeMemory} MiB`,
     "CPU Usage": `${data.cpuUsage}%`,
     "Host Name": data.osHostname,

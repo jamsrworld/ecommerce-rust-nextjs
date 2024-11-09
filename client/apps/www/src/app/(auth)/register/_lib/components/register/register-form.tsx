@@ -30,6 +30,7 @@ export const RegisterForm = (props: Props) => {
   });
 
   const mutation = useMutation({
+    mutationKey: ["register"],
     ...registerMutation(),
   });
 

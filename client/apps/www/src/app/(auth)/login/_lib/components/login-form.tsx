@@ -2,7 +2,9 @@
 
 import { ContinueWithGoogle } from "@/app/(auth)/components/continue-with-google";
 import { type AuthLoginInput } from "@/client";
-import { loginMutation } from "@/client/@tanstack/react-query.gen";
+import {
+  loginMutation
+} from "@/client/@tanstack/react-query.gen";
 import { REDIRECT_AFTER_LOGIN } from "@/config/app";
 import { APP_ROUTES } from "@/config/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,8 +21,8 @@ type FormValues = AuthLoginInput;
 export const LoginForm = () => {
   const router = useRouter();
   const defaultValues: FormValues = {
-    email: "adityah1357908642@gmail.com",
-    password: "admin790",
+    email: "",
+    password: "",
   };
   const methods = useForm<FormValues>({
     defaultValues,
@@ -28,6 +30,7 @@ export const LoginForm = () => {
   });
 
   const mutation = useMutation({
+    mutationKey: ["login"],
     ...loginMutation(),
   });
 
@@ -89,7 +92,7 @@ export const LoginForm = () => {
       >
         OR
       </Divider>
-      <ContinueWithGoogle isMutating={mutation.isPending} />
+      <ContinueWithGoogle />
     </RHFProvider>
   );
 };

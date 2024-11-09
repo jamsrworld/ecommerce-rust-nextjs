@@ -92,7 +92,7 @@ export const columns: ColumnDef<Column>[] = [
     cell: ({ row: { original: item } }) => (
       <div className="flex items-center gap-2">
         <EditProductBtn id={item.id} />
-        <Tooltip title="Product Preview">
+        <Tooltip title="Preview Product">
           <Button
             aria-label="Preview Product"
             isIconOnly
