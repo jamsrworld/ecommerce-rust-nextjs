@@ -24,7 +24,7 @@ body.is-scrolling {
   -webkit-user-select: none;
   cursor: grabbing;
 }
-
+/* 
 :root {
   --fs-2xs: clamp(0.66rem, -0.08vi + 0.68rem, 0.58rem);
   --fs-xs: clamp(0.72rem, -0.03vi + 0.73rem, 0.69rem);
@@ -37,7 +37,7 @@ body.is-scrolling {
   --fs-3xl: clamp(1.41rem, 1.14vi + 1.13rem, 2.49rem);
   --fs-4xl: clamp(1.55rem, 1.51vi + 1.17rem, 2.99rem);
   --fs-5xl: clamp(1.71rem, 1.98vi + 1.21rem, 3.58rem);
-}
+} */
 
 
 .debug * {

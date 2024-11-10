@@ -30,9 +30,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`light ${inter.variable} ${opensans.variable} font-inter font-normal antialiased`}
+      className={`${inter.variable} ${opensans.variable} font-inter font-normal antialiased`}
     >
-      <body className="flex flex-col bg-background text-foreground">
+      <body className="flex flex-col">
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
