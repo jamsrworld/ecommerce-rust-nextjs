@@ -1,5 +1,5 @@
 import { APP_ROUTES } from "@/config/routes";
-import { Button, Header } from "@jamsr-ui/react";
+import { Button, Header, Menu, MenuItem } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { UserIcon } from "@repo/icons";
 import { AppLogo } from "../app-logo";
@@ -30,7 +30,10 @@ const navItems = [
 
 export const AppHeader = () => {
   return (
-    <Header className="shrink-0 justify-between pr-3">
+    <Header
+      hideOnScroll
+      className="shrink-0 justify-between border-none px-1 max-md:h-12 md:px-2"
+    >
       <AppLogo />
       <nav className="max-md:hidden">
         <ul className="flex items-center gap-4">
@@ -46,17 +49,33 @@ export const AppHeader = () => {
           ))}
         </ul>
       </nav>
-      <div className="mr-6 flex items-center gap-4">
+      <div className="flex items-center">
         <CartDrawer />
-        <Button
-          isIconOnly
-          variant="outlined"
-          as={NextLink}
-          href={APP_ROUTES.profile}
-          color="primary"
+        <Menu
+          trigger={
+            <Button
+              isIconOnly
+              variant="light"
+              color="primary"
+            >
+              <UserIcon />
+            </Button>
+          }
         >
-          <UserIcon />
-        </Button>
+          <MenuItem
+            as={NextLink}
+            href={APP_ROUTES.profile}
+          >
+            Profile
+          </MenuItem>
+          <MenuItem
+            as={NextLink}
+            href={APP_ROUTES.logout}
+            prefetch={false}
+          >
+            Logout
+          </MenuItem>
+        </Menu>
       </div>
     </Header>
   );

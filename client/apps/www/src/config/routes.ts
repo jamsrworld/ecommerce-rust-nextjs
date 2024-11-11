@@ -7,6 +7,7 @@ export type RoutesRecords = {
 export const APP_ROUTES = {
   home: "/",
   login: "/login",
+  loginWithRedirect: (pathname: string) => `/login?redirect=${pathname}`,
   register: "/register",
   logout: "/logout",
   forgotPassword: "/forgot-password",
@@ -23,3 +24,10 @@ export const APP_ROUTES = {
   checkout: "/checkout",
   search: (keyword: string) => `/search/${keyword}` as Route,
 } satisfies RoutesRecords;
+
+export const protectedRoutes: Route[] = [
+  APP_ROUTES.profile,
+  APP_ROUTES.orders.root,
+  APP_ROUTES.orders.view(""),
+  APP_ROUTES.addresses,
+];

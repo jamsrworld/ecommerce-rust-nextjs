@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
 }
-
+/* 
 html,
 body {
   scrollbar-width: none;
@@ -23,7 +23,7 @@ body.is-scrolling {
   user-select: none;
   -webkit-user-select: none;
   cursor: grabbing;
-}
+} */
 /* 
 :root {
   --fs-2xs: clamp(0.66rem, -0.08vi + 0.68rem, 0.58rem);

@@ -48,7 +48,7 @@ export const ProductImagesSlider = (props: Props) => {
       onOpenChange={onOpenChange}
       size="full"
       anchor="bottom"
-      className="relative"
+      className="relative overflow-hidden"
     >
       <FollowCursorProvider>
         <NavigationPrevBtn

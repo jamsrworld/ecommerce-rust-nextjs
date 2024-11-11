@@ -5,7 +5,7 @@ import { cn } from "@repo/utils/class-name";
 import { m } from "framer-motion";
 import { useId, useState } from "react";
 
-export const SelectSize = () => {
+export const ProductSizes = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const layoutId = useId();
   return (
@@ -13,10 +13,11 @@ export const SelectSize = () => {
       <Typography
         className="text-foreground-secondary"
         as="h6"
+        variant="paragraph2"
       >
         Select Size
       </Typography>
-      <div className="flex gap-2">
+      <div className="flex w-full gap-2 overflow-x-auto scrollbar-hide">
         {[35, 36, 37, 38, 39, 40, 41].map((item, index) => {
           const isSelected = index === activeIndex;
           const isAvailable = item <= 40;

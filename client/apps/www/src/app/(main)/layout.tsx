@@ -1,8 +1,4 @@
-"use client";
-
 import { AppHeader } from "@/components/header";
-import { SmoothScroll } from "@/components/smooth-scroll";
-import { usePathname } from "next/navigation";
 
 type Props = {
   children: React.ReactNode;
@@ -10,11 +6,11 @@ type Props = {
 
 const Layout = (props: Props) => {
   const { children } = props;
-  const pathname = usePathname();
   return (
     <>
       <AppHeader />
-      <SmoothScroll key={pathname}>{children}</SmoothScroll>
+      {children}
+      {/* <SmoothScroll key={pathname}>{children}</SmoothScroll> */}
     </>
   );
 };
