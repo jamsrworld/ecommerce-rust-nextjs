@@ -20,7 +20,7 @@ export const CartDrawer = () => {
     <div>
       <Button
         onClick={onOpen}
-        variant="outlined"
+        variant="light"
         isIconOnly
         color="primary"
       >

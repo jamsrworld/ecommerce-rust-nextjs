@@ -2,10 +2,7 @@
 
 import { ContinueWithGoogle } from "@/app/(auth)/components/continue-with-google";
 import { type AuthLoginInput } from "@/client";
-import {
-  loginMutation
-} from "@/client/@tanstack/react-query.gen";
-import { REDIRECT_AFTER_LOGIN } from "@/config/app";
+import { loginMutation } from "@/client/@tanstack/react-query.gen";
 import { APP_ROUTES } from "@/config/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Divider, Link, RHFInput, RHFProvider } from "@jamsr-ui/react";
@@ -14,15 +11,17 @@ import { onRHFInvalid } from "@repo/components/rhf";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useLoginRedirect } from "../hooks/use-login-redirect";
 import { loginSchema } from "../schema";
 
 type FormValues = AuthLoginInput;
 
 export const LoginForm = () => {
+  const redirectPathname = useLoginRedirect();
   const router = useRouter();
   const defaultValues: FormValues = {
-    email: "",
-    password: "",
+    email: "princeraj9137@gmail.com",
+    password: "admin790",
   };
   const methods = useForm<FormValues>({
     defaultValues,
@@ -41,7 +40,7 @@ export const LoginForm = () => {
         body: data,
       },
       {
-        onSuccess: () => router.replace(REDIRECT_AFTER_LOGIN),
+        onSuccess: () => router.replace(redirectPathname),
       },
     );
   }, onRHFInvalid);

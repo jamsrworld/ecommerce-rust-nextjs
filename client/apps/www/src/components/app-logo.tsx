@@ -2,25 +2,15 @@ import { Link } from "@jamsr-ui/react";
 import NextLink, { type LinkProps } from "next/link";
 
 type Props = {
-  width?: number;
-  height?: number;
   href?: LinkProps<never>["href"];
   color?: string;
-  isMini?: boolean;
   className?: string;
 };
 
 const APP_NAME = "Mcart";
 
 export const AppLogo = (props: Props) => {
-  const {
-    href = "/",
-    width = 200,
-    height = 30,
-    color = "#000000",
-    isMini,
-    className,
-  } = props;
+  const { href = "/", color = "#000000", className } = props;
   return (
     <Link
       className={className}
@@ -29,8 +19,7 @@ export const AppLogo = (props: Props) => {
     >
       <span className="sr-only">{APP_NAME}</span>
       <svg
-        width={width}
-        height={height}
+        className="h-[20px] w-[80px] md:h-[40px] md:w-[140px]"
         viewBox="0 0 340 73.72921228597585"
       >
         <g

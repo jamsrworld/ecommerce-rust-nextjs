@@ -1,5 +1,5 @@
 import { AppProvider } from "@/providers/app";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Open_Sans } from "next/font/google";
 import "../styles/globals.css";
 
@@ -20,6 +20,14 @@ export const metadata: Metadata = {
   title: "Mcart - Modern Shopping Website",
   description: "Modern Shopping website for shopping with ease",
   icons: [{ rel: "icon", url: "/favicon.png" }],
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  minimumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
