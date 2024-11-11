@@ -1,4 +1,4 @@
-import { Button, Divider, Typography } from "@jamsr-ui/react";
+import { Button, Typography } from "@jamsr-ui/react";
 import Image from "next/image";
 import React from "react";
 import ProductImg from "./cart-item.jpg";
@@ -54,20 +54,20 @@ const products = [
 
 export const CartItems = () => {
   return (
-    <div>
+    <div className="flex flex-col gap-0.5 bg-background-secondary">
       {products.map((product, index) => {
         return (
           <React.Fragment key={index}>
             <div
               key={index}
-              className="flex items-center gap-4"
+              className="flex items-center gap-4 bg-background"
             >
               <Image
                 src={product.thumbnail}
                 alt="product"
                 className="size-32 object-cover"
               />
-              <div className="grow">
+              <div className="grow pr-2">
                 <Typography
                   as="h6"
                   className="line-clamp-1 font-bold"
@@ -102,7 +102,6 @@ export const CartItems = () => {
                 </Typography>
               </div>
             </div>
-            <Divider />
           </React.Fragment>
         );
       })}

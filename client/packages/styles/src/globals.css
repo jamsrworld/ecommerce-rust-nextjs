@@ -39,7 +39,6 @@ body.is-scrolling {
   --fs-5xl: clamp(1.71rem, 1.98vi + 1.21rem, 3.58rem);
 } */
 
-
 .debug * {
   outline: 1px solid red;
 }
@@ -52,3 +51,22 @@ body.is-scrolling {
   transform-origin: 100% 50%;
   @apply border-default border-t-2 pointer-events-none right-0 top-0;
 }
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #808080;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+  

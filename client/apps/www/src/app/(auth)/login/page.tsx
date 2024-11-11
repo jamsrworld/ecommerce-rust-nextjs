@@ -3,6 +3,7 @@ import { APP_ROUTES } from "@/config/routes";
 import { Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { type Metadata } from "next";
+import { Suspense } from "react";
 import { LeftSection } from "../components/left-section";
 import { LoginForm } from "./_lib/components/login-form";
 
@@ -33,7 +34,9 @@ const Login = () => {
             Please login to your account
           </Typography>
         </div>
-        <LoginForm />
+        <Suspense>
+          <LoginForm />
+        </Suspense>
         <Typography
           as="p"
           className="text-center"

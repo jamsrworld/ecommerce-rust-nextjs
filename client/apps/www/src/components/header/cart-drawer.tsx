@@ -29,7 +29,7 @@ export const CartDrawer = () => {
       <Drawer
         isOpen={isOpen}
         onOpenChange={setIsOpen}
-        className="flex w-full flex-col md:min-w-[500px]"
+        className="flex h-dvh w-full flex-col bg-background md:min-w-[500px]"
       >
         <div className="flex items-center justify-between p-4">
           <div className="hidden md:block" />
@@ -59,11 +59,19 @@ export const CartDrawer = () => {
             </Button>
           </m.div>
         </div>
-        <Divider />
-        <div className="grow overflow-y-auto overflow-x-hidden">
+        <Divider
+          classNames={{
+            divider: "bg-background-secondary h-[2px]",
+          }}
+        />
+        <div className="scrollbar-thin grow overflow-y-auto overflow-x-hidden">
           <CartItems />
         </div>
-        <Divider />
+        <Divider
+          classNames={{
+            divider: "bg-background-secondary h-[2px]",
+          }}
+        />
         <div className="px-4 py-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center">

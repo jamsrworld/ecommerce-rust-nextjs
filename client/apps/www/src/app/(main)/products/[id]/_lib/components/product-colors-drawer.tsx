@@ -32,7 +32,7 @@ export const ProductAvailableColorsDrawer = (props: Props) => {
       <Drawer
         isOpen={isOpen}
         onOpenChange={setIsOpen}
-        className="bg-background scrollbar-hide"
+        className="h-dvh bg-background scrollbar-hide"
       >
         <div className="flex items-center justify-between p-2">
           <div className="px-4">
