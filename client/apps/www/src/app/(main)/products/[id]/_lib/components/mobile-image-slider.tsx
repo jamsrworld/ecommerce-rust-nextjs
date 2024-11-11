@@ -2,7 +2,7 @@ import { type Product } from "@/client";
 import { Repeater } from "@jamsr-ui/react";
 import { NextImage } from "@repo/components/next";
 import { cn } from "@repo/utils/class-name";
-import { AnimatePresence, m, type PanInfo } from "framer-motion";
+import { AnimatePresence, m, MotionProps, type PanInfo } from "framer-motion";
 import { useState } from "react";
 
 type Props = Pick<Product, "images">;
@@ -41,7 +41,7 @@ export const MobileImageSlider = (props: Props) => {
     }
   };
 
-  const motionDivProps = {
+  const motionDivProps: MotionProps = {
     initial: (direction: "left" | "right") => {
       console.log("initial:->", direction);
       return {
@@ -59,6 +59,7 @@ export const MobileImageSlider = (props: Props) => {
     transition: { type: "spring", duration: 1 },
     drag: "x",
     dragConstraints: { left: 0, right: 0 },
+    dragElastic: 1,
     onDragEnd: handleDragEnd,
   };
 
