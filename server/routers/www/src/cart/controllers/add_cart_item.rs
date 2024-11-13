@@ -1,4 +1,4 @@
-use actix_web::{ get, web::{ self, Path }, HttpResponse };
+use actix_web::{ get, post, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::{ sea_query, ActiveValue::NotSet, EntityTrait, Set };
@@ -19,7 +19,7 @@ use crate::cart::messages::CartMessages;
         )
     )
 )]
-#[get("/{id}")]
+#[post("/{id}")]
 pub async fn add_cart_item(
     app_data: web::Data<AppState>,
     product_id: Path<String>,

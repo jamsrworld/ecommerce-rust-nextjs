@@ -16,6 +16,10 @@ import {
   register,
   registerVerify,
   resetPassword,
+  getCartData,
+  updateCartItemQuantity,
+  addCartItem,
+  removeCartItem,
   getProducts,
   getProduct,
   getAddresses,
@@ -52,6 +56,15 @@ import type {
   ResetPasswordData,
   ResetPasswordError,
   ResetPasswordResponse,
+  UpdateCartItemQuantityData,
+  UpdateCartItemQuantityError,
+  UpdateCartItemQuantityResponse,
+  AddCartItemData,
+  AddCartItemError,
+  AddCartItemResponse,
+  RemoveCartItemData,
+  RemoveCartItemError,
+  RemoveCartItemResponse,
   GetProductData,
   CreateAddressData,
   CreateAddressError,
@@ -364,6 +377,104 @@ export const resetPasswordMutation = (
   > = {
     mutationFn: async (localOptions) => {
       const { data } = await resetPassword({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const getCartDataQueryKey = (options?: Options) => [
+  createQueryKey("getCartData", options),
+];
+
+export const getCartDataOptions = (options?: Options) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getCartData({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getCartDataQueryKey(options),
+  });
+};
+
+export const updateCartItemQuantityMutation = (
+  options?: Partial<Options<UpdateCartItemQuantityData>>,
+) => {
+  const mutationOptions: UseMutationOptions<
+    UpdateCartItemQuantityResponse,
+    UpdateCartItemQuantityError,
+    Options<UpdateCartItemQuantityData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await updateCartItemQuantity({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const addCartItemQueryKey = (options: Options<AddCartItemData>) => [
+  createQueryKey("addCartItem", options),
+];
+
+export const addCartItemOptions = (options: Options<AddCartItemData>) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await addCartItem({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: addCartItemQueryKey(options),
+  });
+};
+
+export const addCartItemMutation = (
+  options?: Partial<Options<AddCartItemData>>,
+) => {
+  const mutationOptions: UseMutationOptions<
+    AddCartItemResponse,
+    AddCartItemError,
+    Options<AddCartItemData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await addCartItem({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const removeCartItemMutation = (
+  options?: Partial<Options<RemoveCartItemData>>,
+) => {
+  const mutationOptions: UseMutationOptions<
+    RemoveCartItemResponse,
+    RemoveCartItemError,
+    Options<RemoveCartItemData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await removeCartItem({
         ...options,
         ...localOptions,
         throwOnError: true,

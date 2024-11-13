@@ -3,8 +3,13 @@ import { AddIcon, MinusIcon } from "@repo/icons";
 import { AnimatePresence, m } from "framer-motion";
 import { useState } from "react";
 
-export const QuantityCounter = () => {
-  const [quantity, setQuantity] = useState(1);
+type Props = {
+  defaultValue: number;
+};
+
+export const QuantityCounter = (props: Props) => {
+  const { defaultValue } = props;
+  const [quantity, setQuantity] = useState(defaultValue);
   const onIncrease = () => setQuantity(quantity + 1);
   const onDecrease = () => setQuantity(quantity - 1);
   const canDecrease = quantity > 1;
@@ -13,7 +18,7 @@ export const QuantityCounter = () => {
     <div className="flex items-center gap-1">
       <Button
         isIconOnly
-        variant="link"
+        variant="text"
         onClick={onDecrease}
         isDisabled={!canDecrease}
         disableRipple
@@ -40,7 +45,7 @@ export const QuantityCounter = () => {
       </div>
       <Button
         isIconOnly
-        variant="link"
+        variant="text"
         onClick={onIncrease}
         isDisabled={!canIncrease}
         disableRipple

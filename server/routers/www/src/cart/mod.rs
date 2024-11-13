@@ -1,9 +1,9 @@
 use actix_web::web;
 use controllers::{
     add_cart_item::add_cart_item,
-    get_all_records::get_all_records,
+    get_cart_data::get_cart_data,
     remove_cart_item::remove_cart_item,
-    update_quantity::update_quantity,
+    update_cart_item_quantity::update_cart_item_quantity,
 };
 use entity::sea_orm_active_enums::UserRole;
 use middlewares::auth::RequireAuth;
@@ -19,7 +19,7 @@ pub fn cart_routes(config: &mut web::ServiceConfig) {
             .wrap(RequireAuth::allowed_roles(vec![UserRole::User]))
             .service(add_cart_item)
             .service(remove_cart_item)
-            .service(get_all_records)
-            .service(update_quantity)
+            .service(get_cart_data)
+            .service(update_cart_item_quantity)
     );
 }

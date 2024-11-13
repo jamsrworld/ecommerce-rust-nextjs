@@ -4,6 +4,7 @@ import { CartIcon, CheckoutIcon } from "@repo/icons";
 import { fPrice } from "@repo/utils/number";
 import { ProductColors } from "./product-colors";
 import { ProductSizes } from "./product-sizes";
+import { AddToCart } from "./add-to-cart";
 
 type Props = {
   product: Product;
@@ -57,16 +58,7 @@ export const ProductDetails = (props: Props) => {
       </div>
       <ProductSizes />
       <section className="flex flex-col gap-2">
-        <Button
-          fullWidth
-          color="primary"
-          variant="solid"
-          size="lg"
-          className="rounded-full"
-          startContent={<CartIcon />}
-        >
-          Add to Cart
-        </Button>
+        <AddToCart id={product.id} />
         <Button
           fullWidth
           color="primary"
