@@ -1,6 +1,6 @@
-use super::AuthMessage;
 use utils::error::{ HttpError, ResponseWithMessage };
 use actix_web::{ delete, HttpResponse };
+use crate::auth::messages::AuthMessage;
 
 /// Logout
 #[utoipa::path(

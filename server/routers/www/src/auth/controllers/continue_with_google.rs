@@ -19,9 +19,10 @@ use utils::{
     AppState,
 };
 use validator::Validate;
-use crate::auth::messages::AuthMessage;
-
-use super::schema::{ ContinueWithGoogleInput, GoogleLoginWithCode, GoogleLoginWithCredential };
+use crate::auth::{
+    messages::AuthMessage,
+    schema::{ ContinueWithGoogleInput, GoogleLoginWithCode, GoogleLoginWithCredential },
+};
 
 /// Continue with google
 ///
@@ -121,7 +122,8 @@ pub async fn get_user_by_code(
 
     let params = [
         ("grant_type", "authorization_code"),
-        ("redirect_uri", "http://localhost:5000"),
+        ("redirect_uri", "https://mcart.jamsrworld.com"),
+        // ("redirect_uri", "http://localhost:5000"),
         ("client_id", client_id.as_str()),
         ("code", authorization_code.as_str()),
         ("client_secret", client_secret.as_str()),

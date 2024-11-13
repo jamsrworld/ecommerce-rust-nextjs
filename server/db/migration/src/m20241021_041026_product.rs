@@ -59,7 +59,7 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum Product {
+pub enum Product {
     Brand,
     Category,
     CreatedAt,

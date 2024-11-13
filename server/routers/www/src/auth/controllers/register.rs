@@ -1,13 +1,11 @@
-use super::schema::AuthRegisterInput;
-use super::utils::check_unique_email;
-use super::AuthMessage;
 use utils::{ AppState, error::{ HttpError, ResponseWithMessage } };
 use extractors::validator::ValidatedJson;
-use super::utils::generate_otp;
 use services::mailer::Mailer;
 use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
+
+use crate::auth::{messages::AuthMessage, schema::AuthRegisterInput, utils::{check_unique_email, generate_otp}};
 
 #[derive(Template)]
 #[template(path = "register/verification.jinja")]

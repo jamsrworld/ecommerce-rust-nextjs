@@ -1,6 +1,3 @@
-use super::schema::AuthResetPasswordInput;
-use super::utils::{ delete_otp, verify_otp };
-use super::AuthMessage;
 use utils::{ AppState, password::hash_password, error::{ HttpError, ResponseWithMessage } };
 use services::mailer::Mailer;
 use extractors::validator::ValidatedJson;
@@ -8,6 +5,8 @@ use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
 use sea_orm::{ ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set };
+
+use crate::auth::{messages::AuthMessage, schema::AuthResetPasswordInput, utils::{delete_otp, verify_otp}};
 
 /// Reset Password
 #[utoipa::path(

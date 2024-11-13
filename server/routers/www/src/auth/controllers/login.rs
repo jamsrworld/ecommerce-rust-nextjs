@@ -1,5 +1,3 @@
-use super::schema::AuthLoginInput;
-use super::AuthMessage;
 use actix_web::{ post, web, HttpResponse };
 use config::session_keys::SessionKey;
 use entity::user::Entity;
@@ -7,6 +5,9 @@ use extractors::validator::ValidatedJson;
 use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter };
 use utils::{ cookie::create_cookie, jwt::create_token, password::verify_password };
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
+
+use crate::auth::messages::AuthMessage;
+use crate::auth::schema::AuthLoginInput;
 
 /// Login
 ///

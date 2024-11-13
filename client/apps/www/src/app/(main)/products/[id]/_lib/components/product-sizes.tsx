@@ -28,7 +28,7 @@ export const ProductSizes = () => {
               variant="outlined"
               size="lg"
               isIconOnly
-              className={cn(isSelected && "bg-black text-white", "rounded-md")}
+              className={cn(isSelected && "text-white", "rounded-full")}
               onClick={() => setActiveIndex(index)}
               isDisabled={!isAvailable}
               disableRipple
@@ -39,7 +39,7 @@ export const ProductSizes = () => {
               {isSelected && (
                 <m.div
                   layoutId={layoutId}
-                  className="absolute inset-0 -z-1 size-full rounded-inherit bg-black"
+                  className="absolute inset-0 -z-1 size-full rounded-full bg-black"
                   transition={{ type: "spring", bounce: 0, duration: 0.6 }}
                 />
               )}
