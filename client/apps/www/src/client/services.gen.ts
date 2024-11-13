@@ -28,6 +28,17 @@ import {
   type ResetPasswordData,
   type ResetPasswordError,
   type ResetPasswordResponse,
+  type GetCartDataError,
+  type GetCartDataResponse,
+  type UpdateCartItemQuantityData,
+  type UpdateCartItemQuantityError,
+  type UpdateCartItemQuantityResponse,
+  type AddCartItemData,
+  type AddCartItemError,
+  type AddCartItemResponse,
+  type RemoveCartItemData,
+  type RemoveCartItemError,
+  type RemoveCartItemResponse,
   type GetProductsError,
   type GetProductsResponse,
   type GetProductData,
@@ -55,6 +66,8 @@ import {
   type UpdateProfileData,
   type UpdateProfileError,
   type UpdateProfileResponse,
+  UpdateCartItemQuantityResponseTransformer,
+  AddCartItemResponseTransformer,
   GetProductsResponseTransformer,
   GetProductResponseTransformer,
   GetAddressesResponseTransformer,
@@ -192,6 +205,72 @@ export const resetPassword = <ThrowOnError extends boolean = false>(
   >({
     ...options,
     url: "/auth/reset-password",
+  });
+};
+
+/**
+ * Get all cart items
+ */
+export const getCartData = <ThrowOnError extends boolean = false>(
+  options?: Options<unknown, ThrowOnError>,
+) => {
+  return (options?.client ?? client).get<
+    GetCartDataResponse,
+    GetCartDataError,
+    ThrowOnError
+  >({
+    ...options,
+    url: "/carts",
+  });
+};
+
+/**
+ * Update cart item quantity
+ */
+export const updateCartItemQuantity = <ThrowOnError extends boolean = false>(
+  options: Options<UpdateCartItemQuantityData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).patch<
+    UpdateCartItemQuantityResponse,
+    UpdateCartItemQuantityError,
+    ThrowOnError
+  >({
+    ...options,
+    url: "/carts/quantity/{id}",
+    responseTransformer: UpdateCartItemQuantityResponseTransformer,
+  });
+};
+
+/**
+ * Add product to cart
+ */
+export const addCartItem = <ThrowOnError extends boolean = false>(
+  options: Options<AddCartItemData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).post<
+    AddCartItemResponse,
+    AddCartItemError,
+    ThrowOnError
+  >({
+    ...options,
+    url: "/carts/{id}",
+    responseTransformer: AddCartItemResponseTransformer,
+  });
+};
+
+/**
+ * Remove cart item
+ */
+export const removeCartItem = <ThrowOnError extends boolean = false>(
+  options: Options<RemoveCartItemData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).delete<
+    RemoveCartItemResponse,
+    RemoveCartItemError,
+    ThrowOnError
+  >({
+    ...options,
+    url: "/carts/{id}",
   });
 };
 

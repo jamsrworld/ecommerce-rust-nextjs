@@ -3,7 +3,7 @@ import { Button, Header, Menu, MenuItem } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { UserIcon } from "@repo/icons";
 import { AppLogo } from "../app-logo";
-import { CartDrawer } from "./cart-drawer";
+import { HeaderCartBtn } from "./cart/cart-btn";
 
 const navItems = [
   {
@@ -50,7 +50,7 @@ export const AppHeader = () => {
         </ul>
       </nav>
       <div className="flex items-center">
-        <CartDrawer />
+        <HeaderCartBtn />
         <Menu
           trigger={
             <Button

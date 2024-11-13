@@ -179,6 +179,145 @@ export const AuthResetPasswordInputSchema = {
   },
 } as const;
 
+export const CartSchema = {
+  type: "object",
+  required: ["id", "productId", "userId", "quantity", "createdAt"],
+  properties: {
+    createdAt: {
+      type: "string",
+      format: "date-time",
+    },
+    id: {
+      type: "string",
+    },
+    productId: {
+      type: "string",
+    },
+    quantity: {
+      type: "integer",
+      format: "int32",
+    },
+    userId: {
+      type: "string",
+    },
+  },
+} as const;
+
+export const CartItemWithMessageSchema = {
+  type: "object",
+  required: ["data", "message"],
+  properties: {
+    data: {
+      $ref: "#/components/schemas/Cart",
+    },
+    message: {
+      type: "string",
+    },
+  },
+} as const;
+
+export const CartItemsWithProductSchema = {
+  type: "object",
+  required: ["id", "product_id", "quantity", "product"],
+  properties: {
+    id: {
+      type: "string",
+    },
+    product: {
+      $ref: "#/components/schemas/CartProductItem",
+    },
+    product_id: {
+      type: "string",
+    },
+    quantity: {
+      type: "integer",
+      format: "int32",
+    },
+  },
+} as const;
+
+export const CartProductItemSchema = {
+  type: "object",
+  required: [
+    "id",
+    "title",
+    "slug",
+    "brand",
+    "color",
+    "size",
+    "style",
+    "images",
+    "mrp",
+    "price",
+  ],
+  properties: {
+    brand: {
+      type: "string",
+    },
+    color: {
+      type: "string",
+    },
+    id: {
+      type: "string",
+    },
+    images: {
+      $ref: "#/components/schemas/ProductImages",
+    },
+    mrp: {
+      type: "number",
+      format: "double",
+    },
+    price: {
+      type: "number",
+      format: "double",
+    },
+    size: {
+      type: "string",
+    },
+    slug: {
+      type: "string",
+    },
+    style: {
+      type: "string",
+    },
+    title: {
+      type: "string",
+    },
+  },
+} as const;
+
+export const CartUpdateQuantityInputSchema = {
+  type: "object",
+  required: ["quantity"],
+  properties: {
+    quantity: {
+      type: "integer",
+      format: "int32",
+    },
+  },
+} as const;
+
+export const CartUserDataSchema = {
+  type: "object",
+  required: ["count", "total", "cartItems"],
+  properties: {
+    cartItems: {
+      type: "array",
+      items: {
+        $ref: "#/components/schemas/CartItemsWithProduct",
+      },
+    },
+    count: {
+      type: "integer",
+      format: "int64",
+    },
+    total: {
+      type: "number",
+      format: "double",
+    },
+  },
+} as const;
+
 export const ContinueWithGoogleInputSchema = {
   oneOf: [
     {

@@ -29,6 +29,7 @@ pub struct CartItemsWithProduct {
 }
 
 #[derive(Debug, Serialize, Deserialize, ToSchema)]
+#[serde(rename_all = "camelCase")]
 pub struct CartUserData {
     count: i64,
     total: f64,
@@ -49,7 +50,7 @@ pub struct CartUserData {
     )
 )]
 #[get("")]
-pub async fn get_all_records(
+pub async fn get_cart_data(
     app_data: web::Data<AppState>,
     user: Authenticated
 ) -> Result<HttpResponse, HttpError> {

@@ -1,16 +1,28 @@
 "use client";
 
+import { type GetCartDataResponse } from "@/client";
+import { getCartDataOptions } from "@/client/@tanstack/react-query.gen";
 import { APP_ROUTES } from "@/config/routes";
 import { useDisclosure } from "@jamsr-ui/hooks";
 import { Button, Divider, Drawer, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { CartIcon, CloseIcon } from "@repo/icons";
+import { fPrice } from "@repo/utils/number";
+import { useQuery } from "@tanstack/react-query";
 import { m } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { startTransition, useEffect } from "react";
 import { CartItems } from "./cart-items";
 
-export const CartDrawer = () => {
+type Props = { initialData: GetCartDataResponse };
+
+export const HeaderCartDrawer = (props: Props) => {
+  const { initialData } = props;
+  const { data } = useQuery({
+    ...getCartDataOptions(),
+    initialData,
+  });
+
   const { isOpen, setIsOpen, onOpen, onClose } = useDisclosure();
   const pathname = usePathname();
 
@@ -60,7 +72,7 @@ export const CartDrawer = () => {
                 variant="light"
                 isRounded
               >
-                <CloseIcon className="[&>path]:stroke-[3]" />
+                <CloseIcon />
               </Button>
             </m.div>
           </div>
@@ -69,7 +81,7 @@ export const CartDrawer = () => {
               divider: "bg-background-secondary h-[2px]",
             }}
           />
-          <CartItems />
+          <CartItems data={data.cartItems} />
         </div>
         <Divider
           classNames={{
@@ -91,14 +103,14 @@ export const CartDrawer = () => {
                 className="text-foreground-secondary"
               >
                 {" "}
-                (8 items)
+                ({data.count} items)
               </Typography>
             </div>
             <Typography
               variant="h4"
               as="p"
             >
-              $699.99
+              {fPrice(data.total)}
             </Typography>
           </div>
           <div className="flex flex-col gap-2 pt-4">

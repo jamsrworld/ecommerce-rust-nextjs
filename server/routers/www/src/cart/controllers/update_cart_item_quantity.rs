@@ -23,7 +23,7 @@ use crate::cart::{
     )
 )]
 #[patch("/quantity/{id}")]
-pub async fn update_quantity(
+pub async fn update_cart_item_quantity(
     app_data: web::Data<AppState>,
     input: ValidatedJson<CartUpdateQuantityInput>,
     id: Path<String>,
