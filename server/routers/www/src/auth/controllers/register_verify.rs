@@ -1,16 +1,18 @@
-use super::schema::{ AuthRegisterInput, AuthRegisterVerifyInput };
-use super::utils::check_unique_email;
-use super::AuthMessage;
 use config::session_keys::SessionKey;
 use utils::error::{ ResponseWithMessage, HttpError };
 use services::mailer::Mailer;
 use extractors::validator::ValidatedJson;
-use super::utils::verify_otp;
 use utils::{ password::hash_password, AppState, jwt::create_token, cookie::create_cookie };
 use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::{ OtpPurpose, UserRole, UserStatus };
 use sea_orm::{ ActiveModelTrait, ActiveValue::NotSet, Set };
+
+use crate::auth::{
+    messages::AuthMessage,
+    schema::{ AuthRegisterInput, AuthRegisterVerifyInput },
+    utils::{ check_unique_email, verify_otp },
+};
 
 #[derive(Template)]
 #[template(path = "register/success.jinja")]

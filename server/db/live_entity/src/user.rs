@@ -28,6 +28,8 @@ pub struct Model {
 pub enum Relation {
     #[sea_orm(has_many = "super::address::Entity")]
     Address,
+    #[sea_orm(has_many = "super::cart::Entity")]
+    Cart,
     #[sea_orm(has_many = "super::login_session::Entity")]
     LoginSession,
 }
@@ -35,6 +37,12 @@ pub enum Relation {
 impl Related<super::address::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::Address.def()
+    }
+}
+
+impl Related<super::cart::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Cart.def()
     }
 }
 

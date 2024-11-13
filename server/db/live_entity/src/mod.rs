@@ -4,6 +4,7 @@ pub mod prelude;
 
 pub mod address;
 pub mod attribute;
+pub mod cart;
 pub mod category;
 pub mod login_session;
 pub mod otp;

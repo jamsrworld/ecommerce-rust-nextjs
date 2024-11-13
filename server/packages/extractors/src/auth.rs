@@ -21,7 +21,7 @@ impl FromRequest for Authenticated {
         let result = match value {
             Some(user) => Ok(Authenticated(user)),
             None => Err(ErrorUnauthorized(HttpError::unauthorized(
-                "Authorization required",
+                "Authentication required",
             ))),
         };
         ready(result)

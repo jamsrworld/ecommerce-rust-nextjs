@@ -9,6 +9,7 @@ mod m20241016_050719_address;
 mod m20241020_062623_attribute;
 mod m20241021_041020_category;
 mod m20241021_041026_product;
+mod m20241112_052556_cart;
 
 pub struct Migrator;
 
@@ -23,6 +24,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20241020_062623_attribute::Migration),
             Box::new(m20241021_041020_category::Migration),
             Box::new(m20241021_041026_product::Migration),
+            Box::new(m20241112_052556_cart::Migration),
         ]
     }
 }

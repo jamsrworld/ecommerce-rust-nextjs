@@ -1,6 +1,3 @@
-use super::schema::AuthForgotPasswordInput;
-use super::utils::generate_otp;
-use super::AuthMessage;
 use utils::error::ResponseWithMessage;
 use extractors::validator::ValidatedJson;
 use services::mailer::Mailer;
@@ -9,6 +6,7 @@ use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
 use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter };
+use crate::auth::{ messages::AuthMessage, schema::AuthForgotPasswordInput, utils::generate_otp };
 
 #[derive(Template)]
 #[template(path = "reset-password/verification.jinja")]

@@ -10,3 +10,4 @@ pub mod otp;
 pub mod product;
 pub mod sea_orm_active_enums;
 pub mod user;
+pub mod cart;
