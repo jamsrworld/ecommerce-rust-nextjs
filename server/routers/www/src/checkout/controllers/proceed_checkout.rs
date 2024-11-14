@@ -39,6 +39,11 @@ pub async fn proceed_checkout(
         .order_by_desc(entity::checkout::Column::CreatedAt)
         .all(db).await?;
 
+    // check if checkout items are empty
+    if checkout_items.is_empty() {
+        return Err(HttpError::bad_request(CheckoutMessage::CheckoutEmpty));
+    }
+
     // convert checkout items to orders items
     let order_items = checkout_items
         .iter()
