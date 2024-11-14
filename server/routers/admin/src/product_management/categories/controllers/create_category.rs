@@ -1,7 +1,7 @@
 use actix_web::{ post, web, HttpResponse };
 use extractors::validator::ValidatedJson;
 use sea_orm::{ EntityTrait, Set };
-use utils::{ error::HttpError, AppState };
+use utils::{ db::create_primary_id, error::HttpError, AppState };
 
 use crate::product_management::categories::schema::CreateCategoryInput;
 
@@ -22,7 +22,7 @@ pub async fn create_category(
 
     // create category
     let category_model = entity::category::ActiveModel {
-        id: Set(cuid2::create_id()),
+        id: Set(create_primary_id()),
         title: Set(input.title),
         category: Set("category".to_string()),
     };

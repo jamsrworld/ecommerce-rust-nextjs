@@ -23,28 +23,32 @@ mod messages;
 mod utils;
 
 pub fn auth_routes(config: &mut web::ServiceConfig) {
-    let app_data = config.app_data::<web::Data<AppState>>();
+    // let app_data = config.app_data::<web::Data<AppState>>();
 
-    let connection = app_data.redis_connection.to_owned();
-    // Assign a limit of 5 requests per minute per client ip address
-    let input = SimpleInputFunctionBuilder::new(Duration::from_secs(60), 2).real_ip_key().build();
-    let backend = RedisBackend::builder(connection).build();
+    // let connection = app_data.redis_connection.to_owned();
+    // // Assign a limit of 5 requests per minute per client ip address
+    // let input = SimpleInputFunctionBuilder::new(Duration::from_secs(60), 2).real_ip_key().build();
+    // let backend = RedisBackend::builder(connection).build();
 
-    let middleware = RateLimiter::builder(backend.clone(), input)
-        .request_denied_response(|c| {
-            println!("Request denied: {:?}", c);
-            HttpResponse::TooManyRequests().json(
-                json!({
-              "message": "Too many requests"
-          })
-            )
-        })
-        .build();
+    // let middleware = RateLimiter::builder(backend.clone(), input)
+    //     .request_denied_response(|c| {
+    //         println!("Request denied: {:?}", c);
+    //         HttpResponse::TooManyRequests().json(
+    //             json!({
+    //           "message": "Too many requests"
+    //       })
+    //         )
+    //     })
+    //     .build();
 
     config.service(
         web
             ::scope("/auth")
-            .wrap(middleware)
+            // .wrap_fn(|req, srv| {
+            //     let data = req.app_data::<AppState>();
+            //     return middleware.call(req);
+            // })
+            // .wrap(middleware)
             .service(login)
             .service(register)
             .service(register_verify)

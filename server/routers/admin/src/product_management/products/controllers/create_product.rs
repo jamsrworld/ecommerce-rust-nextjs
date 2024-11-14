@@ -1,6 +1,7 @@
 use actix_web::{ post, web, HttpResponse };
 use extractors::validator::ValidatedJson;
 use sea_orm::{ ActiveValue::NotSet, EntityTrait, Set };
+use utils::db::create_primary_id;
 use utils::error::ResponseWithMessage;
 use utils::{ error::HttpError, AppState };
 use super::schema::{ ProductWithMessage, CreateProductInput };
@@ -55,7 +56,7 @@ pub async fn create_product(
 
     // create product
     let product_model = entity::product::ActiveModel {
-        id: Set(cuid2::create_id()),
+        id: Set(create_primary_id()),
         brand: Set(brand),
         category: Set(category),
         color: Set(color),

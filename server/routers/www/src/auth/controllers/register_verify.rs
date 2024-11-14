@@ -1,5 +1,5 @@
 use config::session_keys::SessionKey;
-use utils::error::{ ResponseWithMessage, HttpError };
+use utils::{ db::create_primary_id, error::{ HttpError, ResponseWithMessage } };
 use services::mailer::Mailer;
 use extractors::validator::ValidatedJson;
 use utils::{ password::hash_password, AppState, jwt::create_token, cookie::create_cookie };
@@ -39,6 +39,7 @@ pub async fn register_verify(
     input: ValidatedJson<AuthRegisterVerifyInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
+    let jwt_secret = app_data.env.jwt_secret.to_owned();
     // let RegisterVerify { code, register } = input.into_inner();
 
     let AuthRegisterVerifyInput { code, register } = input.into_inner();
@@ -54,7 +55,7 @@ pub async fn register_verify(
     let hashed_password = hash_password(password)?;
 
     // create user
-    let new_user_id = cuid2::create_id();
+    let new_user_id = create_primary_id();
     let new_user = entity::user::ActiveModel {
         id: Set(new_user_id.clone()),
         email: Set(email.clone()),
@@ -83,7 +84,7 @@ pub async fn register_verify(
     mailer.send()?;
 
     // create session token
-    let jwt = create_token(new_user_id)?;
+    let jwt = create_token(new_user_id, jwt_secret)?;
 
     // create session cookie
     let cookie = create_cookie(SessionKey::Authorization, jwt);

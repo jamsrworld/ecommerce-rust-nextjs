@@ -2,6 +2,7 @@ use actix_web::{ post, web, HttpResponse };
 use extractors::validator::ValidatedJson;
 use sea_orm::{ ActiveValue::NotSet, EntityTrait, QueryFilter, Set, ColumnTrait };
 use serde_json::json;
+use utils::db::create_primary_id;
 use utils::{ error::HttpError, AppState };
 use super::AttributeMessage;
 use super::AttributeModel;
@@ -42,7 +43,7 @@ pub async fn create_attribute(
 
     // create attribute
     let attribute_model = entity::attribute::ActiveModel {
-        id: Set(cuid2::create_id()),
+        id: Set(create_primary_id()),
         name: Set(input.name),
         values: Set(json_values),
         is_active: Set(false),

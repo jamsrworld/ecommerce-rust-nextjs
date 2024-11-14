@@ -1,4 +1,4 @@
-use actix_web::{ delete, get, web::{ self, Path }, HttpResponse };
+use actix_web::{ delete, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::{ EntityTrait, QueryFilter, ColumnTrait, ActiveModelTrait };

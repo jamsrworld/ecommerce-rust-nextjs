@@ -2,6 +2,7 @@ use actix_cors::Cors;
 use actix_web::{ http, App, HttpServer };
 use admin::AdminApiDoc;
 use dotenvy::dotenv;
+use redis::aio::ConnectionManager;
 use sea_orm::{ ConnectOptions, Database };
 use utils::AppState;
 use utoipa::OpenApi;
@@ -23,9 +24,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let port = config.port;
     let database_url = &config.database_url;
 
-    println!("Starting server at http://localhost:{}", port);
-    println!("Hello, world!");
-
     // setup connection
     let mut opt = ConnectOptions::new(database_url);
     opt.sqlx_logging(false).sqlx_logging_level(log::LevelFilter::Debug);
@@ -33,15 +31,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // database_url
 
     // connect redis
-    let client = redis::Client::open("redis://127.0.0.1/").expect("Invalid connection URL");
-    let connection = ConnectionManager::new(client).await.unwrap();
+    // let client = redis::Client::open("redis://127.0.0.1/").expect("Invalid connection URL");
+    // let connection = ConnectionManager::new(client).await.unwrap();
 
     let app_data = actix_web::web::Data::new(AppState {
         db,
         env: config,
-        redis_connection: connection,
+        // redis_connection: connection,
     });
     let domain = "https://mcart.jamsrworld.com";
+
+    println!("Starting server at http://localhost:{}", port);
+    println!("Hello, world!");
 
     HttpServer::new(move || {
         let cors = Cors::default()

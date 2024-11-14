@@ -3,6 +3,7 @@ use actix_web::Responder;
 use actix_web::get;
 use serde_json::json;
 
+/// Health check
 #[utoipa::path(
     tag = "Home",
     responses((status = 200, description = "health check", body = String))
