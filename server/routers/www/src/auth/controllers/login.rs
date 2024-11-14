@@ -28,6 +28,7 @@ pub async fn login(
     input: ValidatedJson<AuthLoginInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
+    let jwt_secret = app_data.env.jwt_secret.to_owned();
     let AuthLoginInput { email, password } = &input.into_inner();
 
     // check if user exist
@@ -48,7 +49,7 @@ pub async fn login(
     }
 
     // create session token
-    let jwt = create_token(user.id.to_owned())?;
+    let jwt = create_token(user.id.to_owned(), jwt_secret)?;
 
     // create session cookie
     let cookie = create_cookie(SessionKey::Authorization, jwt);

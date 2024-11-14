@@ -1,7 +1,7 @@
-use actix_web::{ get, post, web::{ self, Path }, HttpResponse };
+use actix_web::{ post, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
-use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
-use sea_orm::{ sea_query, ActiveValue::NotSet, EntityTrait, QuerySelect, Set };
+use utils::{ db::create_primary_id, error::{ HttpError, ResponseWithMessage }, AppState };
+use sea_orm::{ sea_query, ActiveValue::NotSet, EntityTrait, Set };
 
 use crate::cart::messages::CartMessages;
 
@@ -19,7 +19,7 @@ use crate::cart::messages::CartMessages;
         )
     )
 )]
-#[post("/{id}")]
+#[post("/product/{id}")]
 pub async fn add_cart_item(
     app_data: web::Data<AppState>,
     product_id: Path<String>,
@@ -37,7 +37,7 @@ pub async fn add_cart_item(
         .ok_or_else(|| { HttpError::not_found("Invalid product") })?;
 
     let cart_item = entity::cart::ActiveModel {
-        id: Set(cuid2::cuid()),
+        id: Set(create_primary_id()),
         user_id: Set(user_id),
         product_id: Set(product_id.to_owned()),
         quantity: Set(1),

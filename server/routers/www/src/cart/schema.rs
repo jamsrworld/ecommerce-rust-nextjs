@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+use serde::{ Deserialize, Serialize };
 use utoipa::ToSchema;
 use validator::Validate;
 
@@ -13,4 +13,9 @@ pub struct CartUpdateQuantityInput {
 pub struct CartItemWithMessage {
     pub data: entity::cart::Model,
     pub message: String,
+}
+
+#[derive(Debug, Deserialize, ToSchema, Serialize)]
+pub struct PlaceOrderSuccessMessage {
+    pub success: bool,
 }

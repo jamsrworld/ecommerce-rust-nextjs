@@ -5,6 +5,7 @@ pub mod session_keys;
 #[derive(Debug)]
 pub struct Config {
     pub database_url: String,
+    pub jwt_secret: String,
     pub google_client_id: String,
     pub google_client_secret: String,
     pub port: u16,
@@ -18,9 +19,11 @@ impl Config {
         let google_client_secret = env
             ::var("GOOGLE_CLIENT_SECRET")
             .expect("GOOGLE_CLIENT_SECRET must be set");
+        let jwt_secret = env::var("JWT_SECRET").expect("JWT_SECRET must be set");
 
         Self {
             database_url,
+            jwt_secret,
             google_client_id,
             google_client_secret,
             port: port.parse().expect("PORT must be a number"),

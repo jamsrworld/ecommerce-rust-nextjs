@@ -32,6 +32,8 @@ pub enum Relation {
     Cart,
     #[sea_orm(has_many = "super::login_session::Entity")]
     LoginSession,
+    #[sea_orm(has_many = "super::order::Entity")]
+    Order,
 }
 
 impl Related<super::address::Entity> for Entity {
@@ -49,6 +51,12 @@ impl Related<super::cart::Entity> for Entity {
 impl Related<super::login_session::Entity> for Entity {
     fn to() -> RelationDef {
         Relation::LoginSession.def()
+    }
+}
+
+impl Related<super::order::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Order.def()
     }
 }
 

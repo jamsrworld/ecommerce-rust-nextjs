@@ -1,14 +1,14 @@
 use super::messages::AuthMessage;
 use chrono::FixedOffset;
 use entity::sea_orm_active_enums::OtpPurpose;
-use sea_orm::{ActiveModelTrait, ColumnTrait, DatabaseConnection, EntityTrait, QueryFilter, Set};
-use utils::{error::HttpError, number::rand_otp};
+use sea_orm::{ ActiveModelTrait, ColumnTrait, DatabaseConnection, EntityTrait, QueryFilter, Set };
+use utils::{ db::create_primary_id, error::HttpError, number::rand_otp };
 
 pub async fn check_unique_email(db: &DatabaseConnection, email: &String) -> Result<(), HttpError> {
-    let user = entity::user::Entity::find()
+    let user = entity::user::Entity
+        ::find()
         .filter(entity::user::Column::Email.eq(email.clone()))
-        .one(db)
-        .await?;
+        .one(db).await?;
 
     if user.is_some() {
         return Err(HttpError::conflict(AuthMessage::EmailAlreadyExist(email)));
@@ -20,7 +20,7 @@ pub async fn check_unique_email(db: &DatabaseConnection, email: &String) -> Resu
 pub async fn generate_otp(
     db: &DatabaseConnection,
     email: String,
-    purpose: OtpPurpose,
+    purpose: OtpPurpose
 ) -> Result<u16, HttpError> {
     // delete previous otps
     entity::otp::Entity::delete_many().exec(db).await?;
@@ -34,7 +34,7 @@ pub async fn generate_otp(
     // create otp
     let new_otp = entity::otp::ActiveModel {
         email: Set(email),
-        id: Set(cuid2::create_id()),
+        id: Set(create_primary_id()),
         code: Set(otp_code as i16),
         purpose: Set(purpose),
         valid_till: Set(valid_till_fixed),
@@ -47,20 +47,20 @@ pub async fn verify_otp(
     db: &DatabaseConnection,
     email: &String,
     purpose: OtpPurpose,
-    code: u16,
+    code: u16
 ) -> Result<(), HttpError> {
     let current_time = chrono::Utc::now();
 
-    entity::otp::Entity::find()
+    entity::otp::Entity
+        ::find()
         .filter(
             entity::otp::Column::Email
                 .eq(email)
                 .and(entity::otp::Column::Purpose.eq(purpose))
                 .and(entity::otp::Column::Code.eq(code))
-                .and(entity::otp::Column::ValidTill.gte(current_time)),
+                .and(entity::otp::Column::ValidTill.gte(current_time))
         )
-        .one(db)
-        .await?
+        .one(db).await?
         .ok_or_else(|| HttpError::precondition_failed(AuthMessage::OtpNotRequested))?;
 
     Ok(())
@@ -69,15 +69,11 @@ pub async fn verify_otp(
 pub async fn delete_otp(
     db: &DatabaseConnection,
     email: &String,
-    code: u16,
+    code: u16
 ) -> Result<(), HttpError> {
-    entity::otp::Entity::delete_many()
-        .filter(
-            entity::otp::Column::Email
-                .eq(email)
-                .and(entity::otp::Column::Code.eq(code)),
-        )
-        .exec(db)
-        .await?;
+    entity::otp::Entity
+        ::delete_many()
+        .filter(entity::otp::Column::Email.eq(email).and(entity::otp::Column::Code.eq(code)))
+        .exec(db).await?;
     Ok(())
 }

@@ -14,6 +14,7 @@ use sea_orm::{
 use serde::{ Deserialize, Serialize };
 use utils::{
     cookie::create_cookie,
+    db::create_primary_id,
     error::{ HttpError, ResponseWithMessage },
     jwt::create_token,
     AppState,
@@ -44,6 +45,7 @@ pub async fn continue_with_google(
     input: web::Json<ContinueWithGoogleInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
+    let jwt_secret = app_data.env.jwt_secret.to_owned();
     let input = input.into_inner();
     let client_id = app_data.env.google_client_id.to_owned();
     let client_secret = app_data.env.google_client_secret.to_owned();
@@ -52,19 +54,19 @@ pub async fn continue_with_google(
         ContinueWithGoogleInput::Code(input) => {
             input.validate().map_err(|e| HttpError::bad_request(e.to_string()))?;
             let data = get_user_by_code(input, client_id, client_secret).await?;
-            return check_user(db, data).await;
+            return check_user(db, jwt_secret, data).await;
         }
         ContinueWithGoogleInput::Credential(input) => {
             input.validate().map_err(|e| HttpError::bad_request(e.to_string()))?;
             let data = get_user_by_credential(input, client_id).await?;
-            return check_user(db, data).await;
+            return check_user(db, jwt_secret, data).await;
         }
     }
 }
 
-pub fn create_session_token(id: String) -> Result<HttpResponse, HttpError> {
+pub fn create_session_token(id: String, jwt_secret: String) -> Result<HttpResponse, HttpError> {
     // create session token
-    let jwt = create_token(id)?;
+    let jwt = create_token(id, jwt_secret)?;
 
     // create session cookie
     let cookie = create_cookie(SessionKey::Authorization, jwt);
@@ -78,6 +80,7 @@ pub fn create_session_token(id: String) -> Result<HttpResponse, HttpError> {
 
 pub async fn check_user(
     db: &DatabaseConnection,
+    jwt_secret: String,
     input: GoogleUserInfo
 ) -> Result<HttpResponse, HttpError> {
     let GoogleUserInfo { email, name, picture } = input;
@@ -90,11 +93,11 @@ pub async fn check_user(
 
     match user {
         Some(user) => {
-            return create_session_token(user.id);
+            return create_session_token(user.id, jwt_secret);
         }
         None => {
             // register user
-            let new_user_id = cuid2::create_id();
+            let new_user_id = create_primary_id();
             let new_user = entity::user::ActiveModel {
                 id: Set(new_user_id.clone()),
                 email: Set(email.clone()),
@@ -106,7 +109,7 @@ pub async fn check_user(
                 updated_at: NotSet,
             };
             new_user.insert(db).await?;
-            return create_session_token(new_user_id);
+            return create_session_token(new_user_id, jwt_secret);
         }
     }
 }

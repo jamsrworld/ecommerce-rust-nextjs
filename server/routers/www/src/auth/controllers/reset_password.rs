@@ -5,8 +5,11 @@ use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
 use sea_orm::{ ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set };
-
-use crate::auth::{messages::AuthMessage, schema::AuthResetPasswordInput, utils::{delete_otp, verify_otp}};
+use crate::auth::{
+    messages::AuthMessage,
+    schema::AuthResetPasswordInput,
+    utils::{ delete_otp, verify_otp },
+};
 
 /// Reset Password
 #[utoipa::path(

@@ -1,39 +1,26 @@
 use actix_web::{ get, web::{ self }, HttpResponse };
-use entity::product::ProductImages;
 use extractors::auth::Authenticated;
 use serde::{ Deserialize, Serialize };
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
-use sea_orm::{ prelude::Decimal, ColumnTrait, EntityTrait, QueryFilter, QueryOrder };
+use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter, QueryOrder };
 use utoipa::ToSchema;
 
-#[derive(Debug, Serialize, Deserialize, ToSchema)]
-pub struct CartProductItem {
-    pub id: String,
-    pub title: String,
-    pub slug: String,
-    pub brand: String,
-    pub color: String,
-    pub size: String,
-    pub style: String,
-    pub images: ProductImages,
-    pub mrp: Decimal,
-    pub price: Decimal,
-}
+use crate::models::RelationProductItem;
 
 #[derive(Debug, Serialize, Deserialize, ToSchema)]
 pub struct CartItemsWithProduct {
     id: String,
     product_id: String,
     quantity: i16,
-    product: CartProductItem,
+    product: RelationProductItem,
 }
 
 #[derive(Debug, Serialize, Deserialize, ToSchema)]
 #[serde(rename_all = "camelCase")]
 pub struct CartUserData {
     count: i64,
-    total: f64,
-    cart_items: Vec<CartItemsWithProduct>,
+    total_amount: f64,
+    items: Vec<CartItemsWithProduct>,
 }
 
 /// Get all cart items
@@ -66,37 +53,26 @@ pub async fn get_cart_data(
     let result = records
         .into_iter()
         .map(|(cart, product)| {
-            let product = product.unwrap();
+            let product:RelationProductItem = product.unwrap().into();
             CartItemsWithProduct {
                 id: cart.id,
                 product_id: cart.product_id,
                 quantity: cart.quantity,
-                product: CartProductItem {
-                    brand: product.brand,
-                    color: product.color,
-                    id: product.id,
-                    size: product.size,
-                    slug: product.slug,
-                    style: product.style,
-                    title: product.title,
-                    images: product.images,
-                    mrp: product.mrp,
-                    price: product.price,
-                },
+                product,
             }
         })
         .collect::<Vec<CartItemsWithProduct>>();
 
     let count = result.len() as i64;
-    let total = result
+    let total_amount = result
         .iter()
         .map(|item| item.product.price.to_string().parse::<f64>().unwrap() * (item.quantity as f64))
         .sum::<f64>();
 
     let result = CartUserData {
         count,
-        total,
-        cart_items: result,
+        total_amount,
+        items: result,
     };
 
     Ok(HttpResponse::Ok().json(result))

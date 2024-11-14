@@ -14,6 +14,24 @@ use serde::{ Deserialize, Serialize };
     Deserialize,
     utoipa::ToSchema
 )]
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "order_status")]
+pub enum OrderStatus {
+    #[sea_orm(string_value = "Pending")]
+    Pending,
+    #[sea_orm(string_value = "Success")]
+    Success,
+}
+#[derive(
+    Debug,
+    Clone,
+    PartialEq,
+    Eq,
+    EnumIter,
+    DeriveActiveEnum,
+    Serialize,
+    Deserialize,
+    utoipa::ToSchema
+)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "otp_purpose")]
 pub enum OtpPurpose {
     #[sea_orm(string_value = "Login")]
@@ -22,6 +40,26 @@ pub enum OtpPurpose {
     Register,
     #[sea_orm(string_value = "ResetPassword")]
     ResetPassword,
+}
+#[derive(
+    Debug,
+    Clone,
+    PartialEq,
+    Eq,
+    EnumIter,
+    DeriveActiveEnum,
+    Serialize,
+    Deserialize,
+    utoipa::ToSchema
+)]
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "payment_method")]
+pub enum PaymentMethod {
+    #[sea_orm(string_value = "Btcpay")]
+    Btcpay,
+    #[sea_orm(string_value = "Nowpayments")]
+    Nowpayments,
+    #[sea_orm(string_value = "Paypal")]
+    Paypal,
 }
 #[derive(
     Debug,

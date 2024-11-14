@@ -1,6 +1,6 @@
-use chrono::{Duration, Utc};
-use jsonwebtoken::{decode, encode, DecodingKey, EncodingKey, Header, Validation};
-use serde::{Deserialize, Serialize};
+use chrono::{ Duration, Utc };
+use jsonwebtoken::{ decode, encode, DecodingKey, EncodingKey, Header, Validation };
+use serde::{ Deserialize, Serialize };
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TokenClaims {
@@ -9,7 +9,10 @@ pub struct TokenClaims {
     pub exp: usize,
 }
 
-pub fn create_token(user_id: String) -> Result<String, jsonwebtoken::errors::Error> {
+pub fn create_token(
+    user_id: String,
+    secret_key: String
+) -> Result<String, jsonwebtoken::errors::Error> {
     let now = Utc::now();
     let iat = now.timestamp() as usize;
     let exp = (now + Duration::hours(24)).timestamp() as usize;
@@ -18,22 +21,17 @@ pub fn create_token(user_id: String) -> Result<String, jsonwebtoken::errors::Err
         exp,
         iat,
     };
-
-    let secret_key = "".to_string();
-
-    encode(
-        &Header::default(),
-        &claims,
-        &EncodingKey::from_secret(secret_key.as_bytes()),
-    )
+    encode(&Header::default(), &claims, &EncodingKey::from_secret(secret_key.as_bytes()))
 }
 
-pub fn decode_token(token: &str) -> Result<String, jsonwebtoken::errors::Error> {
-    let secret_key = "".to_string();
+pub fn decode_token(
+    token: &str,
+    secret_key: String
+) -> Result<String, jsonwebtoken::errors::Error> {
     let token_data = decode::<TokenClaims>(
         token,
         &DecodingKey::from_secret(secret_key.as_bytes()),
-        &Validation::default(),
+        &Validation::default()
     )?;
     Ok(token_data.claims.sub)
 }

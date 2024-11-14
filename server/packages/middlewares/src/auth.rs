@@ -80,7 +80,8 @@ where
         let token = token.unwrap();
 
         let app_state = req.app_data::<web::Data<AppState>>().unwrap();
-        let user_id = match decode_token(&token) {
+        let jwt_secret = app_state.env.jwt_secret.to_owned();
+        let user_id = match decode_token(&token, jwt_secret) {
             Ok(id) => id,
             Err(e) => {
                 return Box::pin(ready(Err(ErrorUnauthorized(HttpError::unauthorized(

@@ -3,7 +3,7 @@ use sea_orm_migration::{ prelude::*, schema::* };
 use crate::{
     m20220101_000001_create_user::User,
     m20241021_041026_product::Product,
-    utils::{ pg_id, pg_primary_id, timestampz, timestampz_default },
+    utils::{ pg_id, pg_primary_id, timestampz_default },
 };
 
 #[derive(DeriveMigrationName)]
