@@ -18,8 +18,7 @@ export const APP_ROUTES = {
   addresses: "/user/addresses",
   profile: "/user/profile",
   products: {
-    root: "/products",
-    view: (id: string) => `/products/${id}` as Route,
+    view: (id: string, slug: string) => `/products/${slug}/${id}` as Route,
   },
   checkout: "/checkout",
   search: (keyword: string) => `/search/${keyword}` as Route,

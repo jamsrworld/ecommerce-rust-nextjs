@@ -10,7 +10,7 @@ import { ProductSlider } from "./product-slider";
 type Props = Product;
 
 export const SearchItem = (props: Props) => {
-  const { images, title, id } = props;
+  const { images, title, id, slug } = props;
   const price = 293;
   const mrp = 500;
   const { handleMouseEnter, handleMouseLeave, isHovered } = useHover(500);
@@ -19,7 +19,7 @@ export const SearchItem = (props: Props) => {
     <li className="relative cursor-pointer transition-all duration-300">
       <Link
         as={NextLink}
-        href={APP_ROUTES.products.view(id)}
+        href={APP_ROUTES.products.view(id, slug)}
         className="group/top relative block overflow-hidden"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

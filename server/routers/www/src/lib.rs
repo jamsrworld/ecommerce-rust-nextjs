@@ -22,7 +22,7 @@ pub fn www_routes(config: &mut web::ServiceConfig) {
         web
             ::scope("")
             .service(health_check)
-            .service(auth_routes())
+            .configure(auth_routes)
             .configure(user_routes)
             .configure(product_routes)
             .configure(cart_routes)

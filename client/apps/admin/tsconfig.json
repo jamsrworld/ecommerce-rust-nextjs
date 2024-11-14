@@ -16,6 +16,6 @@
     "*.config.*",
     ".eslintrc.cjs",
     "../../node_modules/@jamsr-ui/*/dist/**/*.d.ts"
-  ],
+, "../www/src/components/header/use-header.tsx", "../www/src/components/header/header.tsx"  ],
   "exclude": ["node_modules"]
 }

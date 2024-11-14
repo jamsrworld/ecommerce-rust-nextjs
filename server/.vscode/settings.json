@@ -35,8 +35,10 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    "**/Thumbs.db": true
+    "**/Thumbs.db": true,
+    "target": true
   },
   "explorerExclude.backup": {},
-  "files.autoSave": "afterDelay"
+  "files.autoSave": "afterDelay",
+  // "rust-analyzer.checkOnSave": false
 }

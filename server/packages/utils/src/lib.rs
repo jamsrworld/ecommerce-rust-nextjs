@@ -10,4 +10,5 @@ pub mod password;
 pub struct AppState {
     pub db: DatabaseConnection,
     pub env: Config,
+    pub redis_connection: redis::aio::ConnectionManager,
 }

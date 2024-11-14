@@ -31,7 +31,6 @@ export const HeaderCartDrawer = (props: Props) => {
       onClose();
     });
   }, [onClose, pathname]);
-
   return (
     <div>
       <Button
@@ -47,7 +46,7 @@ export const HeaderCartDrawer = (props: Props) => {
         onOpenChange={setIsOpen}
         className="flex h-dvh w-full flex-col bg-background md:min-w-[500px]"
       >
-        <div className="scrollbar-thin grow overflow-y-auto overflow-x-hidden">
+        <div className="scrollbar-thin flex grow flex-col overflow-y-auto overflow-x-hidden">
           <div className="flex items-center justify-between p-2 md:p-4">
             <div className="hidden md:block" />
             <Typography
@@ -81,59 +80,63 @@ export const HeaderCartDrawer = (props: Props) => {
               divider: "bg-background-secondary h-[2px]",
             }}
           />
-          <CartItems data={data.cartItems} />
+          <CartItems
+            onClose={onClose}
+            data={data.cartItems}
+          />
         </div>
         <Divider
           classNames={{
             divider: "bg-background-secondary h-[2px]",
           }}
         />
-        <div className="px-4 py-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
+        {data.count > 0 && (
+          <div className="px-4 py-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <Typography
+                  variant="h6"
+                  as="div"
+                  className="uppercase"
+                >
+                  Total
+                </Typography>
+                <Typography
+                  as="span"
+                  className="text-foreground-secondary"
+                >
+                  ({data.count} items)
+                </Typography>
+              </div>
               <Typography
-                variant="h6"
-                as="div"
-                className="uppercase"
+                variant="h4"
+                as="p"
               >
-                Total
-              </Typography>
-              <Typography
-                as="span"
-                className="text-foreground-secondary"
-              >
-                {" "}
-                ({data.count} items)
+                {fPrice(data.total)}
               </Typography>
             </div>
-            <Typography
-              variant="h4"
-              as="p"
-            >
-              {fPrice(data.total)}
-            </Typography>
+            <div className="flex flex-col gap-2 pt-4">
+              <Button
+                size="lg"
+                fullWidth
+                as={NextLink}
+                href={APP_ROUTES.checkout}
+                color="primary"
+              >
+                Place Order
+              </Button>
+              <Button
+                size="lg"
+                fullWidth
+                variant="outlined"
+                color="primary"
+                onClick={onClose}
+              >
+                Continue Shopping
+              </Button>
+            </div>
           </div>
-          <div className="flex flex-col gap-2 pt-4">
-            <Button
-              size="lg"
-              fullWidth
-              as={NextLink}
-              href={APP_ROUTES.checkout}
-              color="primary"
-            >
-              Place Order
-            </Button>
-            <Button
-              size="lg"
-              fullWidth
-              variant="outlined"
-              color="primary"
-              onClick={onClose}
-            >
-              Continue Shopping
-            </Button>
-          </div>
-        </div>
+        )}
       </Drawer>
     </div>
   );
