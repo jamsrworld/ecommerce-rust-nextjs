@@ -20,3 +20,4 @@ argon2 = "0.5.3"
 chrono = { version = "0.4.38", features = ["serde"] }
 rand = "0.8.5"
 jsonwebtoken = "9.3.0"
+redis = { version = "0.26.1", features = ["tokio-comp", "connection-manager"] }

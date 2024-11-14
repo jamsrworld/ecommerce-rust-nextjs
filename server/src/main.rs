@@ -23,16 +23,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let port = config.port;
     let database_url = &config.database_url;
 
+    println!("Starting server at http://localhost:{}", port);
+    println!("Hello, world!");
+
     // setup connection
     let mut opt = ConnectOptions::new(database_url);
     opt.sqlx_logging(false).sqlx_logging_level(log::LevelFilter::Debug);
     let db = Database::connect(opt).await.map_err(|e| e.to_string())?;
     // database_url
 
-    println!("Starting server at http://localhost:{}", port);
-    println!("Hello, world!");
+    // connect redis
+    let client = redis::Client::open("redis://127.0.0.1/").expect("Invalid connection URL");
+    let connection = ConnectionManager::new(client).await.unwrap();
 
-    let app_data = actix_web::web::Data::new(AppState { db, env: config });
+    let app_data = actix_web::web::Data::new(AppState {
+        db,
+        env: config,
+        redis_connection: connection,
+    });
     let domain = "https://mcart.jamsrworld.com";
 
     HttpServer::new(move || {

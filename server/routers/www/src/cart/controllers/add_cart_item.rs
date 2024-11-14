@@ -1,7 +1,7 @@
 use actix_web::{ get, post, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
-use sea_orm::{ sea_query, ActiveValue::NotSet, EntityTrait, Set };
+use sea_orm::{ sea_query, ActiveValue::NotSet, EntityTrait, QuerySelect, Set };
 
 use crate::cart::messages::CartMessages;
 
@@ -28,7 +28,13 @@ pub async fn add_cart_item(
     let product_id = product_id.into_inner();
     let db = &app_data.db;
     let user_id = user.id.to_owned();
-    dbg!(&user_id);
+
+    let product = entity::product::Entity
+        ::find_by_id(&product_id)
+        // .select_only()
+        // .column(entity::product::Column::Title)
+        .one(db).await?
+        .ok_or_else(|| { HttpError::not_found("Invalid product") })?;
 
     let cart_item = entity::cart::ActiveModel {
         id: Set(cuid2::cuid()),
@@ -49,7 +55,7 @@ pub async fn add_cart_item(
         .exec_without_returning(db).await?;
 
     let response = ResponseWithMessage {
-        message: CartMessages::CartItemCreated(&product_id).to_string(),
+        message: CartMessages::CartItemCreated(&product.title).to_string(),
     };
 
     Ok(HttpResponse::Ok().json(response))

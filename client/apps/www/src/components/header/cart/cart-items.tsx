@@ -4,14 +4,19 @@ import { NextImage } from "@repo/components/next";
 import { fPrice } from "@repo/utils/number";
 import React from "react";
 import { CartDeleteItem } from "./cart-delete-item";
+import { CartEmpty } from "./cart-empty";
 import { QuantityCounter } from "./quantity-counter";
 
 type Props = {
   data: CartItemsWithProduct[];
+  onClose: () => void;
 };
 
 export const CartItems = (props: Props) => {
-  const { data } = props;
+  const { data, onClose } = props;
+  if (data.length === 0) {
+    return <CartEmpty onClose={onClose} />;
+  }
   return (
     <div className="flex flex-col gap-0.5 bg-background-secondary">
       {data.map((item, index) => {

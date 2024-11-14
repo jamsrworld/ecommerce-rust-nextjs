@@ -1,4 +1,4 @@
-import { withJamsrUI } from "@jamsr-ui/theme";
+import { withJamsrUI, semanticColors } from "@jamsr-ui/theme";
 import type { Config } from "tailwindcss";
 
 // We want each package to be responsible for its own content.
@@ -35,6 +35,7 @@ const config: Omit<Config, "content"> = withJamsrUI(
           "800": "#1a1a1a",
           "900": "#000000",
         },
+        secondary: semanticColors.light.primary,
       },
     },
   }

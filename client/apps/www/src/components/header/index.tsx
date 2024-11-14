@@ -1,9 +1,8 @@
-import { APP_ROUTES } from "@/config/routes";
-import { Button, Header, Menu, MenuItem } from "@jamsr-ui/react";
+import { Header } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
-import { UserIcon } from "@repo/icons";
 import { AppLogo } from "../app-logo";
 import { HeaderCartBtn } from "./cart/cart-btn";
+import { UserMenuitem } from "./user-menuitem";
 
 const navItems = [
   {
@@ -51,31 +50,7 @@ export const AppHeader = () => {
       </nav>
       <div className="flex items-center">
         <HeaderCartBtn />
-        <Menu
-          trigger={
-            <Button
-              isIconOnly
-              variant="light"
-              color="primary"
-            >
-              <UserIcon />
-            </Button>
-          }
-        >
-          <MenuItem
-            as={NextLink}
-            href={APP_ROUTES.profile}
-          >
-            Profile
-          </MenuItem>
-          <MenuItem
-            as={NextLink}
-            href={APP_ROUTES.logout}
-            prefetch={false}
-          >
-            Logout
-          </MenuItem>
-        </Menu>
+        <UserMenuitem />
       </div>
     </Header>
   );
