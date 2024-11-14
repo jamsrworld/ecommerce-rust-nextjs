@@ -224,7 +224,7 @@ export const CartItemsWithProductSchema = {
       type: "string",
     },
     product: {
-      $ref: "#/components/schemas/CartProductItem",
+      $ref: "#/components/schemas/RelationProductItem",
     },
     product_id: {
       type: "string",
@@ -232,56 +232,6 @@ export const CartItemsWithProductSchema = {
     quantity: {
       type: "integer",
       format: "int32",
-    },
-  },
-} as const;
-
-export const CartProductItemSchema = {
-  type: "object",
-  required: [
-    "id",
-    "title",
-    "slug",
-    "brand",
-    "color",
-    "size",
-    "style",
-    "images",
-    "mrp",
-    "price",
-  ],
-  properties: {
-    brand: {
-      type: "string",
-    },
-    color: {
-      type: "string",
-    },
-    id: {
-      type: "string",
-    },
-    images: {
-      $ref: "#/components/schemas/ProductImages",
-    },
-    mrp: {
-      type: "number",
-      format: "double",
-    },
-    price: {
-      type: "number",
-      format: "double",
-    },
-    size: {
-      type: "string",
-    },
-    slug: {
-      type: "string",
-    },
-    style: {
-      type: "string",
-    },
-    title: {
-      type: "string",
     },
   },
 } as const;
@@ -299,19 +249,60 @@ export const CartUpdateQuantityInputSchema = {
 
 export const CartUserDataSchema = {
   type: "object",
-  required: ["count", "total", "cartItems"],
+  required: ["count", "totalAmount", "items"],
   properties: {
-    cartItems: {
+    count: {
+      type: "integer",
+      format: "int64",
+    },
+    items: {
       type: "array",
       items: {
         $ref: "#/components/schemas/CartItemsWithProduct",
       },
     },
+    totalAmount: {
+      type: "number",
+      format: "double",
+    },
+  },
+} as const;
+
+export const CheckoutItemsWithProductSchema = {
+  type: "object",
+  required: ["id", "product_id", "quantity", "product"],
+  properties: {
+    id: {
+      type: "string",
+    },
+    product: {
+      $ref: "#/components/schemas/RelationProductItem",
+    },
+    product_id: {
+      type: "string",
+    },
+    quantity: {
+      type: "integer",
+      format: "int32",
+    },
+  },
+} as const;
+
+export const CheckoutUserDataSchema = {
+  type: "object",
+  required: ["count", "totalAmount", "items"],
+  properties: {
     count: {
       type: "integer",
       format: "int64",
     },
-    total: {
+    items: {
+      type: "array",
+      items: {
+        $ref: "#/components/schemas/CheckoutItemsWithProduct",
+      },
+    },
+    totalAmount: {
       type: "number",
       format: "double",
     },
@@ -437,6 +428,92 @@ export const ImageSchema = {
     width: {
       type: "integer",
       format: "int32",
+    },
+  },
+} as const;
+
+export const OrderSchema = {
+  type: "object",
+  required: [
+    "id",
+    "productId",
+    "userId",
+    "quantity",
+    "status",
+    "paymentMethod",
+    "createdAt",
+    "updatedAt",
+  ],
+  properties: {
+    createdAt: {
+      type: "string",
+      format: "date-time",
+    },
+    id: {
+      type: "string",
+    },
+    paymentMethod: {
+      $ref: "#/components/schemas/PaymentMethod",
+    },
+    productId: {
+      type: "string",
+    },
+    quantity: {
+      type: "integer",
+      format: "int32",
+    },
+    status: {
+      $ref: "#/components/schemas/OrderStatus",
+    },
+    updatedAt: {
+      type: "string",
+      format: "date-time",
+    },
+    userId: {
+      type: "string",
+    },
+  },
+} as const;
+
+export const OrderStatusSchema = {
+  type: "string",
+  enum: ["Pending", "Success"],
+} as const;
+
+export const OrderWithProductSchema = {
+  type: "object",
+  required: ["order", "product"],
+  properties: {
+    order: {
+      $ref: "#/components/schemas/Order",
+    },
+    product: {
+      $ref: "#/components/schemas/RelationProductItem",
+    },
+  },
+} as const;
+
+export const PaymentMethodSchema = {
+  type: "string",
+  enum: ["Btcpay", "Nowpayments", "Paypal"],
+} as const;
+
+export const PlaceOrderSuccessMessageSchema = {
+  type: "object",
+  required: ["success"],
+  properties: {
+    success: {
+      type: "boolean",
+    },
+  },
+} as const;
+
+export const ProceedCheckoutInputSchema = {
+  type: "object",
+  required: ["paymentMethod"],
+  properties: {
+    paymentMethod: {
+      $ref: "#/components/schemas/PaymentMethod",
     },
   },
 } as const;
@@ -614,6 +691,56 @@ export const ProductVideoSchema = {
       $ref: "#/components/schemas/Image",
     },
     url: {
+      type: "string",
+    },
+  },
+} as const;
+
+export const RelationProductItemSchema = {
+  type: "object",
+  required: [
+    "id",
+    "title",
+    "slug",
+    "brand",
+    "color",
+    "size",
+    "style",
+    "images",
+    "mrp",
+    "price",
+  ],
+  properties: {
+    brand: {
+      type: "string",
+    },
+    color: {
+      type: "string",
+    },
+    id: {
+      type: "string",
+    },
+    images: {
+      $ref: "#/components/schemas/ProductImages",
+    },
+    mrp: {
+      type: "number",
+      format: "double",
+    },
+    price: {
+      type: "number",
+      format: "double",
+    },
+    size: {
+      type: "string",
+    },
+    slug: {
+      type: "string",
+    },
+    style: {
+      type: "string",
+    },
+    title: {
       type: "string",
     },
   },

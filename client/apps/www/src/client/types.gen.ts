@@ -97,7 +97,7 @@ export type Cart = {
 
 export type CartItemsWithProduct = {
   id: string;
-  product: CartProductItem;
+  product: RelationProductItem;
   product_id: string;
   quantity: number;
 };
@@ -107,27 +107,27 @@ export type CartItemWithMessage = {
   message: string;
 };
 
-export type CartProductItem = {
-  brand: string;
-  color: string;
-  id: string;
-  images: ProductImages;
-  mrp: number;
-  price: number;
-  size: string;
-  slug: string;
-  style: string;
-  title: string;
-};
-
 export type CartUpdateQuantityInput = {
   quantity: number;
 };
 
 export type CartUserData = {
-  cartItems: Array<CartItemsWithProduct>;
   count: number;
-  total: number;
+  items: Array<CartItemsWithProduct>;
+  totalAmount: number;
+};
+
+export type CheckoutItemsWithProduct = {
+  id: string;
+  product: RelationProductItem;
+  product_id: string;
+  quantity: number;
+};
+
+export type CheckoutUserData = {
+  count: number;
+  items: Array<CheckoutItemsWithProduct>;
+  totalAmount: number;
 };
 
 export type ContinueWithGoogleInput =
@@ -185,6 +185,41 @@ export type Image = {
   width: number;
 };
 
+export type Order = {
+  createdAt: Date;
+  id: string;
+  paymentMethod: PaymentMethod;
+  productId: string;
+  quantity: number;
+  status: OrderStatus;
+  updatedAt: Date;
+  userId: string;
+};
+
+export enum OrderStatus {
+  PENDING = "Pending",
+  SUCCESS = "Success",
+}
+
+export type OrderWithProduct = {
+  order: Order;
+  product: RelationProductItem;
+};
+
+export enum PaymentMethod {
+  BTCPAY = "Btcpay",
+  NOWPAYMENTS = "Nowpayments",
+  PAYPAL = "Paypal",
+}
+
+export type PlaceOrderSuccessMessage = {
+  success: boolean;
+};
+
+export type ProceedCheckoutInput = {
+  paymentMethod: PaymentMethod;
+};
+
 export type Product = {
   brand: string;
   category: string;
@@ -238,6 +273,19 @@ export type ProductVideo = {
   url: string;
 };
 
+export type RelationProductItem = {
+  brand: string;
+  color: string;
+  id: string;
+  images: ProductImages;
+  mrp: number;
+  price: number;
+  size: string;
+  slug: string;
+  style: string;
+  title: string;
+};
+
 export type ResponseWithMessage = {
   message: string;
 };
@@ -263,119 +311,6 @@ export type Value = unknown;
 export type HealthCheckResponse = string;
 
 export type HealthCheckError = unknown;
-
-export type ContinueWithGoogleData = {
-  body: ContinueWithGoogleInput;
-};
-
-export type ContinueWithGoogleResponse = ResponseWithMessage;
-
-export type ContinueWithGoogleError = ResponseWithMessage;
-
-export type ForgotPasswordData = {
-  body: AuthForgotPasswordInput;
-};
-
-export type ForgotPasswordResponse = ResponseWithMessage;
-
-export type ForgotPasswordError = ResponseWithMessage;
-
-export type LoginData = {
-  body: AuthLoginInput;
-};
-
-export type LoginResponse = ResponseWithMessage;
-
-export type LoginError = ResponseWithMessage;
-
-export type LogoutResponse = ResponseWithMessage;
-
-export type LogoutError = ResponseWithMessage;
-
-export type RegisterData = {
-  body: AuthRegisterInput;
-};
-
-export type RegisterResponse = ResponseWithMessage;
-
-export type RegisterError = ResponseWithMessage;
-
-export type RegisterVerifyData = {
-  body: AuthRegisterVerifyInput;
-};
-
-export type RegisterVerifyResponse = ResponseWithMessage;
-
-export type RegisterVerifyError = ResponseWithMessage;
-
-export type ResetPasswordData = {
-  body: AuthResetPasswordInput;
-};
-
-export type ResetPasswordResponse = ResponseWithMessage;
-
-export type ResetPasswordError = ResponseWithMessage;
-
-export type GetCartDataResponse = CartUserData;
-
-export type GetCartDataError = ResponseWithMessage;
-
-export type UpdateCartItemQuantityData = {
-  body: CartUpdateQuantityInput;
-  path: {
-    /**
-     * Product Id
-     */
-    id: string;
-  };
-};
-
-export type UpdateCartItemQuantityResponse = CartItemWithMessage;
-
-export type UpdateCartItemQuantityError = ResponseWithMessage;
-
-export type AddCartItemData = {
-  path: {
-    /**
-     * Product Id
-     */
-    id: string;
-  };
-};
-
-export type AddCartItemResponse = Cart;
-
-export type AddCartItemError = ResponseWithMessage;
-
-export type RemoveCartItemData = {
-  path: {
-    /**
-     * Cart Item Id
-     */
-    id: string;
-  };
-};
-
-export type RemoveCartItemResponse = ResponseWithMessage;
-
-export type RemoveCartItemError = ResponseWithMessage;
-
-export type GetProductsResponse = Array<Product>;
-
-export type GetProductsError = ResponseWithMessage;
-
-export type GetProductData = {
-  path: {
-    /**
-     * Product Id
-     */
-    id: string;
-  };
-};
-
-export type GetProductResponse = Product;
-
-export type GetProductError = ResponseWithMessage;
 
 export type GetAddressesResponse = Array<Address>;
 
@@ -442,6 +377,152 @@ export type MarkDefaultAddressResponse = AddressWithMessage;
 
 export type MarkDefaultAddressError = ResponseWithMessage;
 
+export type ContinueWithGoogleData = {
+  body: ContinueWithGoogleInput;
+};
+
+export type ContinueWithGoogleResponse = ResponseWithMessage;
+
+export type ContinueWithGoogleError = ResponseWithMessage;
+
+export type ForgotPasswordData = {
+  body: AuthForgotPasswordInput;
+};
+
+export type ForgotPasswordResponse = ResponseWithMessage;
+
+export type ForgotPasswordError = ResponseWithMessage;
+
+export type LoginData = {
+  body: AuthLoginInput;
+};
+
+export type LoginResponse = ResponseWithMessage;
+
+export type LoginError = ResponseWithMessage;
+
+export type LogoutResponse = ResponseWithMessage;
+
+export type LogoutError = ResponseWithMessage;
+
+export type RegisterData = {
+  body: AuthRegisterInput;
+};
+
+export type RegisterResponse = ResponseWithMessage;
+
+export type RegisterError = ResponseWithMessage;
+
+export type RegisterVerifyData = {
+  body: AuthRegisterVerifyInput;
+};
+
+export type RegisterVerifyResponse = ResponseWithMessage;
+
+export type RegisterVerifyError = ResponseWithMessage;
+
+export type ResetPasswordData = {
+  body: AuthResetPasswordInput;
+};
+
+export type ResetPasswordResponse = ResponseWithMessage;
+
+export type ResetPasswordError = ResponseWithMessage;
+
+export type GetCartDataResponse = CartUserData;
+
+export type GetCartDataError = ResponseWithMessage;
+
+export type PlaceOrderResponse = PlaceOrderSuccessMessage;
+
+export type PlaceOrderError = ResponseWithMessage;
+
+export type AddCartItemData = {
+  path: {
+    /**
+     * Product Id
+     */
+    id: string;
+  };
+};
+
+export type AddCartItemResponse = Cart;
+
+export type AddCartItemError = ResponseWithMessage;
+
+export type UpdateCartItemQuantityData = {
+  body: CartUpdateQuantityInput;
+  path: {
+    /**
+     * Product Id
+     */
+    id: string;
+  };
+};
+
+export type UpdateCartItemQuantityResponse = CartItemWithMessage;
+
+export type UpdateCartItemQuantityError = ResponseWithMessage;
+
+export type RemoveCartItemData = {
+  path: {
+    /**
+     * Cart Item Id
+     */
+    id: string;
+  };
+};
+
+export type RemoveCartItemResponse = ResponseWithMessage;
+
+export type RemoveCartItemError = ResponseWithMessage;
+
+export type GetCheckoutDataResponse = CheckoutUserData;
+
+export type GetCheckoutDataError = ResponseWithMessage;
+
+export type ProceedCheckoutData = {
+  body: ProceedCheckoutInput;
+};
+
+export type ProceedCheckoutResponse = ResponseWithMessage;
+
+export type ProceedCheckoutError = ResponseWithMessage;
+
+export type GetOrdersResponse = Array<OrderWithProduct>;
+
+export type GetOrdersError = ResponseWithMessage;
+
+export type GetOrderData = {
+  path: {
+    /**
+     * Order Id
+     */
+    id: string;
+  };
+};
+
+export type GetOrderResponse = OrderWithProduct;
+
+export type GetOrderError = ResponseWithMessage;
+
+export type GetProductsResponse = Array<Product>;
+
+export type GetProductsError = ResponseWithMessage;
+
+export type GetProductData = {
+  path: {
+    /**
+     * Product Id
+     */
+    id: string;
+  };
+};
+
+export type GetProductResponse = Product;
+
+export type GetProductError = ResponseWithMessage;
+
 export type GetProfileResponse = UserProfile;
 
 export type GetProfileError = unknown;
@@ -453,84 +534,6 @@ export type UpdateProfileData = {
 export type UpdateProfileResponse = ResponseWithMessage;
 
 export type UpdateProfileError = unknown;
-
-export type UpdateCartItemQuantityResponseTransformer = (
-  data: any,
-) => Promise<UpdateCartItemQuantityResponse>;
-
-export type CartItemWithMessageModelResponseTransformer = (
-  data: any,
-) => CartItemWithMessage;
-
-export type CartModelResponseTransformer = (data: any) => Cart;
-
-export const CartModelResponseTransformer: CartModelResponseTransformer = (
-  data,
-) => {
-  if (data?.createdAt) {
-    data.createdAt = new Date(data.createdAt);
-  }
-  return data;
-};
-
-export const CartItemWithMessageModelResponseTransformer: CartItemWithMessageModelResponseTransformer =
-  (data) => {
-    if (data?.data) {
-      CartModelResponseTransformer(data.data);
-    }
-    return data;
-  };
-
-export const UpdateCartItemQuantityResponseTransformer: UpdateCartItemQuantityResponseTransformer =
-  async (data) => {
-    CartItemWithMessageModelResponseTransformer(data);
-    return data;
-  };
-
-export type AddCartItemResponseTransformer = (
-  data: any,
-) => Promise<AddCartItemResponse>;
-
-export const AddCartItemResponseTransformer: AddCartItemResponseTransformer =
-  async (data) => {
-    CartModelResponseTransformer(data);
-    return data;
-  };
-
-export type GetProductsResponseTransformer = (
-  data: any,
-) => Promise<GetProductsResponse>;
-
-export type ProductModelResponseTransformer = (data: any) => Product;
-
-export const ProductModelResponseTransformer: ProductModelResponseTransformer =
-  (data) => {
-    if (data?.createdAt) {
-      data.createdAt = new Date(data.createdAt);
-    }
-    if (data?.updatedAt) {
-      data.updatedAt = new Date(data.updatedAt);
-    }
-    return data;
-  };
-
-export const GetProductsResponseTransformer: GetProductsResponseTransformer =
-  async (data) => {
-    if (Array.isArray(data)) {
-      data.forEach(ProductModelResponseTransformer);
-    }
-    return data;
-  };
-
-export type GetProductResponseTransformer = (
-  data: any,
-) => Promise<GetProductResponse>;
-
-export const GetProductResponseTransformer: GetProductResponseTransformer =
-  async (data) => {
-    ProductModelResponseTransformer(data);
-    return data;
-  };
 
 export type GetAddressesResponseTransformer = (
   data: any,
@@ -603,5 +606,132 @@ export type MarkDefaultAddressResponseTransformer = (
 export const MarkDefaultAddressResponseTransformer: MarkDefaultAddressResponseTransformer =
   async (data) => {
     AddressWithMessageModelResponseTransformer(data);
+    return data;
+  };
+
+export type AddCartItemResponseTransformer = (
+  data: any,
+) => Promise<AddCartItemResponse>;
+
+export type CartModelResponseTransformer = (data: any) => Cart;
+
+export const CartModelResponseTransformer: CartModelResponseTransformer = (
+  data,
+) => {
+  if (data?.createdAt) {
+    data.createdAt = new Date(data.createdAt);
+  }
+  return data;
+};
+
+export const AddCartItemResponseTransformer: AddCartItemResponseTransformer =
+  async (data) => {
+    CartModelResponseTransformer(data);
+    return data;
+  };
+
+export type UpdateCartItemQuantityResponseTransformer = (
+  data: any,
+) => Promise<UpdateCartItemQuantityResponse>;
+
+export type CartItemWithMessageModelResponseTransformer = (
+  data: any,
+) => CartItemWithMessage;
+
+export const CartItemWithMessageModelResponseTransformer: CartItemWithMessageModelResponseTransformer =
+  (data) => {
+    if (data?.data) {
+      CartModelResponseTransformer(data.data);
+    }
+    return data;
+  };
+
+export const UpdateCartItemQuantityResponseTransformer: UpdateCartItemQuantityResponseTransformer =
+  async (data) => {
+    CartItemWithMessageModelResponseTransformer(data);
+    return data;
+  };
+
+export type GetOrdersResponseTransformer = (
+  data: any,
+) => Promise<GetOrdersResponse>;
+
+export type OrderWithProductModelResponseTransformer = (
+  data: any,
+) => OrderWithProduct;
+
+export type OrderModelResponseTransformer = (data: any) => Order;
+
+export const OrderModelResponseTransformer: OrderModelResponseTransformer = (
+  data,
+) => {
+  if (data?.createdAt) {
+    data.createdAt = new Date(data.createdAt);
+  }
+  if (data?.updatedAt) {
+    data.updatedAt = new Date(data.updatedAt);
+  }
+  return data;
+};
+
+export const OrderWithProductModelResponseTransformer: OrderWithProductModelResponseTransformer =
+  (data) => {
+    if (data?.order) {
+      OrderModelResponseTransformer(data.order);
+    }
+    return data;
+  };
+
+export const GetOrdersResponseTransformer: GetOrdersResponseTransformer =
+  async (data) => {
+    if (Array.isArray(data)) {
+      data.forEach(OrderWithProductModelResponseTransformer);
+    }
+    return data;
+  };
+
+export type GetOrderResponseTransformer = (
+  data: any,
+) => Promise<GetOrderResponse>;
+
+export const GetOrderResponseTransformer: GetOrderResponseTransformer = async (
+  data,
+) => {
+  OrderWithProductModelResponseTransformer(data);
+  return data;
+};
+
+export type GetProductsResponseTransformer = (
+  data: any,
+) => Promise<GetProductsResponse>;
+
+export type ProductModelResponseTransformer = (data: any) => Product;
+
+export const ProductModelResponseTransformer: ProductModelResponseTransformer =
+  (data) => {
+    if (data?.createdAt) {
+      data.createdAt = new Date(data.createdAt);
+    }
+    if (data?.updatedAt) {
+      data.updatedAt = new Date(data.updatedAt);
+    }
+    return data;
+  };
+
+export const GetProductsResponseTransformer: GetProductsResponseTransformer =
+  async (data) => {
+    if (Array.isArray(data)) {
+      data.forEach(ProductModelResponseTransformer);
+    }
+    return data;
+  };
+
+export type GetProductResponseTransformer = (
+  data: any,
+) => Promise<GetProductResponse>;
+
+export const GetProductResponseTransformer: GetProductResponseTransformer =
+  async (data) => {
+    ProductModelResponseTransformer(data);
     return data;
   };

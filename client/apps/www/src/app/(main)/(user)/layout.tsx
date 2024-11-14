@@ -1,3 +1,4 @@
+import { APP_ROUTES } from "@/config/routes";
 import { type LinkProps } from "next/link";
 import React from "react";
 import { ProfileLinkItem } from "./_lib/components/link-item";
@@ -10,15 +11,15 @@ type Props = {
 const items: { title: string; href: LinkProps<never>["href"] }[] = [
   {
     title: "Profile",
-    href: "/user/profile",
+    href: APP_ROUTES.profile,
   },
   {
     title: "Orders",
-    href: "/user/orders",
+    href: APP_ROUTES.orders.root,
   },
   {
     title: "Addresses",
-    href: "/user/addresses",
+    href: APP_ROUTES.addresses,
   },
 ];
 

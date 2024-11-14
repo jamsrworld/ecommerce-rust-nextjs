@@ -1,8 +1,8 @@
 import { type CartItemsWithProduct } from "@/client";
+import { APP_ROUTES } from "@/config/routes";
 import { Typography } from "@jamsr-ui/react";
-import { NextImage } from "@repo/components/next";
+import { NextImage, NextLink } from "@repo/components/next";
 import { fPrice } from "@repo/utils/number";
-import React from "react";
 import { CartDeleteItem } from "./cart-delete-item";
 import { CartEmpty } from "./cart-empty";
 import { QuantityCounter } from "./quantity-counter";
@@ -22,50 +22,52 @@ export const CartItems = (props: Props) => {
       {data.map((item, index) => {
         const thumbnail = item.product.images[0]!;
         const {
-          product: { title, price, color, size },
+          product: { title, price, color, size, id, slug },
           quantity,
           id: cartId,
         } = item;
+        const productUrl = APP_ROUTES.products.view(id, slug);
         return (
-          <React.Fragment key={index}>
-            <div
-              key={index}
-              className="flex items-center gap-4 bg-background"
-            >
+          <div
+            key={index}
+            className="flex items-center gap-4 bg-background"
+          >
+            <NextLink href={productUrl}>
               <NextImage
                 image={thumbnail}
                 alt="product"
                 className="size-32 object-cover"
               />
-              <div className="grow pr-2">
-                <Typography
-                  as="h6"
-                  className="line-clamp-1 font-bold"
-                  variant="paragraph2"
-                >
-                  {title}
-                </Typography>
+            </NextLink>
+            <div className="grow pr-2">
+              <Typography
+                as={NextLink}
+                className="line-clamp-1 font-bold"
+                variant="paragraph2"
+                href={productUrl}
+              >
+                {title}
+              </Typography>
 
-                <div className="mt-2 flex items-center justify-between">
-                  <Typography
-                    as="p"
-                    className="text-foreground-secondary"
-                    variant="paragraph2"
-                  >
-                    {color} / {size}
-                  </Typography>
-                  <QuantityCounter defaultValue={quantity} />
-                  <CartDeleteItem cartId={cartId} />
-                </div>
+              <div className="mt-2 flex items-center justify-between">
                 <Typography
                   as="p"
-                  variant="h6"
+                  className="text-foreground-secondary"
+                  variant="paragraph2"
                 >
-                  {fPrice(price)}
+                  {color} / {size}
                 </Typography>
+                <QuantityCounter defaultValue={quantity} />
+                <CartDeleteItem cartId={cartId} />
               </div>
+              <Typography
+                as="p"
+                variant="h6"
+              >
+                {fPrice(price)}
+              </Typography>
             </div>
-          </React.Fragment>
+          </div>
         );
       })}
     </div>

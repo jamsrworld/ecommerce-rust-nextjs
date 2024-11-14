@@ -2,10 +2,8 @@
 
 import { type GetCartDataResponse } from "@/client";
 import { getCartDataOptions } from "@/client/@tanstack/react-query.gen";
-import { APP_ROUTES } from "@/config/routes";
 import { useDisclosure } from "@jamsr-ui/hooks";
 import { Button, Divider, Drawer, Typography } from "@jamsr-ui/react";
-import { NextLink } from "@repo/components/next";
 import { CartIcon, CloseIcon } from "@repo/icons";
 import { fPrice } from "@repo/utils/number";
 import { useQuery } from "@tanstack/react-query";
@@ -13,6 +11,7 @@ import { m } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { startTransition, useEffect } from "react";
 import { CartItems } from "./cart-items";
+import { CartPlaceOrder } from "./cart-place-order";
 
 type Props = { initialData: GetCartDataResponse };
 
@@ -82,7 +81,7 @@ export const HeaderCartDrawer = (props: Props) => {
           />
           <CartItems
             onClose={onClose}
-            data={data.cartItems}
+            data={data.items}
           />
         </div>
         <Divider
@@ -112,19 +111,11 @@ export const HeaderCartDrawer = (props: Props) => {
                 variant="h4"
                 as="p"
               >
-                {fPrice(data.total)}
+                {fPrice(data.totalAmount)}
               </Typography>
             </div>
             <div className="flex flex-col gap-2 pt-4">
-              <Button
-                size="lg"
-                fullWidth
-                as={NextLink}
-                href={APP_ROUTES.checkout}
-                color="primary"
-              >
-                Place Order
-              </Button>
+              <CartPlaceOrder onClose={onClose} />
               <Button
                 size="lg"
                 fullWidth

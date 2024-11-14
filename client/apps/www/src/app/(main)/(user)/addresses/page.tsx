@@ -3,7 +3,7 @@ import { authedClient } from "@/utils/authed-client";
 import { Divider, Typography } from "@jamsr-ui/react";
 import { FetchError } from "@repo/components/fetch-error";
 import { type Metadata } from "next";
-import { AddAddressBtn } from "./_lib/components/address-form-drawer";
+import { AddAddressBtn } from "./_lib/components/add-address-btn";
 import { AddressList } from "./_lib/components/address-list";
 
 export const metadata: Metadata = {
