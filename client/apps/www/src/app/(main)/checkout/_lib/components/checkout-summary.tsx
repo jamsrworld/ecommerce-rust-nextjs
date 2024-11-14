@@ -1,11 +1,16 @@
+import { type CheckoutUserData } from "@/client";
 import { Typography } from "@jamsr-ui/react";
+import { fPrice } from "@repo/utils/number";
 
-export const CheckoutSummary = () => {
+type Props = Pick<CheckoutUserData, "count" | "totalAmount">;
+
+export const CheckoutSummary = (props: Props) => {
+  const { count, totalAmount } = props;
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between">
-        <Typography as="p">Subtotal - 3 items</Typography>
-        <Typography as="p">$407,00</Typography>
+        <Typography as="p">Subtotal - {count} items</Typography>
+        <Typography as="p">{fPrice(totalAmount)}</Typography>
       </div>
       <div className="flex justify-between">
         <Typography as="p">Shipping</Typography>
@@ -28,7 +33,7 @@ export const CheckoutSummary = () => {
             as="p"
             variant="h5"
           >
-            $407,00
+            {fPrice(totalAmount)}
           </Typography>
         </div>
       </div>

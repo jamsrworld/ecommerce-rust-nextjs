@@ -39,7 +39,7 @@ export const AddAddressBtn = (props: Props) => {
         <div className="my-auto flex flex-col gap-4 p-4">
           <CreateAddressForm onSuccess={onSuccess} />
           <Button
-            variant="light"
+            variant="text"
             disableRipple
             className="underline"
             onClick={onClose}

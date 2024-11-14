@@ -9,6 +9,12 @@ import {
 import {
   client,
   healthCheck,
+  getAddresses,
+  createAddress,
+  getAddress,
+  deleteAddress,
+  updateAddress,
+  markDefaultAddress,
   continueWithGoogle,
   forgotPassword,
   login,
@@ -17,25 +23,35 @@ import {
   registerVerify,
   resetPassword,
   getCartData,
-  updateCartItemQuantity,
+  placeOrder,
   addCartItem,
+  updateCartItemQuantity,
   removeCartItem,
-  getProducts,
-  getProduct,
-  getAddresses,
-  createAddress,
-  getAddress,
-  deleteAddress,
-  updateAddress,
-  markDefaultAddress,
+  getCheckoutData,
+  proceedCheckout,
   getOrders,
   getOrder,
+  getProducts,
+  getProduct,
   getProfile,
   updateProfile,
   logoutAll,
   changePassword,
 } from "../services.gen";
 import type {
+  CreateAddressData,
+  CreateAddressError,
+  CreateAddressResponse,
+  GetAddressData,
+  DeleteAddressData,
+  DeleteAddressError,
+  DeleteAddressResponse,
+  UpdateAddressData,
+  UpdateAddressError,
+  UpdateAddressResponse,
+  MarkDefaultAddressData,
+  MarkDefaultAddressError,
+  MarkDefaultAddressResponse,
   ContinueWithGoogleData,
   ContinueWithGoogleError,
   ContinueWithGoogleResponse,
@@ -56,29 +72,22 @@ import type {
   ResetPasswordData,
   ResetPasswordError,
   ResetPasswordResponse,
-  UpdateCartItemQuantityData,
-  UpdateCartItemQuantityError,
-  UpdateCartItemQuantityResponse,
+  PlaceOrderError,
+  PlaceOrderResponse,
   AddCartItemData,
   AddCartItemError,
   AddCartItemResponse,
+  UpdateCartItemQuantityData,
+  UpdateCartItemQuantityError,
+  UpdateCartItemQuantityResponse,
   RemoveCartItemData,
   RemoveCartItemError,
   RemoveCartItemResponse,
+  ProceedCheckoutData,
+  ProceedCheckoutError,
+  ProceedCheckoutResponse,
+  GetOrderData,
   GetProductData,
-  CreateAddressData,
-  CreateAddressError,
-  CreateAddressResponse,
-  GetAddressData,
-  DeleteAddressData,
-  DeleteAddressError,
-  DeleteAddressResponse,
-  UpdateAddressData,
-  UpdateAddressError,
-  UpdateAddressResponse,
-  MarkDefaultAddressData,
-  MarkDefaultAddressError,
-  MarkDefaultAddressResponse,
   UpdateProfileData,
   UpdateProfileError,
   UpdateProfileResponse,
@@ -135,6 +144,143 @@ export const healthCheckOptions = (options?: Options) => {
     },
     queryKey: healthCheckQueryKey(options),
   });
+};
+
+export const getAddressesQueryKey = (options?: Options) => [
+  createQueryKey("getAddresses", options),
+];
+
+export const getAddressesOptions = (options?: Options) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getAddresses({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getAddressesQueryKey(options),
+  });
+};
+
+export const createAddressQueryKey = (options: Options<CreateAddressData>) => [
+  createQueryKey("createAddress", options),
+];
+
+export const createAddressOptions = (options: Options<CreateAddressData>) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await createAddress({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: createAddressQueryKey(options),
+  });
+};
+
+export const createAddressMutation = (
+  options?: Partial<Options<CreateAddressData>>,
+) => {
+  const mutationOptions: UseMutationOptions<
+    CreateAddressResponse,
+    CreateAddressError,
+    Options<CreateAddressData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await createAddress({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const getAddressQueryKey = (options: Options<GetAddressData>) => [
+  createQueryKey("getAddress", options),
+];
+
+export const getAddressOptions = (options: Options<GetAddressData>) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getAddress({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getAddressQueryKey(options),
+  });
+};
+
+export const deleteAddressMutation = (
+  options?: Partial<Options<DeleteAddressData>>,
+) => {
+  const mutationOptions: UseMutationOptions<
+    DeleteAddressResponse,
+    DeleteAddressError,
+    Options<DeleteAddressData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await deleteAddress({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const updateAddressMutation = (
+  options?: Partial<Options<UpdateAddressData>>,
+) => {
+  const mutationOptions: UseMutationOptions<
+    UpdateAddressResponse,
+    UpdateAddressError,
+    Options<UpdateAddressData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await updateAddress({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const markDefaultAddressMutation = (
+  options?: Partial<Options<MarkDefaultAddressData>>,
+) => {
+  const mutationOptions: UseMutationOptions<
+    MarkDefaultAddressResponse,
+    MarkDefaultAddressError,
+    Options<MarkDefaultAddressData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await markDefaultAddress({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
 };
 
 export const continueWithGoogleQueryKey = (
@@ -406,16 +552,33 @@ export const getCartDataOptions = (options?: Options) => {
   });
 };
 
-export const updateCartItemQuantityMutation = (
-  options?: Partial<Options<UpdateCartItemQuantityData>>,
-) => {
+export const placeOrderQueryKey = (options?: Options) => [
+  createQueryKey("placeOrder", options),
+];
+
+export const placeOrderOptions = (options?: Options) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await placeOrder({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: placeOrderQueryKey(options),
+  });
+};
+
+export const placeOrderMutation = (options?: Partial<Options>) => {
   const mutationOptions: UseMutationOptions<
-    UpdateCartItemQuantityResponse,
-    UpdateCartItemQuantityError,
-    Options<UpdateCartItemQuantityData>
+    PlaceOrderResponse,
+    PlaceOrderError,
+    Options
   > = {
     mutationFn: async (localOptions) => {
-      const { data } = await updateCartItemQuantity({
+      const { data } = await placeOrder({
         ...options,
         ...localOptions,
         throwOnError: true,
@@ -465,6 +628,26 @@ export const addCartItemMutation = (
   return mutationOptions;
 };
 
+export const updateCartItemQuantityMutation = (
+  options?: Partial<Options<UpdateCartItemQuantityData>>,
+) => {
+  const mutationOptions: UseMutationOptions<
+    UpdateCartItemQuantityResponse,
+    UpdateCartItemQuantityError,
+    Options<UpdateCartItemQuantityData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await updateCartItemQuantity({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
 export const removeCartItemMutation = (
   options?: Partial<Options<RemoveCartItemData>>,
 ) => {
@@ -483,6 +666,104 @@ export const removeCartItemMutation = (
     },
   };
   return mutationOptions;
+};
+
+export const getCheckoutDataQueryKey = (options?: Options) => [
+  createQueryKey("getCheckoutData", options),
+];
+
+export const getCheckoutDataOptions = (options?: Options) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getCheckoutData({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getCheckoutDataQueryKey(options),
+  });
+};
+
+export const proceedCheckoutQueryKey = (
+  options: Options<ProceedCheckoutData>,
+) => [createQueryKey("proceedCheckout", options)];
+
+export const proceedCheckoutOptions = (
+  options: Options<ProceedCheckoutData>,
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await proceedCheckout({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: proceedCheckoutQueryKey(options),
+  });
+};
+
+export const proceedCheckoutMutation = (
+  options?: Partial<Options<ProceedCheckoutData>>,
+) => {
+  const mutationOptions: UseMutationOptions<
+    ProceedCheckoutResponse,
+    ProceedCheckoutError,
+    Options<ProceedCheckoutData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await proceedCheckout({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const getOrdersQueryKey = (options?: Options) => [
+  createQueryKey("getOrders", options),
+];
+
+export const getOrdersOptions = (options?: Options) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getOrders({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getOrdersQueryKey(options),
+  });
+};
+
+export const getOrderQueryKey = (options: Options<GetOrderData>) => [
+  createQueryKey("getOrder", options),
+];
+
+export const getOrderOptions = (options: Options<GetOrderData>) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await getOrder({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: getOrderQueryKey(options),
+  });
 };
 
 export const getProductsQueryKey = (options?: Options) => [
@@ -520,181 +801,6 @@ export const getProductOptions = (options: Options<GetProductData>) => {
       return data;
     },
     queryKey: getProductQueryKey(options),
-  });
-};
-
-export const getAddressesQueryKey = (options?: Options) => [
-  createQueryKey("getAddresses", options),
-];
-
-export const getAddressesOptions = (options?: Options) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getAddresses({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: getAddressesQueryKey(options),
-  });
-};
-
-export const createAddressQueryKey = (options: Options<CreateAddressData>) => [
-  createQueryKey("createAddress", options),
-];
-
-export const createAddressOptions = (options: Options<CreateAddressData>) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await createAddress({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: createAddressQueryKey(options),
-  });
-};
-
-export const createAddressMutation = (
-  options?: Partial<Options<CreateAddressData>>,
-) => {
-  const mutationOptions: UseMutationOptions<
-    CreateAddressResponse,
-    CreateAddressError,
-    Options<CreateAddressData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await createAddress({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const getAddressQueryKey = (options: Options<GetAddressData>) => [
-  createQueryKey("getAddress", options),
-];
-
-export const getAddressOptions = (options: Options<GetAddressData>) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getAddress({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: getAddressQueryKey(options),
-  });
-};
-
-export const deleteAddressMutation = (
-  options?: Partial<Options<DeleteAddressData>>,
-) => {
-  const mutationOptions: UseMutationOptions<
-    DeleteAddressResponse,
-    DeleteAddressError,
-    Options<DeleteAddressData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await deleteAddress({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const updateAddressMutation = (
-  options?: Partial<Options<UpdateAddressData>>,
-) => {
-  const mutationOptions: UseMutationOptions<
-    UpdateAddressResponse,
-    UpdateAddressError,
-    Options<UpdateAddressData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await updateAddress({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const markDefaultAddressMutation = (
-  options?: Partial<Options<MarkDefaultAddressData>>,
-) => {
-  const mutationOptions: UseMutationOptions<
-    MarkDefaultAddressResponse,
-    MarkDefaultAddressError,
-    Options<MarkDefaultAddressData>
-  > = {
-    mutationFn: async (localOptions) => {
-      const { data } = await markDefaultAddress({
-        ...options,
-        ...localOptions,
-        throwOnError: true,
-      });
-      return data;
-    },
-  };
-  return mutationOptions;
-};
-
-export const getOrdersQueryKey = (options?: Options) => [
-  createQueryKey("getOrders", options),
-];
-
-export const getOrdersOptions = (options?: Options) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getOrders({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: getOrdersQueryKey(options),
-  });
-};
-
-export const getOrderQueryKey = (options?: Options) => [
-  createQueryKey("getOrder", options),
-];
-
-export const getOrderOptions = (options?: Options) => {
-  return queryOptions({
-    queryFn: async ({ queryKey, signal }) => {
-      const { data } = await getOrder({
-        ...options,
-        ...queryKey[0],
-        signal,
-        throwOnError: true,
-      });
-      return data;
-    },
-    queryKey: getOrderQueryKey(options),
   });
 };
 

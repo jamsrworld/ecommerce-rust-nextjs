@@ -1,15 +1,20 @@
 import { Button } from "@jamsr-ui/react";
 
-export const PayBtn = () => {
+type Props = {
+  isMutating: boolean;
+};
+
+export const CheckoutPayBtn = (props: Props) => {
+  const { isMutating } = props;
   return (
-    <div>
-      <Button
-        fullWidth
-        size="lg"
-        color="primary"
-      >
-        Complete Payment
-      </Button>
-    </div>
+    <Button
+      fullWidth
+      size="lg"
+      color="primary"
+      type="submit"
+      isLoading={isMutating}
+    >
+      Complete Payment
+    </Button>
   );
 };

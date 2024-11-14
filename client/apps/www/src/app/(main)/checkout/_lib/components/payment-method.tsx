@@ -1,20 +1,21 @@
-import { Radio, RadioGroup, Typography } from "@jamsr-ui/react";
+import { PaymentMethod, type ProceedCheckoutInput } from "@/client";
+import { Radio, RHFRadioGroup, Typography } from "@jamsr-ui/react";
 import { BtcpayIcon, NowpaymentsIcon, PaypalIcon } from "@repo/icons/payment";
 
 const items = [
   {
-    value: "Nowpayments",
-    label: "Nowpayments",
+    value: PaymentMethod.NOWPAYMENTS,
+    label: PaymentMethod.NOWPAYMENTS,
     Icon: NowpaymentsIcon,
   },
   {
-    value: "BtcPay",
-    label: "Bitcoin",
+    value: PaymentMethod.BTCPAY,
+    label: PaymentMethod.BTCPAY,
     Icon: BtcpayIcon,
   },
   {
-    value: "Paypal",
-    label: "Paypal",
+    value: PaymentMethod.PAYPAL,
+    label: PaymentMethod.PAYPAL,
     Icon: PaypalIcon,
   },
 ];
@@ -29,8 +30,7 @@ export const PaymentMethodForm = () => {
         Payment
       </Typography>
       <div>Select your payment method</div>
-
-      <RadioGroup name="paymentMethod">
+      <RHFRadioGroup<ProceedCheckoutInput> name="paymentMethod">
         {items.map(({ Icon, label, value }) => {
           return (
             <Radio
@@ -47,7 +47,7 @@ export const PaymentMethodForm = () => {
             </Radio>
           );
         })}
-      </RadioGroup>
+      </RHFRadioGroup>
     </div>
   );
 };

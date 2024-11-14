@@ -1,17 +1,40 @@
 import { Button } from "@jamsr-ui/react";
 import { AddIcon, MinusIcon } from "@repo/icons";
-import { AnimatePresence, m } from "framer-motion";
+import { AnimatePresence, m, type Variants } from "framer-motion";
 import { useState } from "react";
 
 type Props = {
   defaultValue: number;
 };
 
+type Action = "increase" | "decrease";
+
+const variants: Variants = {
+  initial: (action: Action) => {
+    return {
+      y: action === "increase" ? 24 : -24,
+    };
+  },
+  animate: {
+    y: 0,
+  },
+  exit: (action: Action) => ({
+    y: action === "increase" ? -24 : 24,
+  }),
+};
+
 export const QuantityCounter = (props: Props) => {
   const { defaultValue } = props;
+  const [action, setAction] = useState<Action | null>(null);
   const [quantity, setQuantity] = useState(defaultValue);
-  const onIncrease = () => setQuantity(quantity + 1);
-  const onDecrease = () => setQuantity(quantity - 1);
+  const onIncrease = () => {
+    setQuantity(quantity + 1);
+    setAction("increase");
+  };
+  const onDecrease = () => {
+    setQuantity(quantity - 1);
+    setAction("decrease");
+  };
   const canDecrease = quantity > 1;
   const canIncrease = quantity < 10;
   return (
@@ -29,13 +52,16 @@ export const QuantityCounter = (props: Props) => {
         <AnimatePresence
           mode="popLayout"
           initial={false}
+          custom={action}
         >
           {quantity !== 0 && (
             <m.div
               key={quantity}
-              initial={{ y: -20 }}
-              animate={{ y: 0 }}
-              exit={{ y: 20 }}
+              variants={variants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              custom={action}
               transition={{ type: "spring", duration: 1 }}
             >
               {quantity}

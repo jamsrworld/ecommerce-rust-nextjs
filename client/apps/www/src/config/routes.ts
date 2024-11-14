@@ -12,11 +12,11 @@ export const APP_ROUTES = {
   logout: "/logout",
   forgotPassword: "/forgot-password",
   orders: {
-    root: "/user/orders",
-    view: (id: string) => `/user/orders/${id}` as Route,
+    root: "/orders",
+    view: (id: string) => `/orders/${id}` as Route,
   },
-  addresses: "/user/addresses",
-  profile: "/user/profile",
+  addresses: "/addresses",
+  profile: "/profile",
   products: {
     view: (id: string, slug: string) => `/products/${slug}/${id}` as Route,
   },
