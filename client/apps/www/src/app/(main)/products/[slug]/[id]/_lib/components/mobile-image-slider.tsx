@@ -2,7 +2,12 @@ import { type Product } from "@/client";
 import { Repeater } from "@jamsr-ui/react";
 import { NextImage } from "@repo/components/next";
 import { cn } from "@repo/utils/class-name";
-import { AnimatePresence, m, MotionProps, type PanInfo } from "framer-motion";
+import {
+  AnimatePresence,
+  m,
+  type MotionProps,
+  type PanInfo,
+} from "framer-motion";
 import { useState } from "react";
 
 type Props = Pick<Product, "images">;

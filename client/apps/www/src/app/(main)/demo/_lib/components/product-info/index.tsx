@@ -17,7 +17,7 @@ You have 60 days from the reception of your shoes to benefit from the free retur
 - they must be in a new condition
 
 The procedure for making a return is available on the "Returns and Exchanges" page*.
-Shipping costs and return shipping costs for international shipments are available on https://ubac-store.com/retours-echanges/`,
+Shipping costs and return shipping costs for international shipments are available on https://jamsr-store.com/retours-echanges/`,
   },
   {
     heading: "Care",
@@ -27,7 +27,7 @@ In case of stubborn stains, you can put your pair in the washing machine at 30 d
 
 Before starting the cleaning, we advise you to remove the laces and the insole. To preserve the quality and to optimize the life of your shoes, hand washing is nevertheless recommended.
 
-Ubac's eco-responsible tip: to preserve your shoes and the planet, prefer hand washing. At least, a machine wash consumes 40 to 50 liters of water and about 1.2 kWh of electricity.`,
+jamsr's eco-responsible tip: to preserve your shoes and the planet, prefer hand washing. At least, a machine wash consumes 40 to 50 liters of water and about 1.2 kWh of electricity.`,
   },
   {
     heading: "Durability & Composition",
@@ -58,7 +58,7 @@ Composition:
     heading: "Recyclability",
     description: `The future is recyclable
 
-      KOTO is a 100% recyclable sneaker. It can be returned to Ubac by writing to us at contact@ubac-store.com to be recycled and reintegrated into future productions.`,
+      KOTO is a 100% recyclable sneaker. It can be returned to jamsr by writing to us at contact@jamsr-store.com to be recycled and reintegrated into future productions.`,
   },
 ];
 

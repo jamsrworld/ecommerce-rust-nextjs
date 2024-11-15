@@ -13,7 +13,14 @@ type FormValues = CreateProductInput;
 export const ProductSeo = () => {
   return (
     <Card>
-      <CardHeader heading="Product Seo" />
+      <CardHeader
+        heading={
+          <>
+            Product Seo
+            <span className="text-success">*</span>
+          </>
+        }
+      />
       <CardContent className="grid gap-4">
         <RHFInput<FormValues>
           name="seo.title"

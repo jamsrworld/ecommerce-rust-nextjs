@@ -30,13 +30,16 @@ export const CartItems = (props: Props) => {
         return (
           <div
             key={index}
-            className="flex items-center gap-4 bg-background"
+            className="flex h-[130px] items-center gap-4 bg-background"
           >
-            <NextLink href={productUrl}>
+            <NextLink
+              href={productUrl}
+              className="shrink-0"
+            >
               <NextImage
                 image={thumbnail}
                 alt="product"
-                className="size-32 object-cover"
+                className="h-auto w-24 shrink-0 object-cover"
               />
             </NextLink>
             <div className="grow pr-2">

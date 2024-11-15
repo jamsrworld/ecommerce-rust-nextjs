@@ -43,9 +43,10 @@ export const HeaderCartDrawer = (props: Props) => {
       <Drawer
         isOpen={isOpen}
         onOpenChange={setIsOpen}
-        className="flex h-dvh w-full flex-col bg-background md:min-w-[500px]"
+        className="flex h-dvh w-full flex-col bg-background"
+        size="lg"
       >
-        <div className="scrollbar-thin flex grow flex-col overflow-y-auto overflow-x-hidden">
+        <div className="flex grow flex-col overflow-y-auto overflow-x-hidden">
           <div className="flex items-center justify-between p-2 md:p-4">
             <div className="hidden md:block" />
             <Typography
@@ -75,6 +76,7 @@ export const HeaderCartDrawer = (props: Props) => {
             </m.div>
           </div>
           <Divider
+
             classNames={{
               divider: "bg-background-secondary h-[2px]",
             }}

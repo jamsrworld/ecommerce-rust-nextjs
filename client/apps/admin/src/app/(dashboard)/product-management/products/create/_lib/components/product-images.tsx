@@ -23,10 +23,16 @@ export const ProductImages = () => {
   const getPreviewUrlFromValue = (value: { url: string }) => {
     return getFileSrc(value.url);
   };
-
   return (
     <Card>
-      <CardHeader heading="Product Images" />
+      <CardHeader
+        heading={
+          <>
+            Product Images
+            <span className="text-danger">*</span>
+          </>
+        }
+      />
       <CardContent>
         <RHFFileUploadMulti<CreateProductInput>
           name="images"
@@ -41,11 +47,11 @@ export const ProductImages = () => {
         />
         <Typography
           as="p"
-          variant="paragraph2"
-          className="text-foreground-secondary"
+          variant="caption"
+          className="mt-2 font-light text-foreground-400"
         >
-          Add your product's image in JPG, PNG or JPEG Format within 2MB. (Max.
-          8 img allowed)
+          Add your product images in JPG, PNG or JPEG Format within 2MB.
+          (Maximum 8 images)
         </Typography>
       </CardContent>
     </Card>

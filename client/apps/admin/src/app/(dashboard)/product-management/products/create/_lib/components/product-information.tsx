@@ -13,7 +13,13 @@ type FormValues = CreateProductInput;
 export const ProductInformation = () => {
   return (
     <Card>
-      <CardHeader heading="Product Information" />
+      <CardHeader
+        heading={
+          <>
+            Product Information<span className="text-danger">*</span>
+          </>
+        }
+      />
       <CardContent className="grid grid-cols-2 gap-4">
         <RHFInput<FormValues>
           name="title"

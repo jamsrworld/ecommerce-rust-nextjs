@@ -15,11 +15,12 @@ export const SearchItem = (props: Props) => {
   const mrp = 500;
   const { handleMouseEnter, handleMouseLeave, isHovered } = useHover(500);
   const thumbnail = images[0]!;
+  const productUrl = APP_ROUTES.products.view(id, slug);
   return (
     <li className="relative cursor-pointer transition-all duration-300">
       <Link
         as={NextLink}
-        href={APP_ROUTES.products.view(id, slug)}
+        href={productUrl}
         className="group/top relative block overflow-hidden"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -36,9 +37,9 @@ export const SearchItem = (props: Props) => {
       </Link>
       <div className="p-2">
         <Link
-          className="font-medium text-foreground"
+          className="line-clamp-2 text-sm font-medium text-foreground"
           as={NextLink}
-          href={APP_ROUTES.products.view(id)}
+          href={productUrl}
         >
           {title}
         </Link>
@@ -46,6 +47,7 @@ export const SearchItem = (props: Props) => {
           <Typography
             as="p"
             className="font-bold"
+            variant="paragraph2"
           >
             ${price}
           </Typography>

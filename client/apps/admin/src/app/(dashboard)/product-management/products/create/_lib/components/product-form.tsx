@@ -1,5 +1,6 @@
 "use client";
 
+import { type Route } from "next";
 import { ProductBrand } from "./product-brand";
 import { ProductCategory } from "./product-category";
 import { ProductDescription } from "./product-description";
@@ -7,7 +8,7 @@ import { ProductDetails } from "./product-details";
 import { ProductHighlights } from "./product-highlights";
 import { ProductImages } from "./product-images";
 import { ProductInformation } from "./product-information";
-import { ProductSave } from "./product-save";
+import { ProductSaveFooter } from "./product-save";
 import { ProductSeo } from "./product-seo";
 import { ProductStatusCard } from "./product-status";
 import { ProductTags } from "./product-tags";
@@ -15,10 +16,11 @@ import { ProductVideo } from "./product-videos";
 
 type Props = {
   isMutating: boolean;
+  productPreviewUrl?: Route;
 };
 
 export const ProductForm = (props: Props) => {
-  const { isMutating } = props;
+  const { isMutating, productPreviewUrl } = props;
   return (
     <>
       <div className="relative grid grid-cols-12 gap-4">
@@ -38,7 +40,10 @@ export const ProductForm = (props: Props) => {
           <ProductBrand />
         </div>
       </div>
-      <ProductSave isMutating={isMutating} />
+      <ProductSaveFooter
+        isMutating={isMutating}
+        productPreviewUrl={productPreviewUrl}
+      />
     </>
   );
 };

@@ -14,10 +14,11 @@ import { CheckoutRightSection } from "./checkout-right-section";
 
 type Props = {
   data: CheckoutUserData;
+  userAccount: React.ReactNode;
 };
 
 export const CheckoutForm = (props: Props) => {
-  const { data } = props;
+  const { data, userAccount } = props;
   const router = useRouter();
   const defaultValues: ProceedCheckoutInput = {
     paymentMethod: "" as ProceedCheckoutInput["paymentMethod"],
@@ -50,7 +51,11 @@ export const CheckoutForm = (props: Props) => {
       isPending={mutation.isPaused}
     >
       <div className="grid grow grid-cols-1 divide-x md:grid-cols-2">
-        <CheckoutLeftSection isMutating={mutation.isPending} />
+        <CheckoutLeftSection
+          addresses={data.addresses}
+          isMutating={mutation.isPending}
+          userAccount={userAccount}
+        />
         <CheckoutRightSection data={data} />
       </div>
     </RHFProvider>

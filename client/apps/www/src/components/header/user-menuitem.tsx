@@ -26,6 +26,18 @@ export const UserMenuitem = () => {
       </MenuItem>
       <MenuItem
         as={NextLink}
+        href={APP_ROUTES.orders.root}
+      >
+        Orders
+      </MenuItem>
+      <MenuItem
+        as={NextLink}
+        href={APP_ROUTES.addresses}
+      >
+        Addresses
+      </MenuItem>
+      <MenuItem
+        as={NextLink}
         href={APP_ROUTES.logout}
         prefetch={false}
       >

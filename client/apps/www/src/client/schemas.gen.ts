@@ -290,8 +290,14 @@ export const CheckoutItemsWithProductSchema = {
 
 export const CheckoutUserDataSchema = {
   type: "object",
-  required: ["count", "totalAmount", "items"],
+  required: ["count", "totalAmount", "items", "addresses"],
   properties: {
+    addresses: {
+      type: "array",
+      items: {
+        $ref: "#/components/schemas/Address",
+      },
+    },
     count: {
       type: "integer",
       format: "int64",
@@ -634,11 +640,8 @@ export const ProductSchema = {
 
 export const ProductHighlightSchema = {
   type: "object",
-  required: ["highlight", "description"],
+  required: ["highlight"],
   properties: {
-    description: {
-      type: "string",
-    },
     highlight: {
       type: "string",
     },
