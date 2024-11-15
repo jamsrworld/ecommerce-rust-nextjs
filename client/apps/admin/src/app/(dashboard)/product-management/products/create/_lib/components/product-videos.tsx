@@ -18,14 +18,20 @@ export const ProductVideo = () => {
   const getFileUrlAfterUpload = (response: { url: string; absUrl: string }) => {
     return response.absUrl;
   };
-  const onUploadSuccess = () => {};
   const handleError = (error: FileUploadError) => {
     toast.error(error.message);
   };
 
   return (
     <Card>
-      <CardHeader heading="Product Video" />
+      <CardHeader
+        heading={
+          <>
+            Product Video
+            <span className="text-success">*</span>
+          </>
+        }
+      />
       <CardContent className="grid gap-4">
         <RHFInput<FormValues>
           name="video.url"

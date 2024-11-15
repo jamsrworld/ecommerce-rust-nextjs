@@ -29,7 +29,7 @@ export const ProductImages = (props: Props) => {
         images={images}
       />
       <MobileImageSlider images={images} />
-      <ul className="grid grid-cols-2 gap-2 max-md:hidden">
+      <ul className="grid grid-cols-2 gap-1 max-md:hidden">
         {images.map((item, idx) => {
           return (
             <li

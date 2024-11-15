@@ -125,6 +125,7 @@ export type CheckoutItemsWithProduct = {
 };
 
 export type CheckoutUserData = {
+  addresses: Array<Address>;
   count: number;
   items: Array<CheckoutItemsWithProduct>;
   totalAmount: number;
@@ -248,7 +249,6 @@ export type Product = {
 };
 
 export type ProductHighlight = {
-  description: string;
   highlight: string;
 };
 
@@ -489,6 +489,19 @@ export type ProceedCheckoutResponse = ResponseWithMessage;
 
 export type ProceedCheckoutError = ResponseWithMessage;
 
+export type CheckoutProductData = {
+  path: {
+    /**
+     * Product Id
+     */
+    id: string;
+  };
+};
+
+export type CheckoutProductResponse = ResponseWithMessage;
+
+export type CheckoutProductError = ResponseWithMessage;
+
 export type GetOrdersResponse = Array<OrderWithProduct>;
 
 export type GetOrdersError = ResponseWithMessage;
@@ -649,6 +662,28 @@ export const CartItemWithMessageModelResponseTransformer: CartItemWithMessageMod
 export const UpdateCartItemQuantityResponseTransformer: UpdateCartItemQuantityResponseTransformer =
   async (data) => {
     CartItemWithMessageModelResponseTransformer(data);
+    return data;
+  };
+
+export type GetCheckoutDataResponseTransformer = (
+  data: any,
+) => Promise<GetCheckoutDataResponse>;
+
+export type CheckoutUserDataModelResponseTransformer = (
+  data: any,
+) => CheckoutUserData;
+
+export const CheckoutUserDataModelResponseTransformer: CheckoutUserDataModelResponseTransformer =
+  (data) => {
+    if (Array.isArray(data?.addresses)) {
+      data.addresses.forEach(AddressModelResponseTransformer);
+    }
+    return data;
+  };
+
+export const GetCheckoutDataResponseTransformer: GetCheckoutDataResponseTransformer =
+  async (data) => {
+    CheckoutUserDataModelResponseTransformer(data);
     return data;
   };
 

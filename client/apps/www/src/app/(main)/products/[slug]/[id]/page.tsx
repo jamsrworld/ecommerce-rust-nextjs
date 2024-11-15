@@ -3,8 +3,9 @@ import { APP_ROUTES } from "@/config/routes";
 import { FetchError } from "@repo/components/fetch-error";
 import { permanentRedirect } from "next/navigation";
 import { ProductBreadcrumb } from "./_lib/components/product-breadcrumb";
-import { ProductDetails } from "./_lib/components/product-details";
-import { ProductFeatures } from "./_lib/components/product-features";
+import { ProductData } from "./_lib/components/product-data";
+import { ProductDescription } from "./_lib/components/product-description";
+import { ProductHighlights } from "./_lib/components/product-highlights";
 import { ProductImages } from "./_lib/components/product-images";
 import { ProductInfo } from "./_lib/components/product-info";
 
@@ -33,13 +34,14 @@ const page = async (props: Props) => {
             video={video}
           />
         </div>
-        <div className="flex flex-col gap-2 md:col-span-5 md:px-4">
-          <ProductBreadcrumb />
-          <ProductDetails product={product} />
-          <ProductFeatures highlights={highlights} />
-          <ProductInfo />
+        <div className="flex flex-col gap-6 md:col-span-5 md:px-4">
+          <ProductBreadcrumb title={product.title} />
+          <ProductData product={product} />
+          <ProductHighlights highlights={highlights} />
+          <ProductInfo product={product} />
         </div>
       </section>
+      <ProductDescription description={product.description} />
     </div>
   );
 };

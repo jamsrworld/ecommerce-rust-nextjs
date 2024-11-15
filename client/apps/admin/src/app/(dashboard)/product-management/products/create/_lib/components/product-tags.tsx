@@ -4,7 +4,14 @@ import { Card, CardContent, CardHeader, RHFTagsInput } from "@jamsr-ui/react";
 export const ProductTags = () => {
   return (
     <Card>
-      <CardHeader heading="Product Tags" />
+      <CardHeader
+        heading={
+          <>
+            Product Tags
+            <span className="text-success">*</span>
+          </>
+        }
+      />
       <CardContent>
         <RHFTagsInput<CreateProductInput>
           name="tags"

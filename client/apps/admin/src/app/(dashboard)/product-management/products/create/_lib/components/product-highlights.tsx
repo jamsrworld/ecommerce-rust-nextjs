@@ -7,7 +7,7 @@ import {
   RHFInput,
 } from "@jamsr-ui/react";
 import { useFormRepeater } from "@repo/hooks/use-form-repeater";
-import { AddIcon, DeleteIcon } from "@repo/icons";
+import { AddIcon, MinusIcon } from "@repo/icons";
 import { randomId } from "@repo/utils";
 
 type FormValues = CreateProductInput;
@@ -15,29 +15,37 @@ type FormValues = CreateProductInput;
 export const ProductHighlights = () => {
   const { fields, onAppend, onRemoveField } = useFormRepeater<FormValues>({
     name: "highlights",
-    append: [{ highlight: "", description: "", id: randomId() }],
+    append: [{ highlight: "", id: randomId() }],
   });
 
   const handleAdd = () => {
-    onAppend({ description: "", highlight: "", id: randomId() });
+    onAppend({ highlight: "", id: randomId() });
   };
+  const hasMaximum = fields.length >= 15;
 
   return (
     <Card>
       <CardHeader
-        heading="Product Highlights"
-        className="mb-4 flex justify-end"
+        heading={
+          <>
+            Product Highlights
+            <span className="text-success">*</span>
+          </>
+        }
+        className="flex justify-end"
         endContent={
-          <Button
-            onClick={handleAdd}
-            isIconOnly
-            aria-label="Add Highlight"
-          >
-            <AddIcon />
-          </Button>
+          hasMaximum ? null : (
+            <Button
+              onClick={handleAdd}
+              isIconOnly
+              aria-label="Add Highlight"
+            >
+              <AddIcon />
+            </Button>
+          )
         }
       />
-      <CardContent className="flex flex-col gap-2">
+      <CardContent className="flex max-h-[500px] flex-col gap-2 overflow-y-auto">
         {fields.map((field, index) => (
           <div
             key={field.id}
@@ -47,20 +55,20 @@ export const ProductHighlights = () => {
               name={`highlights.${index}.highlight`}
               type="text"
               placeholder="Highlight"
+              classNames={{
+                endContent: "p-0",
+              }}
+              endContent={
+                <Button
+                  isIconOnly
+                  aria-label="Delete"
+                  onClick={() => onRemoveField(index)}
+                  className="rounded-none"
+                >
+                  <MinusIcon />
+                </Button>
+              }
             />
-            <RHFInput<FormValues>
-              name={`highlights.${index}.description`}
-              type="text"
-              placeholder="Description"
-            />
-            <Button
-              isIconOnly
-              aria-label="Delete"
-              onClick={() => onRemoveField(index)}
-              color="danger"
-            >
-              <DeleteIcon />
-            </Button>
           </div>
         ))}
       </CardContent>

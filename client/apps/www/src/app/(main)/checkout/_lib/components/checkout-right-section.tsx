@@ -12,8 +12,8 @@ export const CheckoutRightSection = (props: Props) => {
     data: { items, count, totalAmount },
   } = props;
   return (
-    <div className="sticky top-0 bg-background-secondary p-2 md:p-8">
-      <div className="mr-auto flex h-full max-h-[90vh] max-w-md flex-col gap-4">
+    <div className="sticky top-0 bg-content2/40 p-2 md:p-8">
+      <div className="mr-auto flex h-full max-w-md flex-col gap-4">
         <CheckoutItems items={items} />
         <DiscountForm />
         <CheckoutSummary

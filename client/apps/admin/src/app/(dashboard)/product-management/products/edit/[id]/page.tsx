@@ -15,11 +15,7 @@ const Page = async (props: Props) => {
     },
   });
   if (error) return <FetchError error={error} />;
-  return (
-    <div>
-      <ProductUpdateForm formData={data} />
-    </div>
-  );
+  return <ProductUpdateForm formData={data} />;
 };
 
 export default Page;

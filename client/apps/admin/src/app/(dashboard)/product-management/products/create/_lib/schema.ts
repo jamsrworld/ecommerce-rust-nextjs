@@ -10,7 +10,6 @@ import {
 import { any, array, boolean, number, record, set } from "zod";
 
 const highlights = withSchema<CreateProductInput["highlights"][number]>()({
-  description: withEmptyString(string().min(1, "Description is required")),
   highlight: string().min(1, "Highlight is required"),
 });
 

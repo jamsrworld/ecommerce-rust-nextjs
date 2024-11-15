@@ -97,7 +97,10 @@ export const columns: ColumnDef<Column>[] = [
             aria-label="Preview Product"
             isIconOnly
             as={NextLink}
-            href={APP_ROUTES.productManagement.products.view(item.id)}
+            href={APP_ROUTES.productManagement.products.view(
+              item.id,
+              item.slug,
+            )}
             target="_blank"
           >
             <EyeIcon />

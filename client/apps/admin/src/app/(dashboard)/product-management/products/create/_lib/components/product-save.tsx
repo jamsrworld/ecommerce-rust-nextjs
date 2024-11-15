@@ -1,24 +1,31 @@
-import { Button } from "@jamsr-ui/react";
+import { Button, Link } from "@jamsr-ui/react";
+import { NextLink } from "@repo/components/next";
+import { type Route } from "next";
 
-type Props = { isMutating: boolean };
+type Props = { isMutating: boolean; productPreviewUrl?: Route };
 
-export const ProductSave = (props: Props) => {
-  const { isMutating } = props;
+export const ProductSaveFooter = (props: Props) => {
+  const { isMutating, productPreviewUrl } = props;
   return (
-    <div className="sticky bottom-1 z-1 flex justify-end gap-2 rounded bg-background/50 p-2 shadow-lg backdrop-blur backdrop-saturate-150">
-      <Button
-        type="submit"
-        variant="outlined"
-        color="secondary"
-      >
-        Preview Product
-      </Button>
+    <div className="sticky bottom-1 z-1 flex items-center justify-end gap-4 rounded bg-background/50 p-2 shadow-lg backdrop-blur backdrop-saturate-150">
+      {productPreviewUrl && (
+        <Link
+          color="secondary"
+          as={NextLink}
+          href={productPreviewUrl}
+          target="_blank"
+          className="text-sm font-medium"
+          underline="always"
+        >
+          Preview Product
+        </Link>
+      )}
       <Button
         type="submit"
         color="primary"
         isLoading={isMutating}
       >
-        Save Product
+        {productPreviewUrl ? "Update" : "Save"} Product
       </Button>
     </div>
   );

@@ -1,11 +1,13 @@
-import { Accordion, AccordionItem, Divider, Typography } from "@jamsr-ui/react";
+import { type Product } from "@/client";
+import { Accordion, AccordionItem, Divider } from "@jamsr-ui/react";
 import React from "react";
+import { ProductDetails } from "../product-details";
 import { AccordionIndicator } from "./indicator";
 
-const items: { heading: string; description: string }[] = [
+const mockItems: { heading: string; content: string }[] = [
   {
     heading: "Shipping & Retuns",
-    description: `Delivery:
+    content: `Delivery:
 Delivery is offered in France* from 120 € of purchase.
 Preparation: your order will be prepared under 1 to 3 working days.
 Delivery: once prepared, your order will be sent under 24 to 72 working hours at your residence or in point relay according to your preference
@@ -17,21 +19,21 @@ You have 60 days from the reception of your shoes to benefit from the free retur
 - they must be in a new condition
 
 The procedure for making a return is available on the "Returns and Exchanges" page*.
-Shipping costs and return shipping costs for international shipments are available on https://ubac-store.com/retours-echanges/`,
+Shipping costs and return shipping costs for international shipments are available on https://jamsr-store.com/retours-echanges/`,
   },
   {
     heading: "Care",
-    description: `We recommend hand washing in warm water with a soft sponge or cloth. For stubborn stains, you can add a few drops of washing-up liquid.
+    content: `We recommend hand washing in warm water with a soft sponge or cloth. For stubborn stains, you can add a few drops of washing-up liquid.
 
 In case of stubborn stains, you can put your pair in the washing machine at 30 degrees without spinning in a net. Drying in the open air is mandatory.
 
 Before starting the cleaning, we advise you to remove the laces and the insole. To preserve the quality and to optimize the life of your shoes, hand washing is nevertheless recommended.
 
-Ubac's eco-responsible tip: to preserve your shoes and the planet, prefer hand washing. At least, a machine wash consumes 40 to 50 liters of water and about 1.2 kWh of electricity.`,
+jamsr's eco-responsible tip: to preserve your shoes and the planet, prefer hand washing. At least, a machine wash consumes 40 to 50 liters of water and about 1.2 kWh of electricity.`,
   },
   {
     heading: "Durability & Composition",
-    description: `VOLA has a carbon footprint of 6.1 kg of CO2e according to an independent assessment by Carbon Fact. This basket is 66% less impactful than the industry average (17 kg CO2e)
+    content: `VOLA has a carbon footprint of 6.1 kg of CO2e according to an independent assessment by Carbon Fact. This basket is 66% less impactful than the industry average (17 kg CO2e)
 
 Composition:
 
@@ -56,37 +58,46 @@ Composition:
   },
   {
     heading: "Recyclability",
-    description: `The future is recyclable
+    content: `The future is recyclable
 
-      KOTO is a 100% recyclable sneaker. It can be returned to Ubac by writing to us at contact@ubac-store.com to be recycled and reintegrated into future productions.`,
+      KOTO is a 100% recyclable sneaker. It can be returned to jamsr by writing to us at contact@jamsr-store.com to be recycled and reintegrated into future productions.`,
   },
 ];
 
-export const ProductInfo = () => {
+type Props = {
+  product: Product;
+};
+
+export const ProductInfo = (props: Props) => {
+  const { product } = props;
+
+  const items: { heading: string; content: React.ReactNode }[] = [
+    {
+      heading: "Product Details",
+      content: <ProductDetails product={product} />,
+    },
+    ...mockItems,
+  ];
+
   return (
-    <div>
-      <Divider className="py-2" />
+    <section>
+      <Divider className="my-2" />
       <Accordion>
         {items.map((item, index) => {
           return (
             <React.Fragment key={index}>
               <AccordionItem
                 heading={item.heading}
-                className="bg-transparent [&_svg_path]:stroke-2"
+                className="bg-transparent"
                 indicator={AccordionIndicator}
               >
-                <Typography
-                  as="p"
-                  className="font-normal text-foreground-secondary"
-                >
-                  {item.description}
-                </Typography>
+                {item.content}
               </AccordionItem>
               <Divider />
             </React.Fragment>
           );
         })}
       </Accordion>
-    </div>
+    </section>
   );
 };

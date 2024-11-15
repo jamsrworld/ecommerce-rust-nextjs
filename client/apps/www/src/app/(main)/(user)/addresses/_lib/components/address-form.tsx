@@ -1,5 +1,6 @@
 import { type CreateAddressInput } from "@/client";
 import { Button, RHFInput } from "@jamsr-ui/react";
+import { UIStylesProvider } from "@jamsr-ui/styles";
 
 type FormValues = CreateAddressInput;
 
@@ -11,24 +12,18 @@ type Props = {
 export const AddressForm = (props: Props) => {
   const { submitText, isMutating } = props;
   return (
-    <>
+    <UIStylesProvider input={{ size: "lg", variant: "outlined" }}>
       <RHFInput<FormValues>
         label="First Name"
         name="firstName"
-        size="lg"
-        variant="outlined"
       />
       <RHFInput<FormValues>
         label="Last Name"
         name="lastName"
-        size="lg"
-        variant="outlined"
       />
       <RHFInput<FormValues>
         label="Postal Code"
         name="postalCode"
-        size="lg"
-        variant="outlined"
         isNumberInput
         decimalPrecision={0}
         inputMode="numeric"
@@ -38,32 +33,22 @@ export const AddressForm = (props: Props) => {
       <RHFInput<FormValues>
         label="City"
         name="city"
-        size="lg"
-        variant="outlined"
       />
       <RHFInput<FormValues>
         label="State"
         name="state"
-        size="lg"
-        variant="outlined"
       />
       <RHFInput<FormValues>
         label="Full Address"
         name="fullAddress"
-        size="lg"
-        variant="outlined"
       />
       <RHFInput<FormValues>
         label="Landmark (optional)"
         name="landmark"
-        size="lg"
-        variant="outlined"
       />
       <RHFInput<FormValues>
         label="Phone Number"
         name="phoneNumber"
-        size="lg"
-        variant="outlined"
         isNumberInput
         decimalPrecision={0}
         inputMode="numeric"
@@ -79,6 +64,6 @@ export const AddressForm = (props: Props) => {
       >
         {submitText}
       </Button>
-    </>
+    </UIStylesProvider>
   );
 };

@@ -26,12 +26,17 @@ export const OrdersList = async () => {
         return (
           <React.Fragment key={idx}>
             <div className="flex gap-4">
-              <NextLink href={productUrl}>
-                <NextImage
-                  image={thumbnail}
-                  alt={title}
-                  className="w-32 rounded-lg"
-                />
+              <NextLink
+                href={productUrl}
+                className="shrink-0"
+              >
+                <div className="flex h-40 w-32 items-center justify-center">
+                  <NextImage
+                    image={thumbnail}
+                    alt={title}
+                    className="w-32 rounded-lg"
+                  />
+                </div>
               </NextLink>
               <div className="flex grow flex-col gap-1 text-foreground-secondary">
                 <Typography

@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { APP_ROUTES } from "./config/routes";
+import { APP_ROUTES, protectedRoutes } from "./config/routes";
 import { verifyJwtToken } from "./utils/jwt";
 
 const redirectToLogin = (request: NextRequest) => {
@@ -13,11 +13,13 @@ const redirectToLogin = (request: NextRequest) => {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  if (!pathname.startsWith("/user")) return NextResponse.next();
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    pathname.startsWith(route),
+  );
+  if (!isProtectedRoute) return NextResponse.next();
 
   const sessionKey = request.cookies.get("x-session")?.value;
   if (!sessionKey) return redirectToLogin(request);
-
   try {
     const validToken = await verifyJwtToken({
       secret: process.env.JWT_SECRET!,

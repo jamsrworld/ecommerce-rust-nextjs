@@ -32,7 +32,6 @@ export const AppHeader = () => {
     <Header
       hideOnScroll
       className="shrink-0 justify-between border-none px-1 max-md:h-12 md:px-2"
-      visibleBound={0.1}
     >
       <AppLogo />
       <nav className="max-md:hidden">

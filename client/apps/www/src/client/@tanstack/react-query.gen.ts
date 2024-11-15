@@ -29,6 +29,7 @@ import {
   removeCartItem,
   getCheckoutData,
   proceedCheckout,
+  checkoutProduct,
   getOrders,
   getOrder,
   getProducts,
@@ -86,6 +87,9 @@ import type {
   ProceedCheckoutData,
   ProceedCheckoutError,
   ProceedCheckoutResponse,
+  CheckoutProductData,
+  CheckoutProductError,
+  CheckoutProductResponse,
   GetOrderData,
   GetProductData,
   UpdateProfileData,
@@ -718,6 +722,47 @@ export const proceedCheckoutMutation = (
   > = {
     mutationFn: async (localOptions) => {
       const { data } = await proceedCheckout({
+        ...options,
+        ...localOptions,
+        throwOnError: true,
+      });
+      return data;
+    },
+  };
+  return mutationOptions;
+};
+
+export const checkoutProductQueryKey = (
+  options: Options<CheckoutProductData>,
+) => [createQueryKey("checkoutProduct", options)];
+
+export const checkoutProductOptions = (
+  options: Options<CheckoutProductData>,
+) => {
+  return queryOptions({
+    queryFn: async ({ queryKey, signal }) => {
+      const { data } = await checkoutProduct({
+        ...options,
+        ...queryKey[0],
+        signal,
+        throwOnError: true,
+      });
+      return data;
+    },
+    queryKey: checkoutProductQueryKey(options),
+  });
+};
+
+export const checkoutProductMutation = (
+  options?: Partial<Options<CheckoutProductData>>,
+) => {
+  const mutationOptions: UseMutationOptions<
+    CheckoutProductResponse,
+    CheckoutProductError,
+    Options<CheckoutProductData>
+  > = {
+    mutationFn: async (localOptions) => {
+      const { data } = await checkoutProduct({
         ...options,
         ...localOptions,
         throwOnError: true,

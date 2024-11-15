@@ -46,13 +46,20 @@ export const ProductUpdateForm = (props: Props) => {
     },
   );
 
+  const productPreviewUrl = APP_ROUTES.productManagement.products.view(
+    formData.id,
+    formData.slug,
+  );
   return (
     <RHFProvider
       methods={methods}
       isPending={false}
       onSubmit={onSubmit}
     >
-      <ProductForm isMutating={mutation.isPending} />
+      <ProductForm
+        isMutating={mutation.isPending}
+        productPreviewUrl={productPreviewUrl}
+      />
     </RHFProvider>
   );
 };
