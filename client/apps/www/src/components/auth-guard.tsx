@@ -12,11 +12,15 @@ export const AuthGuard = async (props: Props): React.ReactNode => {
   const sessionKey = cookieStore.get("x-session")?.value;
   if (!sessionKey) return loggedOut;
 
-  const validToken = await verifyJwtToken({
-    secret: process.env.JWT_SECRET!,
-    token: sessionKey,
-  });
-  if (!validToken) return loggedOut;
+  try {
+    const validToken = await verifyJwtToken({
+      secret: process.env.JWT_SECRET!,
+      token: sessionKey,
+    });
+    if (!validToken) return loggedOut;
+  } catch (err) {
+    return loggedOut;
+  }
 
   return loggedIn;
 };
