@@ -1,6 +1,6 @@
 use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::validator::ValidatedJson;
-use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
+use utils::{ error::{ HttpError, ResponseWithMessage }, sluggify::slugify, AppState };
 use crate::product_management::products::schema::CreateProductInput;
 use sea_orm::{ EntityTrait, Set, ActiveModelTrait };
 use super::messages::ProductMessage;
@@ -83,6 +83,9 @@ pub async fn update_product(
     product.tags = Set(tags);
     product.title = Set(title.clone());
     product.video = Set(video);
+
+    let slug = slugify(&title);
+    product.slug = Set(slug);
 
     let product = product.update(db).await?;
 

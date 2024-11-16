@@ -7,6 +7,7 @@ pub mod jwt;
 pub mod number;
 pub mod password;
 pub mod db;
+pub mod sluggify;
 
 pub struct AppState {
     pub db: DatabaseConnection,
