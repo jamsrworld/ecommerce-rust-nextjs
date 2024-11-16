@@ -26,7 +26,7 @@ const page = async (props: Props) => {
   const { images, highlights, video, slug } = product;
   if (slugParam !== slug) permanentRedirect(APP_ROUTES.products.view(id, slug));
   return (
-    <div className="flex flex-col gap-8 p-2 md:gap-24">
+    <div className="flex flex-col gap-8 p-1 md:gap-24">
       <section className="grid grid-cols-1 gap-2 md:grid-cols-12">
         <div className="md:col-span-7">
           <ProductImages

@@ -69,7 +69,7 @@ export const MobileImageSlider = (props: Props) => {
   };
 
   return (
-    <div className="relative -m-2 flex flex-col gap-2 overflow-hidden md:hidden">
+    <div className="relative flex flex-col gap-2 overflow-hidden md:hidden">
       <AnimatePresence
         initial={false}
         mode="popLayout"
