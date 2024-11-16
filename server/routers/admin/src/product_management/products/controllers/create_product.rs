@@ -3,6 +3,7 @@ use extractors::validator::ValidatedJson;
 use sea_orm::{ ActiveValue::NotSet, EntityTrait, Set };
 use utils::db::create_primary_id;
 use utils::error::ResponseWithMessage;
+use utils::sluggify::slugify;
 use utils::{ error::HttpError, AppState };
 use super::schema::{ ProductWithMessage, CreateProductInput };
 use super::messages::ProductMessage;
@@ -52,7 +53,7 @@ pub async fn create_product(
         video,
     } = input;
 
-    let slug = &title.to_lowercase().replace(" ", "-");
+    let slug = slugify(&title);
 
     // create product
     let product_model = entity::product::ActiveModel {

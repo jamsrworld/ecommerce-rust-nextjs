@@ -52,7 +52,6 @@ pub struct ProductHighlights(pub Vec<ProductHighlight>);
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, ToSchema, Validate)]
 pub struct ProductHighlight {
     highlight: String,
-    description: String,
 }
 
 #[derive(

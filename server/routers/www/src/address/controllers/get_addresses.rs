@@ -1,6 +1,6 @@
 use actix_web::{ get, web, HttpResponse };
 use extractors::auth::Authenticated;
-use sea_orm::{ ColumnTrait, EntityTrait, Order, QueryFilter, QueryOrder };
+use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter, QueryOrder };
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 
 /// Get All Addresses
@@ -27,8 +27,8 @@ pub async fn get_addresses(
     let addresses = entity::address::Entity
         ::find()
         .filter(entity::address::Column::UserId.eq(user_id))
-        .order_by(entity::address::Column::IsDefault, Order::Desc)
-        .order_by(entity::address::Column::CreatedAt, Order::Desc)
+        .order_by_desc(entity::address::Column::IsDefault)
+        .order_by_desc(entity::address::Column::CreatedAt)
         .all(db).await?;
 
     Ok(HttpResponse::Ok().json(addresses))

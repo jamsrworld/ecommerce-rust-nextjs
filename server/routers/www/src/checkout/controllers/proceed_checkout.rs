@@ -1,4 +1,4 @@
-use actix_web::{ get, post, web::{ self }, HttpResponse };
+use actix_web::{ post, web::{ self }, HttpResponse };
 use entity::sea_orm_active_enums::OrderStatus;
 use extractors::{ auth::Authenticated, validator::ValidatedJson };
 use utils::{ db::create_primary_id, error::{ HttpError, ResponseWithMessage }, AppState };

@@ -21,6 +21,7 @@ pub struct CheckoutUserData {
     count: i64,
     total_amount: f64,
     items: Vec<CheckoutItemsWithProduct>,
+    addresses: Vec<entity::address::Model>,
 }
 
 /// Get all checkout items
@@ -43,11 +44,19 @@ pub async fn get_checkout_data(
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let user_id = user.id.to_owned();
+
     let records = entity::checkout::Entity
         ::find()
-        .filter(entity::checkout::Column::UserId.eq(user_id))
+        .filter(entity::checkout::Column::UserId.eq(&user_id))
         .find_also_related(entity::product::Entity)
         .order_by_desc(entity::checkout::Column::CreatedAt)
+        .all(db).await?;
+
+    let addresses = entity::address::Entity
+        ::find()
+        .filter(entity::address::Column::UserId.eq(user_id))
+        .order_by_desc(entity::address::Column::IsDefault)
+        .order_by_desc(entity::address::Column::CreatedAt)
         .all(db).await?;
 
     let result = records
@@ -73,6 +82,7 @@ pub async fn get_checkout_data(
         count,
         total_amount,
         items: result,
+        addresses,
     };
 
     Ok(HttpResponse::Ok().json(result))

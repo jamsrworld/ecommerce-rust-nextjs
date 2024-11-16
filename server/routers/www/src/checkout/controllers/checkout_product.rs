@@ -1,17 +1,16 @@
 use actix_web::{ post, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use utils::{ db::create_primary_id, error::{ HttpError, ResponseWithMessage }, AppState };
-use sea_orm::{ sea_query, ActiveValue::NotSet, EntityTrait, Set };
+use sea_orm::{ sea_query, ActiveValue::NotSet, ColumnTrait, EntityTrait, QueryFilter, Set };
+use crate::checkout::messages::CheckoutMessage;
 
-use crate::cart::messages::CartMessages;
-
-/// Add product to cart
+/// Checkout Product
 #[utoipa::path(
-    tag = "Cart",
-    context_path = "/carts",
+    tag = "Checkout",
+    context_path = "/checkouts",
     params(("id", description = "Product Id", min_length = 24, max_length = 24)),
     responses(
-        (status = StatusCode::OK, body = entity::cart::Model, description = "Cart"),
+        (status = StatusCode::OK, body = ResponseWithMessage, description = "Response message"),
         (
             status = StatusCode::INTERNAL_SERVER_ERROR,
             body = ResponseWithMessage,
@@ -20,41 +19,49 @@ use crate::cart::messages::CartMessages;
     )
 )]
 #[post("/product/{id}")]
-pub async fn add_cart_item(
+pub async fn checkout_product(
     app_data: web::Data<AppState>,
     product_id: Path<String>,
     user: Authenticated
 ) -> Result<HttpResponse, HttpError> {
-    let product_id = product_id.into_inner();
     let db = &app_data.db;
     let user_id = user.id.to_owned();
+    let product_id = product_id.into_inner();
 
-    let product = entity::product::Entity
+    // check product exists
+    entity::product::Entity
         ::find_by_id(&product_id)
         .one(db).await?
         .ok_or_else(|| { HttpError::not_found("Invalid product") })?;
 
-    let cart_item = entity::cart::ActiveModel {
+    // get user all checkout items
+    let checkout_item = entity::checkout::ActiveModel {
         id: Set(create_primary_id()),
-        user_id: Set(user_id),
+        user_id: Set(user_id.to_owned()),
         product_id: Set(product_id.to_owned()),
         quantity: Set(1),
         created_at: NotSet,
     };
 
-    entity::cart::Entity
-        ::insert(cart_item)
+    // delete checkout items
+    entity::checkout::Entity
+        ::delete_many()
+        .filter(entity::checkout::Column::UserId.eq(&user_id))
+        .exec(db).await?;
+
+    // add product to checkout
+    entity::checkout::Entity
+        ::insert(checkout_item)
         .on_conflict(
             sea_query::OnConflict
-                ::columns([entity::cart::Column::UserId, entity::cart::Column::ProductId])
+                ::columns([entity::checkout::Column::UserId, entity::checkout::Column::ProductId])
                 .do_nothing()
                 .to_owned()
         )
-        .exec_without_returning(db).await?;
+        .exec(db).await?;
 
     let response = ResponseWithMessage {
-        message: CartMessages::CartItemCreated(&product.title).to_string(),
+        message: CheckoutMessage::CheckoutSuccessful.to_string(),
     };
-
     Ok(HttpResponse::Ok().json(response))
 }
