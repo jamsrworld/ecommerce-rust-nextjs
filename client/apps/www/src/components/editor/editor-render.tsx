@@ -3,7 +3,6 @@ import "@jamsr-ui/editor/style.css";
 import { Divider, Typography } from "@jamsr-ui/react";
 import { slugify } from "@repo/utils";
 import { isObject } from "@repo/utils/assertion";
-import Image from "next/image";
 import { CodeHighlight } from "./code-highlight";
 import type {
   NodeHandler,
@@ -154,9 +153,7 @@ const ImageHandler: NodeHandler = (props) => {
               height,
               width,
             }
-          : {
-              fill: true,
-            })}
+          : {})}
         {...(placeholder && {
           placeholder: "blur",
           blurDataURL: placeholder,

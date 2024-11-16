@@ -43,6 +43,7 @@ export const ProductImages = (props: Props) => {
                 <NextImage
                   alt="product image"
                   placeholder="blur"
+                  loading="eager"
                   image={item}
                 />
               </button>

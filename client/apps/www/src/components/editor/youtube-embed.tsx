@@ -33,7 +33,6 @@ export const YoutubeEmbed = (props: Props) => {
             src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
             alt="play video"
             priority
-            fill
           />
           <div
             aria-label="Play"
