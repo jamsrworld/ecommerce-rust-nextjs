@@ -51,7 +51,7 @@ export const OrdersList = async () => {
                 </Typography>
                 <Typography
                   as={NextLink}
-                  className="font-medium text-foreground"
+                  className="line-clamp-2 font-medium text-foreground"
                   href={productUrl}
                 >
                   {title}

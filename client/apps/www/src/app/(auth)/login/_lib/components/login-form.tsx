@@ -40,7 +40,10 @@ export const LoginForm = () => {
         body: data,
       },
       {
-        onSuccess: () => router.replace(redirectPathname),
+        onSuccess: () => {
+          router.replace(redirectPathname);
+          router.refresh();
+        },
       },
     );
   }, onRHFInvalid);

@@ -1,9 +1,8 @@
-"use client";
-
 import { APP_ROUTES } from "@/config/routes";
 import { Button, Menu, MenuItem } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { UserIcon } from "@repo/icons";
+import { LogoutItem } from "./logout-item";
 
 export const UserMenuitem = () => {
   return (
@@ -36,13 +35,7 @@ export const UserMenuitem = () => {
       >
         Addresses
       </MenuItem>
-      <MenuItem
-        as={NextLink}
-        href={APP_ROUTES.logout}
-        prefetch={false}
-      >
-        Logout
-      </MenuItem>
+      <LogoutItem />
     </Menu>
   );
 };

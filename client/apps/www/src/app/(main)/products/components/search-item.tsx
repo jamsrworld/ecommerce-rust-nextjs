@@ -35,9 +35,9 @@ export const SearchItem = (props: Props) => {
           isHovered={isHovered}
         />
       </Link>
-      <div className="p-2">
+      <div className="py-0.5">
         <Link
-          className="line-clamp-2 text-sm font-medium text-foreground"
+          className="line-clamp-2 text-xs font-medium text-foreground md:text-sm"
           as={NextLink}
           href={productUrl}
         >
