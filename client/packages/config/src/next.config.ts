@@ -34,6 +34,7 @@ export const sharedNextConfig: NextConfig = {
     },
   },
   images: {
+    contentDispositionType: "inline",
     remotePatterns: [
       {
         hostname: "*.jamsrworld.com",
@@ -54,5 +55,11 @@ export const sharedNextConfig: NextConfig = {
         hostname: "*.cloudfront.net",
       },
     ],
+  },
+  experimental: {
+    staleTimes: {
+      dynamic: 60 * 60 * 24,
+      static: 60 * 60 * 24,
+    },
   },
 };

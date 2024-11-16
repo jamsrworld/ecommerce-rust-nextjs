@@ -1,21 +1,69 @@
-import { getProduct } from "@/client";
+import { getProduct, getProducts } from "@/client";
 import { APP_ROUTES } from "@/config/routes";
 import { FetchError } from "@repo/components/fetch-error";
+import { getProductThumbnail } from "@repo/utils/product";
+import { getFileSrc } from "@repo/utils/url";
+import { type Metadata } from "next";
 import { permanentRedirect } from "next/navigation";
-import { ProductBreadcrumb } from "./_lib/components/product-breadcrumb";
-import { ProductData } from "./_lib/components/product-data";
-import { ProductDescription } from "./_lib/components/product-description";
-import { ProductHighlights } from "./_lib/components/product-highlights";
-import { ProductImages } from "./_lib/components/product-images";
-import { ProductInfo } from "./_lib/components/product-info";
-
-type Params = Promise<{ slug: string; id: string }>;
+import { ProductBreadcrumb } from "./_components/product-breadcrumb";
+import { ProductData } from "./_components/product-data";
+import { ProductDescription } from "./_components/product-description";
+import { ProductHighlights } from "./_components/product-highlights";
+import { ProductImages } from "./_components/product-images";
+import { ProductInfo } from "./_components/product-info";
+import { getProductData } from "./actions";
 
 type Props = {
-  params: Params;
+  params: Promise<{ slug: string; id: string }>;
 };
 
-const page = async (props: Props) => {
+export const generateMetadata = async (props: Props): Promise<Metadata> => {
+  const { id } = await props.params;
+  const { data } = await getProductData(id);
+  if (!data) return {};
+  const { title, seo, slug, images } = data;
+  const thumbnail = getProductThumbnail(images);
+  return {
+    title,
+    description: seo.description ?? seo.title ?? title,
+    keywords: seo.keywords,
+    openGraph: {
+      url: APP_ROUTES.products.view(id, slug),
+      images: [
+        {
+          url: getFileSrc(thumbnail.url),
+          width: thumbnail.width,
+          height: thumbnail.height,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      site: "@jamsrworld",
+      images: [
+        {
+          url: getFileSrc(thumbnail.url),
+          width: thumbnail.width,
+          height: thumbnail.height,
+          alt: title,
+        },
+      ],
+    },
+  };
+};
+
+export const dynamicParams = true;
+export const generateStaticParams = async () => {
+  const { data } = await getProducts({
+    throwOnError: true,
+  });
+  return data.map((product) => ({
+    id: product.id,
+    slug: product.slug,
+  }));
+};
+
+const Page = async (props: Props) => {
   const { id, slug: slugParam } = await props.params;
   const { data: product, error } = await getProduct({
     path: {
@@ -46,4 +94,4 @@ const page = async (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

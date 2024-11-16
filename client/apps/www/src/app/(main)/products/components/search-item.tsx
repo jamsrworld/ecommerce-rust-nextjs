@@ -7,10 +7,12 @@ import { Link, Typography } from "@jamsr-ui/react";
 import { NextImage, NextLink } from "@repo/components/next";
 import { ProductSlider } from "./product-slider";
 
-type Props = Product;
+type Props = Product & {
+  idx: number;
+};
 
 export const SearchItem = (props: Props) => {
-  const { images, title, id, slug } = props;
+  const { images, title, id, slug, idx } = props;
   const price = 293;
   const mrp = 500;
   const { handleMouseEnter, handleMouseLeave, isHovered } = useHover(500);
@@ -29,6 +31,7 @@ export const SearchItem = (props: Props) => {
           alt={title}
           image={thumbnail}
           className="aspect-[9/12]"
+          loading={idx < 11 ? "eager" : "lazy"}
         />
         <ProductSlider
           images={images}

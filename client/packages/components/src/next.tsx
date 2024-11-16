@@ -31,6 +31,7 @@ export const NextImage = (
         height={height}
         placeholder="blur"
         blurDataURL={placeholder}
+        decoding="sync"
         {...restProps}
       />
     );
@@ -39,6 +40,7 @@ export const NextImage = (
 
   return (
     <Image
+      decoding="sync"
       {...(typeof src === "string"
         ? {
             src: getFileSrc(src),

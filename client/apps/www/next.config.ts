@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   experimental: {
+    ...sharedNextConfig.experimental,
     typedRoutes: true,
     typedEnv: true,
     scrollRestoration: false,
