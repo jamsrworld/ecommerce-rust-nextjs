@@ -2292,6 +2292,8 @@ dependencies = [
  "entity",
  "futures-util",
  "sea-orm",
+ "serde",
+ "serde_json",
  "utils",
 ]
 

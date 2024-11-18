@@ -58,7 +58,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .max_age(3600);
 
         App::new()
-            .wrap(cors)
             .app_data(app_data.clone())
             .configure(admin_routes)
             .service(
@@ -75,6 +74,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .service(Scalar::with_url("/scalar", WwwApiDoc::openapi()))
             .service(Scalar::with_url("/scalar-admin", AdminApiDoc::openapi()))
             .configure(www_routes)
+            .wrap(cors)
     })
         .bind((host, port))?
         .run().await?;
