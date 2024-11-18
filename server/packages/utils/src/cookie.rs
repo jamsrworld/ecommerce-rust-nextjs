@@ -8,7 +8,7 @@ pub fn create_cookie(name: impl Into<String>, value: impl Into<String>) -> Cooki
         .http_only(true)
         .secure(true)
         .same_site(SameSite::None)
-        .domain(domain)
+        // .domain(domain)
         .max_age(Duration::new(60 * 60 * 24, 0))
         .finish()
 }
