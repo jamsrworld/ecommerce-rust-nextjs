@@ -17,7 +17,10 @@ const opensans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Mcart - Rust E-Commerce Website",
+  title: {
+    absolute: "Mcart - Rust E-Commerce Website",
+    template: "%s | Mcart",
+  },
   description: "An eCommerce website built with Rust and Next.js",
   keywords: [
     "rust",
