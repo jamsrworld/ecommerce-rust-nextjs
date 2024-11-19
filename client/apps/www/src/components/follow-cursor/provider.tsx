@@ -20,7 +20,6 @@ export const FollowCursorProvider = (props: Props) => {
     () => ({ showCursor, setShowCursor }),
     [showCursor],
   );
-
   return (
     <FollowCursorContext.Provider value={value}>
       {children}

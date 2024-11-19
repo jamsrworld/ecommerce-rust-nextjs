@@ -5,8 +5,7 @@ import { useDisclosure } from "@jamsr-ui/hooks";
 import { NextImage } from "@repo/components/next";
 import { YoutubeEmbed } from "@repo/components/youtube-embed";
 import { useState } from "react";
-import { MobileImageSlider } from "./mobile-image-slider";
-import { ProductImagesSlider } from "./product-images-slider";
+import { ProductImagesSliderDialog } from "./product-images-slider";
 
 type Props = Pick<Product, "images" | "video">;
 
@@ -21,14 +20,14 @@ export const ProductImages = (props: Props) => {
   const { url } = video;
   return (
     <div>
-      <ProductImagesSlider
+      <ProductImagesSliderDialog
         isOpen={isOpen}
         onOpenChange={setIsOpen}
         onClose={onClose}
         activeIndex={activeIndex}
         images={images}
       />
-      <MobileImageSlider images={images} />
+      {/* <MobileImageSlider images={images} /> */}
       <ul className="grid grid-cols-2 gap-1 max-md:hidden">
         {images.map((item, idx) => {
           return (

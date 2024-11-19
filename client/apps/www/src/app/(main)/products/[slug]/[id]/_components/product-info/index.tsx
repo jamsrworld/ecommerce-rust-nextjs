@@ -6,7 +6,7 @@ import { AccordionIndicator } from "./indicator";
 
 const mockItems: { heading: string; content: string }[] = [
   {
-    heading: "Shipping & Retuns",
+    heading: "Shipping & Returns",
     content: `Delivery:
 Delivery is offered in France* from 120 € of purchase.
 Preparation: your order will be prepared under 1 to 3 working days.
@@ -81,8 +81,8 @@ export const ProductInfo = (props: Props) => {
 
   return (
     <section>
-      <Divider className="my-2" />
-      <Accordion>
+      <Divider className="my-1" />
+      <Accordion className="gap-0">
         {items.map((item, index) => {
           return (
             <React.Fragment key={index}>
@@ -93,7 +93,7 @@ export const ProductInfo = (props: Props) => {
               >
                 {item.content}
               </AccordionItem>
-              <Divider />
+              <Divider className="my-1" />
             </React.Fragment>
           );
         })}

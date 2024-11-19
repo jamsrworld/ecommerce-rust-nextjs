@@ -20,10 +20,11 @@ export const ProductImagesSliderDialog = (props: Props) => {
       size="full"
       anchor="bottom"
       className="relative overflow-hidden"
+      // className="fixed inset-0 z-50 bg-background"
     >
       <ProductImagesSlider
-        activeIndex={activeIndex}
         images={images}
+        activeIndex={activeIndex}
         onClose={onClose}
       />
     </Drawer>
