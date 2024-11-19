@@ -1,3 +1,4 @@
+import { env } from "@/env";
 import { verifyJwtToken } from "@/utils/jwt";
 import { cookies } from "next/headers";
 
@@ -6,7 +7,7 @@ type Props = {
   loggedOut?: React.ReactNode;
 };
 
-export const AuthGuard = async (props: Props): React.ReactNode => {
+export const AuthGuard = async (props: Props) => {
   const { loggedIn, loggedOut } = props;
   const cookieStore = await cookies();
   const sessionKey = cookieStore.get("x-session")?.value;
@@ -14,9 +15,10 @@ export const AuthGuard = async (props: Props): React.ReactNode => {
 
   try {
     const validToken = await verifyJwtToken({
-      secret: process.env.JWT_SECRET!,
+      secret: env.JWT_SECRET,
       token: sessionKey,
     });
+    // eslint-disable-next-line @typescript-eslint/return-await
     if (!validToken) return loggedOut;
   } catch (err) {
     return loggedOut;

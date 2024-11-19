@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { APP_ROUTES, protectedRoutes } from "./config/routes";
+import { env } from "./env";
 import { verifyJwtToken } from "./utils/jwt";
 
 const redirectToLogin = (request: NextRequest) => {
@@ -22,7 +23,7 @@ export async function middleware(request: NextRequest) {
   if (!sessionKey) return redirectToLogin(request);
   try {
     const validToken = await verifyJwtToken({
-      secret: process.env.JWT_SECRET!,
+      secret: env.JWT_SECRET,
       token: sessionKey,
     });
     if (!validToken) return redirectToLogin(request);

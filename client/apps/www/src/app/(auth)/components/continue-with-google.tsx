@@ -1,5 +1,6 @@
 import { continueWithGoogleMutation } from "@/client/@tanstack/react-query.gen";
 import { REDIRECT_AFTER_LOGIN } from "@/config/app";
+import { env } from "@/env";
 import { Button, toast } from "@jamsr-ui/react";
 import {
   GoogleOAuthProvider,
@@ -76,7 +77,7 @@ const ContinueWithGoogleBase = () => {
 
 export const ContinueWithGoogle = () => {
   return (
-    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>
+    <GoogleOAuthProvider clientId={env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
       <ContinueWithGoogleBase />
     </GoogleOAuthProvider>
   );
