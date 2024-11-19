@@ -7,14 +7,14 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 type Props = {
   children: React.ReactNode;
 };
 
-const getToastMessageFromError = (error: DefaultError) => 
- error.message;
+const getToastMessageFromError = (error: DefaultError) => error.message;
 
 const getToastMessageFromResponse = (response: unknown) => {
   if (
@@ -30,10 +30,15 @@ const getToastMessageFromResponse = (response: unknown) => {
 };
 
 const useOnError = () => {
+  const router = useRouter();
+  const pathname = usePathname();
   const onError = (error: Error) => {
-    const message = getToastMessageFromError(error);
-    console.log("message:->", message)
-    if (message) toast.error(message);
+    if ("status_code" in error && error.status_code === "401") {
+      router.push(`/login?redirect=${pathname}`);
+    } else {
+      const message = getToastMessageFromError(error);
+      if (message) toast.error(message);
+    }
   };
   return { onError };
 };

@@ -1,12 +1,6 @@
-import {
-  ADMIN_SERVER_URL,
-  APP_SERVER_URL,
-  CDN_SERVER_URL,
-} from "@repo/config/app";
+import { CDN_SERVER_URL } from "@repo/config/app";
 import { regex } from "./regex";
 
-export const withAppServerUrl = (path: string) => APP_SERVER_URL + path;
-export const withAdminServerUrl = (path: string) => ADMIN_SERVER_URL + path;
 export const withCdnServerUrl = (path: string) => CDN_SERVER_URL + path;
 
 export const getFileSrc = (url: string) => {
