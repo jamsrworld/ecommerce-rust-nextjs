@@ -59,7 +59,8 @@ fn to_service_response<B>(
     let (request, _) = req.into_parts();
     let response = HttpResponse::build(status_code)
         .json(json!({
-        "message":message
+        "message":message,
+        "status_code":status_code.as_str()
     }))
         .map_into_right_body();
     return ServiceResponse::new(request, response);

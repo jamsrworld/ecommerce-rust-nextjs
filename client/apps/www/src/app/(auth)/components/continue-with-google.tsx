@@ -1,5 +1,4 @@
 import { continueWithGoogleMutation } from "@/client/@tanstack/react-query.gen";
-import { REDIRECT_AFTER_LOGIN } from "@/config/app";
 import { env } from "@/env";
 import { Button, toast } from "@jamsr-ui/react";
 import {
@@ -11,8 +10,10 @@ import {
 import { GoogleIcon } from "@repo/icons/social";
 import { useIsMutating, useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useLoginRedirect } from "../login/_lib/hooks/use-login-redirect";
 
 const ContinueWithGoogleBase = () => {
+  const redirectPathname = useLoginRedirect();
   const mutationCountLogin = useIsMutating({
     mutationKey: ["login"],
   });
@@ -25,7 +26,8 @@ const ContinueWithGoogleBase = () => {
   const mutation = useMutation({
     ...continueWithGoogleMutation(),
     onSuccess() {
-      router.push(REDIRECT_AFTER_LOGIN);
+      router.push(redirectPathname);
+      router.refresh();
     },
   });
 
