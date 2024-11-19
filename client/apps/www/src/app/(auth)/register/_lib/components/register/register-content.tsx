@@ -5,6 +5,7 @@ import { AppLogo } from "@/components/app-logo";
 import { APP_ROUTES } from "@/config/routes";
 import { Divider, Link, Typography } from "@jamsr-ui/react";
 import NextLink from "next/link";
+import { Suspense } from "react";
 import { RegisterForm } from "./register-form";
 
 type Props = {
@@ -37,7 +38,9 @@ export const RegisterContent = (props: Props) => {
         </div>
         <RegisterForm onSuccess={onSuccess} />
         <Divider variant="gradient">OR</Divider>
-        <ContinueWithGoogle isMutating={false} />
+        <Suspense>
+          <ContinueWithGoogle />
+        </Suspense>
         <Typography
           as="p"
           className="text-center"
