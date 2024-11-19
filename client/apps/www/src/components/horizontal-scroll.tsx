@@ -1,7 +1,12 @@
 "use client";
 
 import { useDebounce } from "@/hooks/use-debounce";
-import { m, useSpring } from "framer-motion";
+import {
+  m,
+  type SpringOptions,
+  useMotionValueEvent,
+  useSpring,
+} from "framer-motion";
 import {
   useCallback,
   useEffect,
@@ -15,7 +20,7 @@ export type ScrollHandle = {
   slideRight: () => void;
   canSlideLeft: boolean;
   canSlideRight: boolean;
-  current: HTMLDivElement | null;
+  containerRef: React.RefObject<HTMLDivElement>;
 };
 
 type Props = {
@@ -23,7 +28,8 @@ type Props = {
   ref?: React.RefObject<ScrollHandle> | React.RefCallback<ScrollHandle>;
 };
 
-const physics = { stiffness: 120, damping: 20 };
+const physics: SpringOptions = { stiffness: 120, damping: 20, bounce: 0 };
+
 export const HorizontalScroll = (props: Props) => {
   const { children, ref: propRef } = props;
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -81,6 +87,7 @@ export const HorizontalScroll = (props: Props) => {
 
   const onChangePosition = useCallback(
     (value: number) => {
+      console.log("value:->", value);
       setCanSlideLeft(value < 0);
       setCanSlideRight(value > constraints.left);
     },
@@ -88,7 +95,10 @@ export const HorizontalScroll = (props: Props) => {
   );
 
   const onChangePositionDebounce = useDebounce(onChangePosition, 50);
-  position.on("change", onChangePositionDebounce);
+
+  useMotionValueEvent(position, "change", (latest) => {
+    onChangePositionDebounce(latest);
+  });
 
   const slideLeft = useCallback(() => {
     slide("left");
@@ -104,7 +114,7 @@ export const HorizontalScroll = (props: Props) => {
       slideRight,
       canSlideLeft,
       canSlideRight,
-      current: containerRef.current,
+      containerRef,
     }),
     [canSlideLeft, canSlideRight, slideLeft, slideRight],
   );
@@ -112,9 +122,9 @@ export const HorizontalScroll = (props: Props) => {
   // add keydown event listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
+      if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
         slideLeft();
-      } else if (e.key === "ArrowRight") {
+      } else if (e.key === "ArrowRight" || e.key === "ArrowUp") {
         slideRight();
       }
     };
