@@ -61,10 +61,6 @@ impl HttpError {
         }
     }
 
-    pub fn server_error(message: impl Into<String>) -> Self {
-        Self::new(message, StatusCode::INTERNAL_SERVER_ERROR)
-    }
-
     pub fn not_found(message: impl Into<String>) -> Self {
         Self::new(message, StatusCode::NOT_FOUND)
     }

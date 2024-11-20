@@ -19,7 +19,6 @@ use ::utils::AppState;
 
 pub mod controllers;
 pub mod schema;
-mod messages;
 mod utils;
 
 pub fn auth_routes(config: &mut web::ServiceConfig) {

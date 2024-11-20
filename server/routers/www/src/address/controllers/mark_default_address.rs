@@ -1,5 +1,5 @@
+use crate::messages::Messages;
 use super::schema::AddressWithMessage;
-use super::messages::AddressMessage;
 use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use migration::SimpleExpr;
@@ -43,7 +43,7 @@ pub async fn mark_default_address(
         ::find_by_id(&address_id)
         .filter(entity::address::Column::UserId.eq(&user_id))
         .one(db).await?
-        .ok_or_else(|| HttpError::not_found(AddressMessage::AddressNotFound(&address_id)))?;
+        .ok_or_else(|| HttpError::not_found(Messages::AddressNotFound(&address_id)))?;
 
     let mut address: entity::address::ActiveModel = address.into();
 
@@ -61,7 +61,7 @@ pub async fn mark_default_address(
     let address = address.update(db).await?;
 
     let response = AddressWithMessage {
-        message: AddressMessage::AddressMarkedAsDefault.to_string(),
+        message: Messages::AddressMarkedAsDefault.to_string(),
         data: address,
     };
     Ok(HttpResponse::Ok().json(response))

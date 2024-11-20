@@ -2,7 +2,7 @@ use actix_web::{ post, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use utils::{ db::create_primary_id, error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::{ sea_query, ActiveValue::NotSet, ColumnTrait, EntityTrait, QueryFilter, Set };
-use crate::checkout::messages::CheckoutMessage;
+use crate::messages::Messages;
 
 /// Checkout Product
 #[utoipa::path(
@@ -61,7 +61,7 @@ pub async fn checkout_product(
         .exec(db).await?;
 
     let response = ResponseWithMessage {
-        message: CheckoutMessage::CheckoutSuccessful.to_string(),
+        message: Messages::CheckoutSuccessful.to_string(),
     };
     Ok(HttpResponse::Ok().json(response))
 }

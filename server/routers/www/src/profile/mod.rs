@@ -1,5 +1,4 @@
 pub mod controllers;
-mod messages;
 pub mod schema;
 
 use actix_web::web;

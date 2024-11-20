@@ -2,10 +2,7 @@ use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::{ auth::Authenticated, validator::ValidatedJson };
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter, Set, ActiveModelTrait };
-use crate::cart::{
-    messages::CartMessages,
-    schema::{ CartItemWithMessage, CartUpdateQuantityInput },
-};
+use crate::{ cart::schema::{ CartItemWithMessage, CartUpdateQuantityInput }, messages::Messages };
 
 /// Update cart item quantity
 #[utoipa::path(
@@ -39,14 +36,14 @@ pub async fn update_cart_item_quantity(
         ::find_by_id(&id)
         .filter(entity::cart::Column::UserId.eq(user_id))
         .one(db).await?
-        .ok_or_else(|| HttpError::not_found(CartMessages::CartItemNotFound(&id).to_string()))?;
+        .ok_or_else(|| HttpError::not_found(Messages::CartItemNotFound(&id).to_string()))?;
     let mut cart_item: entity::cart::ActiveModel = cart_item.into();
     cart_item.quantity = Set(quantity);
     let cart_item = cart_item.update(db).await?;
 
     let response = CartItemWithMessage {
         data: cart_item,
-        message: CartMessages::CartItemUpdated(&id).to_string(),
+        message: Messages::CartItemUpdated(&id).to_string(),
     };
 
     Ok(HttpResponse::Ok().json(response))

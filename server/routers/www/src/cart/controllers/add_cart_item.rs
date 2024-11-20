@@ -3,7 +3,7 @@ use extractors::auth::Authenticated;
 use utils::{ db::create_primary_id, error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::{ sea_query, ActiveValue::NotSet, EntityTrait, Set };
 
-use crate::cart::messages::CartMessages;
+use crate::messages::Messages;
 
 /// Add product to cart
 #[utoipa::path(
@@ -53,7 +53,7 @@ pub async fn add_cart_item(
         .exec_without_returning(db).await?;
 
     let response = ResponseWithMessage {
-        message: CartMessages::CartItemCreated(&product.title).to_string(),
+        message: Messages::CartItemCreated(&product.title).to_string(),
     };
 
     Ok(HttpResponse::Ok().json(response))

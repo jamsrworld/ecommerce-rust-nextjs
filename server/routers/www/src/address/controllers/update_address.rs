@@ -1,4 +1,4 @@
-use super::messages::AddressMessage;
+use crate::messages::Messages;
 use super::schema::{ CreateAddressInput, AddressWithMessage };
 use actix_web::{ patch, web::{ self, Path }, HttpResponse };
 use extractors::{ auth::Authenticated, validator::ValidatedJson };
@@ -51,7 +51,7 @@ pub async fn update_address(
         ::find_by_id(&address_id)
         .filter(entity::address::Column::UserId.eq(&user_id))
         .one(db).await?
-        .ok_or_else(|| HttpError::not_found(AddressMessage::AddressNotFound(&address_id)))?;
+        .ok_or_else(|| HttpError::not_found(Messages::AddressNotFound(&address_id)))?;
 
     let mut address: entity::address::ActiveModel = address.into();
     address.city = Set(city);
@@ -64,7 +64,7 @@ pub async fn update_address(
     address.state = Set(state);
 
     let address = address.update(db).await?;
-    let message = AddressMessage::AddressUpdated.to_string();
+    let message = Messages::AddressUpdated.to_string();
 
     let response = AddressWithMessage {
         message,

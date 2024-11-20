@@ -5,10 +5,9 @@ use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
 use sea_orm::{ ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set };
-use crate::auth::{
-    messages::AuthMessage,
-    schema::AuthResetPasswordInput,
-    utils::{ delete_otp, verify_otp },
+use crate::{
+    auth::{ schema::AuthResetPasswordInput, utils::{ delete_otp, verify_otp } },
+    messages::Messages,
 };
 
 /// Reset Password
@@ -41,7 +40,7 @@ pub async fn reset_password(
         ::find()
         .filter(entity::user::Column::Email.eq(email.clone()))
         .one(db).await?
-        .ok_or_else(|| HttpError::bad_request(AuthMessage::UserNotFound(&email)))?;
+        .ok_or_else(|| HttpError::bad_request(Messages::UserNotFound(&email)))?;
     let full_name = user.full_name.clone();
 
     let mut user: entity::user::ActiveModel = user.into();
@@ -67,7 +66,7 @@ pub async fn reset_password(
     mailer.send()?;
 
     let response = ResponseWithMessage {
-        message: AuthMessage::ResetPasswordSuccess.to_string(),
+        message: Messages::ResetPasswordSuccess.to_string(),
     };
     Ok(HttpResponse::Ok().json(response))
 }

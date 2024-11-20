@@ -11,7 +11,6 @@ use middlewares::auth::RequireAuth;
 
 pub mod controllers;
 pub mod schema;
-mod messages;
 
 pub fn cart_routes(config: &mut web::ServiceConfig) {
     config.service(

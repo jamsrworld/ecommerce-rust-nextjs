@@ -2,10 +2,7 @@ use actix_web::{ get, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter, QueryOrder };
-use crate::{
-    models::RelationProductItem,
-    order::{ messages::OrderMessage, schema::OrderWithProduct },
-};
+use crate::{ messages::Messages, models::RelationProductItem, order::schema::OrderWithProduct };
 
 /// Get order
 #[utoipa::path(
@@ -36,7 +33,7 @@ pub async fn get_order(
         .find_also_related(entity::product::Entity)
         .order_by_desc(entity::order::Column::CreatedAt)
         .one(db).await?
-        .ok_or_else(|| HttpError::not_found(OrderMessage::OrderNotFound(&id)))?;
+        .ok_or_else(|| HttpError::not_found(Messages::OrderNotFound(&id)))?;
 
     let (order, product) = record;
     let product: RelationProductItem = product.unwrap().into();

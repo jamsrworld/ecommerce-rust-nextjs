@@ -5,9 +5,8 @@ use extractors::validator::ValidatedJson;
 use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter };
 use utils::{ cookie::create_cookie, jwt::create_token, password::verify_password };
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
-
-use crate::auth::messages::AuthMessage;
 use crate::auth::schema::AuthLoginInput;
+use crate::messages::Messages;
 
 /// Login
 ///
@@ -35,17 +34,17 @@ pub async fn login(
     let user = Entity::find()
         .filter(entity::user::Column::Email.eq(email))
         .one(db).await?
-        .ok_or_else(|| HttpError::bad_request(AuthMessage::UserNotFound(email)))?;
+        .ok_or_else(|| HttpError::bad_request(Messages::UserNotFound(email)))?;
 
     // return error if account don't use password
     let hashed_password = user.password.ok_or_else(||
-        HttpError::bad_request(AuthMessage::NonPasswordAccount)
+        HttpError::bad_request(Messages::NonPasswordAccount)
     )?;
 
     // validate password
     let is_password_valid = verify_password(hashed_password, password)?;
     if !is_password_valid {
-        return Err(HttpError::bad_request(AuthMessage::IncorrectPassword));
+        return Err(HttpError::bad_request(Messages::IncorrectPassword));
     }
 
     // create session token
@@ -55,7 +54,7 @@ pub async fn login(
     let cookie = create_cookie(SessionKey::Authorization, jwt);
 
     let response = ResponseWithMessage {
-        message: AuthMessage::LoginSuccessful.to_string(),
+        message: Messages::LoginSuccessful.to_string(),
     };
 
     Ok(HttpResponse::Ok().cookie(cookie).json(response))

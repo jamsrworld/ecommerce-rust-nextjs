@@ -1,6 +1,6 @@
 use utils::error::{ HttpError, ResponseWithMessage };
 use actix_web::{ delete, HttpResponse };
-use crate::auth::messages::AuthMessage;
+use crate::messages::Messages;
 
 /// Logout
 #[utoipa::path(
@@ -14,7 +14,7 @@ use crate::auth::messages::AuthMessage;
 #[delete("/logout")]
 pub async fn logout() -> Result<HttpResponse, HttpError> {
     let response = ResponseWithMessage {
-        message: AuthMessage::LogoutSuccessful.to_string(),
+        message: Messages::LogoutSuccessful.to_string(),
     };
     Ok(HttpResponse::Ok().json(response))
 }

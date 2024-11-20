@@ -1,4 +1,4 @@
-use super::messages::AddressMessage;
+use crate::messages::Messages;
 use actix_web::{ delete, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use sea_orm::{ ColumnTrait, EntityTrait, ModelTrait, QueryFilter };
@@ -39,12 +39,12 @@ pub async fn delete_address(
         ::find_by_id(&address_id)
         .filter(entity::address::Column::UserId.eq(user_id))
         .one(db).await?
-        .ok_or_else(|| HttpError::not_found(AddressMessage::AddressNotFound(&address_id)))?;
+        .ok_or_else(|| HttpError::not_found(Messages::AddressNotFound(&address_id)))?;
     // delete address
     address.delete(db).await?;
 
     let response = ResponseWithMessage {
-        message: AddressMessage::AddressDeleted.to_string(),
+        message: Messages::AddressDeleted.to_string(),
     };
     Ok(HttpResponse::Ok().json(response))
 }

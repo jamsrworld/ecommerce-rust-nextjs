@@ -5,6 +5,5 @@ pub mod get_addresses;
 pub mod mark_default_address;
 pub mod update_address;
 
-use super::messages;
 use super::schema;
 use super::utils;

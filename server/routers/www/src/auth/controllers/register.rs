@@ -4,8 +4,10 @@ use services::mailer::Mailer;
 use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
-
-use crate::auth::{messages::AuthMessage, schema::AuthRegisterInput, utils::{check_unique_email, generate_otp}};
+use crate::{
+    auth::{ schema::AuthRegisterInput, utils::{ check_unique_email, generate_otp } },
+    messages::Messages,
+};
 
 #[derive(Template)]
 #[template(path = "register/verification.jinja")]
@@ -57,7 +59,7 @@ pub async fn register(
 
     // send response
     let message = ResponseWithMessage {
-        message: AuthMessage::OtpSentSuccessfully.to_string(),
+        message: Messages::OtpSentSuccessfully.to_string(),
     };
     return Ok(HttpResponse::Ok().json(message));
 }

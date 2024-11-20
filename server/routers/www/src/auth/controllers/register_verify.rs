@@ -7,11 +7,12 @@ use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::{ OtpPurpose, UserRole, UserStatus };
 use sea_orm::{ ActiveModelTrait, ActiveValue::NotSet, Set };
-
-use crate::auth::{
-    messages::AuthMessage,
-    schema::{ AuthRegisterInput, AuthRegisterVerifyInput },
-    utils::{ check_unique_email, verify_otp },
+use crate::{
+    auth::{
+        schema::{ AuthRegisterInput, AuthRegisterVerifyInput },
+        utils::{ check_unique_email, verify_otp },
+    },
+    messages::Messages,
 };
 
 #[derive(Template)]
@@ -90,7 +91,7 @@ pub async fn register_verify(
     let cookie = create_cookie(SessionKey::Authorization, jwt);
 
     let response = ResponseWithMessage {
-        message: AuthMessage::RegisterSuccess.to_string(),
+        message: Messages::RegisterSuccess.to_string(),
     };
 
     Ok(HttpResponse::Created().cookie(cookie).json(response))

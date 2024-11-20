@@ -1,8 +1,8 @@
-use super::messages::AddressMessage;
 use actix_web::{ get, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter };
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
+use crate::messages::Messages;
 
 /// Get an Address
 #[utoipa::path(
@@ -32,6 +32,6 @@ pub async fn get_address(
         ::find_by_id(&address_id)
         .filter(entity::address::Column::UserId.eq(user_id))
         .one(db).await?
-        .ok_or_else(|| HttpError::not_found(AddressMessage::AddressNotFound(&address_id)))?;
+        .ok_or_else(|| HttpError::not_found(Messages::AddressNotFound(&address_id)))?;
     Ok(HttpResponse::Ok().json(address))
 }

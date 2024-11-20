@@ -1,5 +1,3 @@
-use std::thread::spawn;
-
 use actix_web::{ patch, web, HttpResponse };
 use askama::Template;
 use extractors::{ auth::Authenticated, validator::ValidatedJson };
@@ -11,7 +9,7 @@ use utils::{
     password::{ hash_password, verify_password },
     AppState,
 };
-use crate::profile::{ messages::ProfileMessage, schema::ChangePasswordInput };
+use crate::{ messages::Messages, profile::schema::ChangePasswordInput };
 
 /// Change Password
 #[utoipa::path(
@@ -36,16 +34,16 @@ pub async fn change_password(
     let user = entity::user::Entity
         ::find_by_id(&user_id)
         .one(db).await?
-        .ok_or_else(|| HttpError::bad_request(ProfileMessage::UserNotFound(&user_id)))?;
+        .ok_or_else(|| HttpError::bad_request(Messages::UserNotFound(&user_id)))?;
 
     let hashed_password = user.password
         .to_owned()
-        .ok_or_else(|| HttpError::bad_request(ProfileMessage::UserNotFound(&user_id)))?;
+        .ok_or_else(|| HttpError::bad_request(Messages::UserNotFound(&user_id)))?;
 
     // validate password
     let is_password_valid = verify_password(hashed_password, current_password)?;
     if !is_password_valid {
-        return Err(HttpError::bad_request(ProfileMessage::IncorrectPassword));
+        return Err(HttpError::bad_request(Messages::IncorrectPassword));
     }
 
     // hash password
@@ -80,7 +78,7 @@ pub async fn change_password(
     mailer.send()?;
 
     let response = ResponseWithMessage {
-        message: ProfileMessage::PasswordChangeSuccess.to_string(),
+        message: Messages::PasswordChangeSuccess.to_string(),
     };
 
     Ok(HttpResponse::Ok().json(response))

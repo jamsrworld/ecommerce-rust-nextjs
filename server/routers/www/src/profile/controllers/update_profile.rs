@@ -5,7 +5,7 @@ use serde::{ Deserialize, Serialize };
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 use utoipa::ToSchema;
 use validator::Validate;
-use super::ProfileMessage;
+use crate::messages::Messages;
 
 #[derive(Debug, Validate, Deserialize, ToSchema, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -42,7 +42,7 @@ pub async fn update_profile(
     user.update(db).await?;
 
     let response = ResponseWithMessage {
-        message: ProfileMessage::ProfileUpdated.to_string(),
+        message: Messages::ProfileUpdated.to_string(),
     };
 
     Ok(HttpResponse::Ok().json(response))

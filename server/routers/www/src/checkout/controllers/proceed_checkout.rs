@@ -3,8 +3,7 @@ use entity::sea_orm_active_enums::OrderStatus;
 use extractors::{ auth::Authenticated, validator::ValidatedJson };
 use utils::{ db::create_primary_id, error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::{ ActiveValue::NotSet, ColumnTrait, EntityTrait, QueryFilter, QueryOrder, Set };
-
-use crate::checkout::{ messages::CheckoutMessage, schema::ProceedCheckoutInput };
+use crate::{ checkout::schema::ProceedCheckoutInput, messages::Messages };
 
 /// Proceed checkout
 #[utoipa::path(
@@ -41,7 +40,7 @@ pub async fn proceed_checkout(
 
     // check if checkout items are empty
     if checkout_items.is_empty() {
-        return Err(HttpError::bad_request(CheckoutMessage::CheckoutEmpty));
+        return Err(HttpError::bad_request(Messages::CheckoutEmpty));
     }
 
     // convert checkout items to orders items
@@ -71,7 +70,7 @@ pub async fn proceed_checkout(
         .exec(db).await?;
 
     let response = ResponseWithMessage {
-        message: CheckoutMessage::CheckoutSuccessful.to_string(),
+        message: Messages::CheckoutSuccessful.to_string(),
     };
     Ok(HttpResponse::Ok().json(response))
 }
