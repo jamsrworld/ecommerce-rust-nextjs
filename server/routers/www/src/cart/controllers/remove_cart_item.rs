@@ -2,8 +2,7 @@ use actix_web::{ delete, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::{ EntityTrait, QueryFilter, ColumnTrait, ActiveModelTrait };
-
-use crate::cart::messages::CartMessages;
+use crate::messages::Messages;
 
 /// Remove cart item
 #[utoipa::path(
@@ -33,13 +32,13 @@ pub async fn remove_cart_item(
         ::find_by_id(&id)
         .filter(entity::cart::Column::UserId.eq(user_id))
         .one(db).await?
-        .ok_or_else(|| HttpError::not_found(CartMessages::CartItemNotFound(&id).to_string()))?;
+        .ok_or_else(|| HttpError::not_found(Messages::CartItemNotFound(&id).to_string()))?;
 
     let cart_item: entity::cart::ActiveModel = cart_item.into();
     cart_item.delete(db).await?;
 
     let response = ResponseWithMessage {
-        message: CartMessages::CartItemRemoved(&id).to_string(),
+        message: Messages::CartItemRemoved(&id).to_string(),
     };
     Ok(HttpResponse::Ok().json(response))
 }

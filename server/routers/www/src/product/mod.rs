@@ -1,7 +1,6 @@
 use actix_web::web;
 
 pub mod controllers;
-mod messages;
 
 use controllers::*;
 use get_product::get_product;

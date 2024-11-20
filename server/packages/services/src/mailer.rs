@@ -30,7 +30,7 @@ impl<'a> Mailer<'a> {
     pub fn render_template<T: Template>(template: &T) -> Result<String, HttpError> {
         let body = template
             .render()
-            .map_err(|e| HttpError::server_error(e.to_string()))?;
+            .map_err(|e| HttpError::internal_server_error(e.to_string()))?;
         Ok(body)
     }
 
@@ -73,13 +73,13 @@ impl<'a> Mailer<'a> {
             .subject(subject)
             .header(lettre::message::header::ContentType::TEXT_HTML)
             .body(body)
-            .map_err(|e| HttpError::server_error(e.to_string()))?;
+            .map_err(|e| HttpError::internal_server_error(e.to_string()))?;
 
         let creds = Credentials::new(username, password);
         let tls_params = TlsParameters::builder(host.clone())
             .dangerous_accept_invalid_certs(true)
             .build()
-            .map_err(|e| HttpError::server_error(e.to_string()))?;
+            .map_err(|e| HttpError::internal_server_error(e.to_string()))?;
 
         let mailer = SmtpTransport::relay(&host)
             .unwrap()
@@ -90,7 +90,7 @@ impl<'a> Mailer<'a> {
 
         let sent = mailer
             .send(&message)
-            .map_err(|e| HttpError::server_error(e.to_string()))?;
+            .map_err(|e| HttpError::internal_server_error(e.to_string()))?;
 
         Ok(sent)
     }

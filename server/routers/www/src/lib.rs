@@ -17,6 +17,7 @@ mod order;
 mod models;
 mod profile;
 mod address;
+mod messages;
 
 #[utoipauto::utoipauto(paths = "./routers/www")]
 #[derive(OpenApi)]

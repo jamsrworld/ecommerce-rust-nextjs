@@ -1,4 +1,4 @@
-use super::messages::AddressMessage;
+use crate::messages::Messages;
 use sea_orm::{ ColumnTrait, DatabaseConnection, EntityTrait, PaginatorTrait, QueryFilter };
 use utils::error::HttpError;
 
@@ -14,9 +14,7 @@ pub async fn check_address_limit(
         .count(db).await?;
 
     if count >= ADDRESS_LIMIT {
-        return Err(
-            HttpError::too_many_requests(AddressMessage::AddressLimitReached(ADDRESS_LIMIT))
-        );
+        return Err(HttpError::too_many_requests(Messages::AddressLimitReached(ADDRESS_LIMIT)));
     }
 
     Ok(())

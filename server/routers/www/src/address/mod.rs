@@ -1,6 +1,5 @@
 use actix_web::web;
 pub mod controllers;
-mod messages;
 mod utils;
 pub mod schema;
 

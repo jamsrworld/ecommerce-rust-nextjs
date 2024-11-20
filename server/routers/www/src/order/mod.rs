@@ -4,7 +4,6 @@ use entity::sea_orm_active_enums::UserRole;
 use middlewares::auth::RequireAuth;
 
 pub mod controllers;
-mod messages;
 pub mod schema;
 
 pub fn order_routes(config: &mut web::ServiceConfig) {

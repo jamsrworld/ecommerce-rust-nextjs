@@ -6,7 +6,7 @@ use actix_web::{ post, web, HttpResponse };
 use askama::Template;
 use entity::sea_orm_active_enums::OtpPurpose;
 use sea_orm::{ ColumnTrait, EntityTrait, QueryFilter };
-use crate::auth::{ messages::AuthMessage, schema::AuthForgotPasswordInput, utils::generate_otp };
+use crate::{ auth::{ schema::AuthForgotPasswordInput, utils::generate_otp }, messages::Messages };
 
 #[derive(Template)]
 #[template(path = "reset-password/verification.jinja")]
@@ -39,7 +39,7 @@ pub async fn forgot_password(
         ::find()
         .filter(entity::user::Column::Email.eq(email))
         .one(db).await?
-        .ok_or_else(|| HttpError::bad_request(AuthMessage::UserNotFound(email)))?;
+        .ok_or_else(|| HttpError::bad_request(Messages::UserNotFound(email)))?;
 
     // send email
     let otp = generate_otp(db, email.to_owned(), OtpPurpose::ResetPassword).await?;
@@ -62,7 +62,7 @@ pub async fn forgot_password(
 
     // send response
     let message = ResponseWithMessage {
-        message: AuthMessage::OtpSentSuccessfully.to_string(),
+        message: Messages::OtpSentSuccessfully.to_string(),
     };
     return Ok(HttpResponse::Ok().json(message));
 }

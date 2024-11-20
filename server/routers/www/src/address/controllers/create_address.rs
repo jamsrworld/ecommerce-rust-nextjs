@@ -1,4 +1,4 @@
-use super::messages::AddressMessage;
+use crate::messages::Messages;
 use super::schema::CreateAddressInput;
 use super::utils::check_address_limit;
 use actix_web::{ post, web, HttpResponse };
@@ -69,7 +69,7 @@ pub async fn create_address(
         .exec_with_returning(db).await?;
 
     let response = AddressWithMessage {
-        message: AddressMessage::AddressCreated.to_string(),
+        message: Messages::AddressCreated.to_string(),
         data: new_address,
     };
     Ok(HttpResponse::Created().json(response))

@@ -20,9 +20,9 @@ use utils::{
     AppState,
 };
 use validator::Validate;
-use crate::auth::{
-    messages::AuthMessage,
-    schema::{ ContinueWithGoogleInput, GoogleLoginWithCode, GoogleLoginWithCredential },
+use crate::{
+    auth::schema::{ ContinueWithGoogleInput, GoogleLoginWithCode, GoogleLoginWithCredential },
+    messages::Messages,
 };
 
 /// Continue with google
@@ -72,7 +72,7 @@ pub fn create_session_token(id: String, jwt_secret: String) -> Result<HttpRespon
     let cookie = create_cookie(SessionKey::Authorization, jwt);
 
     let response = ResponseWithMessage {
-        message: AuthMessage::LoginSuccessful.to_string(),
+        message: Messages::LoginSuccessful.to_string(),
     };
 
     Ok(HttpResponse::Created().cookie(cookie).json(response))
@@ -141,7 +141,7 @@ pub async fn get_user_by_code(
     if response.status().is_success() {
         let oauth_response = response
             .json::<OAuthResponse>().await
-            .map_err(|e| HttpError::server_error(e.to_string()))?;
+            .map_err(|e| HttpError::internal_server_error(e.to_string()))?;
 
         let data = fetch_user_by_access_token(
             &oauth_response.access_token,
@@ -184,7 +184,7 @@ pub async fn get_user_by_credential(
     if response.status().is_success() {
         let data = response
             .json::<UserInfoByCredential>().await
-            .map_err(|e| HttpError::server_error(e.to_string()))?;
+            .map_err(|e| HttpError::internal_server_error(e.to_string()))?;
 
         // validate response aud to google_client_id
         if data.aud != client_id {
@@ -256,14 +256,16 @@ pub async fn fetch_user_by_access_token(
         .bearer_auth(id_token)
         .send().await
         .map_err(|e|
-            HttpError::server_error(format!("Failed to get user info {}", e.to_string()))
+            HttpError::internal_server_error(format!("Failed to get user info {}", e.to_string()))
         )?;
 
     if response.status().is_success() {
         let user_info = response
             .json::<UserInfoByAccessToken>().await
             .map_err(|e|
-                HttpError::server_error(format!("Failed to extract body {}", e.to_string()))
+                HttpError::internal_server_error(
+                    format!("Failed to extract body {}", e.to_string())
+                )
             )?;
 
         return Ok(user_info);
@@ -279,5 +281,5 @@ pub async fn fetch_user_by_access_token(
         error_body
     );
 
-    return Err(HttpError::server_error(error_message));
+    return Err(HttpError::internal_server_error(error_message));
 }

@@ -1,8 +1,9 @@
-use super::messages::AuthMessage;
 use chrono::FixedOffset;
 use entity::sea_orm_active_enums::OtpPurpose;
 use sea_orm::{ ActiveModelTrait, ColumnTrait, DatabaseConnection, EntityTrait, QueryFilter, Set };
 use utils::{ db::create_primary_id, error::HttpError, number::rand_otp };
+
+use crate::messages::Messages;
 
 pub async fn check_unique_email(db: &DatabaseConnection, email: &String) -> Result<(), HttpError> {
     let user = entity::user::Entity
@@ -11,7 +12,7 @@ pub async fn check_unique_email(db: &DatabaseConnection, email: &String) -> Resu
         .one(db).await?;
 
     if user.is_some() {
-        return Err(HttpError::conflict(AuthMessage::EmailAlreadyExist(email)));
+        return Err(HttpError::conflict(Messages::EmailAlreadyExist(email)));
     }
 
     Ok(())
@@ -61,7 +62,7 @@ pub async fn verify_otp(
                 .and(entity::otp::Column::ValidTill.gte(current_time))
         )
         .one(db).await?
-        .ok_or_else(|| HttpError::precondition_failed(AuthMessage::OtpNotRequested))?;
+        .ok_or_else(|| HttpError::precondition_failed(Messages::OtpNotRequested))?;
 
     Ok(())
 }

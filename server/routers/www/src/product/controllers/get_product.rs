@@ -1,7 +1,7 @@
 use actix_web::{ get, web::{ self, Path }, HttpResponse };
 use utils::{ error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::EntityTrait;
-use super::messages::ProductMessages;
+use crate::messages::Messages;
 
 /// Get a Product
 #[utoipa::path(
@@ -27,7 +27,7 @@ pub async fn get_product(
     let product = entity::product::Entity
         ::find_by_id(&id)
         .one(db).await?
-        .ok_or_else(|| HttpError::not_found(ProductMessages::ProductNotFound(&id).to_string()))?;
+        .ok_or_else(|| HttpError::not_found(Messages::ProductNotFound(&id).to_string()))?;
 
     Ok(HttpResponse::Ok().json(product))
 }
