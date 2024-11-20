@@ -7,6 +7,7 @@ use hello::health_check;
 use order::order_routes;
 use product::product_routes;
 use profile::profile_routes;
+use utils::AppState;
 use utoipa::OpenApi;
 mod auth;
 mod hello;
@@ -25,12 +26,12 @@ mod schemas;
 #[openapi(info(title = "Mcart api documentation"), paths())]
 pub struct WwwApiDoc;
 
-pub fn www_routes(config: &mut web::ServiceConfig) {
+pub fn www_routes(config: &mut web::ServiceConfig, app_data: web::Data<AppState>) {
     config.service(
         web
             ::scope("")
             .service(health_check)
-            .configure(auth_routes)
+            .configure(|cfg| auth_routes(cfg, app_data))
             .configure(product_routes)
             .configure(cart_routes)
             .configure(checkout_routes)

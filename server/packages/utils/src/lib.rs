@@ -1,3 +1,4 @@
+use actix_extensible_rate_limit::backend::redis::RedisBackend;
 use config::Config;
 use sea_orm::DatabaseConnection;
 
@@ -12,5 +13,5 @@ pub mod sluggify;
 pub struct AppState {
     pub db: DatabaseConnection,
     pub env: Config,
-    // pub redis_connection: redis::aio::ConnectionManager,
+    pub redis_backend: RedisBackend,
 }
