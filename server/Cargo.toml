@@ -27,13 +27,28 @@ utils = { path = "./packages/utils" }
 actix-web = "4.9.0"
 dotenvy = "0.15.7"
 log = "0.4.22"
-sea-orm = { version = "1.1.0", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "debug-print", "with-json", "with-chrono"] }
+sea-orm = { version = "1.1.1", features = [
+  "sqlx-postgres",
+  "runtime-tokio-rustls",
+  "macros",
+  "debug-print",
+  "with-json",
+  "with-chrono",
+] }
 tokio = { version = "1.41.1", features = ["full"] }
 tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
-utoipa = { version = "5.2.0", features = ["actix_extras", "chrono", "decimal_float"] }
+utoipa = { version = "5.2.0", features = [
+  "actix_extras",
+  "chrono",
+  "decimal_float",
+] }
 utoipa-scalar = { version = "0.2.0", features = ["actix-web"] }
 utoipa-swagger-ui = { version = "8.0.3", features = ["actix-web"] }
 utoipauto = "0.2.0"
 actix-cors = "0.7.0"
 redis = { version = "0.26.1", features = ["tokio-comp", "connection-manager"] }
+actix-extensible-rate-limit = { version = "0.4.0", features = [
+  "redis",
+], default-features = false }
+serde_json = "1.0.133"

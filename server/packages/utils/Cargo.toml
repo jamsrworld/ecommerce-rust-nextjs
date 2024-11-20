@@ -24,3 +24,4 @@ cuid2 = "0.1.3"
 redis = { version = "0.26.1", features = ["tokio-comp", "connection-manager"] }
 deunicode = "1.6.0"
 url = "2.5.3"
+actix-extensible-rate-limit = { version = "0.4.0", default-features = false, features = ["redis"] }

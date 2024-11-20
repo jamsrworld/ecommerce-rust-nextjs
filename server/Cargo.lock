@@ -2247,6 +2247,7 @@ name = "mcart"
 version = "0.1.0"
 dependencies = [
  "actix-cors",
+ "actix-extensible-rate-limit",
  "actix-web",
  "admin",
  "config",
@@ -2256,6 +2257,7 @@ dependencies = [
  "migration",
  "redis",
  "sea-orm",
+ "serde_json",
  "tokio",
  "tracing",
  "tracing-subscriber",
@@ -3279,9 +3281,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm"
-version = "1.1.0"
+version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4c4872675cc5d5d399a2a202c60f3a393ec8d3f3307c36adb166517f348e4db5"
+checksum = "d5680a8b686985116607ef5f5af2b1f9e1cc2c228330e93101816a0baa279afa"
 dependencies = [
  "async-stream",
  "async-trait",
@@ -3324,9 +3326,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm-macros"
-version = "1.1.0"
+version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "85f714906b72e7265c0b2077d0ad8f235dabebda513c92f1326d5d40cef0dd01"
+checksum = "3a239e3bb1b566ad4ec2654d0d193d6ceddfd733487edc9c21a64d214c773910"
 dependencies = [
  "heck 0.4.1",
  "proc-macro2",
@@ -3355,9 +3357,9 @@ dependencies = [
 
 [[package]]
 name = "sea-query"
-version = "0.32.0-rc.2"
+version = "0.32.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ae69162bc417008f7ba60abd5c2688529cd83e99a9ab680d922b41fd9bf3d8d"
+checksum = "ff504d13b5e4b52fffcf2fb203d0352a5722fa5151696db768933e41e1e591bb"
 dependencies = [
  "bigdecimal",
  "chrono",
@@ -3372,9 +3374,9 @@ dependencies = [
 
 [[package]]
 name = "sea-query-binder"
-version = "0.7.0-rc.2"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "643c2e6fbba4440ff0075c405d37079a7da1a46892623b1cc8f06e05233eee1b"
+checksum = "b0019f47430f7995af63deda77e238c17323359af241233ec768aba1faea7608"
 dependencies = [
  "bigdecimal",
  "chrono",
@@ -3480,9 +3482,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.132"
+version = "1.0.133"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d726bfaff4b320266d395898905d0eba0345aae23b54aee3a737e260fd46db03"
+checksum = "c7fceb2473b9166b2294ef05efcb65a3db80803f0b03ef86a5fc88a2b85ee377"
 dependencies = [
  "itoa",
  "memchr",
@@ -4411,6 +4413,7 @@ checksum = "06abde3611657adf66d383f00b093d7faecc7fa57071cce2578660c9f1010821"
 name = "utils"
 version = "0.1.0"
 dependencies = [
+ "actix-extensible-rate-limit",
  "actix-web",
  "argon2",
  "chrono",
@@ -5028,6 +5031,7 @@ dependencies = [
  "config",
  "entity",
  "extractors",
+ "futures-util",
  "log",
  "middlewares",
  "migration",

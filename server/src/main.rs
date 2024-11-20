@@ -1,15 +1,23 @@
+use std::time::Duration;
+
 use actix_cors::Cors;
-use actix_web::{ http, App, HttpServer };
+use actix_web::{ http, App, HttpResponse, HttpServer };
 use admin::AdminApiDoc;
 use dotenvy::dotenv;
+use log::info;
 use redis::aio::ConnectionManager;
 use sea_orm::{ ConnectOptions, Database };
+use serde_json::json;
 use utils::AppState;
 use utoipa::OpenApi;
 use utoipa_scalar::{ Scalar, Servable };
 use utoipa_swagger_ui::{ SwaggerUi, Url };
 use www::{ www_routes, WwwApiDoc };
 use admin::admin_routes;
+use actix_extensible_rate_limit::{
+    backend::{ redis::RedisBackend, SimpleInputFunctionBuilder },
+    RateLimiter,
+};
 
 #[actix_web::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -28,27 +36,25 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut opt = ConnectOptions::new(database_url);
     opt.sqlx_logging(false).sqlx_logging_level(log::LevelFilter::Debug);
     let db = Database::connect(opt).await.map_err(|e| e.to_string())?;
-    // database_url
 
     // connect redis
-    // let client = redis::Client::open("redis://127.0.0.1/").expect("Invalid connection URL");
-    // let connection = ConnectionManager::new(client).await.unwrap();
+
+    let client = redis::Client::open("redis://127.0.0.1/").expect("Invalid connection URL");
+    let connection = ConnectionManager::new(client).await.map_err(
+        |_| "Failed to connect to Redis"
+    )?;
+    let redis_backend = RedisBackend::builder(connection).build();
 
     let app_data = actix_web::web::Data::new(AppState {
         db,
         env: config,
-        // redis_connection: connection,
+        redis_backend,
     });
-    let domain = "https://mcart.jamsrworld.com";
-
-    println!("Starting server at http://localhost:{}", port);
-    println!("Hello, world!");
+    info!("Starting server at http://localhost:{}", port);
+    info!("Hello, world!");
 
     HttpServer::new(move || {
         let cors = Cors::default()
-            // .allowed_origin("https://mcart.dev")
-            // .allowed_origin(domain)
-            // .allowed_origin("http://localhost:5000")
             .allow_any_origin()
             .supports_credentials()
             .allowed_methods(vec!["GET", "POST", "PUT", "DELETE", "OPTION", "PATCH"])
@@ -58,6 +64,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .max_age(3600);
 
         App::new()
+            .wrap(cors)
             .app_data(app_data.clone())
             .configure(admin_routes)
             .service(
@@ -73,8 +80,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             )
             .service(Scalar::with_url("/scalar", WwwApiDoc::openapi()))
             .service(Scalar::with_url("/scalar-admin", AdminApiDoc::openapi()))
-            .configure(www_routes)
-            .wrap(cors)
+            .configure(|cfg| www_routes(cfg, app_data.clone()))
     })
         .bind((host, port))?
         .run().await?;
