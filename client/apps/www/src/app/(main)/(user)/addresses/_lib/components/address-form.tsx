@@ -1,6 +1,5 @@
 import { type CreateAddressInput } from "@/client";
-import { Button, RHFInput } from "@jamsr-ui/react";
-import { UIStylesProvider } from "@jamsr-ui/styles";
+import { Button, RHFInput, UIStylesProvider } from "@jamsr-ui/react";
 
 type FormValues = CreateAddressInput;
 

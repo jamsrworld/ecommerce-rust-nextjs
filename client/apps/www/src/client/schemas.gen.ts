@@ -502,6 +502,24 @@ export const OrderStatusSchema = {
   enum: ["Pending", "Success"],
 } as const;
 
+export const OrderWithPaginationSchema = {
+  type: "object",
+  required: ["orders", "totalRecords"],
+  properties: {
+    orders: {
+      type: "array",
+      items: {
+        $ref: "#/components/schemas/OrderWithProduct",
+      },
+    },
+    totalRecords: {
+      type: "integer",
+      format: "int64",
+      minimum: 0,
+    },
+  },
+} as const;
+
 export const OrderWithProductSchema = {
   type: "object",
   required: ["order", "product"],
@@ -515,19 +533,25 @@ export const OrderWithProductSchema = {
   },
 } as const;
 
+export const PaginationQuerySchema = {
+  type: "object",
+  properties: {
+    page: {
+      type: ["integer", "null"],
+      format: "int32",
+      minimum: 0,
+    },
+    page_size: {
+      type: ["integer", "null"],
+      format: "int32",
+      minimum: 0,
+    },
+  },
+} as const;
+
 export const PaymentMethodSchema = {
   type: "string",
   enum: ["Btcpay", "Nowpayments", "Paypal"],
-} as const;
-
-export const PlaceOrderSuccessMessageSchema = {
-  type: "object",
-  required: ["success"],
-  properties: {
-    success: {
-      type: "boolean",
-    },
-  },
 } as const;
 
 export const ProceedCheckoutInputSchema = {
@@ -771,6 +795,16 @@ export const ResponseWithMessageSchema = {
   properties: {
     message: {
       type: "string",
+    },
+  },
+} as const;
+
+export const ResponseWithSuccessSchema = {
+  type: "object",
+  required: ["success"],
+  properties: {
+    success: {
+      type: "boolean",
     },
   },
 } as const;

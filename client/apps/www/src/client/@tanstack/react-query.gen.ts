@@ -4,6 +4,8 @@ import type { Options } from "@hey-api/client-fetch";
 import {
   queryOptions,
   type UseMutationOptions,
+  infiniteQueryOptions,
+  type InfiniteData,
   type DefaultError,
 } from "@tanstack/react-query";
 import {
@@ -90,6 +92,9 @@ import type {
   CheckoutProductData,
   CheckoutProductError,
   CheckoutProductResponse,
+  GetOrdersData,
+  GetOrdersError,
+  GetOrdersResponse,
   GetOrderData,
   GetProductData,
   UpdateProfileData,
@@ -776,11 +781,11 @@ export const checkoutProductMutation = (
   return mutationOptions;
 };
 
-export const getOrdersQueryKey = (options?: Options) => [
+export const getOrdersQueryKey = (options?: Options<GetOrdersData>) => [
   createQueryKey("getOrders", options),
 ];
 
-export const getOrdersOptions = (options?: Options) => {
+export const getOrdersOptions = (options?: Options<GetOrdersData>) => {
   return queryOptions({
     queryFn: async ({ queryKey, signal }) => {
       const { data } = await getOrders({
@@ -793,6 +798,87 @@ export const getOrdersOptions = (options?: Options) => {
     },
     queryKey: getOrdersQueryKey(options),
   });
+};
+
+const createInfiniteParams = <
+  K extends Pick<QueryKey<Options>[0], "body" | "headers" | "path" | "query">,
+>(
+  queryKey: QueryKey<Options>,
+  page: K,
+) => {
+  const params = queryKey[0];
+  if (page.body) {
+    params.body = {
+      ...(queryKey[0].body as any),
+      ...(page.body as any),
+    };
+  }
+  if (page.headers) {
+    params.headers = {
+      ...queryKey[0].headers,
+      ...page.headers,
+    };
+  }
+  if (page.path) {
+    params.path = {
+      ...queryKey[0].path,
+      ...page.path,
+    };
+  }
+  if (page.query) {
+    params.query = {
+      ...queryKey[0].query,
+      ...page.query,
+    };
+  }
+  return params as unknown as typeof page;
+};
+
+export const getOrdersInfiniteQueryKey = (
+  options?: Options<GetOrdersData>,
+): QueryKey<Options<GetOrdersData>> => [
+  createQueryKey("getOrders", options, true),
+];
+
+export const getOrdersInfiniteOptions = (options?: Options<GetOrdersData>) => {
+  return infiniteQueryOptions<
+    GetOrdersResponse,
+    GetOrdersError,
+    InfiniteData<GetOrdersResponse>,
+    QueryKey<Options<GetOrdersData>>,
+    | number
+    | Pick<
+        QueryKey<Options<GetOrdersData>>[0],
+        "body" | "headers" | "path" | "query"
+      >
+  >(
+    // @ts-ignore
+    {
+      queryFn: async ({ pageParam, queryKey, signal }) => {
+        // @ts-ignore
+        const page: Pick<
+          QueryKey<Options<GetOrdersData>>[0],
+          "body" | "headers" | "path" | "query"
+        > =
+          typeof pageParam === "object"
+            ? pageParam
+            : {
+                query: {
+                  page: pageParam,
+                },
+              };
+        const params = createInfiniteParams(queryKey, page);
+        const { data } = await getOrders({
+          ...options,
+          ...params,
+          signal,
+          throwOnError: true,
+        });
+        return data;
+      },
+      queryKey: getOrdersInfiniteQueryKey(options),
+    },
+  );
 };
 
 export const getOrderQueryKey = (options: Options<GetOrderData>) => [

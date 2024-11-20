@@ -4,6 +4,7 @@ import { authedClient } from "@/utils/authed-client";
 import { Divider, Typography } from "@jamsr-ui/react";
 import { FetchError } from "@repo/components/fetch-error";
 import React from "react";
+import { AddAddressBtn } from "./add-address-btn";
 import { DefaultAddress } from "./default-address";
 import { DeleteAddress } from "./delete-address";
 import { EditAddress } from "./edit-address";
@@ -17,82 +18,88 @@ export const AddressList = async () => {
   if (response.error) return <FetchError error={response.error} />;
   const { data } = response;
   return (
-    <ul className="flex flex-col">
-      {data.map((item) => {
-        const {
-          fullAddress,
-          firstName,
-          isDefault,
-          lastName,
-          phoneNumber,
-          postalCode,
-          state,
-          city,
-          landmark,
-          id,
-        } = item;
-        return (
-          <React.Fragment key={id}>
-            <li className="py-4">
-              <div className="flex items-center justify-between">
-                <div>{isDefault && <DefaultAddress />}</div>
-                <div className="flex gap-4">
-                  {!isDefault && <SetAsDefaultAddress id={id} />}
-                  <EditAddress
-                    formData={item}
-                    id={id}
-                  />
-                  <DeleteAddress id={id} />
+    <>
+      <ul className="flex flex-col">
+        {data.map((item) => {
+          const {
+            fullAddress,
+            firstName,
+            isDefault,
+            lastName,
+            phoneNumber,
+            postalCode,
+            state,
+            city,
+            landmark,
+            id,
+          } = item;
+          return (
+            <React.Fragment key={id}>
+              <li className="py-4">
+                <div className="flex items-center justify-between">
+                  <div>{isDefault && <DefaultAddress />}</div>
+                  <div className="flex gap-4">
+                    {!isDefault && <SetAsDefaultAddress id={id} />}
+                    <EditAddress
+                      formData={item}
+                      id={id}
+                    />
+                    <DeleteAddress id={id} />
+                  </div>
                 </div>
-              </div>
-              <div className="text-base font-normal text-foreground-secondary">
-                <Typography
-                  as="p"
-                  className="font-medium text-foreground"
-                  style={{
-                    fontSize: "inherit",
-                  }}
-                >
-                  {firstName} {lastName}
-                </Typography>
-                <Typography
-                  as="p"
-                  style={{
-                    fontSize: "inherit",
-                  }}
-                >
-                  {fullAddress}
-                </Typography>
-                <Typography
-                  as="p"
-                  style={{
-                    fontSize: "inherit",
-                  }}
-                >
-                  {postalCode} {city} {state}
-                </Typography>
-                <Typography
-                  as="p"
-                  style={{
-                    fontSize: "inherit",
-                  }}
-                >
-                  {phoneNumber}
-                </Typography>
-                <Typography
-                  as="p"
-                  style={{
-                    fontSize: "inherit",
-                  }}
-                >
-                  {landmark}
-                </Typography>
-              </div>
-            </li>
-            <Divider />
-          </React.Fragment>
-        );
-      })}
-    </ul>
+                <div className="text-base font-normal text-foreground-secondary">
+                  <Typography
+                    as="p"
+                    className="font-medium text-foreground"
+                    style={{
+                      fontSize: "inherit",
+                    }}
+                  >
+                    {firstName} {lastName}
+                  </Typography>
+                  <Typography
+                    as="p"
+                    style={{
+                      fontSize: "inherit",
+                    }}
+                  >
+                    {fullAddress}
+                  </Typography>
+                  <Typography
+                    as="p"
+                    style={{
+                      fontSize: "inherit",
+                    }}
+                  >
+                    {postalCode} {city} {state}
+                  </Typography>
+                  <Typography
+                    as="p"
+                    style={{
+                      fontSize: "inherit",
+                    }}
+                  >
+                    {phoneNumber}
+                  </Typography>
+                  <Typography
+                    as="p"
+                    style={{
+                      fontSize: "inherit",
+                    }}
+                  >
+                    {landmark}
+                  </Typography>
+                </div>
+              </li>
+              <Divider />
+            </React.Fragment>
+          );
+        })}
+      </ul>
+      <AddAddressBtn
+        addresses={data.length}
+        maximumAddresses={5}
+      />
+    </>
   );
 };

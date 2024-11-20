@@ -208,9 +208,19 @@ export enum OrderStatus {
   SUCCESS = "Success",
 }
 
+export type OrderWithPagination = {
+  orders: Array<OrderWithProduct>;
+  totalRecords: number;
+};
+
 export type OrderWithProduct = {
   order: Order;
   product: RelationProductItem;
+};
+
+export type PaginationQuery = {
+  page?: number | null;
+  page_size?: number | null;
 };
 
 export enum PaymentMethod {
@@ -218,10 +228,6 @@ export enum PaymentMethod {
   NOWPAYMENTS = "Nowpayments",
   PAYPAL = "Paypal",
 }
-
-export type PlaceOrderSuccessMessage = {
-  success: boolean;
-};
 
 export type ProceedCheckoutInput = {
   paymentMethod: PaymentMethod;
@@ -294,6 +300,10 @@ export type RelationProductItem = {
 
 export type ResponseWithMessage = {
   message: string;
+};
+
+export type ResponseWithSuccess = {
+  success: boolean;
 };
 
 export type UpdateProfileInput = {
@@ -439,7 +449,7 @@ export type GetCartDataResponse = CartUserData;
 
 export type GetCartDataError = ResponseWithMessage;
 
-export type PlaceOrderResponse = PlaceOrderSuccessMessage;
+export type PlaceOrderResponse = ResponseWithSuccess;
 
 export type PlaceOrderError = ResponseWithMessage;
 
@@ -504,11 +514,18 @@ export type CheckoutProductData = {
   };
 };
 
-export type CheckoutProductResponse = ResponseWithMessage;
+export type CheckoutProductResponse = ResponseWithSuccess;
 
 export type CheckoutProductError = ResponseWithMessage;
 
-export type GetOrdersResponse = Array<OrderWithProduct>;
+export type GetOrdersData = {
+  query?: {
+    page?: number | null;
+    page_size?: number | null;
+  };
+};
+
+export type GetOrdersResponse = OrderWithPagination;
 
 export type GetOrdersError = ResponseWithMessage;
 
@@ -705,6 +722,10 @@ export type GetOrdersResponseTransformer = (
   data: any,
 ) => Promise<GetOrdersResponse>;
 
+export type OrderWithPaginationModelResponseTransformer = (
+  data: any,
+) => OrderWithPagination;
+
 export type OrderWithProductModelResponseTransformer = (
   data: any,
 ) => OrderWithProduct;
@@ -731,11 +752,17 @@ export const OrderWithProductModelResponseTransformer: OrderWithProductModelResp
     return data;
   };
 
+export const OrderWithPaginationModelResponseTransformer: OrderWithPaginationModelResponseTransformer =
+  (data) => {
+    if (Array.isArray(data?.orders)) {
+      data.orders.forEach(OrderWithProductModelResponseTransformer);
+    }
+    return data;
+  };
+
 export const GetOrdersResponseTransformer: GetOrdersResponseTransformer =
   async (data) => {
-    if (Array.isArray(data)) {
-      data.forEach(OrderWithProductModelResponseTransformer);
-    }
+    OrderWithPaginationModelResponseTransformer(data);
     return data;
   };
 

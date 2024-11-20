@@ -1,7 +1,7 @@
-import { type AuthRegister, type AuthRegisterVerify } from "@/client";
+import { type AuthRegisterInput, type AuthRegisterVerifyInput } from "@/client";
 import { email, otpCode, string, withSchema } from "@repo/utils/zod";
 
-const baseSchema = withSchema<AuthRegister>()({
+const baseSchema = withSchema<AuthRegisterInput>()({
   email: email(),
   fullName: string().min(1, "Full Name is required"),
   password: string().min(1, "Password is required"),
@@ -16,10 +16,10 @@ export const registerSchema = baseSchema.refine(
   },
 );
 
-const registerVerifySchemaBase = withSchema<Pick<AuthRegisterVerify, "code">>()(
-  {
-    code: otpCode(),
-  },
-);
+const registerVerifySchemaBase = withSchema<
+  Pick<AuthRegisterVerifyInput, "code">
+>()({
+  code: otpCode(),
+});
 
 export const registerVerifySchema = baseSchema.merge(registerVerifySchemaBase);

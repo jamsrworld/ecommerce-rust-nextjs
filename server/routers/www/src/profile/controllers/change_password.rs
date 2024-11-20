@@ -43,7 +43,7 @@ pub async fn change_password(
     // validate password
     let is_password_valid = verify_password(hashed_password, current_password)?;
     if !is_password_valid {
-        return Err(HttpError::bad_request(Messages::IncorrectPassword));
+        return Err(HttpError::bad_request(Messages::InvalidCurrentPassword));
     }
 
     // hash password

@@ -67,6 +67,8 @@ pub enum Messages<'a> {
     ProfileUpdated,
     #[error("Password change success")]
     PasswordChangeSuccess,
+    #[error("Invalid current password")]
+    InvalidCurrentPassword
 }
 
 impl<'a> Into<String> for Messages<'a> {

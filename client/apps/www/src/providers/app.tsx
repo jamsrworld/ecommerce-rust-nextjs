@@ -2,6 +2,7 @@
 
 import { Confirmation, ToastProvider, UIProvider } from "@jamsr-ui/react";
 import { QueryProvider } from "@repo/components/query-client";
+import { Analytics } from "@vercel/analytics/react";
 
 type Props = {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ export const AppProvider = (props: Props) => {
   const { children } = props;
   return (
     <UIProvider>
+      <Analytics />
       <ToastProvider
         toastOptions={{
           className: "!rounded",

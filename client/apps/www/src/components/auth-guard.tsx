@@ -7,7 +7,7 @@ type Props = {
   loggedOut?: React.ReactNode;
 };
 
-export const AuthGuard = async (props: Props) => {
+export const AuthGuard = async (props: Props): React.ReactNode => {
   const { loggedIn, loggedOut } = props;
   const cookieStore = await cookies();
   const sessionKey = cookieStore.get("x-session")?.value;
