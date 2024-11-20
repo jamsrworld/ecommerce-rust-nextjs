@@ -14,8 +14,3 @@ pub struct CartItemWithMessage {
     pub data: entity::cart::Model,
     pub message: String,
 }
-
-#[derive(Debug, Deserialize, ToSchema, Serialize)]
-pub struct PlaceOrderSuccessMessage {
-    pub success: bool,
-}

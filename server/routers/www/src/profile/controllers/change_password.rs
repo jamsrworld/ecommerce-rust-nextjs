@@ -38,7 +38,7 @@ pub async fn change_password(
 
     let hashed_password = user.password
         .to_owned()
-        .ok_or_else(|| HttpError::bad_request(Messages::UserNotFound(&user_id)))?;
+        .ok_or_else(|| HttpError::bad_request(Messages::NonPasswordAccount))?;
 
     // validate password
     let is_password_valid = verify_password(hashed_password, current_password)?;

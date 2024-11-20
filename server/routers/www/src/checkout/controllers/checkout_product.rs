@@ -1,8 +1,11 @@
 use actix_web::{ post, web::{ self, Path }, HttpResponse };
 use extractors::auth::Authenticated;
-use utils::{ db::create_primary_id, error::{ HttpError, ResponseWithMessage }, AppState };
+use utils::{
+    db::create_primary_id,
+    error::{ HttpError, ResponseWithMessage, ResponseWithSuccess },
+    AppState,
+};
 use sea_orm::{ sea_query, ActiveValue::NotSet, ColumnTrait, EntityTrait, QueryFilter, Set };
-use crate::messages::Messages;
 
 /// Checkout Product
 #[utoipa::path(
@@ -10,7 +13,7 @@ use crate::messages::Messages;
     context_path = "/checkouts",
     params(("id", description = "Product Id", min_length = 24, max_length = 24)),
     responses(
-        (status = StatusCode::OK, body = ResponseWithMessage, description = "Response message"),
+        (status = StatusCode::OK, body = ResponseWithSuccess, description = "Response message"),
         (
             status = StatusCode::INTERNAL_SERVER_ERROR,
             body = ResponseWithMessage,
@@ -60,8 +63,8 @@ pub async fn checkout_product(
         )
         .exec(db).await?;
 
-    let response = ResponseWithMessage {
-        message: Messages::CheckoutSuccessful.to_string(),
+    let response = ResponseWithSuccess {
+        success: true,
     };
     Ok(HttpResponse::Ok().json(response))
 }
