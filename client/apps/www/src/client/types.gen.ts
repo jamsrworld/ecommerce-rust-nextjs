@@ -117,6 +117,12 @@ export type CartUserData = {
   totalAmount: number;
 };
 
+export type ChangePasswordInput = {
+  confirmPassword: string;
+  currentPassword: string;
+  newPassword: string;
+};
+
 export type CheckoutItemsWithProduct = {
   id: string;
   product: RelationProductItem;
@@ -547,6 +553,14 @@ export type UpdateProfileData = {
 export type UpdateProfileResponse = ResponseWithMessage;
 
 export type UpdateProfileError = unknown;
+
+export type ChangePasswordData = {
+  body: ChangePasswordInput;
+};
+
+export type ChangePasswordResponse = ResponseWithMessage;
+
+export type ChangePasswordError = unknown;
 
 export type GetAddressesResponseTransformer = (
   data: any,

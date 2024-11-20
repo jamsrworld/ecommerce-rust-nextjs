@@ -81,6 +81,9 @@ import {
   type UpdateProfileData,
   type UpdateProfileError,
   type UpdateProfileResponse,
+  type ChangePasswordData,
+  type ChangePasswordError,
+  type ChangePasswordResponse,
   GetAddressesResponseTransformer,
   CreateAddressResponseTransformer,
   GetAddressResponseTransformer,
@@ -577,9 +580,13 @@ export const logoutAll = <ThrowOnError extends boolean = false>(
  * Change Password
  */
 export const changePassword = <ThrowOnError extends boolean = false>(
-  options?: Options<unknown, ThrowOnError>,
+  options: Options<ChangePasswordData, ThrowOnError>,
 ) => {
-  return (options?.client ?? client).patch<void, unknown, ThrowOnError>({
+  return (options?.client ?? client).patch<
+    ChangePasswordResponse,
+    ChangePasswordError,
+    ThrowOnError
+  >({
     ...options,
     url: "/profile/password",
   });
