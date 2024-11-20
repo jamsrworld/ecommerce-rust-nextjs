@@ -66,6 +66,7 @@ import {
   type CheckoutProductData,
   type CheckoutProductError,
   type CheckoutProductResponse,
+  type GetOrdersData,
   type GetOrdersError,
   type GetOrdersResponse,
   type GetOrderData,
@@ -100,7 +101,7 @@ import {
 
 import { client } from "../utils/client";
 
-export { client } from "../utils/client" 
+export { client } from "../utils/client";
 
 /**
  * Health check
@@ -468,7 +469,7 @@ export const checkoutProduct = <ThrowOnError extends boolean = false>(
  * Get all orders
  */
 export const getOrders = <ThrowOnError extends boolean = false>(
-  options?: Options<unknown, ThrowOnError>,
+  options?: Options<GetOrdersData, ThrowOnError>,
 ) => {
   return (options?.client ?? client).get<
     GetOrdersResponse,

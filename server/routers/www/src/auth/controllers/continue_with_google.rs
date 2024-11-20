@@ -47,13 +47,20 @@ pub async fn continue_with_google(
     let db = &app_data.db;
     let jwt_secret = app_data.env.jwt_secret.to_owned();
     let input = input.into_inner();
+
     let client_id = app_data.env.google_client_id.to_owned();
     let client_secret = app_data.env.google_client_secret.to_owned();
+    let google_redirect_uri = app_data.env.google_redirect_uri.to_owned();
 
     match input {
         ContinueWithGoogleInput::Code(input) => {
             input.validate().map_err(|e| HttpError::bad_request(e.to_string()))?;
-            let data = get_user_by_code(input, client_id, client_secret).await?;
+            let data = get_user_by_code(
+                input,
+                client_id,
+                client_secret,
+                google_redirect_uri
+            ).await?;
             return check_user(db, jwt_secret, data).await;
         }
         ContinueWithGoogleInput::Credential(input) => {
@@ -117,7 +124,8 @@ pub async fn check_user(
 pub async fn get_user_by_code(
     input: GoogleLoginWithCode,
     client_id: String,
-    client_secret: String
+    client_secret: String,
+    google_redirect_uri: String
 ) -> Result<GoogleUserInfo, HttpError> {
     let authorization_code = input.authorization_code;
     let root_url = "https://oauth2.googleapis.com/token";
@@ -125,7 +133,7 @@ pub async fn get_user_by_code(
 
     let params = [
         ("grant_type", "authorization_code"),
-        ("redirect_uri", "https://mcart.jamsrworld.com"),
+        ("redirect_uri", &google_redirect_uri),
         // ("redirect_uri", "http://localhost:5000"),
         ("client_id", client_id.as_str()),
         ("code", authorization_code.as_str()),

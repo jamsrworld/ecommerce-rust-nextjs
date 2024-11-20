@@ -26,4 +26,8 @@ export const fNumber = (value: number) => {
   return Number(value.toFixed(2));
 };
 
-// export const calcDiscoun
+export const asNumber = (value?: string, min = 1) => {
+  if (!value) return min;
+  // eslint-disable-next-line no-restricted-globals
+  return isNaN(Number(value)) ? min : Number(value);
+};

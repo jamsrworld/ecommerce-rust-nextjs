@@ -25,7 +25,6 @@ export const AddAddressBtn = (props: Props) => {
         fullWidth
         color="primary"
         size="lg"
-        className="rounded-none"
         onClick={onOpen}
         isDisabled={isDisabled}
       >

@@ -17,6 +17,7 @@ import {
 import { EditIcon } from "@repo/icons";
 import { string, withSchema } from "@repo/utils/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type FormValues = ChangePasswordInput;
@@ -25,6 +26,9 @@ const schema = withSchema<FormValues>()({
   currentPassword: string().min(1, "Current Password is required"),
   confirmPassword: string().min(1, "Confirm Password is required"),
   newPassword: string().min(1, "New Password is required"),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  path: ["confirmPassword"],
+  message: "Passwords do not match",
 });
 
 type Props = {
@@ -32,6 +36,7 @@ type Props = {
 };
 
 const ChangePasswordForm = (props: Props) => {
+  const [showPassword, setShowPassword] = useState(false);
   const { onSuccess } = props;
   const defaultValues: FormValues = {
     confirmPassword: "",
@@ -67,8 +72,11 @@ const ChangePasswordForm = (props: Props) => {
       <UIStylesProvider
         input={{
           classNames: {
-            label: "text-foreground",
+            // label: "text-foreground",
           },
+          isSecuredText: true,
+          showPassword,
+          setShowPassword,
           // variant: "outlined",
         }}
       >

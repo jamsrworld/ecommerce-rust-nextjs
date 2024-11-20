@@ -1,23 +1,15 @@
-import { getProfile } from "@/client";
-import { Divider, Skeleton, Typography } from "@jamsr-ui/react";
+import { Divider, Typography } from "@jamsr-ui/react";
 import { type Metadata } from "next";
-import { cookies } from "next/headers";
-import { ChangePasswordDialog } from "./_lib/components/change-password-form";
-import { ProfileUpdateForm } from "./_lib/components/profile-form";
+import { Suspense } from "react";
+import { ChangePasswordDialog } from "./_components/change-password-form";
+import { ProfileUpdateForm } from "./_components/profile-form";
+import { ProfileContent } from "./content";
 
 export const metadata: Metadata = {
   title: "Profile",
 };
 
-const Page = async () => {
-  const cookieStore = await cookies();
-  const { data } = await getProfile({
-    headers: {
-      Cookie: cookieStore.toString(),
-    },
-  });
-  if (!data) return <Skeleton className="h-12" />;
-  const { email, fullName } = data;
+const Page = () => {
   return (
     <div>
       <section className="flex flex-col gap-2">
@@ -46,12 +38,18 @@ const Page = async () => {
             >
               Email
             </Typography>
-            <Typography
-              className="text-base"
-              as="p"
-            >
-              {email}
-            </Typography>
+            <Suspense>
+              <ProfileContent>
+                {({ email }) => (
+                  <Typography
+                    className="text-base"
+                    as="p"
+                  >
+                    {email}
+                  </Typography>
+                )}
+              </ProfileContent>
+            </Suspense>
           </li>
           <li className="flex justify-between">
             <Typography
@@ -89,7 +87,11 @@ const Page = async () => {
           </Typography>
         </div>
         <div className="flex flex-col gap-2">
-          <ProfileUpdateForm fullName={fullName} />
+          <Suspense>
+            <ProfileContent>
+              {({ fullName }) => <ProfileUpdateForm fullName={fullName} />}
+            </ProfileContent>
+          </Suspense>
         </div>
       </section>
     </div>

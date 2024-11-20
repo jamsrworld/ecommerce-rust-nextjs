@@ -18,6 +18,7 @@ mod models;
 mod profile;
 mod address;
 mod messages;
+mod schemas;
 
 #[utoipauto::utoipauto(paths = "./routers/www")]
 #[derive(OpenApi)]
