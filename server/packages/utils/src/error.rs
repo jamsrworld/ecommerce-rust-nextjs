@@ -105,6 +105,11 @@ pub struct ResponseWithMessage {
     pub message: String,
 }
 
+#[derive(Debug, Serialize, ToSchema)]
+pub struct ResponseWithSuccess {
+    pub success:bool,
+}
+
 impl Display for ResponseWithMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.message)
