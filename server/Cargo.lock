@@ -5028,6 +5028,7 @@ dependencies = [
  "config",
  "entity",
  "extractors",
+ "log",
  "middlewares",
  "migration",
  "reqwest",

@@ -42,7 +42,7 @@ pub async fn update_profile(
     user.update(db).await?;
 
     let response = ResponseWithMessage {
-        message: ProfileMessage::ProfileUpdated().to_string(),
+        message: ProfileMessage::ProfileUpdated.to_string(),
     };
 
     Ok(HttpResponse::Ok().json(response))
