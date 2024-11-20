@@ -268,6 +268,22 @@ export const CartUserDataSchema = {
   },
 } as const;
 
+export const ChangePasswordInputSchema = {
+  type: "object",
+  required: ["currentPassword", "newPassword", "confirmPassword"],
+  properties: {
+    confirmPassword: {
+      type: "string",
+    },
+    currentPassword: {
+      type: "string",
+    },
+    newPassword: {
+      type: "string",
+    },
+  },
+} as const;
+
 export const CheckoutItemsWithProductSchema = {
   type: "object",
   required: ["id", "product_id", "quantity", "product"],

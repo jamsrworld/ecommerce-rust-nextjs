@@ -21,7 +21,29 @@ export const sharedNextConfig: NextConfig = {
         test: /\.svg$/i,
         issuer: fileLoaderRule.issuer,
         resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
-        use: ["@svgr/webpack"],
+        use: {
+          loader: "@svgr/webpack",
+          options: {
+            svgo: true,
+            // dimensions: false,
+            typescript: true,
+            ext: "tsx",
+            svgoConfig: {
+              plugins: [
+                {
+                  name: "preset-default",
+                  params: {
+                    overrides: {
+                      removeViewBox: false,
+                      // disable minifyStyles
+                      minifyStyles: false,
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
       }
     );
     // Modify the file loader rule to ignore *.svg, since we have it handled now.

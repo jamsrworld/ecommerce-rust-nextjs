@@ -2,6 +2,7 @@ import { getProfile } from "@/client";
 import { Divider, Skeleton, Typography } from "@jamsr-ui/react";
 import { type Metadata } from "next";
 import { cookies } from "next/headers";
+import { ChangePasswordDialog } from "./_lib/components/change-password-form";
 import { ProfileUpdateForm } from "./_lib/components/profile-form";
 
 export const metadata: Metadata = {
@@ -59,12 +60,15 @@ const Page = async () => {
             >
               Password
             </Typography>
-            <Typography
-              className="text-base"
-              as="p"
-            >
-              ************
-            </Typography>
+            <div className="flex items-center">
+              <Typography
+                className="text-base"
+                as="p"
+              >
+                ************
+              </Typography>
+              <ChangePasswordDialog />
+            </div>
           </li>
         </ul>
       </section>
