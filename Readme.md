@@ -2,7 +2,7 @@
 
 Built with **Next.js 15** App Router _frontend_ and **Rust**  **Actix-Web** _backend_
 
-![Logo](assets/logo.png)
+<img src="assets/logo.png" height="40"/>
 
 [Demo](https://jamsrworld.com/products/ecommerce-website-in-rust-rust-ecommerce-source-code/dxvhuwl2x0vg3zps0ppdsf34)
 
@@ -60,7 +60,7 @@ Built with **Next.js 15** App Router _frontend_ and **Rust**  **Actix-Web** _bac
 To get started with this project, run
 
 ```shell
-  git clone https://github.com/jamsrworld/ecommerce-rust-nextjs.git
+  git clone https://github.com/jamsrworld/ecommerce-rust-nextjs-mcart.git
 ```
 
 ### Setup Server
