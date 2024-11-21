@@ -122,13 +122,13 @@ export const ProductSlider = (props: Props) => {
           onClick={preventDefault}
         >
           <Repeater count={imageCount}>
-            {(idx) => {
-              const isActive = idx === currentImage;
+            {({ index }) => {
+              const isActive = index === currentImage;
               return (
                 <li>
                   <button
                     type="button"
-                    onClick={(e) => handleOnClickPagination(e, idx)}
+                    onClick={(e) => handleOnClickPagination(e, index)}
                     className={cn(
                       "h-0.5 w-8 shrink-0 rounded-md bg-black transition-all duration-500 group-hover:h-2",
                       {

@@ -89,7 +89,7 @@ export const MobileImageSlider = (props: Props) => {
       </AnimatePresence>
       <div className="flex justify-center gap-1">
         <Repeater count={images.length}>
-          {(index) => {
+          {({ index }) => {
             return (
               <button
                 type="button"
