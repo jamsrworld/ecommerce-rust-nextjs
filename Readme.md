@@ -2,20 +2,21 @@
 
 Built with **Next.js 15** App Router _frontend_ and **Rust**  **Actix-Web** _backend_
 
-<img src="assets/logo.png" height="40"/>
+<img src="assets/logo.png" height="40"/> .
+
+> This project is currently in development
 
 [Demo](https://jamsrworld.com/products/ecommerce-website-in-rust-rust-ecommerce-source-code/dxvhuwl2x0vg3zps0ppdsf34)
 
 ![Project Image](assets/image-1.png)
 
----
-
-## Tools & Technologies
+## Tech Stack
 
 - [Next.js](https://nextjs.org)
-- [Rust](https://www.rust-lang.org)
-- [Actix-Web](https://actix.rs)
 - [JamsrUI](https://jamsr-ui.jamsrworld.com)
+- [Actix-Web Rust](https://actix.rs)
+- [PostgreSQL](https://www.postgresql.org)
+- [Redis](https://redis.io)
 
 ## Features
 
@@ -46,14 +47,13 @@ Built with **Next.js 15** App Router _frontend_ and **Rust**  **Actix-Web** _bac
 - 🔑 Custom Authentication Built with JWT from Scratch
 - ✉️ Beautiful Email Templates with Askama
 - 📜 OpenAPI Integration
+- 💻 API Documentation
 - 🐳 Dockerfile Included
 - ⚙️ Powered by SeaORM
 - 🛢️ PostgreSQL Database
 - 🔒 Secure & Efficient
 - 🎛️ Highly Configurable
 - 🎁 ...and More Advanced Features!
-
----
 
 ## Getting started
 
@@ -136,18 +136,12 @@ Go to `client/apps/www` folder and:
 ![Project Image](assets/image-3.png)
 ![Project Image](assets/image-4.png)
 
----
-
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
----
 
 This project is built by [Jamsrworld](https://jamsrworld.com/products/ecommerce-website-in-rust-rust-ecommerce-source-code/dxvhuwl2x0vg3zps0ppdsf34).
 
 Need customization or technical support? You can [contact us](https://jamsrworld.com/contact) for assistance.
 
 If you want to support this project you can [buy me a coffee](https://jamsrworld.com/products/ecommerce-website-in-rust-rust-ecommerce-source-code/dxvhuwl2x0vg3zps0ppdsf34).
-
----
