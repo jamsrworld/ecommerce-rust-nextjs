@@ -14,14 +14,14 @@ export const OrderPagination = (props: Props) => {
   return (
     <div className="mx-auto flex gap-2">
       <Repeater count={total}>
-        {(index) => (
+        {({ position }) => (
           <Button
             as={NextLink}
-            href={`${APP_ROUTES.orders.root}?page=${index + 1}`}
+            href={`${APP_ROUTES.orders.root}?page=${position}`}
             isIconOnly
-            variant={activePage === index + 1 ? "solid" : "light"}
+            variant={activePage === position ? "solid" : "light"}
           >
-            {index + 1}
+            {position}
           </Button>
         )}
       </Repeater>

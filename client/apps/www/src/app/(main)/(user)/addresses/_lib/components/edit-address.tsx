@@ -34,22 +34,24 @@ export const EditAddress = (props: Props) => {
         isOpen={isOpen}
         onOpenChange={setIsOpen}
         size="2xl"
-        className="flex w-full flex-col justify-center gap-4 overflow-auto p-4"
+        className="flex w-full flex-col"
       >
-        <UpdateAddressForm
-          id={id}
-          onSuccess={onSuccess}
-          defaultValues={formData}
-        />
-        <Button
-          color="primary"
-          variant="text"
-          disableRipple
-          className="underline"
-          onClick={onClose}
-        >
-          Cancel
-        </Button>
+        <div className="my-auto flex flex-col gap-4 p-4">
+          <UpdateAddressForm
+            id={id}
+            onClose={onSuccess}
+            defaultValues={formData}
+          />
+          <Button
+            color="primary"
+            variant="text"
+            disableRipple
+            className="underline"
+            onClick={onClose}
+          >
+            Cancel
+          </Button>
+        </div>
       </Drawer>
     </div>
   );

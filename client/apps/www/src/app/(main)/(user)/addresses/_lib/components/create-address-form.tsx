@@ -1,7 +1,8 @@
 import { type CreateAddressInput } from "@/client";
 import { createAddressMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RHFProvider, Typography } from "@jamsr-ui/react";
+import { Button, RHFProvider, Typography } from "@jamsr-ui/react";
+import { ArrowLeftIcon } from "@repo/icons/arrow";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { createAddressSchema, type ZodCreateAddressInput } from "../schema";
@@ -10,11 +11,11 @@ import { AddressForm } from "./address-form";
 type FormValues = ZodCreateAddressInput;
 
 type Props = {
-  onSuccess?: () => void;
+  onClose?: () => void;
 };
 
 export const CreateAddressForm = (props: Props) => {
-  const { onSuccess } = props;
+  const { onClose } = props;
   const defaultValues: FormValues = {
     city: "",
     firstName: "",
@@ -44,19 +45,34 @@ export const CreateAddressForm = (props: Props) => {
         body: data,
       },
       {
-        onSuccess,
+        onSuccess: onClose,
       },
     );
   });
 
   return (
     <div className="flex flex-col gap-4">
-      <Typography
-        as="h1"
-        variant="h4"
-      >
-        Add New Address
-      </Typography>
+      <div className="flex items-center gap-2">
+        <Button
+          isIconOnly
+          isRounded
+          className="md:hidden"
+          onClick={onClose}
+          tabIndex={-1}
+        >
+          <ArrowLeftIcon
+            width={20}
+            height={20}
+          />
+        </Button>
+        <Typography
+          as="h1"
+          variant="h4"
+        >
+          Add New Address
+        </Typography>
+      </div>
+
       <RHFProvider
         methods={methods}
         isPending={mutation.isPending}

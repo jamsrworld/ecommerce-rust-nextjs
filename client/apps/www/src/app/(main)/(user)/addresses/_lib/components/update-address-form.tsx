@@ -1,7 +1,8 @@
 import { type CreateAddressInput } from "@/client";
 import { updateAddressMutation } from "@/client/@tanstack/react-query.gen";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RHFProvider, Typography } from "@jamsr-ui/react";
+import { Button, RHFProvider, Typography } from "@jamsr-ui/react";
+import { ArrowLeftIcon } from "@repo/icons/arrow";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { createAddressSchema } from "../schema";
@@ -10,13 +11,13 @@ import { AddressForm } from "./address-form";
 type FormValues = CreateAddressInput;
 
 type Props = {
-  onSuccess?: () => void;
+  onClose?: () => void;
   id: string;
   defaultValues: FormValues;
 };
 
 export const UpdateAddressForm = (props: Props) => {
-  const { onSuccess, id, defaultValues } = props;
+  const { onClose, id, defaultValues } = props;
   const methods = useForm({
     defaultValues,
     resolver: zodResolver(createAddressSchema),
@@ -37,19 +38,33 @@ export const UpdateAddressForm = (props: Props) => {
         },
       },
       {
-        onSuccess,
+        onSuccess: onClose,
       },
     );
   });
 
   return (
     <div className="flex flex-col gap-4">
-      <Typography
-        as="h1"
-        variant="h4"
-      >
-        Update Address
-      </Typography>
+      <div className="flex items-center gap-2">
+        <Button
+          isIconOnly
+          isRounded
+          className="md:hidden"
+          onClick={onClose}
+          tabIndex={-1}
+        >
+          <ArrowLeftIcon
+            width={20}
+            height={20}
+          />
+        </Button>
+        <Typography
+          as="h1"
+          variant="h4"
+        >
+          Update Address
+        </Typography>
+      </div>
       <RHFProvider
         methods={methods}
         isPending={mutation.isPending}

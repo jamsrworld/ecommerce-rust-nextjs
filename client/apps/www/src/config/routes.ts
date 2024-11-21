@@ -29,4 +29,5 @@ export const protectedRoutes: Route[] = [
   APP_ROUTES.orders.root,
   APP_ROUTES.orders.view(""),
   APP_ROUTES.addresses,
+  APP_ROUTES.checkout,
 ];
