@@ -14,7 +14,7 @@ const getCachedProfile = cache(async () => {
   });
 });
 
-export const ProfileContent = async (props: Props) => {
+export const AuthedUserData = async (props: Props) => {
   const { children } = props;
   const { data, error } = await getCachedProfile();
   if (error) return <FetchError error={error} />;

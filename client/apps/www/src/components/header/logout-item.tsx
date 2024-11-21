@@ -2,6 +2,7 @@
 
 import { logout } from "@/app/(auth)/logout/actions";
 import { MenuItem } from "@jamsr-ui/react";
+import { LoginIcon } from "@repo/icons";
 import { useRouter } from "next/navigation";
 
 export const LogoutItem = () => {
@@ -12,5 +13,18 @@ export const LogoutItem = () => {
     router.refresh();
   };
 
-  return <MenuItem onClick={handleClick}>Logout</MenuItem>;
+  return (
+    <MenuItem
+      startContent={
+        <LoginIcon
+          width={20}
+          height={20}
+          className="rotate-180"
+        />
+      }
+      onClick={handleClick}
+    >
+      Logout
+    </MenuItem>
+  );
 };

@@ -5,7 +5,7 @@ import { AppLogo } from "../app-logo";
 import { AuthGuard } from "../auth-guard";
 import { HeaderCartBtn } from "./cart/cart-btn";
 import { ThemeSwitcher } from "./theme-switcher";
-import { UserMenuitem } from "./user-menuitem";
+import { UserProfileMenu } from "./user-profile-menu";
 
 const navItems = [
   {
@@ -49,13 +49,13 @@ export const AppHeader = () => {
             ))}
           </ul>
         </nav>
-        <div className="flex items-center">
+        <div className="flex items-center gap-1">
           <ThemeSwitcher />
           <AuthGuard
             loggedIn={
               <>
                 <HeaderCartBtn />
-                <UserMenuitem />
+                <UserProfileMenu />
               </>
             }
             loggedOut={
