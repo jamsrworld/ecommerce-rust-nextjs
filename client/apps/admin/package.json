@@ -11,7 +11,7 @@
   "dependencies": {
     "@hey-api/client-fetch": "0.4.2",
     "@hookform/resolvers": "^3.9.0",
-    "@jamsr-ui/react": "0.0.177",
+    "@jamsr-ui/react": "0.0.179",
     "@repo/components": "workspace:^",
     "@repo/config": "workspace:^",
     "@repo/hooks": "workspace:^",
@@ -20,7 +20,7 @@
     "@svgr/webpack": "^8.1.0",
     "@tanstack/react-query": "^5.56.2",
     "framer-motion": "12.0.0-alpha.1",
-    "next": "15.0.2",
+    "next": "15.0.3",
     "react": "19.0.0-rc-1631855f-20241023",
     "react-dom": "19.0.0-rc-1631855f-20241023",
     "react-hook-form": "^7.53.0",
