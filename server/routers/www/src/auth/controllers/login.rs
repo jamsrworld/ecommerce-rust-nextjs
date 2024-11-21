@@ -28,6 +28,7 @@ pub async fn login(
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let jwt_secret = app_data.env.jwt_secret.to_owned();
+    let app_server_url = app_data.env.app_server_url.to_owned();
     let AuthLoginInput { email, password } = &input.into_inner();
 
     // check if user exist
@@ -48,10 +49,10 @@ pub async fn login(
     }
 
     // create session token
-    let jwt = create_token(user.id.to_owned(), jwt_secret)?;
+    let session_token = create_token(user.id.to_owned(), jwt_secret)?;
 
     // create session cookie
-    let cookie = create_cookie(SessionKey::Authorization, jwt);
+    let cookie = create_cookie(SessionKey::Authorization, session_token, app_server_url);
 
     let response = ResponseWithMessage {
         message: Messages::LoginSuccessful.to_string(),
