@@ -22,6 +22,11 @@ export const APP_ROUTES = {
   },
   checkout: "/checkout",
   search: (keyword: string) => `/search/${keyword}` as Route,
+  aboutUs: "/about",
+  contactUs: "/contact",
+  privacyPolicy: "/privacy-policy",
+  returnPolicy: "/return-policy",
+  termsOfUse: "/terms-of-use",
 } satisfies RoutesRecords;
 
 export const protectedRoutes: Route[] = [

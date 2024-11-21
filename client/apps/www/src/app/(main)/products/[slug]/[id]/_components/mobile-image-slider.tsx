@@ -48,7 +48,6 @@ export const MobileImageSlider = (props: Props) => {
 
   const motionDivProps: MotionProps = {
     initial: (direction: "left" | "right") => {
-      console.log("initial:->", direction);
       return {
         x: direction === "left" ? "100%" : "-100%",
       };
@@ -56,7 +55,6 @@ export const MobileImageSlider = (props: Props) => {
     animate: { x: "0" },
     // exit: { x: direction === "left" ? "-100%" : "100%" },
     exit: (direction: "left" | "right") => {
-      console.log("exit:->", direction);
       return {
         x: direction === "left" ? "-100%" : "100%",
       };

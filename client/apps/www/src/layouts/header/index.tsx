@@ -1,8 +1,8 @@
+import { AppLogo } from "@/components/app-logo";
+import { AuthGuard } from "@/components/auth-guard";
 import { APP_ROUTES } from "@/config/routes";
 import { Header } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
-import { AppLogo } from "../app-logo";
-import { AuthGuard } from "../auth-guard";
 import { HeaderCartBtn } from "./cart/cart-btn";
 import { ThemeSwitcher } from "./theme-switcher";
 import { UserProfileMenu } from "./user-profile-menu";

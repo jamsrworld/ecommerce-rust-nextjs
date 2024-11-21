@@ -13,11 +13,7 @@ export const AppProvider = (props: Props) => {
   return (
     <UIProvider>
       <Analytics />
-      <ToastProvider
-        toastOptions={{
-          className: "!rounded",
-        }}
-      />
+      <ToastProvider />
       <Confirmation />
       <QueryProvider>{children}</QueryProvider>
       {/* Make scroll container to relative when js is disabled for native scrolling */}
