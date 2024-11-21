@@ -26,7 +26,8 @@ const ContinueWithGoogleBase = () => {
   const mutation = useMutation({
     ...continueWithGoogleMutation(),
     onSuccess() {
-      router.push(redirectPathname);
+      console.log("here");
+      router.replace(redirectPathname);
       router.refresh();
     },
   });
