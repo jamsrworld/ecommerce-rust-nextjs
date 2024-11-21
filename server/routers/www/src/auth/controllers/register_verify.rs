@@ -41,7 +41,7 @@ pub async fn register_verify(
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
     let jwt_secret = app_data.env.jwt_secret.to_owned();
-    // let RegisterVerify { code, register } = input.into_inner();
+    let app_server_url = app_data.env.app_server_url.to_owned();
 
     let AuthRegisterVerifyInput { code, register } = input.into_inner();
     let AuthRegisterInput { full_name, email, password, .. } = register;
@@ -85,10 +85,10 @@ pub async fn register_verify(
     mailer.send()?;
 
     // create session token
-    let jwt = create_token(new_user_id, jwt_secret)?;
+    let session_token = create_token(new_user_id, jwt_secret)?;
 
     // create session cookie
-    let cookie = create_cookie(SessionKey::Authorization, jwt);
+    let cookie = create_cookie(SessionKey::Authorization, session_token, app_server_url);
 
     let response = ResponseWithMessage {
         message: Messages::RegisterSuccess.to_string(),

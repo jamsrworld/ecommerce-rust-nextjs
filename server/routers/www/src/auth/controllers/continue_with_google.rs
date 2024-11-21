@@ -1,5 +1,5 @@
 use actix_web::{ post, web, HttpResponse };
-use config::session_keys::SessionKey;
+use config::{ session_keys::SessionKey, Config };
 use entity::sea_orm_active_enums::{ UserRole, UserStatus };
 use reqwest::{ Client, Url };
 use sea_orm::{
@@ -45,12 +45,12 @@ pub async fn continue_with_google(
     input: web::Json<ContinueWithGoogleInput>
 ) -> Result<HttpResponse, HttpError> {
     let db = &app_data.db;
-    let jwt_secret = app_data.env.jwt_secret.to_owned();
-    let input = input.into_inner();
+    let env = &app_data.env;
+    let input: ContinueWithGoogleInput = input.into_inner();
 
     let client_id = app_data.env.google_client_id.to_owned();
     let client_secret = app_data.env.google_client_secret.to_owned();
-    let google_redirect_uri = app_data.env.google_redirect_uri.to_owned();
+    let google_redirect_uri = app_data.env.app_server_url.to_owned();
 
     match input {
         ContinueWithGoogleInput::Code(input) => {
@@ -61,22 +61,26 @@ pub async fn continue_with_google(
                 client_secret,
                 google_redirect_uri
             ).await?;
-            return check_user(db, jwt_secret, data).await;
+            return check_user(db, env, data).await;
         }
         ContinueWithGoogleInput::Credential(input) => {
             input.validate().map_err(|e| HttpError::bad_request(e.to_string()))?;
             let data = get_user_by_credential(input, client_id).await?;
-            return check_user(db, jwt_secret, data).await;
+            return check_user(db, env, data).await;
         }
     }
 }
 
-pub fn create_session_token(id: String, jwt_secret: String) -> Result<HttpResponse, HttpError> {
+pub fn create_session_token(
+    id: String,
+    jwt_secret: String,
+    app_server_url: String
+) -> Result<HttpResponse, HttpError> {
     // create session token
-    let jwt = create_token(id, jwt_secret)?;
+    let session_token = create_token(id, jwt_secret)?;
 
     // create session cookie
-    let cookie = create_cookie(SessionKey::Authorization, jwt);
+    let cookie = create_cookie(SessionKey::Authorization, session_token, app_server_url);
 
     let response = ResponseWithMessage {
         message: Messages::LoginSuccessful.to_string(),
@@ -87,10 +91,12 @@ pub fn create_session_token(id: String, jwt_secret: String) -> Result<HttpRespon
 
 pub async fn check_user(
     db: &DatabaseConnection,
-    jwt_secret: String,
+    env: &Config,
     input: GoogleUserInfo
 ) -> Result<HttpResponse, HttpError> {
     let GoogleUserInfo { email, name, picture } = input;
+    let jwt_secret = env.jwt_secret.to_owned();
+    let app_server_url = env.app_server_url.to_owned();
 
     // check if user exist
     let user = entity::user::Entity
@@ -100,7 +106,7 @@ pub async fn check_user(
 
     match user {
         Some(user) => {
-            return create_session_token(user.id, jwt_secret);
+            return create_session_token(user.id, jwt_secret, app_server_url);
         }
         None => {
             // register user
@@ -116,7 +122,7 @@ pub async fn check_user(
                 updated_at: NotSet,
             };
             new_user.insert(db).await?;
-            return create_session_token(new_user_id, jwt_secret);
+            return create_session_token(new_user_id, jwt_secret, app_server_url);
         }
     }
 }
@@ -134,7 +140,6 @@ pub async fn get_user_by_code(
     let params = [
         ("grant_type", "authorization_code"),
         ("redirect_uri", &google_redirect_uri),
-        // ("redirect_uri", "http://localhost:5000"),
         ("client_id", client_id.as_str()),
         ("code", authorization_code.as_str()),
         ("client_secret", client_secret.as_str()),
