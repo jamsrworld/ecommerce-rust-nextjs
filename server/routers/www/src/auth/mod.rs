@@ -21,7 +21,7 @@ mod utils;
 pub fn auth_routes(config: &mut web::ServiceConfig, app_data: web::Data<AppState>) {
     let redis_backend = app_data.redis_backend.to_owned();
 
-    let input = SimpleInputFunctionBuilder::new(Duration::from_secs(60), 10).real_ip_key().build();
+    let input = SimpleInputFunctionBuilder::new(Duration::from_secs(300), 10).real_ip_key().build();
     let rate_limit_middleware = RateLimiter::builder(redis_backend, input)
         .request_denied_response(|_| {
             HttpResponse::TooManyRequests().json(json!({ "message": "Too many requests" }))
