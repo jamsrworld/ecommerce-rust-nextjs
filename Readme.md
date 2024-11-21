@@ -1,139 +1,153 @@
-# Mcart
+# MCart - A Modern Fullstack E-Commerce Marketplace
 
-An e-commerce website built with
+Built with **Next.js 15** App Router _frontend_ and **Rust**  **Actix-Web** _backend_
 
-- frontend: next js
-- backend: rust, actix web
+![Logo](assets/logo.png)
 
-<div>
-  <div align="center" style="display: block; text-align: center;">
-    <img src="https://raw.githubusercontent.com/rust-lang-ve/design/main/assets/logo_above.png" height="120" width="120" />
-  </div>
-  <h1 align="center">MCart</h1>
-  <h4 align="center">Simple e-commerce server made with Actix</h4>
-</div>
+[Demo](https://jamsrworld.com/products/ecommerce-website-in-rust-rust-ecommerce-source-code/dxvhuwl2x0vg3zps0ppdsf34)
 
+![Project Image](assets/image-1.png)
 
-A prototype of an e-commerce store built with Rust, using PostgreSQL, [Axum](https://github.com/tokio-rs/axum), and the [Tera](https://keats.github.io/tera/) template engine.
-## Requirements
+---
 
-- Docker
-- Rust
+## Tools & Technologies
 
-## Development
+- [Next.js](https://nextjs.org)
+- [Rust](https://www.rust-lang.org)
+- [Actix-Web](https://actix.rs)
+- [JamsrUI](https://jamsr-ui.jamsrworld.com)
 
-Build and run with `cargo`:
+## Features
 
-```bash
-cargo run
-```
+### Frontend
 
-### Setup Diesel
+- 🚀 Built from Scratch with Next.js 15  
+- 🌟 Modern, Clean UI with JamsrUI  
+- ⚡  Powered by Turborepo Workspaces  
+- 💻 Stunning Landing & Product Pages  
+- 🛒 Seamless E-commerce Experience  
+- 🔑 Custom Authentication Built with JWT from Scratch  
+- ✉️  Beautifully Designed Email Notifications  
+- ⌨️  100% TypeScript Codebase  
+- 📱 Mobile-First Design  
+- 🛠️ Customizable Themes  
+- 💾 SEO & Performance Optimized  
+- 📊 Vercel Analytics Integration  
+- 🔒 Built-in Security  
+- 🐳 Dockerfile Included  
+- 🔄 Backend-Frontend Type Sync via OpenAPI
+- 🎁 …and So Much More!
 
-Using cargo install command, install `diesel_cli` binary:
+### Backend
 
-```bash
-cargo install diesel_cli --no-default-features --features postgres
-```
+- 🚀 Built in Rust with Actix Web
+- ⚡ Rust Workspaces with Cargo
+- 🔐 Rate Limiting with Redis
+- 🔑 Custom Authentication Built with JWT from Scratch
+- ✉️ Beautiful Email Templates with Askama
+- 📜 OpenAPI Integration
+- 🐳 Dockerfile Included
+- ⚙️ Powered by SeaORM
+- 🛢️ PostgreSQL Database
+- 🔒 Secure & Efficient
+- 🎛️ Highly Configurable
+- 🎁 ...and More Advanced Features!
 
-If theres no `diesel.toml` file in the project directory, run diesel setup to
-generate such file.
-
-Then run migrations issuing:
-
-```bash
-diesel migration run
-```
-
-> In order to create a new migration issue: diesel
-> `migration generate <migration name>`
-
-## Endpoints
-
-| Method | URL           | Req. Body | Res. Body                                   |
-| ------ | ------------- | --------- | ------------------------------------------- |
-| GET    | `/auth/login` | -         | `{"username": String, "password": String }` |
-
-## Environment Variables
-
-Description of the environment variables defined in the `.env.sample`.
-
-| Key                 | Description                                 |
-| ------------------- | ------------------------------------------- |
-| `POSTGRES_USER`     | PostgreSQL Database User                    |
-| `POSTGRES_PASSWORD` | PostgreSQL Database Password                |
-| `DATABASE_URL`      | PostgreSQL Database URL (Connection String) |
-
-## System Requirements
-
-Depending on your operative system you will probably need to install some
-packages to run this project.
-
-### Ubuntu 20
-
-The following commands must be issued to have all the dependencies in place to
-build this project with `cargo build` on an Ubuntu 20 system.
-
-```bash
-# install build-essential
-sudo apt install build-essential
-```
-
-```bash
-# instal openssl ref: https://docs.rs/crate/openssl/0.9.24
-sudo apt-get install pkg-config libssl-dev
-```
-
-```bash
-# install libpq-dev to use diesel and postgresql
-sudo apt install libpq-dev
-```
-
-![alt text](git_resources/logo.png)
-
-> React.js (Chakra UI) + Redux, server Rust + Actix
-
-# BLUEPRINT
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-> **_NOTE:_** Temporary hosting on AWS with HTTP only (no TLS).
-
-Basic e-commerce with registering system, cart and ordering system. Currently
-hosted on Amazon Web Services.
+---
 
 ## Getting started
 
-- Download repo and `cd e-commerce`
-- Build React
+To get started with this project, run
 
-```bash
-cd frontend
-npm install
-npm run build
+```shell
+  git clone https://github.com/jamsrworld/ecommerce-rust-nextjs.git
 ```
 
-- Compile and run server
+### Setup Server
 
-> NOTE: by default server runs on localhost:4040
+#### Requirements
 
-```bash
-RUST_LOG=info
-cd ../backend-rust
-cargo build --release
-cargo run --release
-```
+- [Rust](https://www.rust-lang.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Redis](https://redis.io/)
+- [SeaORM Cli](https://www.sea-ql.org/SeaORM/docs/migration/setting-up-migration/)
 
-## Screenshots
+Go to `server` folder and:
 
-A few screenshots of app.
+1. **Copy Environment Variables**  
+   Duplicate the `.env.example` file and rename the copy to `.env`.
 
-> Home Page ![alt text](git_resources/sc01.png)
+1. **Fill Out the Variables**  
+   Update the `.env` file with the required configuration values.
 
-> Product page view ![alt text](git_resources/sc02.png)
+1. **Run database migrations**  
+   Run
 
-> Cart details page ![alt text](git_resources/sc03.png)
+   ``` shell
+   sea-orm-cli migrate up -d db/migration
+   ```
 
-> Register page ![alt text](git_resources/sc04.png)
+    or
 
-> Products list page ![alt text](git_resources/sc05.png)
+   ```shell
+   make run_migration
+   ```
+
+1. **You're All Set!**  
+  Start the server with
+
+   ``` shell
+   cargo run
+   ```
+
+     or for live reload
+
+   ```shell
+   make dev
+   ```
+
+### Setup Client
+
+Go to `client/apps/www` folder and:
+
+1. **Copy Environment Variables**  
+   Duplicate the `.env.example` file and rename the copy to `.env`.
+
+1. **Fill Out the Variables**  
+   Update the `.env` file with the required configuration values.
+1. **Install dependencies**
+   Install  `node_modules` with:
+
+   ``` shell
+   pnpm install
+   ```
+
+1. **You're All Set!**  
+  Start terminal at `client/apps/www` and run
+
+   ``` shell
+   pnpm dev
+   ```
+
+### Image Previews
+
+![Project Image](assets/image-1.png)
+![Project Image](assets/image-2.png)
+![Project Image](assets/image-3.png)
+![Project Image](assets/image-4.png)
+
+---
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+---
+
+This project is built by [Jamsrworld](https://jamsrworld.com/products/ecommerce-website-in-rust-rust-ecommerce-source-code/dxvhuwl2x0vg3zps0ppdsf34).
+
+Need customization or technical support? You can [contact us](https://jamsrworld.com/contact) for assistance.
+
+If you want to support this project you can [buy me a coffee](https://jamsrworld.com/products/ecommerce-website-in-rust-rust-ecommerce-source-code/dxvhuwl2x0vg3zps0ppdsf34).
+
+---
