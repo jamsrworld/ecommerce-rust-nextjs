@@ -8,7 +8,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -32,7 +32,13 @@ const getToastMessageFromResponse = (response: unknown) => {
 const useOnError = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const pathnameRef = useRef(pathname);
+  useEffect(() => {
+    pathnameRef.current = pathname;
+  }, [pathname]);
+
   const onError = (error: Error) => {
+    const pathname = pathnameRef.current;
     if ("status_code" in error && error.status_code === "401") {
       router.push(`/login?redirect=${pathname}`);
     } else {

@@ -43,7 +43,7 @@ export const HeaderCartDrawer = (props: Props) => {
       <Drawer
         isOpen={isOpen}
         onOpenChange={setIsOpen}
-        className="flex h-dvh w-full flex-col bg-background"
+        className="flex h-dvh w-full flex-col"
         size="lg"
       >
         <div className="flex grow flex-col overflow-y-auto overflow-x-hidden">
@@ -76,7 +76,6 @@ export const HeaderCartDrawer = (props: Props) => {
             </m.div>
           </div>
           <Divider
-
             classNames={{
               divider: "bg-background-secondary h-[2px]",
             }}

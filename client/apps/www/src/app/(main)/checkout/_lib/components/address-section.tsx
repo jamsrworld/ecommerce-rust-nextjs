@@ -1,6 +1,6 @@
-import { AddressForm } from "@/app/(main)/(user)/addresses/_lib/components/address-form";
 import { type CheckoutUserData } from "@/client";
 import { Radio, RadioGroup, Typography } from "@jamsr-ui/react";
+import { AddressNewDialog } from "./address-new-dialog";
 
 type Props = Pick<CheckoutUserData, "addresses">;
 export const AddressSection = (props: Props) => {
@@ -61,7 +61,7 @@ export const AddressSection = (props: Props) => {
           );
         })}
       </RadioGroup>
-      <AddressForm isMutating={false} submitText="Submit" />
+      <AddressNewDialog />
     </div>
   );
 };

@@ -84,7 +84,6 @@ export const MobileImageSlider = (props: Props) => {
             alt="product image"
             placeholder="blur"
             image={images[currentImage]!}
-            className="rounded-md"
           />
         </m.div>
       </AnimatePresence>
