@@ -1,4 +1,5 @@
-import { AppHeader } from "@/components/header";
+import { AppFooter } from "@/layouts/footer";
+import { AppHeader } from "@/layouts/header";
 
 type Props = {
   children: React.ReactNode;
@@ -9,7 +10,8 @@ const Layout = (props: Props) => {
   return (
     <>
       <AppHeader />
-      {children}
+      <div className="grow">{children}</div>
+      <AppFooter />
       {/* <SmoothScroll key={pathname}>{children}</SmoothScroll> */}
     </>
   );

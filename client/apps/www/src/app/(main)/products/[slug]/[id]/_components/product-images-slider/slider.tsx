@@ -65,6 +65,7 @@ export const ProductImagesSlider = (props: Props) => {
                   alt="product image"
                   image={item}
                   className="pointer-events-none h-dvh w-auto shrink-0"
+                  loading="eager"
                 />
               </li>
             );
