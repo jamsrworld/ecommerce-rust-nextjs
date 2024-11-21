@@ -27,7 +27,7 @@ const Page = async (props: Props) => {
         Orders
       </Typography>
       <Divider />
-      <Suspense>
+      <Suspense fallback={<p>Loading...</p>}>
         <OrdersList page={page} />
       </Suspense>
     </section>

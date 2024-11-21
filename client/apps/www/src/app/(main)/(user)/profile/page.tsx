@@ -3,7 +3,7 @@ import { type Metadata } from "next";
 import { Suspense } from "react";
 import { ChangePasswordDialog } from "./_components/change-password-form";
 import { ProfileUpdateForm } from "./_components/profile-form";
-import { ProfileContent } from "./content";
+import { AuthedUserData } from "../../../_components/user";
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -39,7 +39,7 @@ const Page = () => {
               Email
             </Typography>
             <Suspense>
-              <ProfileContent>
+              <AuthedUserData>
                 {({ email }) => (
                   <Typography
                     className="text-base"
@@ -48,7 +48,7 @@ const Page = () => {
                     {email}
                   </Typography>
                 )}
-              </ProfileContent>
+              </AuthedUserData>
             </Suspense>
           </li>
           <li className="flex justify-between">
@@ -88,9 +88,9 @@ const Page = () => {
         </div>
         <div className="flex flex-col gap-2">
           <Suspense>
-            <ProfileContent>
+            <AuthedUserData>
               {({ fullName }) => <ProfileUpdateForm fullName={fullName} />}
-            </ProfileContent>
+            </AuthedUserData>
           </Suspense>
         </div>
       </section>

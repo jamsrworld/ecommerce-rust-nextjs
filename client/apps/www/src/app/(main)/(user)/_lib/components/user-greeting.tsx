@@ -1,12 +1,12 @@
 import { Typography } from "@jamsr-ui/react";
 import { Suspense } from "react";
-import { ProfileContent } from "../../profile/content";
+import { AuthedUserData } from "../../../../_components/user";
 
 export const UserGreeting = () => {
   return (
     <div className="my-4">
       <Suspense>
-        <ProfileContent>
+        <AuthedUserData>
           {({ fullName }) => {
             return (
               <Typography
@@ -17,7 +17,7 @@ export const UserGreeting = () => {
               </Typography>
             );
           }}
-        </ProfileContent>
+        </AuthedUserData>
       </Suspense>
     </div>
   );
