@@ -1,11 +1,5 @@
 {
   "cSpell.words": [
-    "jamsr",
-    "jamsrui",
-    "Mcart",
-    "nextjs",
-    "opensans",
-    "tailwindcss",
     "actix",
     "askama",
     "chrono",
@@ -15,14 +9,20 @@
     "dotenvy",
     "Hasher",
     "Iden",
+    "jamsr",
     "Jamsr",
+    "jamsrui",
     "jamsrworld",
     "jsonwebtoken",
     "lettre",
     "Mcart",
+    "nextjs",
     "openapi",
+    "opensans",
     "otps",
+    "tailwindcss",
     "thiserror",
+    "Turborepo",
     "utoipa",
     "utoipauto"
   ]
