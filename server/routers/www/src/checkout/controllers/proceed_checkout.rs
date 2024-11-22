@@ -1,5 +1,5 @@
 use actix_web::{ post, web::{ self }, HttpResponse };
-use entity::sea_orm_active_enums::OrderStatus;
+use entity::{ order::OrderAddress, sea_orm_active_enums::OrderStatus };
 use extractors::{ auth::Authenticated, validator::ValidatedJson };
 use utils::{ db::create_primary_id, error::{ HttpError, ResponseWithMessage }, AppState };
 use sea_orm::{ ActiveValue::NotSet, ColumnTrait, EntityTrait, QueryFilter, QueryOrder, Set };
@@ -50,6 +50,17 @@ pub async fn proceed_checkout(
         .one(db).await?
         .ok_or_else(|| { HttpError::not_found(Messages::AddressNotFound(&address_id)) })?;
 
+    let address = OrderAddress {
+        city: address.city,
+        first_name: address.first_name,
+        full_address: address.full_address,
+        last_name: address.last_name,
+        phone_number: address.phone_number,
+        state: address.state,
+        landmark: address.landmark,
+        postal_code: address.postal_code,
+    };
+
     // convert checkout items to orders items
     let order_items = checkout_items
         .iter()
@@ -63,6 +74,7 @@ pub async fn proceed_checkout(
                 user_id: Set(user_id.to_owned()),
                 payment_method: Set(payment_method.to_owned()),
                 status: Set(OrderStatus::Success),
+                address:Set(address.to_owned()),
             }
         })
         .collect::<Vec<entity::order::ActiveModel>>();
