@@ -9,9 +9,9 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:^",
     "@repo/typescript-config": "workspace:^",
-    "next": "15.0.0-canary.162"
+    "next": "15.0.3"
   },
   "peerDependencies": {
-    "next": "15.0.0-canary.162"
+    "next": "15.0.3"
   }
 }

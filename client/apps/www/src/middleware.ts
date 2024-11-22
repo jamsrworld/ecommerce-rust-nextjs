@@ -1,3 +1,4 @@
+import { SessionKey } from "@repo/config/enums";
 import { type NextRequest, NextResponse } from "next/server";
 import { APP_ROUTES, protectedRoutes } from "./config/routes";
 import { env } from "./env";
@@ -19,7 +20,7 @@ export async function middleware(request: NextRequest) {
   );
   if (!isProtectedRoute) return NextResponse.next();
 
-  const sessionKey = request.cookies.get("x-session")?.value;
+  const sessionKey = request.cookies.get(SessionKey.User)?.value;
   if (!sessionKey) return redirectToLogin(request);
   try {
     const validToken = await verifyJwtToken({
