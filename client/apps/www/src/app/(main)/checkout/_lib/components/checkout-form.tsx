@@ -22,6 +22,7 @@ export const CheckoutForm = (props: Props) => {
   const router = useRouter();
   const defaultValues: ProceedCheckoutInput = {
     paymentMethod: "" as ProceedCheckoutInput["paymentMethod"],
+    addressId: "",
   };
   const methods = useForm({
     defaultValues,

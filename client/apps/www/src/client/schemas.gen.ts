@@ -463,10 +463,14 @@ export const OrderSchema = {
     "quantity",
     "status",
     "paymentMethod",
+    "address",
     "createdAt",
     "updatedAt",
   ],
   properties: {
+    address: {
+      $ref: "#/components/schemas/OrderAddress",
+    },
     createdAt: {
       type: "string",
       format: "date-time",
@@ -492,6 +496,46 @@ export const OrderSchema = {
       format: "date-time",
     },
     userId: {
+      type: "string",
+    },
+  },
+} as const;
+
+export const OrderAddressSchema = {
+  type: "object",
+  required: [
+    "first_name",
+    "last_name",
+    "postal_code",
+    "city",
+    "state",
+    "full_address",
+    "phone_number",
+  ],
+  properties: {
+    city: {
+      type: "string",
+    },
+    first_name: {
+      type: "string",
+    },
+    full_address: {
+      type: "string",
+    },
+    landmark: {
+      type: ["string", "null"],
+    },
+    last_name: {
+      type: "string",
+    },
+    phone_number: {
+      type: "string",
+    },
+    postal_code: {
+      type: "integer",
+      format: "int32",
+    },
+    state: {
       type: "string",
     },
   },
@@ -556,8 +600,11 @@ export const PaymentMethodSchema = {
 
 export const ProceedCheckoutInputSchema = {
   type: "object",
-  required: ["paymentMethod"],
+  required: ["paymentMethod", "addressId"],
   properties: {
+    addressId: {
+      type: "string",
+    },
     paymentMethod: {
       $ref: "#/components/schemas/PaymentMethod",
     },

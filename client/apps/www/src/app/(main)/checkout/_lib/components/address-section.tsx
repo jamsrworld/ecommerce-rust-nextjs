@@ -1,5 +1,5 @@
-import { type CheckoutUserData } from "@/client";
-import { Radio, RadioGroup, Typography } from "@jamsr-ui/react";
+import { ProceedCheckoutInput, type CheckoutUserData } from "@/client";
+import { Radio, RHFRadioGroup, Typography } from "@jamsr-ui/react";
 import { AddressNewDialog } from "./address-new-dialog";
 
 type Props = Pick<CheckoutUserData, "addresses">;
@@ -13,7 +13,7 @@ export const AddressSection = (props: Props) => {
       >
         Shipping Address
       </Typography>
-      <RadioGroup
+      <RHFRadioGroup<ProceedCheckoutInput>
         name="addressId"
         className="grid gap-2"
       >
@@ -60,7 +60,7 @@ export const AddressSection = (props: Props) => {
             </Radio>
           );
         })}
-      </RadioGroup>
+      </RHFRadioGroup>
       <AddressNewDialog />
     </div>
   );

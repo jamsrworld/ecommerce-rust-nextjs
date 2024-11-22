@@ -34,11 +34,19 @@ pub async fn remove_cart_item(
         .one(db).await?
         .ok_or_else(|| HttpError::not_found(Messages::CartItemNotFound(&id).to_string()))?;
 
+    let product = entity::product::Entity
+        ::find_by_id(&cart_item.product_id)
+        .one(db).await?
+        .ok_or_else(||
+            HttpError::not_found(Messages::ProductNotFound(&cart_item.product_id).to_string())
+        )?;
+    let product_title = product.title;
+
     let cart_item: entity::cart::ActiveModel = cart_item.into();
     cart_item.delete(db).await?;
 
     let response = ResponseWithMessage {
-        message: Messages::CartItemRemoved(&id).to_string(),
+        message: Messages::CartItemRemoved(&product_title).to_string(),
     };
     Ok(HttpResponse::Ok().json(response))
 }

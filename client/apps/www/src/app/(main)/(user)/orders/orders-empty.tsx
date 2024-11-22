@@ -1,32 +1,17 @@
+import { EmptyContent } from "@/components/empty-content";
 import { APP_ROUTES } from "@/config/routes";
-import { Link, Typography } from "@jamsr-ui/react";
+import { Link } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
-import Image from "next/image";
-import OrdersEmptyImg from "~/orders-empty.png";
+import OrdersEmptyImg from "~/empty-order.webp";
 
 export const OrdersEmpty = () => {
   return (
-    <div className="flex grow flex-col items-center justify-center gap-4 text-center">
-      <Image
-        src={OrdersEmptyImg}
-        alt="empty cart"
-        className="size-40"
+    <div className="flex flex-col items-center">
+      <EmptyContent
+        image={OrdersEmptyImg}
+        heading="No Orders"
+        subHeading="Start shopping to fill this space with your products!"
       />
-      <div>
-        <Typography
-          as="h3"
-          variant="h4"
-        >
-          No Orders
-        </Typography>
-        <Typography
-          as="p"
-          className="text-foreground-secondary"
-          variant="paragraph2"
-        >
-          Purchase some products to see them here
-        </Typography>
-      </div>
       <Link
         color="primary"
         as={NextLink}

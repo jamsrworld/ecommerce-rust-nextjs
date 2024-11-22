@@ -22,11 +22,11 @@ export const AddAddressBtn = (props: Props) => {
   return (
     <>
       <Button
-        fullWidth
         color="primary"
         size="lg"
         onClick={onOpen}
         isDisabled={isDisabled}
+        fullWidth={addresses > 0}
       >
         Add an Address
       </Button>

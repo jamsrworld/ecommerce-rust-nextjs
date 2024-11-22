@@ -76,7 +76,11 @@ export const CreateAddressForm = (props: Props) => {
       <RHFProvider
         methods={methods}
         isPending={mutation.isPending}
-        onSubmit={onSubmit}
+        onSubmit={(e) => {
+          // to prevent checkout form submission
+          e.stopPropagation();
+          void onSubmit(e);
+        }}
       >
         <AddressForm
           submitText="Add Address"

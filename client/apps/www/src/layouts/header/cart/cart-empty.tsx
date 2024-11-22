@@ -1,6 +1,6 @@
-import { Button, Typography } from "@jamsr-ui/react";
-import Image from "next/image";
-import EmptyCatImg from "~/empty-cart.webp";
+import { EmptyContent } from "@/components/empty-content";
+import { Button } from "@jamsr-ui/react";
+import EmptyCartImage from "~/empty-cart.webp";
 
 type Props = {
   onClose: () => void;
@@ -9,27 +9,12 @@ type Props = {
 export const CartEmpty = (props: Props) => {
   const { onClose } = props;
   return (
-    <div className="flex grow flex-col items-center justify-center gap-4 text-center">
-      <Image
-        src={EmptyCatImg}
-        alt="empty cart"
-        className="size-40"
+    <div className="flex h-full flex-col items-center justify-center">
+      <EmptyContent
+        image={EmptyCartImage}
+        heading="Empty Cart"
+        subHeading="Add some products to get started"
       />
-      <div>
-        <Typography
-          as="h3"
-          variant="h4"
-        >
-          Empty Cart
-        </Typography>
-        <Typography
-          as="p"
-          className="text-foreground-secondary"
-          variant="paragraph2"
-        >
-          Add some products to get started
-        </Typography>
-      </div>
       <Button
         color="secondary"
         onClick={onClose}

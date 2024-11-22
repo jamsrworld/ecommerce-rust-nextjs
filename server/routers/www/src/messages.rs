@@ -39,7 +39,7 @@ pub enum Messages<'a> {
     // cart
     #[error("Cart Item not found: {0}")]
     CartItemNotFound(&'a str),
-    #[error("Cart Item removed {0}")]
+    #[error("Cart Item removed **{0}**")]
     CartItemRemoved(&'a str),
     #[error("Cart Item updated: {0}")]
     CartItemUpdated(&'a str),
