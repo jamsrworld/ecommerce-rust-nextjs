@@ -14,7 +14,7 @@ type Props = {
 export const ProfileLinkItem = (props: Props) => {
   const { title, href } = props;
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = typeof href === "string" && pathname.includes(href);
   return (
     <Link
       as={NextLink}

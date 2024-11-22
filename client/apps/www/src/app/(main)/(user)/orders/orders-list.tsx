@@ -33,7 +33,7 @@ export const OrdersList = async (props: Props) => {
         {orders.map((item, idx) => {
           const {
             product: { size, style, images, title, slug, id },
-            order: { status, createdAt },
+            order: { status, createdAt, id: orderId },
           } = item;
           const thumbnail = images[0]!;
           const productUrl = APP_ROUTES.products.view(id, slug);
@@ -91,7 +91,7 @@ export const OrdersList = async (props: Props) => {
                     isRounded
                     variant="outlined"
                     color="primary"
-                    href={APP_ROUTES.orders.view("id")}
+                    href={APP_ROUTES.orders.view(orderId)}
                     as={NextLink}
                   >
                     View details
