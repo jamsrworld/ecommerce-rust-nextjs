@@ -55,7 +55,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .allowed_headers(
                 vec![http::header::CONTENT_TYPE, http::header::ACCEPT, http::header::AUTHORIZATION]
             )
-            .max_age(3600);
+            .max_age(None);
 
         App::new()
             .wrap(cors)

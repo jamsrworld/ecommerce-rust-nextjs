@@ -3,12 +3,18 @@ pub enum SessionKey {
     AdminAuthorization,
 }
 
+impl Into<&'static str> for SessionKey {
+    fn into(self) -> &'static str {
+        match self {
+            SessionKey::Authorization => "x-mcart-session",
+            SessionKey::AdminAuthorization => "x-mcart-admin-session",
+        }
+    }
+}
+
 impl Into<String> for SessionKey {
     fn into(self) -> String {
-        match self {
-            SessionKey::Authorization => "x-session",
-            SessionKey::AdminAuthorization => "x-admin-session",
-        }
-        .to_owned()
+        let s: &'static str = self.into();
+        s.to_owned() // Convert &str to String
     }
 }

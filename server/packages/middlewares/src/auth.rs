@@ -6,6 +6,7 @@ use actix_web::{
     HttpMessage,
     HttpResponse,
 };
+use config::session_keys::SessionKey;
 use entity::{ sea_orm_active_enums::UserRole, user };
 use futures_util::future::{ ok, LocalBoxFuture, Ready };
 use sea_orm::EntityTrait;
@@ -81,14 +82,16 @@ impl<S, B> Service<ServiceRequest>
     forward_ready!(service);
 
     fn call(&self, req: ServiceRequest) -> Self::Future {
-        let token = req.cookie("x-session").map(|c| c.value().to_string());
+        let token = req
+            .cookie(SessionKey::Authorization.into())
+            .map(|c| c.value().to_string());
         if token.is_none() {
             // let res = req
             // .into_response(
             //     HttpResponse::Unauthorized().json(json!({ "message": "Token not found" }))
             // )
             // .map_into_right_body();
-            
+
             let message = "Token not found";
             let res: ServiceResponse<EitherBody<B>> = to_service_response(
                 req,

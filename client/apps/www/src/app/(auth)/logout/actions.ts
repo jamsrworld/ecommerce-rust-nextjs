@@ -1,6 +1,7 @@
 "use server";
 
 import { env } from "@/env";
+import { SessionKey } from "@repo/config/enums";
 import { cookies } from "next/headers";
 
 const domain = (_url: string) => {
@@ -16,5 +17,5 @@ const domain = (_url: string) => {
 export const logout = async () => {
   const cookiesStore = await cookies();
   const url = env.NEXT_PUBLIC_APP_URL;
-  cookiesStore.delete({ name: "x-session", domain: domain(url) });
+  cookiesStore.delete({ name: SessionKey.User, domain: domain(url) });
 };

@@ -81,7 +81,10 @@ export const ProductInfo = (props: Props) => {
 
   return (
     <section>
-      <Divider className="my-1" />
+      <Divider
+        color="light"
+        className="my-1"
+      />
       <Accordion className="gap-0">
         {items.map((item, index) => {
           return (
@@ -93,7 +96,6 @@ export const ProductInfo = (props: Props) => {
               >
                 {item.content}
               </AccordionItem>
-              <Divider className="my-1" />
             </React.Fragment>
           );
         })}

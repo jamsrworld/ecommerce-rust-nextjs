@@ -57,6 +57,9 @@ export const QueryProvider = (props: Props) => {
         queries: {
           refetchOnMount: false,
           retry: false,
+          refetchOnWindowFocus: "always",
+          networkMode: "always",
+          // staleTime: 0,
         },
       },
       mutationCache: new MutationCache({

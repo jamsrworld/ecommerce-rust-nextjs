@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { verifyJwtToken } from "@/utils/jwt";
+import { SessionKey } from "@repo/config/enums";
 import { cookies } from "next/headers";
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
 export const AuthGuard = async (props: Props): React.ReactNode => {
   const { loggedIn, loggedOut } = props;
   const cookieStore = await cookies();
-  const sessionKey = cookieStore.get("x-session")?.value;
+  const sessionKey = cookieStore.get(SessionKey.User)?.value;
   if (!sessionKey) return loggedOut;
 
   try {

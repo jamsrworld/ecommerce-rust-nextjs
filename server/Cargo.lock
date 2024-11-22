@@ -2290,6 +2290,7 @@ name = "middlewares"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "config",
  "entity",
  "futures-util",
  "sea-orm",
@@ -3509,6 +3510,7 @@ name = "services"
 version = "0.1.0"
 dependencies = [
  "askama",
+ "config",
  "lettre",
  "utils",
 ]
