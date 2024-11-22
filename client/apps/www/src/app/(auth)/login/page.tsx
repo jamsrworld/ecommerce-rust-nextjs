@@ -1,6 +1,6 @@
 import { AppLogo } from "@/components/app-logo";
 import { APP_ROUTES } from "@/config/routes";
-import { Link, Typography } from "@jamsr-ui/react";
+import { Card, Link, Typography } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { type Metadata } from "next";
 import { Suspense } from "react";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const Login = () => {
   return (
-    <div className="container mx-auto grid max-w-screen-lg grid-cols-1 overflow-hidden rounded-3xl bg-background md:my-8 md:grid-cols-2 md:shadow-lg">
+    <Card className="container mx-auto grid max-w-screen-lg grid-cols-1 overflow-hidden rounded-3xl md:my-8 md:grid-cols-2 md:shadow-lg">
       <div className="max-md:hidden">
         <LeftSection />
       </div>
@@ -50,7 +50,7 @@ const Login = () => {
           </Link>
         </Typography>
       </div>
-    </div>
+    </Card>
   );
 };
 

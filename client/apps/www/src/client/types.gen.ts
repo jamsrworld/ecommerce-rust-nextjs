@@ -193,6 +193,7 @@ export type Image = {
 };
 
 export type Order = {
+  address: OrderAddress;
   createdAt: Date;
   id: string;
   paymentMethod: PaymentMethod;
@@ -201,6 +202,17 @@ export type Order = {
   status: OrderStatus;
   updatedAt: Date;
   userId: string;
+};
+
+export type OrderAddress = {
+  city: string;
+  first_name: string;
+  full_address: string;
+  landmark?: string | null;
+  last_name: string;
+  phone_number: string;
+  postal_code: number;
+  state: string;
 };
 
 export enum OrderStatus {
@@ -230,6 +242,7 @@ export enum PaymentMethod {
 }
 
 export type ProceedCheckoutInput = {
+  addressId: string;
   paymentMethod: PaymentMethod;
 };
 

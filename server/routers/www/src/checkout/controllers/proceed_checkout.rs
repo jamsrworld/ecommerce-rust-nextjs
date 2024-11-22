@@ -29,7 +29,7 @@ pub async fn proceed_checkout(
     let db = &app_data.db;
     let user_id = user.id.to_owned();
 
-    let ProceedCheckoutInput { payment_method } = input;
+    let ProceedCheckoutInput { payment_method, address_id } = input;
 
     // get user all checkout items
     let checkout_items = entity::checkout::Entity
@@ -42,6 +42,13 @@ pub async fn proceed_checkout(
     if checkout_items.is_empty() {
         return Err(HttpError::bad_request(Messages::CheckoutEmpty));
     }
+
+    // get user address
+    let address = entity::address::Entity
+        ::find_by_id(&address_id)
+        .filter(entity::address::Column::UserId.eq(&user_id))
+        .one(db).await?
+        .ok_or_else(|| { HttpError::not_found(Messages::AddressNotFound(&address_id)) })?;
 
     // convert checkout items to orders items
     let order_items = checkout_items

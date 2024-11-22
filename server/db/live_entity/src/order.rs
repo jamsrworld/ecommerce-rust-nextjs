@@ -19,6 +19,8 @@ pub struct Model {
     pub quantity: i16,
     pub status: OrderStatus,
     pub payment_method: PaymentMethod,
+    #[sea_orm(column_type = "JsonBinary")]
+    pub address: Json,
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     pub updated_at: chrono::DateTime<chrono::FixedOffset>,
 }

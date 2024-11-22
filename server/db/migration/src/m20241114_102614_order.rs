@@ -35,6 +35,7 @@ impl MigrationTrait for Migration {
                 .col(small_integer(Order::Quantity))
                 .col(enumeration(Order::Status, OrderStatusEnum, OrderStatus::iter()))
                 .col(enumeration(Order::PaymentMethod, PaymentMethodEnum, PaymentMethod::iter()))
+                .col(json_binary(Order::Address))
                 .col(timestampz_default(Order::CreatedAt))
                 .col(timestampz_default(Order::UpdatedAt))
                 .foreign_key(
@@ -106,4 +107,5 @@ enum Order {
     CreatedAt,
     UpdatedAt,
     Status,
+    Address,
 }

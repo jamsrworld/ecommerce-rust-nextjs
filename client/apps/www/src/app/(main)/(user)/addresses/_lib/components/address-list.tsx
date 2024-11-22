@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { getAddresses } from "@/client";
+import { EmptyContent } from "@/components/empty-content";
 import { authedClient } from "@/utils/authed-client";
-import { Divider, Typography } from "@jamsr-ui/react";
+import { Typography } from "@jamsr-ui/react";
 import { FetchError } from "@repo/components/fetch-error";
 import React from "react";
+import EmptyAddress from "~/empty-address.webp";
 import { AddAddressBtn } from "./add-address-btn";
 import { DefaultAddress } from "./default-address";
 import { DeleteAddress } from "./delete-address";
@@ -18,8 +20,8 @@ export const AddressList = async () => {
   if (response.error) return <FetchError error={response.error} />;
   const { data } = response;
   return (
-    <>
-      <ul className="flex flex-col">
+    <div>
+      <ul className="flex flex-col divide-y divide-divider">
         {data.map((item) => {
           const {
             fullAddress,
@@ -91,15 +93,22 @@ export const AddressList = async () => {
                   </Typography>
                 </div>
               </li>
-              <Divider />
             </React.Fragment>
           );
         })}
       </ul>
-      <AddAddressBtn
-        addresses={data.length}
-        maximumAddresses={5}
-      />
-    </>
+      <div className="flex flex-col items-center">
+        {data.length === 0 && (
+          <EmptyContent
+            heading="No addresses found"
+            image={EmptyAddress}
+          />
+        )}
+        <AddAddressBtn
+          addresses={data.length}
+          maximumAddresses={5}
+        />
+      </div>
+    </div>
   );
 };

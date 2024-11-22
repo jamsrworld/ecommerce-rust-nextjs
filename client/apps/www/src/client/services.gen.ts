@@ -101,7 +101,7 @@ import {
 
 import { client } from "../utils/client";
 
-export { client } from "../utils/client";
+export { client } from "../utils/client" 
 
 /**
  * Health check
