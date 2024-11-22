@@ -1,6 +1,6 @@
 import { getProducts } from "@/client";
 import { FetchError } from "@repo/components/fetch-error";
-import { SearchItem } from "./products/components/search-item";
+import { ProductSearchItem } from "./products/components/product-search-item";
 
 const Page = async () => {
   const products = await getProducts();
@@ -11,7 +11,7 @@ const Page = async () => {
       <ul className="grid grid-cols-2 gap-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {data.map((item, idx) => {
           return (
-            <SearchItem
+            <ProductSearchItem
               key={idx}
               idx={idx}
               {...item}

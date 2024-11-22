@@ -50,12 +50,6 @@ export const ProfileUpdateForm = (props: Props) => {
         label="Full Name"
         size="lg"
       />
-      <RHFInput<FormValues>
-        name="phoneNumber"
-        variant="outlined"
-        label="Phone Number (Optional)"
-        size="lg"
-      />
       <Button
         size="lg"
         color="primary"

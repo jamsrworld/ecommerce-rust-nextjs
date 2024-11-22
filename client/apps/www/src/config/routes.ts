@@ -27,6 +27,12 @@ export const APP_ROUTES = {
   privacyPolicy: "/privacy-policy",
   returnPolicy: "/return-policy",
   termsOfUse: "/terms-of-use",
+  help: {
+    payments: "/help/payments",
+    shipping: "/help/shipping",
+    faqs: "/help/faqs",
+    cancellation: "/help/cancellation",
+  },
 } satisfies RoutesRecords;
 
 export const protectedRoutes: Route[] = [

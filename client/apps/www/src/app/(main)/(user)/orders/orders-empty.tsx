@@ -17,6 +17,7 @@ export const OrdersEmpty = () => {
         as={NextLink}
         href={APP_ROUTES.home}
         underline="always"
+        className="font-medium"
       >
         Continue Shopping
       </Link>

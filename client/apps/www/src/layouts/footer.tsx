@@ -22,19 +22,19 @@ const items: { heading: string; items: { title: string; href: Route }[] }[] = [
     items: [
       {
         title: "Payments",
-        href: APP_ROUTES.home,
+        href: APP_ROUTES.help.payments,
       },
       {
         title: "Shipping",
-        href: APP_ROUTES.home,
+        href: APP_ROUTES.help.shipping,
       },
       {
         title: "Cancellation & Returns",
-        href: APP_ROUTES.home,
+        href: APP_ROUTES.help.cancellation,
       },
       {
         title: "FAQs",
-        href: APP_ROUTES.home,
+        href: APP_ROUTES.help.faqs,
       },
     ],
   },
@@ -59,14 +59,14 @@ const items: { heading: string; items: { title: string; href: Route }[] }[] = [
 
 export const AppFooter = () => {
   return (
-    <footer>
+    <footer className="max-md:hidden">
       <Divider />
       <div className="container mx-auto py-8 max-md:px-2">
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {items.map((item) => (
             <li
               key={item.heading}
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-2"
             >
               <h3>{item.heading}</h3>
               <ul className="flex flex-col gap-2">
