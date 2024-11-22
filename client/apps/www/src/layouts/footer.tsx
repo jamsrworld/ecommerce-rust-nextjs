@@ -61,7 +61,7 @@ export const AppFooter = () => {
   return (
     <footer>
       <Divider />
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto py-8 max-md:px-2">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {items.map((item) => (
             <li
