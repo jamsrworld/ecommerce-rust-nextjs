@@ -1,7 +1,10 @@
 "use client";
 
 import { type Product } from "@/client";
-import { addCartItemMutation, getCartDataQueryKey } from "@/client/@tanstack/react-query.gen";
+import {
+  addCartItemMutation,
+  getCartDataQueryKey,
+} from "@/client/@tanstack/react-query.gen";
 import { Button } from "@jamsr-ui/react";
 import { CartIcon } from "@repo/icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
