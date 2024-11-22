@@ -129,7 +129,7 @@ export const ProductSlider = (props: Props) => {
         >
           <Repeater count={imageCount}>
             {({ index }) => {
-              const isActive = idx === currentImage;
+              const isActive = index === currentImage;
               return (
                 <li>
                   <button

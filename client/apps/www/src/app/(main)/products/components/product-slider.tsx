@@ -92,7 +92,7 @@ export const ProductSlider = (props: Props) => {
           />
         </m.div>
       </AnimatePresence>
-      <div className="absolute inset-0 flex items-center justify-between px-4">
+      <div className="absolute inset-0 flex items-center justify-between px-1 md:px-4">
         <Button
           type="button"
           onClick={handleOnClickPrev}
@@ -130,7 +130,7 @@ export const ProductSlider = (props: Props) => {
                     type="button"
                     onClick={(e) => handleOnClickPagination(e, index)}
                     className={cn(
-                      "h-0.5 w-8 shrink-0 rounded-md bg-black transition-all duration-500 group-hover:h-2",
+                      "h-0.5 w-5 shrink-0 rounded-md bg-black transition-all duration-500 group-hover:h-2 md:w-8",
                       {
                         "bg-white": isActive,
                       },

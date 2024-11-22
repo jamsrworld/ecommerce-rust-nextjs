@@ -11,7 +11,7 @@ type Props = Product & {
   idx: number;
 };
 
-export const SearchItem = (props: Props) => {
+export const ProductSearchItem = (props: Props) => {
   const { images, title, id, slug, idx } = props;
   const price = 293;
   const mrp = 500;
