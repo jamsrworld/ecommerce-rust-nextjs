@@ -3,7 +3,10 @@
 use super::sea_orm_active_enums::OrderStatus;
 use super::sea_orm_active_enums::PaymentMethod;
 use sea_orm::entity::prelude::*;
+use sea_orm::FromJsonQueryResult;
 use serde::{ Deserialize, Serialize };
+use utoipa::ToSchema;
+use validator::Validate;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize, utoipa::ToSchema)]
 #[sea_orm(table_name = "order")]
@@ -17,8 +20,32 @@ pub struct Model {
     pub quantity: i16,
     pub status: OrderStatus,
     pub payment_method: PaymentMethod,
+    #[sea_orm(column_type = "JsonBinary")]
+    pub address: OrderAddress,
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     pub updated_at: chrono::DateTime<chrono::FixedOffset>,
+}
+
+#[derive(
+    Debug,
+    Clone,
+    PartialEq,
+    Eq,
+    Serialize,
+    Deserialize,
+    ToSchema,
+    Validate,
+    FromJsonQueryResult
+)]
+pub struct OrderAddress {
+    pub first_name: String,
+    pub last_name: String,
+    pub postal_code: i32,
+    pub city: String,
+    pub state: String,
+    pub full_address: String,
+    pub phone_number: String,
+    pub landmark: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

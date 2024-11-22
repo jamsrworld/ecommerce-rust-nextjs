@@ -7,5 +7,6 @@ use validator::Validate;
 #[serde(rename_all = "camelCase")]
 pub struct ProceedCheckoutInput {
     pub payment_method: PaymentMethod,
+    #[validate(length(min = 1, message = "Address is required"))]
     pub address_id: String,
 }
