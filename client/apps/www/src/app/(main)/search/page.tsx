@@ -1,6 +1,6 @@
 import { getProducts } from "@/client";
 import { FetchError } from "@repo/components/fetch-error";
-import { ProductSearchItem } from "./products/components/product-search-item";
+import { ProductSearchItem } from "../products/components/product-search-item";
 
 const Page = async () => {
   const products = await getProducts();

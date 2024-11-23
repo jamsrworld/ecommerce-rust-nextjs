@@ -10,7 +10,7 @@ const Layout = (props: Props) => {
   return (
     <>
       <AppHeader />
-      <div className="grow">{children}</div>
+      <main className="grow">{children}</main>
       <AppFooter />
       {/* <SmoothScroll key={pathname}>{children}</SmoothScroll> */}
     </>
