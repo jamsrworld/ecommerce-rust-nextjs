@@ -41,7 +41,7 @@ const items: CarouselItem[] = [
 export const CarouselTShirtsSection = () => {
   return (
     <CarouselBase
-      heading="T-Shirst from brands you love"
+      heading="T-Shirts from brands you love"
       items={items}
     />
   );
