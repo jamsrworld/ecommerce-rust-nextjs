@@ -20,8 +20,10 @@ const items: BannerItem[] = [
 export const HeroSection = () => {
   return (
     <ImageBanner
+      allowZoom
       items={items}
-      variant="primary"
+      headingVariant="paragraph"
+      subheadingVariant="body7"
     />
   );
 };

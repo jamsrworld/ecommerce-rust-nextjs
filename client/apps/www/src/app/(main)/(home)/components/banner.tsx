@@ -17,11 +17,6 @@ const items: BannerItem[] = [
   },
 ];
 
-export const Banner2Section = () => {
-  return (
-    <ImageBanner
-      items={items}
-      variant="secondary"
-    />
-  );
+export const BannerSection = () => {
+  return <ImageBanner items={items} />;
 };
