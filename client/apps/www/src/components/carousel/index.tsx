@@ -1,15 +1,19 @@
+"use client";
+
+import { Button } from "@jamsr-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@repo/icons/chevron";
 import { type EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import React from "react";
-import { NextButton, PrevButton, usePrevNextButtons } from "./buttons";
+import { usePrevNextButtons } from "./buttons";
 
 type PropType = {
-  slides: number[];
   options?: EmblaOptionsType;
+  children: React.ReactNode;
 };
 
 export const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options } = props;
+  const { children, options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
 
   const {
@@ -20,34 +24,30 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
   } = usePrevNextButtons(emblaApi);
 
   return (
-    <section className="embla">
+    <section>
       <div
-        className="embla__viewport"
         ref={emblaRef}
+        className="overflow-hidden"
       >
-        <div className="embla__container">
-          {slides.map((index) => (
-            <div
-              className="embla__slide"
-              key={index}
-            >
-              <div className="embla__slide__number">{index + 1}</div>
-            </div>
-          ))}
-        </div>
+        {children}
       </div>
-
-      <div className="embla__controls">
-        <div className="embla__buttons">
-          <PrevButton
-            onClick={onPrevButtonClick}
-            disabled={prevBtnDisabled}
-          />
-          <NextButton
-            onClick={onNextButtonClick}
-            disabled={nextBtnDisabled}
-          />
-        </div>
+      <div className="flex justify-end gap-4">
+        <Button
+          onClick={onPrevButtonClick}
+          isDisabled={prevBtnDisabled}
+          isIconOnly
+          isRounded
+        >
+          <ChevronLeftIcon />
+        </Button>
+        <Button
+          onClick={onNextButtonClick}
+          isDisabled={nextBtnDisabled}
+          isIconOnly
+          isRounded
+        >
+          <ChevronRightIcon />
+        </Button>
       </div>
     </section>
   );

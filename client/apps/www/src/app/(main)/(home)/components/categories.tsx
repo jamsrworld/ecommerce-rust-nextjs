@@ -66,7 +66,7 @@ export const CategoriesSection = () => {
       >
         Categories
       </Typography>
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-10">
+      <div className="grid grid-cols-3 gap-2 md:grid-cols-10">
         {items.map((item, index) => {
           const { category, image } = item;
           return (

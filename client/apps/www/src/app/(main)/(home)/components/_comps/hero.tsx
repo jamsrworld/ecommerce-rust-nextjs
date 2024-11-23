@@ -1,4 +1,5 @@
 import { Button, Show, Typography, UIStylesProvider } from "@jamsr-ui/react";
+import { NextLink } from "@repo/components/next";
 import Image, { type ImageProps } from "next/image";
 
 export type BannerItem = {
@@ -62,7 +63,15 @@ export const ImageBanner = (props: BannerProps) => {
                   }}
                 >
                   {buttons.map((item) => {
-                    return <Button key={item}>{item}</Button>;
+                    return (
+                      <Button
+                        as={NextLink}
+                        href="/search"
+                        key={item}
+                      >
+                        {item}
+                      </Button>
+                    );
                   })}
                 </UIStylesProvider>
               </div>
