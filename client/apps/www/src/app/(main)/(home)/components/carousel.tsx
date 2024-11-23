@@ -36,6 +36,36 @@ const items: CarouselItem[] = [
     price: 80,
     image: Img5,
   },
+  {
+    title: "Topshop training t-shirt",
+    mrp: 40.0,
+    price: 21,
+    image: Img1,
+  },
+  {
+    title: "Asso 175 denim short",
+    mrp: 65.0,
+    price: 49,
+    image: Img2,
+  },
+  {
+    title: "Horizontal stripes t-shirt",
+    mrp: 90.0,
+    price: 55,
+    image: Img3,
+  },
+  {
+    title: "Sleeveless tank t-shirt",
+    mrp: 59.0,
+    price: 70,
+    image: Img4,
+  },
+  {
+    title: "CK polo with tipping",
+    mrp: 49.0,
+    price: 80,
+    image: Img5,
+  },
 ];
 
 export const CarouselSection = () => {
