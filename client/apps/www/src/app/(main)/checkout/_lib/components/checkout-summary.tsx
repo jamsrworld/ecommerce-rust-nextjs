@@ -21,21 +21,19 @@ export const CheckoutSummary = (props: Props) => {
           Free
         </Typography>
       </div>
-      <div>
-        <div className="flex justify-between">
-          <Typography
-            variant="h6"
-            as="p"
-          >
-            Total
-          </Typography>
-          <Typography
-            as="p"
-            variant="h5"
-          >
-            {fPrice(totalAmount)}
-          </Typography>
-        </div>
+      <div className="flex justify-between">
+        <Typography
+          variant="h6"
+          as="p"
+        >
+          Total
+        </Typography>
+        <Typography
+          as="p"
+          variant="h5"
+        >
+          {fPrice(totalAmount)}
+        </Typography>
       </div>
     </div>
   );
