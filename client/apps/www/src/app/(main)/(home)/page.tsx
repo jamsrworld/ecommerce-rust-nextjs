@@ -12,7 +12,7 @@ import { HeroSection } from "./components/hero";
 
 const Page = () => {
   return (
-    <div className="container flex max-w-screen-4xl flex-col gap-24 p-1 pb-24">
+    <div className="container flex max-w-screen-4xl flex-col gap-24 md:px-6 md:pb-6">
       <div className="flex flex-col gap-2">
         <HeroSection />
         <CouponsSection />

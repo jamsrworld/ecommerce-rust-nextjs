@@ -3,6 +3,7 @@ import { APP_ROUTES } from "@/config/routes";
 import {
   Avatar,
   Button,
+  Divider,
   Menu,
   MenuItem,
   UIStylesProvider,
@@ -11,7 +12,9 @@ import { NextLink } from "@repo/components/next";
 import { AddressIcon, OrdersIcon, UserIcon } from "@repo/icons";
 import { Suspense } from "react";
 import AvatarIcon from "~/avatar.png";
-import { LogoutItem } from "./logout-item";
+import { MenuCartItem } from "./menu-cart-item";
+import { MenuLogoutItem } from "./menu-logout-item";
+import { MenuThemeSwitcher } from "./menu-theme-item";
 
 export const UserProfileMenu = () => {
   return (
@@ -70,6 +73,7 @@ export const UserProfileMenu = () => {
         >
           Orders
         </MenuItem>
+        <MenuCartItem />
         <MenuItem
           as={NextLink}
           href={APP_ROUTES.addresses}
@@ -82,7 +86,12 @@ export const UserProfileMenu = () => {
         >
           Addresses
         </MenuItem>
-        <LogoutItem />
+        <Divider
+          className="my-2"
+          color="light"
+        />
+        <MenuThemeSwitcher />
+        <MenuLogoutItem />
       </Menu>
     </UIStylesProvider>
   );

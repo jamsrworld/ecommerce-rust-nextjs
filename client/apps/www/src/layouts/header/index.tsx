@@ -4,8 +4,7 @@ import { APP_ROUTES } from "@/config/routes";
 import { Header } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { HeaderCartBtn } from "./cart/cart-btn";
-import { ThemeSwitcher } from "./theme-switcher";
-import { UserProfileMenu } from "./user-profile-menu";
+import { UserProfileMenu } from "./user-menu";
 
 const navItems = [
   {
@@ -50,7 +49,6 @@ export const AppHeader = () => {
           </ul>
         </nav>
         <div className="flex items-center gap-1">
-          <ThemeSwitcher />
           <AuthGuard
             loggedIn={
               <>
