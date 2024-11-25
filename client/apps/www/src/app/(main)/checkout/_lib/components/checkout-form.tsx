@@ -51,7 +51,7 @@ export const CheckoutForm = (props: Props) => {
       onSubmit={onSubmit}
       isPending={mutation.isPaused}
     >
-      <div className="grid grow grid-cols-1 divide-x md:grid-cols-2">
+      <div className="grid grow grid-cols-1 divide-divider md:grid-cols-2 md:divide-x">
         <CheckoutLeftSection
           addresses={data.addresses}
           isMutating={mutation.isPending}

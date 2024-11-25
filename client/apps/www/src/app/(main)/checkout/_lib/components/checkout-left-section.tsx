@@ -1,7 +1,6 @@
 import { type CheckoutUserData } from "@/client";
 import { AddressSection } from "./address-section";
-import { CheckoutPayBtn } from "./pay-btn";
-import { PaymentMethodForm } from "./payment-method";
+import { PaymentAction } from "./payment-action";
 
 type Props = Pick<CheckoutUserData, "addresses"> & {
   isMutating: boolean;
@@ -15,8 +14,10 @@ export const CheckoutLeftSection = (props: Props) => {
       <div className="ml-auto flex max-w-xl flex-col gap-8">
         {userAccount}
         <AddressSection addresses={addresses} />
-        <PaymentMethodForm />
-        <CheckoutPayBtn isMutating={isMutating} />
+        <PaymentAction
+          className="max-md:hidden"
+          isMutating={isMutating}
+        />
       </div>
     </div>
   );
