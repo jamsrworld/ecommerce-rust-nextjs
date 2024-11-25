@@ -27,12 +27,13 @@ export const ProductSearchItem = (props: Props) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <NextImage
-          alt={title}
-          image={thumbnail}
-          className="aspect-[9/12]"
-          loading={idx < 11 ? "eager" : "lazy"}
-        />
+        <div className="flex aspect-[9/12] items-center">
+          <NextImage
+            alt={title}
+            image={thumbnail}
+            loading={idx < 11 ? "eager" : "lazy"}
+          />
+        </div>
         <ProductSlider
           images={images}
           isHovered={isHovered}

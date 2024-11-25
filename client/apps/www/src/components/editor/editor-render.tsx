@@ -114,7 +114,6 @@ const Paragraph: NodeHandler = (props) => {
   return (
     <Typography
       as="p"
-      variant="body1"
       className="my-1 mb-2 leading-[1.9] tracking-wide text-foreground-secondary md:mb-4"
       style={style}
     >

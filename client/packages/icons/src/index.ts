@@ -1,6 +1,7 @@
 "use client";
 
 import AddIcon from "./svg/add.svg";
+import AddressIcon from "./svg/address.svg";
 import AnalyticsIcon from "./svg/analytics.svg";
 import CartIcon from "./svg/cart.svg";
 import CheckIcon from "./svg/check.svg";
@@ -27,17 +28,17 @@ import MoonIcon from "./svg/moon.svg";
 import OpenLinkIcon from "./svg/open-link.svg";
 import OrdersIcon from "./svg/orders.svg";
 import PurchaseIcon from "./svg/purchase.svg";
+import SearchIcon from "./svg/search.svg";
 import ShareIcon from "./svg/share.svg";
 import StarIcon from "./svg/star.svg";
 import SunIcon from "./svg/sun.svg";
 import TickIcon from "./svg/tick.svg";
 import UploadIcon from "./svg/upload.svg";
 import UserIcon from "./svg/user.svg";
-import AddressIcon from "./svg/address.svg";
 
 export {
-  AddressIcon,
   AddIcon,
+  AddressIcon,
   AnalyticsIcon,
   CartIcon,
   CheckIcon,
@@ -64,6 +65,7 @@ export {
   OrdersIcon,
   PurchaseIcon,
   ReferralsIcon,
+  SearchIcon,
   ShareIcon,
   StarIcon,
   SunIcon,

@@ -81,12 +81,11 @@ export const ProductSlider = (props: Props) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ type: "spring", duration: 1 }}
-          className="absolute inset-0"
+          className="absolute inset-0 flex aspect-[9/12] items-center"
         >
           <NextImage
             image={images[currentImage]!}
             alt={`Image ${currentImage + 1}`}
-            className="aspect-[9/12]"
             width={400}
             height={600}
           />
