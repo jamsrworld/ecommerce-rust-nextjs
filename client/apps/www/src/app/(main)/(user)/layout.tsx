@@ -10,12 +10,12 @@ type Props = {
 
 const items: { title: string; href: LinkProps<never>["href"] }[] = [
   {
-    title: "Profile",
-    href: APP_ROUTES.profile,
-  },
-  {
     title: "Orders",
     href: APP_ROUTES.orders.root,
+  },
+  {
+    title: "Profile",
+    href: APP_ROUTES.profile,
   },
   {
     title: "Addresses",

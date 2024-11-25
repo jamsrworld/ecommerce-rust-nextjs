@@ -5,9 +5,9 @@ import { MenuItem } from "@jamsr-ui/react";
 import { LoginIcon } from "@repo/icons";
 import { useRouter } from "next/navigation";
 
-export const LogoutItem = () => {
+export const MenuLogoutItem = () => {
   const router = useRouter();
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = async (e: React.MouseEvent<HTMLLIElement>) => {
     e.preventDefault();
     await logout();
     router.refresh();
@@ -23,6 +23,7 @@ export const LogoutItem = () => {
         />
       }
       onClick={handleClick}
+      className="hover:bg-danger hover:text-white"
     >
       Logout
     </MenuItem>

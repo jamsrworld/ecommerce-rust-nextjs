@@ -52,6 +52,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${opensans.variable} font-inter font-normal antialiased`}
+      suppressHydrationWarning
     >
       <body className="flex flex-col">
         <AppProvider>{children}</AppProvider>

@@ -2,7 +2,7 @@
 
 import { type GetCartDataResponse } from "@/client";
 import { getCartDataOptions } from "@/client/@tanstack/react-query.gen";
-import { useDisclosure } from "@jamsr-ui/hooks";
+import { useCart } from "@/hooks/use-cart";
 import { Button, Divider, Drawer, Typography } from "@jamsr-ui/react";
 import { CartIcon, CloseIcon } from "@repo/icons";
 import { fPrice } from "@repo/utils/number";
@@ -22,7 +22,7 @@ export const HeaderCartDrawer = (props: Props) => {
     initialData,
   });
 
-  const { isOpen, setIsOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose, onOpen, setIsOpen } = useCart();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -36,7 +36,6 @@ export const HeaderCartDrawer = (props: Props) => {
         onClick={onOpen}
         variant="light"
         isIconOnly
-        color="primary"
       >
         <CartIcon />
       </Button>
