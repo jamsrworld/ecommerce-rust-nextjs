@@ -33,8 +33,8 @@ importers:
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))
       '@jamsr-ui/react':
-        specifier: 0.0.183
-        version: 0.0.183(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))
+        specifier: 0.0.184
+        version: 0.0.184(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))
       '@repo/components':
         specifier: workspace:^
         version: link:../../packages/components
@@ -127,8 +127,8 @@ importers:
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))
       '@jamsr-ui/react':
-        specifier: 0.0.183
-        version: 0.0.183(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))
+        specifier: 0.0.184
+        version: 0.0.184(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))
       '@react-oauth/google':
         specifier: ^0.12.1
         version: 0.12.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
@@ -155,7 +155,7 @@ importers:
         version: 5.56.2(react@19.0.0-rc-1631855f-20241023)
       '@vercel/analytics':
         specifier: ^1.4.1
-        version: 1.4.1(next@15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
+        version: 1.4.1(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
       embla-carousel:
         specifier: ^8.3.1
         version: 8.3.1
@@ -173,7 +173,7 @@ importers:
         version: 15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
       nextjs-google-analytics:
         specifier: ^2.3.7
-        version: 2.3.7(next@15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
+        version: 2.3.7(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
       react:
         specifier: 19.0.0-rc-1631855f-20241023
         version: 19.0.0-rc-1631855f-20241023
@@ -233,8 +233,8 @@ importers:
   packages/components:
     dependencies:
       '@jamsr-ui/react':
-        specifier: 0.0.183
-        version: 0.0.183(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))
+        specifier: 0.0.184
+        version: 0.0.184(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))
       '@repo/utils':
         specifier: workspace:^
         version: link:../utils
@@ -1396,8 +1396,8 @@ packages:
       react: 19.0.0-rc-603e6108-20241029
       react-dom: 19.0.0-rc-603e6108-20241029
 
-  '@jamsr-ui/drawer@1.0.62':
-    resolution: {integrity: sha512-Ffe8fw9E+3q3A3UV7j2vsX0g4lhA+ZPPfJnTgpv7LU0ZhD2vLSPAFpqeVyznXzLDBfKuSg/v8YXr2oRbQ+wxzA==}
+  '@jamsr-ui/drawer@1.0.63':
+    resolution: {integrity: sha512-oUak6guvtL05khm8zLHaPgj97GOLR1sMwpTqYYXjnbxzaKFnKYa9FhquY7CkkM1ov0aseVIJTfUPsbXinlQonA==}
     peerDependencies:
       framer-motion: 12.0.0-alpha.1
       react: 19.0.0-rc-603e6108-20241029
@@ -1491,8 +1491,8 @@ packages:
     peerDependencies:
       react: 19.0.0-rc-603e6108-20241029
 
-  '@jamsr-ui/react@0.0.183':
-    resolution: {integrity: sha512-JKUAWOSvLSiOphb58h5NcmMZ30KktXAYIxQ0x2CwCaLFn74YSMYDDcxAcbw7DxSjdoi2ERrMczFbsshHOxKiNQ==}
+  '@jamsr-ui/react@0.0.184':
+    resolution: {integrity: sha512-0c6gTYsbNTdF2qwa3ebd0iGtmlaZdoPIfno5U0my2WeHDITSJQrsKUa/UVabawgoBJ3jo7eeBcqL12VCLdISxQ==}
     peerDependencies:
       framer-motion: 12.0.0-alpha.1
       react: 19.0.0-rc-603e6108-20241029
@@ -5989,7 +5989,7 @@ snapshots:
       react: 19.0.0-rc-1631855f-20241023
       react-dom: 19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023)
 
-  '@jamsr-ui/drawer@1.0.62(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))':
+  '@jamsr-ui/drawer@1.0.63(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))':
     dependencies:
       '@floating-ui/react': 0.26.24(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
       '@jamsr-ui/hooks': 0.0.44(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
@@ -6001,7 +6001,7 @@ snapshots:
     transitivePeerDependencies:
       - tailwindcss
 
-  '@jamsr-ui/drawer@1.0.62(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))':
+  '@jamsr-ui/drawer@1.0.63(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))':
     dependencies:
       '@floating-ui/react': 0.26.24(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
       '@jamsr-ui/hooks': 0.0.44(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
@@ -6380,7 +6380,7 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@jamsr-ui/react@0.0.183(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))':
+  '@jamsr-ui/react@0.0.184(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))':
     dependencies:
       '@jamsr-ui/accordion': 0.0.75(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/alert': 0.0.82(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
@@ -6397,7 +6397,7 @@ snapshots:
       '@jamsr-ui/dialog': 0.0.77(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/divider': 0.0.67(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/dnd': 0.0.9(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
-      '@jamsr-ui/drawer': 1.0.62(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
+      '@jamsr-ui/drawer': 1.0.63(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/editor': 0.0.90(@tiptap/pm@2.7.2)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/file-upload-multi': 0.0.88(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/file-upload-single': 0.0.88(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
@@ -6444,7 +6444,7 @@ snapshots:
       - tailwindcss
       - use-sync-external-store
 
-  '@jamsr-ui/react@0.0.183(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))':
+  '@jamsr-ui/react@0.0.184(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))':
     dependencies:
       '@jamsr-ui/accordion': 0.0.75(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/alert': 0.0.82(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
@@ -6461,7 +6461,7 @@ snapshots:
       '@jamsr-ui/dialog': 0.0.77(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/divider': 0.0.67(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/dnd': 0.0.9(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
-      '@jamsr-ui/drawer': 1.0.62(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
+      '@jamsr-ui/drawer': 1.0.63(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/editor': 0.0.90(@tiptap/pm@2.7.2)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/file-upload-multi': 0.0.88(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
       '@jamsr-ui/file-upload-single': 0.0.88(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.6)(typescript@5.6.3)))
@@ -6508,7 +6508,7 @@ snapshots:
       - tailwindcss
       - use-sync-external-store
 
-  '@jamsr-ui/react@0.0.183(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))':
+  '@jamsr-ui/react@0.0.184(@tiptap/pm@2.7.2)(@types/react@18.3.8)(csstype@3.1.3)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react-hook-form@7.53.0(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))(use-sync-external-store@1.2.2(react@19.0.0-rc-1631855f-20241023))':
     dependencies:
       '@jamsr-ui/accordion': 0.0.75(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))
       '@jamsr-ui/alert': 0.0.82(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))
@@ -6525,7 +6525,7 @@ snapshots:
       '@jamsr-ui/dialog': 0.0.77(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))
       '@jamsr-ui/divider': 0.0.67(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))
       '@jamsr-ui/dnd': 0.0.9(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
-      '@jamsr-ui/drawer': 1.0.62(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))
+      '@jamsr-ui/drawer': 1.0.63(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))
       '@jamsr-ui/editor': 0.0.90(@tiptap/pm@2.7.2)(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(highlight.js@11.9.0)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))
       '@jamsr-ui/file-upload-multi': 0.0.88(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))
       '@jamsr-ui/file-upload-single': 0.0.88(framer-motion@12.0.0-alpha.1(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react-dropzone@14.2.3(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)(tailwindcss@3.4.12(ts-node@10.9.1(@types/node@22.7.7)(typescript@5.6.3)))
@@ -7565,7 +7565,7 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vercel/analytics@1.4.1(next@15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)':
+  '@vercel/analytics@1.4.1(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)':
     optionalDependencies:
       next: 15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
       react: 19.0.0-rc-1631855f-20241023
@@ -9146,7 +9146,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nextjs-google-analytics@2.3.7(next@15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023):
+  nextjs-google-analytics@2.3.7(next@15.0.3(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023):
     dependencies:
       next: 15.0.3(@babel/core@7.25.2)(react-dom@19.0.0-rc-1631855f-20241023(react@19.0.0-rc-1631855f-20241023))(react@19.0.0-rc-1631855f-20241023)
       react: 19.0.0-rc-1631855f-20241023

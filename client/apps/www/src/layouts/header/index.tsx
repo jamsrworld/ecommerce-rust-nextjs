@@ -5,7 +5,6 @@ import { Header } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { HeaderCartBtn } from "./cart/cart-btn";
 import { HeaderSearchItem } from "./header-search";
-import { SearchHeader } from "./search-header";
 import { UserProfileMenu } from "./user-menu";
 
 const navItems = [
@@ -70,7 +69,6 @@ export const AppHeader = () => {
           />
         </div>
       </div>
-      <SearchHeader />
     </Header>
   );
 };

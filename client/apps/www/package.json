@@ -11,7 +11,7 @@
   "dependencies": {
     "@hey-api/client-fetch": "0.4.2",
     "@hookform/resolvers": "^3.9.0",
-    "@jamsr-ui/react": "0.0.183",
+    "@jamsr-ui/react": "0.0.184",
     "@react-oauth/google": "^0.12.1",
     "@repo/components": "workspace:^",
     "@repo/config": "workspace:^",
