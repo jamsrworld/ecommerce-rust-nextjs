@@ -18,7 +18,7 @@ export const ProductBreadcrumb = (props: Props) => {
     },
   ] as const;
   return (
-    <ul className="flex w-full gap-1 text-[12px] max-md:hidden">
+    <ul className="flex w-full gap-1 max-md:hidden">
       {lists.map((list, index) => {
         const isLast = index === lists.length - 1;
         return (
@@ -27,6 +27,7 @@ export const ProductBreadcrumb = (props: Props) => {
             className="flex w-full max-w-min items-center gap-1 overflow-hidden"
           >
             <Typography
+              variant="lead"
               as="p"
               {...(list.link && { as: NextLink, href: list.link })}
               className={cn(

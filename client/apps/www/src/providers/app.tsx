@@ -18,7 +18,6 @@ export const AppProvider = (props: Props) => {
       <ToastProvider />
       <Confirmation />
       <QueryProvider>{children}</QueryProvider>
-
       {/* Make scroll container to relative when js is disabled for native scrolling */}
       {/* <noscript>
         <style>{`#smooth-scroll-container{position:relative}`}</style>

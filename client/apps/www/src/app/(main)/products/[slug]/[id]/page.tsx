@@ -73,6 +73,7 @@ const Page = async (props: Props) => {
   if (error) return <FetchError error={error} />;
   const { images, highlights, video, slug } = product;
   if (slugParam !== slug) permanentRedirect(APP_ROUTES.products.view(id, slug));
+
   return (
     <div className="flex flex-col gap-8 p-1 md:gap-24">
       <section className="grid grid-cols-1 gap-2 md:grid-cols-12">
@@ -82,11 +83,14 @@ const Page = async (props: Props) => {
             video={video}
           />
         </div>
-        <div className="flex flex-col gap-6 md:col-span-5 md:px-4">
-          <ProductBreadcrumb title={product.title} />
-          <ProductData product={product} />
-          <ProductHighlights highlights={highlights} />
-          <ProductInfo product={product} />
+        {/* TODO: fix scroll */}
+        <div className="flex max-h-dvh flex-col gap-6 md:col-span-5 md:px-4">
+          <div className="sticky bottom-0 flex flex-col gap-4">
+            <ProductBreadcrumb title={product.title} />
+            <ProductData product={product} />
+            <ProductHighlights highlights={highlights} />
+            <ProductInfo product={product} />
+          </div>
         </div>
       </section>
       <ProductDescription description={product.description} />

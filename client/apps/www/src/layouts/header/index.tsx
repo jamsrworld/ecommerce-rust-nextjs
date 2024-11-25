@@ -4,6 +4,8 @@ import { APP_ROUTES } from "@/config/routes";
 import { Header } from "@jamsr-ui/react";
 import { NextLink } from "@repo/components/next";
 import { HeaderCartBtn } from "./cart/cart-btn";
+import { HeaderSearchItem } from "./header-search";
+import { SearchHeader } from "./search-header";
 import { UserProfileMenu } from "./user-menu";
 
 const navItems = [
@@ -49,6 +51,7 @@ export const AppHeader = () => {
           </ul>
         </nav>
         <div className="flex items-center gap-1">
+          <HeaderSearchItem />
           <AuthGuard
             loggedIn={
               <>
@@ -67,6 +70,7 @@ export const AppHeader = () => {
           />
         </div>
       </div>
+      <SearchHeader />
     </Header>
   );
 };
