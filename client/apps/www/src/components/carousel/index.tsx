@@ -27,7 +27,7 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
     <section className="flex flex-col gap-2">
       <div
         ref={emblaRef}
-        className="overflow-hidden"
+        className="select-none overflow-hidden"
       >
         {children}
       </div>

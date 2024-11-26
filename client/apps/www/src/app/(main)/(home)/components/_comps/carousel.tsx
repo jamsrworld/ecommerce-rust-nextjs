@@ -30,13 +30,13 @@ export const CarouselBase = (props: Props) => {
           align: "start",
         }}
       >
-        <div className="flex gap-2">
+        <div className="flex">
           {items.map((item, idx) => {
             const { title, price, mrp, image } = item;
             return (
               <div
                 key={idx}
-                className="w-1/2 shrink-0 md:w-1/5"
+                className="w-1/2 shrink-0 pl-2 md:w-1/5"
               >
                 <Image
                   src={image}
