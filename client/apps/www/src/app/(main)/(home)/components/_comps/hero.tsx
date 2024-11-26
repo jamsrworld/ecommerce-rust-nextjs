@@ -24,6 +24,10 @@ export type BannerProps = {
   buttonsVariant?: "outlined" | "black" | "text";
   headingVariant?: TypographyProps["variant"];
   subheadingVariant?: TypographyProps["variant"];
+  headingColor?: string;
+  subheadingColor?: string;
+  buttonColor?: string;
+  className?: string;
 };
 
 export const ImageBanner = (props: BannerProps) => {
@@ -36,9 +40,13 @@ export const ImageBanner = (props: BannerProps) => {
     buttonsVariant = "outlined",
     headingVariant = "body7",
     subheadingVariant = "paragraph",
+    headingColor = "text-white",
+    subheadingColor = "text-white",
+    buttonColor = "",
+    className,
   } = props;
   const count = items.length;
-  const className =
+  const gridClassName =
     (count === 1 && "md:grid-cols-1") ||
     (count === 2 && "md:grid-cols-2") ||
     (count === 3 && "md:grid-cols-3") ||
@@ -48,16 +56,21 @@ export const ImageBanner = (props: BannerProps) => {
     "md:grid-cols-3";
   return (
     <section
-      className={cn("grid grid-cols-1", className, {
-        "gap-2": gap,
-      })}
+      className={cn(
+        "grid grid-cols-1",
+        gridClassName,
+        {
+          "gap-2": gap,
+        },
+        className,
+      )}
     >
       {items.map((item, index) => {
         const { heading, image, subheading, buttons } = item;
         return (
           <div
             key={index}
-            className="group relative overflow-hidden"
+            className="group relative shrink-0 overflow-hidden"
           >
             <Image
               src={image}
@@ -86,6 +99,7 @@ export const ImageBanner = (props: BannerProps) => {
                 <Typography
                   variant={headingVariant}
                   as="h3"
+                  className={headingColor}
                 >
                   {heading}
                 </Typography>
@@ -93,6 +107,7 @@ export const ImageBanner = (props: BannerProps) => {
                   <Typography
                     variant={subheadingVariant}
                     as="p"
+                    className={subheadingColor}
                   >
                     {subheading}
                   </Typography>
@@ -114,7 +129,7 @@ export const ImageBanner = (props: BannerProps) => {
                           buttonsVariant === "outlined",
                         "rounded-none bg-white text-black border border-transparent hover:!bg-black hover:text-white":
                           buttonsVariant === "black",
-                        "text-white underline font-normal hover:text-foreground-link":
+                        "text-white underline font-normal hover:text-white hover:opacity-60":
                           buttonsVariant === "text",
                       }),
                     }}
@@ -125,6 +140,7 @@ export const ImageBanner = (props: BannerProps) => {
                           as={NextLink}
                           href="/search"
                           key={item}
+                          className={buttonColor}
                         >
                           {item}
                         </Button>
