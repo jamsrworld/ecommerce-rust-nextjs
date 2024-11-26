@@ -24,7 +24,7 @@ const items: {
 ];
 
 export const CouponsSection = () => {
-  const colors = ["bg-warning-200", "bg-blue-200"];
+  const colors = ["bg-warning-200", "bg-blue-200 dark:text-black"];
   return (
     <section className="grid grid-cols-1 gap-2 md:grid-cols-2">
       {items.map((item, index) => {

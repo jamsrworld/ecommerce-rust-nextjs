@@ -27,7 +27,7 @@ const Layout = (props: Props) => {
   const { children } = props;
   return (
     <div className="container flex max-w-screen-2xl flex-col gap-4 p-2 md:flex-row md:gap-8 md:py-12">
-      <aside className="w-full max-w-sm">
+      <aside className="w-full max-w-xs xl:max-w-sm">
         <UserGreeting />
         <ul className="flex gap-2 md:flex-col">
           {items.map((item, index) => {

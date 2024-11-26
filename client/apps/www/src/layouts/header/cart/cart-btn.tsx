@@ -18,6 +18,7 @@ export const HeaderCartBtn = async () => {
         as={NextLink}
         href={APP_ROUTES.login}
         variant="light"
+        isRounded
       >
         <CartIcon />
       </Button>

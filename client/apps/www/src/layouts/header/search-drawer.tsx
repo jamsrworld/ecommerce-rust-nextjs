@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@jamsr-ui/react";
 import { CloseIcon, SearchIcon } from "@repo/icons";
-import { ArrowLeftIcon, ArrowRightIcon } from "@repo/icons/arrow";
+import { ArrowLeftIcon, ArrowRightIcon, ArrowRightSmIcon } from "@repo/icons/arrow";
 import { useState } from "react";
 
 const items = [
@@ -97,9 +97,9 @@ export const SearchDrawer = (props: Props) => {
             {items.map((item) => (
               <li
                 key={item}
-                className="group flex cursor-pointer items-center gap-2 rounded px-1 hover:bg-content2"
+                className="group flex cursor-pointer items-center gap-1 rounded px-1 hover:bg-content2"
               >
-                <ArrowRightIcon
+                <ArrowRightSmIcon
                   width={20}
                   height={20}
                   className="text-foreground-secondary transition-colors group-hover:text-foreground"

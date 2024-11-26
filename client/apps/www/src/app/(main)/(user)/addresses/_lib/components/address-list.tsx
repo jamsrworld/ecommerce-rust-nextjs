@@ -4,6 +4,7 @@ import { EmptyContent } from "@/components/empty-content";
 import { authedClient } from "@/utils/authed-client";
 import { Typography } from "@jamsr-ui/react";
 import { FetchError } from "@repo/components/fetch-error";
+import { LocationIcon } from "@repo/icons";
 import React from "react";
 import EmptyAddress from "~/empty-address.webp";
 import { AddAddressBtn } from "./add-address-btn";
@@ -37,60 +38,67 @@ export const AddressList = async () => {
           } = item;
           return (
             <React.Fragment key={id}>
-              <li className="py-4">
-                <div className="flex items-center justify-between">
-                  <div>{isDefault && <DefaultAddress />}</div>
-                  <div className="flex gap-4">
-                    {!isDefault && <SetAsDefaultAddress id={id} />}
-                    <EditAddress
-                      formData={item}
-                      id={id}
-                    />
-                    <DeleteAddress id={id} />
+              <li className="flex items-start gap-2 py-4 md:gap-4">
+                <LocationIcon className="mt-6" />
+                {/* <div className="relative mt-8 flex items-center justify-center text-foreground-secondary">
+                  <HexagonIcon className="text-foreground-secondary" />
+                  <LocationIcon className="absolute" />
+                </div> */}
+                <div className="flex grow flex-col">
+                  <div className="flex items-center justify-between">
+                    <div>{isDefault && <DefaultAddress />}</div>
+                    <div className="flex gap-4">
+                      {!isDefault && <SetAsDefaultAddress id={id} />}
+                      <EditAddress
+                        formData={item}
+                        id={id}
+                      />
+                      <DeleteAddress id={id} />
+                    </div>
                   </div>
-                </div>
-                <div className="text-base font-normal text-foreground-secondary">
-                  <Typography
-                    as="p"
-                    className="font-medium text-foreground"
-                    style={{
-                      fontSize: "inherit",
-                    }}
-                  >
-                    {firstName} {lastName}
-                  </Typography>
-                  <Typography
-                    as="p"
-                    style={{
-                      fontSize: "inherit",
-                    }}
-                  >
-                    {fullAddress}
-                  </Typography>
-                  <Typography
-                    as="p"
-                    style={{
-                      fontSize: "inherit",
-                    }}
-                  >
-                    {postalCode} {city} {state}
-                  </Typography>
-                  <Typography
-                    as="p"
-                    style={{
-                      fontSize: "inherit",
-                    }}
-                  >
-                    {phoneNumber}
-                  </Typography>
-                  <Typography
-                    as="p"
-                    style={{
-                      fontSize: "inherit",
-                    }}
-                  >
-                    {landmark}
-                  </Typography>
+                  <div className="text-base font-normal text-foreground-secondary">
+                    <Typography
+                      as="p"
+                      className="font-medium text-foreground"
+                      style={{
+                        fontSize: "inherit",
+                      }}
+                    >
+                      {firstName} {lastName}
+                    </Typography>
+                    <Typography
+                      as="p"
+                      style={{
+                        fontSize: "inherit",
+                      }}
+                    >
+                      {fullAddress}
+                    </Typography>
+                    <Typography
+                      as="p"
+                      style={{
+                        fontSize: "inherit",
+                      }}
+                    >
+                      {postalCode} {city} {state}
+                    </Typography>
+                    <Typography
+                      as="p"
+                      style={{
+                        fontSize: "inherit",
+                      }}
+                    >
+                      {phoneNumber}
+                    </Typography>
+                    <Typography
+                      as="p"
+                      style={{
+                        fontSize: "inherit",
+                      }}
+                    >
+                      {landmark}
+                    </Typography>
+                  </div>
                 </div>
               </li>
             </React.Fragment>
