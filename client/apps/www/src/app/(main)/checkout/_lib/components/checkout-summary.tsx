@@ -7,7 +7,7 @@ type Props = Pick<CheckoutUserData, "count" | "totalAmount">;
 export const CheckoutSummary = (props: Props) => {
   const { count, totalAmount } = props;
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 text-sm">
       <div className="flex justify-between">
         <Typography as="p">Subtotal - {count} items</Typography>
         <Typography as="p">{fPrice(totalAmount)}</Typography>
