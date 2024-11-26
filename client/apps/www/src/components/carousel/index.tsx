@@ -24,7 +24,7 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
   } = usePrevNextButtons(emblaApi);
 
   return (
-    <section>
+    <section className="flex flex-col gap-2">
       <div
         ref={emblaRef}
         className="overflow-hidden"
