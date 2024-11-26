@@ -10,10 +10,6 @@ import { ThemeSwitcher } from "./user-menu/theme-switcher";
 
 const navItems = [
   {
-    name: "Home",
-    href: "/",
-  },
-  {
     name: "Men",
     href: "/",
   },
@@ -22,11 +18,11 @@ const navItems = [
     href: "/",
   },
   {
-    name: "News",
+    name: "Kids",
     href: "/",
   },
   {
-    name: "Vision",
+    name: "Accessories",
     href: "/",
   },
 ] as const;
@@ -41,7 +37,7 @@ export const AppHeader = () => {
             {navItems.map((item) => (
               <li key={item.name}>
                 <NextLink
-                  className="text-sm font-medium hover:underline hover:opacity-70"
+                  className="text-base font-medium hover:underline hover:opacity-70"
                   href={item.href}
                 >
                   {item.name}

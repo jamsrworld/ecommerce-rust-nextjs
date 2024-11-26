@@ -99,7 +99,7 @@ export const Banner8Section = () => {
           headingColor="text-gray-900"
           subheadingColor="text-black"
           buttonColor="text-primary hover:text-primary"
-          className="flex"
+          columns={5}
         />
       </EmblaCarousel>
     </section>

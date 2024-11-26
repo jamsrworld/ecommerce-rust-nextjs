@@ -5,6 +5,8 @@ import { Banner4Section } from "./components/banner4";
 import { Banner5Section } from "./components/banner5";
 import { Banner7Section } from "./components/banner7";
 import { Banner8Section } from "./components/banner8";
+import { Banner9Section } from "./components/banner9";
+import { Banner10Section } from "./components/banner10";
 import { CarouselSection } from "./components/carousel";
 import { CarouselShortsSection } from "./components/carousel-shorts";
 import { CarouselTShirtsSection } from "./components/carousel-tshirts";
@@ -20,6 +22,8 @@ const Page = () => {
         <Banner7Section />
       </div>
       <Banner8Section />
+      <Banner9Section />
+      <Banner10Section />
       <div>
         <Banner4Section />
         <Banner3Section />

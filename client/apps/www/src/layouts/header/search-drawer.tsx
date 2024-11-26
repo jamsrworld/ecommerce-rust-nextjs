@@ -6,15 +6,15 @@ import {
   Typography,
 } from "@jamsr-ui/react";
 import { CloseIcon, SearchIcon } from "@repo/icons";
-import { ArrowLeftIcon, ArrowRightIcon, ArrowRightSmIcon } from "@repo/icons/arrow";
+import { ArrowLeftIcon, ArrowRightSmIcon } from "@repo/icons/arrow";
 import { useState } from "react";
 
 const items = [
   "The Mcart Store Evening Events",
   "Find a store",
-  "Apple Gift Card",
-  "Apple Vision Pro",
-  "Apple Trade In",
+  "Mcart Gift Card",
+  "Mcart Vision Pro",
+  "Mcart Trade In",
 ];
 
 type Props = Required<Pick<DrawerProps, "isOpen" | "onOpenChange">> & {

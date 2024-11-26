@@ -6,7 +6,7 @@ import { LightningIcon } from "@repo/icons";
 import { ArrowRightIcon } from "@repo/icons/arrow";
 
 export const FooterCTA = () => (
-  <div className="bg-warning-200 p-4">
+  <div className="mt-4 bg-warning-200 p-4">
     <div className="container flex max-w-screen-lg items-center justify-between">
       <div className="flex items-center gap-4">
         <LightningIcon className="[&>path]:stroke-2" />
