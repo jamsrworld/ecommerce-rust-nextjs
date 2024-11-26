@@ -4,6 +4,8 @@ import { useDisclosure } from "@jamsr-ui/hooks";
 import { Button, Typography } from "@jamsr-ui/react";
 import { NextImage, NextLink } from "@repo/components/next";
 import { useIsMobile } from "@repo/hooks/use-responsive";
+import { ChevronDownIcon } from "@repo/icons/chevron";
+import { cn } from "@repo/utils/class-name";
 import { fPrice } from "@repo/utils/number";
 import { useEffect } from "react";
 
@@ -28,14 +30,24 @@ export const CheckoutItems = (props: Props) => {
           as="h6"
           variant="h6"
         >
-          Summary
+          Products
         </Typography>
         <Button
           variant="light"
           isRounded
-          size="sm"
+          size="xs"
           onClick={onToggle}
-          className="md:hidden"
+          className="text-xs md:hidden"
+          endContent={
+            <ChevronDownIcon
+              width={16}
+              height={16}
+              className={cn(
+                "transition-transform duration-300",
+                isOpen && "rotate-180",
+              )}
+            />
+          }
         >
           {isOpen ? "Hide" : "Show"}
         </Button>

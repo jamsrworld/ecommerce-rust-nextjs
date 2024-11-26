@@ -12,6 +12,7 @@ import { usePathname } from "next/navigation";
 import { startTransition, useEffect } from "react";
 import { CartItems } from "./cart-items";
 import { CartPlaceOrder } from "./cart-place-order";
+import { CartCountBadge } from "./cart-count-badge";
 
 type Props = { initialData: GetCartDataResponse };
 
@@ -36,7 +37,11 @@ export const HeaderCartDrawer = (props: Props) => {
         onClick={onOpen}
         variant="light"
         isIconOnly
+        aria-label="Cart"
+        className="relative"
+        isRounded
       >
+        <CartCountBadge>{data.count}</CartCountBadge>
         <CartIcon />
       </Button>
       <Drawer

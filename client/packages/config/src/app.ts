@@ -5,7 +5,7 @@ export const MAX_OTP_VALUE = 10 ** OTP_LENGTH - 1;
 export const MIN_OTP_VALUE = 10 ** (OTP_LENGTH - 1);
 
 export const COUNTRY_NAME = "India";
-export const APP_NAME = "Jamsrworld";
+export const APP_NAME = "Mcart";
 export const APP_VERSION = "v1.0.0";
 
 export const WEBHOOK_SERVER_URL = "";

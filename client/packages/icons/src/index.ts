@@ -4,6 +4,7 @@ import AddIcon from "./svg/add.svg";
 import AddressIcon from "./svg/address.svg";
 import AnalyticsIcon from "./svg/analytics.svg";
 import CartIcon from "./svg/cart.svg";
+import CheckCircularIcon from "./svg/check-circular.svg";
 import CheckIcon from "./svg/check.svg";
 import CheckoutIcon from "./svg/checkout.svg";
 import CloseIcon from "./svg/close.svg";
@@ -19,7 +20,9 @@ import EyeClosedIcon from "./svg/eye-closed.svg";
 import EyeIcon from "./svg/eye.svg";
 import FavoriteIcon from "./svg/favorite.svg";
 import ReferralsIcon from "./svg/gift.svg";
+import HexagonIcon from "./svg/hexagon.svg";
 import InfoIcon from "./svg/info.svg";
+import LightningIcon from "./svg/lightning.svg";
 import LocationIcon from "./svg/location.svg";
 import LoginIcon from "./svg/login.svg";
 import MenuIcon from "./svg/menu.svg";
@@ -41,6 +44,7 @@ export {
   AddressIcon,
   AnalyticsIcon,
   CartIcon,
+  CheckCircularIcon,
   CheckIcon,
   CheckoutIcon,
   CloseIcon,
@@ -55,7 +59,9 @@ export {
   EyeClosedIcon,
   EyeIcon,
   FavoriteIcon,
+  HexagonIcon,
   InfoIcon,
+  LightningIcon,
   LocationIcon,
   LoginIcon,
   MenuIcon,

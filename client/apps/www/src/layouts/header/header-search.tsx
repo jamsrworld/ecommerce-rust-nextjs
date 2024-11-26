@@ -25,6 +25,7 @@ export const HeaderSearchItem = () => {
         variant="light"
         isIconOnly
         onClick={onOpen}
+        isRounded
       >
         <SearchIcon />
       </Button>

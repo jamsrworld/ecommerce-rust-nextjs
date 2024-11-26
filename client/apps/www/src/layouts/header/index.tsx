@@ -6,6 +6,7 @@ import { NextLink } from "@repo/components/next";
 import { HeaderCartBtn } from "./cart/cart-btn";
 import { HeaderSearchItem } from "./header-search";
 import { UserProfileMenu } from "./user-menu";
+import { ThemeSwitcher } from "./user-menu/theme-switcher";
 
 const navItems = [
   {
@@ -59,12 +60,15 @@ export const AppHeader = () => {
               </>
             }
             loggedOut={
-              <NextLink
-                className="text-sm font-medium hover:underline hover:opacity-70"
-                href={APP_ROUTES.login}
-              >
-                Login
-              </NextLink>
+              <div className="flex items-center gap-1">
+                <ThemeSwitcher />
+                <NextLink
+                  className="text-sm font-medium hover:underline hover:opacity-70"
+                  href={APP_ROUTES.login}
+                >
+                  Login
+                </NextLink>
+              </div>
             }
           />
         </div>
