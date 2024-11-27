@@ -31,6 +31,7 @@ export const SearchDrawer = (props: Props) => {
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       anchor="top"
+      closeButton={null}
     >
       <div className="container max-w-screen-lg p-4 md:p-12">
         <Input

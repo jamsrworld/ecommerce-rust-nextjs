@@ -20,6 +20,7 @@ export const ProductImagesSliderDialog = (props: Props) => {
       size="full"
       anchor="bottom"
       className="relative overflow-hidden"
+      closeButton={null}
     >
       <ProductImagesSlider
         activeIndex={activeIndex}

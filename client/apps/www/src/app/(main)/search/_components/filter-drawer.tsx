@@ -8,9 +8,11 @@ import {
   Checkbox,
   Divider,
   Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
   Typography,
 } from "@jamsr-ui/react";
-import { CloseIcon } from "@repo/icons";
 
 const FilterItem = ({
   heading,
@@ -52,7 +54,7 @@ const FilterItem = ({
 };
 
 export const FilterDrawer = () => {
-  const { isOpen, onOpen, onClose, setIsOpen } = useDisclosure();
+  const { isOpen, onOpen, setIsOpen } = useDisclosure();
   return (
     <div>
       <Button onClick={onOpen}>Filter & Sort</Button>
@@ -60,25 +62,10 @@ export const FilterDrawer = () => {
         isOpen={isOpen}
         onOpenChange={setIsOpen}
         className="flex flex-col"
+        isBordered
       >
-        <div className="flex items-center justify-between p-4">
-          <Typography
-            variant="h6"
-            as="h6"
-          >
-            Filter & Sort
-          </Typography>
-          <Button
-            isIconOnly
-            aria-label="Close"
-            isRounded
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </Button>
-        </div>
-        <Divider />
-        <div className="grow overflow-y-auto p-4">
+        <DrawerHeader>Filter & Sort</DrawerHeader>
+        <DrawerBody>
           <FilterItem
             heading="Sort By"
             items={[
@@ -164,11 +151,10 @@ export const FilterDrawer = () => {
             heading="Brand"
             items={["Performance", "Sportswear"]}
           />
-        </div>
-        <Divider />
-        <div className="flex items-center justify-end p-4">
+        </DrawerBody>
+        <DrawerFooter>
           <Button>Apply</Button>
-        </div>
+        </DrawerFooter>
       </Drawer>
     </div>
   );

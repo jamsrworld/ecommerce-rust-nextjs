@@ -29,6 +29,7 @@ export type BannerProps = {
   buttonColor?: string;
   className?: string;
   columns?: number;
+  isCarousel?: boolean;
 };
 
 export const ImageBanner = (props: BannerProps) => {
@@ -46,17 +47,22 @@ export const ImageBanner = (props: BannerProps) => {
     buttonColor = "",
     className,
     columns = items.length,
+    isCarousel = false,
   } = props;
 
   return (
-    <section className={cn("flex w-full", className)}>
+    <section
+      className={cn("flex w-full", className, {
+        "max-md:flex-wrap": !isCarousel,
+      })}
+    >
       {items.map((item, index) => {
         const { heading, image, subheading, buttons = [] } = item;
         return (
           <div
             key={index}
-            className={cn("shrink-0", {
-              "pl-2": gap,
+            className={cn("shrink-0 max-md:!w-full", {
+              "max-md:pt-2 md:pl-2": gap,
             })}
             style={{
               width: `${100 / columns}%`,
@@ -105,7 +111,7 @@ export const ImageBanner = (props: BannerProps) => {
                     </Typography>
                   )}
                   <div
-                    className={cn("flex w-full gap-2", {
+                    className={cn("flex w-full flex-wrap gap-2", {
                       "justify-evenly": buttonsAlignment === "evenly",
                       "justify-between": buttonsAlignment === "space-between",
                       "justify-center": buttonsAlignment === "center",

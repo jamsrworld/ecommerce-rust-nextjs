@@ -75,6 +75,7 @@ export const Banner10Section = () => {
           subheadingColor="text-black"
           buttonColor="text-primary hover:text-primary"
           columns={5}
+          isCarousel
         />
       </EmblaCarousel>
     </section>

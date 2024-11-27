@@ -1,4 +1,4 @@
-import { getProduct, getProducts } from "@/client";
+import { getProducts } from "@/client";
 import { APP_ROUTES } from "@/config/routes";
 import { FetchError } from "@repo/components/fetch-error";
 import { getProductThumbnail } from "@repo/utils/product";
@@ -65,11 +65,7 @@ export const generateStaticParams = async () => {
 
 const Page = async (props: Props) => {
   const { id, slug: slugParam } = await props.params;
-  const { data: product, error } = await getProduct({
-    path: {
-      id,
-    },
-  });
+  const { data: product, error } = await getProductData(id);
   if (error) return <FetchError error={error} />;
   const { images, highlights, video, slug } = product;
   if (slugParam !== slug) permanentRedirect(APP_ROUTES.products.view(id, slug));
@@ -83,9 +79,8 @@ const Page = async (props: Props) => {
             video={video}
           />
         </div>
-        {/* TODO: fix scroll */}
-        <div className="flex max-h-dvh flex-col gap-6 md:col-span-5 md:px-4">
-          <div className="sticky bottom-0 flex flex-col gap-4">
+        <div className="flex flex-col justify-end gap-6 md:col-span-5 md:px-4">
+          <div className="sticky bottom-0 flex flex-col gap-4 md:min-h-[calc(100dvh-4rem)]">
             <ProductBreadcrumb title={product.title} />
             <ProductData product={product} />
             <ProductHighlights highlights={highlights} />
