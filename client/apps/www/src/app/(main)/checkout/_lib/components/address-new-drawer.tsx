@@ -3,7 +3,7 @@ import { useDisclosure } from "@jamsr-ui/hooks";
 import { Button, Drawer } from "@jamsr-ui/react";
 import { useRouter } from "next/navigation";
 
-export const AddressNewDialog = () => {
+export const AddressNewDrawer = () => {
   const { isOpen, onOpen, onClose, setIsOpen } = useDisclosure();
   const router = useRouter();
   const onSuccess = () => {

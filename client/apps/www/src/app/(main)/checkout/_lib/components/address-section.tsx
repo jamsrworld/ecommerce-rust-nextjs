@@ -1,6 +1,6 @@
 import { ProceedCheckoutInput, type CheckoutUserData } from "@/client";
 import { Radio, RHFRadioGroup, Typography } from "@jamsr-ui/react";
-import { AddressNewDialog } from "./address-new-dialog";
+import { AddressNewDrawer } from "./address-new-drawer";
 
 type Props = Pick<CheckoutUserData, "addresses">;
 export const AddressSection = (props: Props) => {
@@ -61,7 +61,7 @@ export const AddressSection = (props: Props) => {
           );
         })}
       </RHFRadioGroup>
-      <AddressNewDialog />
+      <AddressNewDrawer />
     </div>
   );
 };
