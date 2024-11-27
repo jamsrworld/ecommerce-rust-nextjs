@@ -1,10 +1,9 @@
 "use client";
 
+import { deleteAddressMutation } from "@/client/@tanstack/react-query.gen";
 import { Button, useConfirmation } from "@jamsr-ui/react";
-import { DeleteIcon } from "@repo/icons";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { deleteAddressMutation } from "@/client/@tanstack/react-query.gen";
 
 type Props = {
   id: string;
@@ -37,7 +36,7 @@ export const DeleteAddress = (props: Props) => {
     <Button
       onClick={handleClick}
       isDisabled={mutation.isPending}
-      variant="link"
+      variant="text"
       disableRipple
       className="p-0"
     >

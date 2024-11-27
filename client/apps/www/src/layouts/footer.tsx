@@ -113,7 +113,7 @@ export const AppFooter = () => {
             {items.map((item) => (
               <li
                 key={item.heading}
-                className="flex flex-col gap-2 last:items-end"
+                className="flex flex-col gap-2"
               >
                 <h3 className="font-semibold">{item.heading}</h3>
                 <ul className="flex flex-col gap-2">

@@ -11,7 +11,7 @@ export const ShipmentMethod = () => {
       </Typography>
       <div>
         <Alert
-          variant="filled"
+          variant="solid"
           icon={null}
           className="border-none font-medium text-foreground-secondary"
         >
