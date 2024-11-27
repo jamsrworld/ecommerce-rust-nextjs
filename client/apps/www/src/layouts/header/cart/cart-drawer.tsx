@@ -49,6 +49,7 @@ export const HeaderCartDrawer = (props: Props) => {
         onOpenChange={setIsOpen}
         className="flex h-dvh w-full flex-col"
         size="lg"
+        closeButton={null}
       >
         <div className="flex grow flex-col overflow-y-auto overflow-x-hidden">
           <div className="flex items-center justify-between p-2 md:p-4">
